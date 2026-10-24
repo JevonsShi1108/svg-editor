@@ -29,4 +29,5 @@ export interface CommandCoordinator {
   query(command: QueryCommand, mode: ExecuteMode): ExecutionResult;
   initialize(size: CanvasSize, mode: ExecuteMode): ExecutionResult;
   history(direction: 'undo' | 'redo', mode: ExecuteMode): ExecutionResult;
+  canvas(size: CanvasSize | undefined, mode: ExecuteMode): ExecutionResult;
 }

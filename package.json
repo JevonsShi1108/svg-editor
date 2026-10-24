@@ -11,7 +11,7 @@
     "lint": "eslint src test scripts",
     "format:check": "prettier --check src test scripts *.json *.mjs AGENTS.md doc/PROGRESS.md doc/INPUT_PROFILE.md doc/TEST_TRACEABILITY.md doc/TEST_REPORT.md",
     "check:deps": "node scripts/check-deps.mjs",
-    "test:unit": "vitest run test/unit",
+    "test:unit": "vitest run test/unit test/regressions",
     "test:property": "vitest run test/property",
     "test:integration": "vitest run test/integration",
     "verify:stage": "node scripts/verify-stage.mjs",

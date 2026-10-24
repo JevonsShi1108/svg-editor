@@ -5,6 +5,20 @@ import { Paint } from './Paint.js';
 export class ValueRules {
   readonly #limits: ResourceLimits;
   constructor(limits: ResourceLimits) {
+    const keys = [
+      'maxSvgBytes',
+      'maxNodeCount',
+      'maxTreeDepth',
+      'maxTextLength',
+      'maxAttributeLength',
+    ];
+    if (
+      !limits ||
+      typeof limits !== 'object' ||
+      Object.keys(limits).length !== keys.length ||
+      keys.some((key) => !Object.hasOwn(limits, key))
+    )
+      throw new DomainError('INVALID_LIMITS');
     for (const value of Object.values(limits)) {
       if (!Number.isSafeInteger(value) || value < 1) throw new DomainError('INVALID_LIMITS');
     }

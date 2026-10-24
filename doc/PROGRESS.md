@@ -15,14 +15,17 @@
 - M04 verified：完整结构编辑、LCA/原文档顺序分组、一次性 GroupPlan 生命周期、嵌套解组、重挂/层序/子树删除、最终配额。171 确定性用例与 6 条性质各 2×50 次通过；group/ungroup 多点前写故障及 prepare 后回滚通过。
 - M05 verified：不可变 HistoryEntry/双链栈头、屏障/no-op、文档/State/条目身份校验、连续性。176 确定性用例与 6 条性质各 2×50 次通过；10,000 条合法身份链的 push/pop 不复制整个历史。
 - M06 verified：私有 SessionHead/协调能力、唯一 Catalog、8 命令切片、串行请求复制冻结、准备完整再发布、Parser/Presenter/REPL 真实内存适配链。211 单元、9 集成、6 性质通过，性质各 2×50 次。假端口仅在 test，无生产启动 stub。
-- M07—M15 planned：不得把本阶段门禁冒充整体完成。
+- M07 verified：17 内存命令、canvas、真实 dry-run 回滚、no-op/屏障/身份/revision、部分回放补偿、poisoned 隔离与 init 恢复。212 单元/固定回归、90 集成、12 性质各 2×50 次通过；read/save 相关子项按 EXEC 留 M10。
+- M08—M15 planned：不得把本阶段门禁冒充整体完成。
 
-最新下一动作：M07 剩余内存命令、canvas、dry-run、故障补偿/poisoned 及全量状态断言；正式入口留 M11 真端口装配。
+最新下一动作：M08 独立 SVG 编码与另一 XML 库验证输出；M09 严格解码。正式入口仍留 M11 真端口装配。
 
 ## 决策
 
 采用 EXEC-P1 v1.0；Windows 是本轮必验平台，其他平台可选未执行。生产入口在 M11 接真实端口前不建立。
 
 ## 缺陷与下一动作
+
+REG-LIMITS-01：审查发现空/缺字段 ResourceLimits 会绕过构造验证。先运行固定回归确认失败（`artifacts/logs/REG-LIMITS-01-before.log`），再要求恰好五个字段且各自为正安全整数。固定回归纳入 test:unit 的 test/regressions，不通过改预期修复。M07 全阶段门禁恢复绿色。
 
 M01 修正了检查器配置错误：dependency-cruiser API 必须在调用层开启 validate，规则集 options 不接受该字段；以真实禁止边确认修复。M02 审查补充拒绝继承自 Object 原型的伪属性；类型之间按 SPEC 互相引用，但运行期导入图单独检查无环，分层规则仍覆盖 type-only。M03 修正测试夹具的根追加索引手算错误：根已有 parent，因此新节点应在索引 1（LAB 规定追加）；组内首节点为 0，未修改正确的产品预期。M06 审查将 Session 的全部内部方法改为运行期 # 私有，防止绕过 execute 获得 live Document；负例已执行。

@@ -82,7 +82,7 @@ describe('M06 Session vertical slice — actual Command/Domain/History, only IO 
     const { session, catalog } = sessionFixture();
     const presenter = new TextPresenter();
     expect(committed(await session.execute({ command: 'help' })).data.kind).toBe('help');
-    expect(catalog.describe()).toHaveLength(8);
+    expect(catalog.describe()).toHaveLength(17);
     for (const request of [
       creation,
       { command: 'tree' },

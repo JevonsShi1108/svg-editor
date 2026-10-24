@@ -12,6 +12,8 @@ M03 领域子场景证据：`test/unit/shapes.test.ts` 含 6×2 创建、36×set
 
 合法延后范围：E2E-08 环境无法可视预览时 manual_acceptance；DEL-02/03/04 标签/推送/截止 after_user_acceptance；显式可选变异/额外平台 optional。其他必须项不允许擅自延后。
 
+M07 证据：`test/integration/memory-commands.test.ts` 包含全部编辑生命周期/空操作/36 set/6×2 API/无保存点 canvas/同名重用；`test/integration/faults.test.ts` 包含 prepared/root/preview、Undo/Redo 部分中止补偿、FAIL-09/10/11、FAULT init 恢复；`test/property/session.test.ts` 实际执行 PROP-01/02/03/09/10/13。`test/regressions/limits-shape.test.ts` 固定 REG-LIMITS-01。完整保存点、read/save dry-run 模式/poisoned 拒绝及 read 恢复留 M10，CLI 全协议留 M12，不记提前通过。
+
 M06 应用切片证据：`test/unit/cli.test.ts` 35 个词法/请求/语法例，`test/integration/session.test.ts` 7 个状态/队列/准备失败/隔离例，`test/integration/repl.test.ts` 2 个真实适配例。覆盖 DOC-01/02、CLI-01—13 当前命令子集、HIS/QRY 当前适用项、FAIL-01/04/05、QUEUE-03/04。其余编辑、保存点、全命令和生产文件 E2E 子项未关闭；没有把当前 8 命令帮助输出冒充最终 19 命令帮助。
 
 M05 历史证据：`test/unit/history.test.ts` 的 5 个真实用例覆盖 HIS-03/04/05/07/09/12/13 的 HistoryManager 层、ARCH-10/PERF-06 的栈结构与长链；使用真实 ChangeSet，两个不同类的同名节点恢复其原对象。dirty/revision/应用发布部分到 M06/M07/M10 才具备依赖。

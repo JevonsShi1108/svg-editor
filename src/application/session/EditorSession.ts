@@ -3,6 +3,7 @@ import type {
   ExecuteOptions,
   ExecutionResult,
   SessionExecutor,
+  Diagnostic,
 } from '../contracts/api.js';
 import type {
   SessionDependencies,
@@ -44,6 +45,7 @@ export class EditorSession implements SessionExecutor {
       query: (command: QueryCommand, mode: ExecuteMode) => this.#query(command, mode),
       initialize: (size: CanvasSize, mode: ExecuteMode) => this.#initialize(size, mode),
       history: (direction: 'undo' | 'redo', mode: ExecuteMode) => this.#history(direction, mode),
+      canvas: (size: CanvasSize | undefined, mode: ExecuteMode) => this.#canvas(size, mode),
     });
   }
   execute(request: CommandRequest, options?: ExecuteOptions): Promise<ExecutionResult> {
@@ -108,7 +110,6 @@ export class EditorSession implements SessionExecutor {
     return ResultFactory.commit(this.#head, command.run(doc, this.#dependencies.commands));
   }
   #edit(command: EditCommand, mode: ExecuteMode): ExecutionResult {
-    this.#requireCommit(mode);
     const before = this.#head;
     const document = this.#requireDocument();
     const lease = document.beginEdit();
@@ -117,6 +118,11 @@ export class EditorSession implements SessionExecutor {
     try {
       const facts = command.run(document, lease.tx);
       const changes = lease.prepare();
+      if (mode === 'dry-run') {
+        const result = ResultFactory.preview(before, !changes.isEmpty, changes.describe('forward'));
+        lease.rollback();
+        return result;
+      }
       const state = changes.isEmpty ? before.currentStateId! : (Symbol('state') as StateId);
       const entry = changes.isEmpty
         ? null
@@ -185,6 +191,33 @@ export class EditorSession implements SessionExecutor {
     this.#head = next;
     return result;
   }
+  #canvas(size: CanvasSize | undefined, mode: ExecuteMode): ExecutionResult {
+    this.#requireCommit(mode);
+    const before = this.#head;
+    const document = this.#requireDocument();
+    const original = document.root.size;
+    if (!size || (size.width === original.width && size.height === original.height))
+      return ResultFactory.commit(before, { kind: 'canvas', size: original });
+    const lease = document.beginEdit();
+    let next: SessionHead;
+    let result: ExecutionResult;
+    try {
+      document.resizeCanvas(lease.tx, size);
+      lease.prepare();
+      next = Object.freeze({
+        ...before,
+        currentStateId: Symbol('state') as StateId,
+        history: before.history.afterBarrier('canvas'),
+        revision: before.revision + 1,
+      });
+      result = ResultFactory.commit(next, { kind: 'canvas', size: document.root.size }, true, true);
+    } catch (error) {
+      return this.#rollbackOrPoison(before, lease, error);
+    }
+    lease.commitPrepared();
+    this.#head = next;
+    return result;
+  }
   #rollbackOrPoison(before: SessionHead, lease: EditLease, error: unknown): ExecutionResult {
     try {
       if (lease.tx.phase === 'poisoned') return this.#poison(before);
@@ -200,16 +233,15 @@ export class EditorSession implements SessionExecutor {
       converted.diagnostic.code === 'INTERNAL_INVARIANT_ERROR' ||
       converted.diagnostic.code === 'UNTRUSTED'
     )
-      return this.#poison(this.#head);
+      return this.#poison(this.#head, converted.diagnostic);
     return ResultFactory.failure(this.#head, converted.diagnostic);
   }
-  #poison(before: SessionHead): ExecutionResult {
+  #poison(
+    before: SessionHead,
+    diagnostic: Diagnostic = new EditorError('INTERNAL_INVARIANT_ERROR').diagnostic,
+  ): ExecutionResult {
     if (before.health !== 'poisoned')
       this.#head = Object.freeze({ ...before, health: 'poisoned', revision: before.revision + 1 });
-    return ResultFactory.failure(
-      this.#head,
-      new EditorError('SESSION_POISONED').diagnostic,
-      'untrusted',
-    );
+    return ResultFactory.failure(this.#head, diagnostic, 'untrusted');
   }
 }

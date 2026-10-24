@@ -2,6 +2,20 @@ import type { SessionHead } from './protocols.js';
 import type { SessionStatus, ResultData, ExecutionResult, Diagnostic } from '../contracts/api.js';
 import { FrozenValue } from './FrozenValue.js';
 export class ResultFactory {
+  static preview(
+    head: SessionHead,
+    wouldChange: boolean,
+    preview: readonly unknown[],
+  ): ExecutionResult {
+    return FrozenValue.freeze({
+      ok: true as const,
+      mode: 'dry-run' as const,
+      wouldChange,
+      preview,
+      warnings: [],
+      status: this.status(head),
+    });
+  }
   static status(head: SessionHead): SessionStatus {
     return Object.freeze({
       state: head.health === 'poisoned' ? 'poisoned' : head.document ? 'ready' : 'empty',

@@ -14,6 +14,15 @@ import { CreateCommand } from './CreateCommand.js';
 import { MoveCommand } from './MoveCommand.js';
 import { UndoCommand } from './UndoCommand.js';
 import { RedoCommand } from './RedoCommand.js';
+import { DeleteCommand } from './DeleteCommand.js';
+import { ScaleCommand } from './ScaleCommand.js';
+import { SetCommand } from './SetCommand.js';
+import { GroupCommand } from './GroupCommand.js';
+import { UngroupCommand } from './UngroupCommand.js';
+import { AddToCommand } from './AddToCommand.js';
+import { FrontCommand } from './FrontCommand.js';
+import { BackCommand } from './BackCommand.js';
+import { CanvasCommand } from './CanvasCommand.js';
 interface Definition {
   readonly help: CommandHelp;
   readonly fields: readonly string[];
@@ -26,6 +35,124 @@ export class CommandCatalog implements CommandParser {
   readonly #factory = new ShapeFactory();
   constructor(limits: ResourceLimits) {
     this.#rules = new ValueRules(limits);
+    this.add<{ command: 'delete'; id: string }>(
+      'delete',
+      'delete <id>',
+      'Delete subtree',
+      ['id'],
+      (a) => {
+        a.expect(1);
+        return { command: 'delete', id: a.id(0) };
+      },
+      (r) => new DeleteCommand(this.#rules.id(r.id)),
+    );
+    this.add<Extract<CommandRequest, { command: 'scale' }>>(
+      'scale',
+      'scale <id> <factor>',
+      'Scale from origin',
+      ['id', 'factor'],
+      (a) => {
+        a.expect(2);
+        return { command: 'scale', id: a.id(0), factor: a.number(1) };
+      },
+      (r) =>
+        new ScaleCommand(this.#rules.id(r.id), this.#rules.number(r.factor, 'positive', 'factor')),
+    );
+    this.add<Extract<CommandRequest, { command: 'set' }>>(
+      'set',
+      'set <id> <attr> <value>',
+      'Set own property',
+      ['id', 'attribute', 'value'],
+      (a) => {
+        a.expect(3);
+        return { command: 'set', id: a.id(0), attribute: a.value(1), value: a.value(2) };
+      },
+      (r) => {
+        if (typeof r.value !== 'string' && typeof r.value !== 'number')
+          throw new EditorError('INVALID_VALUE');
+        return new SetCommand(this.#rules.id(r.id), this.#rules.attribute(r.attribute), r.value);
+      },
+    );
+    this.add<Extract<CommandRequest, { command: 'group' }>>(
+      'group',
+      'group <newGid> <id1> <id2>...',
+      'Group in original document order',
+      ['newId', 'ids'],
+      (a) => {
+        a.expect(3, Infinity);
+        return {
+          command: 'group',
+          newId: a.id(0),
+          ids: a.tokens.slice(1).map((t) => this.#rules.id(t.value)),
+        };
+      },
+      (r) => {
+        if (!Array.isArray(r.ids) || r.ids.length < 2) throw new EditorError('INVALID_GROUP_SIZE');
+        return new GroupCommand(
+          this.#rules.id(r.newId),
+          r.ids.map((id) => this.#rules.id(id)),
+        );
+      },
+    );
+    this.add<Extract<CommandRequest, { command: 'ungroup' }>>(
+      'ungroup',
+      'ungroup <gid>',
+      'Promote children of nested group',
+      ['id'],
+      (a) => {
+        a.expect(1);
+        return { command: 'ungroup', id: a.id(0) };
+      },
+      (r) => new UngroupCommand(this.#rules.id(r.id)),
+    );
+    this.add<Extract<CommandRequest, { command: 'addto' }>>(
+      'addto',
+      'addto <gid> <id>',
+      'Append to group',
+      ['containerId', 'id'],
+      (a) => {
+        a.expect(2);
+        return { command: 'addto', containerId: a.id(0), id: a.id(1) };
+      },
+      (r) => new AddToCommand(this.#rules.id(r.containerId), this.#rules.id(r.id)),
+    );
+    this.add<{ command: 'front'; id: string }>(
+      'front',
+      'front <id>',
+      'Bring to sibling end',
+      ['id'],
+      (a) => {
+        a.expect(1);
+        return { command: 'front', id: a.id(0) };
+      },
+      (r) => new FrontCommand(this.#rules.id(r.id)),
+    );
+    this.add<{ command: 'back'; id: string }>(
+      'back',
+      'back <id>',
+      'Send to sibling beginning',
+      ['id'],
+      (a) => {
+        a.expect(1);
+        return { command: 'back', id: a.id(0) };
+      },
+      (r) => new BackCommand(this.#rules.id(r.id)),
+    );
+    this.add<Extract<CommandRequest, { command: 'canvas' }>>(
+      'canvas',
+      'canvas [w] [h]',
+      'Canvas size/query',
+      ['size'],
+      (a) => {
+        a.expect(0, 2);
+        if (a.tokens.length === 1) throw new EditorError('SYNTAX_ERROR');
+        return {
+          command: 'canvas',
+          ...(a.tokens.length ? { size: { width: a.number(0), height: a.number(1) } } : {}),
+        };
+      },
+      (r) => new CanvasCommand(r.size === undefined ? undefined : this.#rules.size(r.size)),
+    );
     this.add<Extract<CommandRequest, { command: 'init' }>>(
       'init',
       'init [w] [h]',

@@ -3154,7 +3154,7 @@
     "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1465",
     "assertion": "代码推送远程仓库 | 远程可核对的对应提交 |",
     "required_by": "M15",
-    "gate_scope": "after_user_acceptance",
+    "gate_scope": "post_acceptance",
     "status": "planned",
     "tests": [],
     "evidence": []
@@ -3164,7 +3164,7 @@
     "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1466",
     "assertion": "final tag 指向确实验证过的最终提交 | tag 目标 SHA 与报告一致；不能验证 A 却标记 B |",
     "required_by": "M15",
-    "gate_scope": "after_user_acceptance",
+    "gate_scope": "post_acceptance",
     "status": "planned",
     "tests": [],
     "evidence": []
@@ -3174,7 +3174,7 @@
     "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1467",
     "assertion": "final tag 在课程截止前完成 | 按真实课程截止核对；来源未提供日期，不能自行补造 |",
     "required_by": "M15",
-    "gate_scope": "after_user_acceptance",
+    "gate_scope": "post_acceptance",
     "status": "planned",
     "tests": [],
     "evidence": []
@@ -3214,6 +3214,167 @@
     "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1471",
     "assertion": "从 final 对应干净检出可复现 | 锁依赖安装、构建、测试入口、fixture 和文档齐全 |",
     "required_by": "M15",
+    "gate_scope": "candidate_verification",
+    "status": "planned",
+    "tests": [],
+    "evidence": [],
+    "note": "Exact candidate clean checkout closes in the post-commit receipt; tag remains post acceptance."
+  },
+  {
+    "id": "VAL-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:831",
+    "assertion": "finite coordinates",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": [],
+    "partial_evidence": [
+      {
+        "through": "M07",
+        "tests": [
+          "test/unit/values.test.ts",
+          "test/unit/shapes.test.ts",
+          "test/integration/memory-commands.test.ts"
+        ],
+        "note": "Value/domain/API portions exercised; full cross-entry audit still pending."
+      }
+    ]
+  },
+  {
+    "id": "VAL-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:831",
+    "assertion": "nonnegative geometry",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": [],
+    "partial_evidence": [
+      {
+        "through": "M07",
+        "tests": [
+          "test/unit/values.test.ts",
+          "test/unit/shapes.test.ts",
+          "test/integration/memory-commands.test.ts"
+        ],
+        "note": "Value/domain/API portions exercised; full cross-entry audit still pending."
+      }
+    ]
+  },
+  {
+    "id": "VAL-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:831",
+    "assertion": "positive scale",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": [],
+    "partial_evidence": [
+      {
+        "through": "M07",
+        "tests": [
+          "test/unit/values.test.ts",
+          "test/unit/shapes.test.ts",
+          "test/integration/memory-commands.test.ts"
+        ],
+        "note": "Value/domain/API portions exercised; full cross-entry audit still pending."
+      }
+    ]
+  },
+  {
+    "id": "VAL-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:831",
+    "assertion": "nonnegative stroke-width",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": [],
+    "partial_evidence": [
+      {
+        "through": "M07",
+        "tests": [
+          "test/unit/values.test.ts",
+          "test/unit/shapes.test.ts",
+          "test/integration/memory-commands.test.ts"
+        ],
+        "note": "Value/domain/API portions exercised; full cross-entry audit still pending."
+      }
+    ]
+  },
+  {
+    "id": "VAL-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:831",
+    "assertion": "constrained paint",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": [],
+    "partial_evidence": [
+      {
+        "through": "M07",
+        "tests": [
+          "test/unit/values.test.ts",
+          "test/unit/shapes.test.ts",
+          "test/integration/memory-commands.test.ts"
+        ],
+        "note": "Value/domain/API portions exercised; full cross-entry audit still pending."
+      }
+    ]
+  },
+  {
+    "id": "VAL-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:831",
+    "assertion": "exact XML text and legal id",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": [],
+    "partial_evidence": [
+      {
+        "through": "M07",
+        "tests": [
+          "test/unit/values.test.ts",
+          "test/unit/shapes.test.ts",
+          "test/integration/memory-commands.test.ts"
+        ],
+        "note": "Value/domain/API portions exercised; full cross-entry audit still pending."
+      }
+    ]
+  },
+  {
+    "id": "REG-GROUP",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:537",
+    "assertion": "### 8.2 REG-GROUP",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "verified",
+    "tests": [
+      "test/unit/structure.test.ts",
+      "test/integration/faults.test.ts",
+      "test/integration/memory-commands.test.ts"
+    ],
+    "evidence": ["npm run verify:stage -- M07; artifacts/logs/M07.log"]
+  },
+  {
+    "id": "REG-STATE",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:618",
+    "assertion": "### 9.3 REG-STATE",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "REG-SAVE",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:927",
+    "assertion": "### 12.5 REG-SAVE",
+    "required_by": "M10",
     "gate_scope": "local_required",
     "status": "planned",
     "tests": [],
