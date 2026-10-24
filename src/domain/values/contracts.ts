@@ -61,6 +61,7 @@ export type ChangeDescription =
   | {
       readonly kind: 'placement';
       readonly id: string;
+      readonly shape: ShapeDescription;
       readonly from: PlacementDescription | null;
       readonly to: PlacementDescription | null;
     };

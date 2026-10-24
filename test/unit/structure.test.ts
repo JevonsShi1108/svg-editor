@@ -7,6 +7,23 @@ import { defaultLimits } from '../../src/domain/values/defaultLimits.js';
 import { accessDocument } from '../../src/domain/internal/storage.js';
 import { EditLease } from '../../src/domain/transactions/EditLease.js';
 
+const leafPreview = (id: string) => ({
+  type: 'rect',
+  id,
+  attributes: [
+    { name: 'x', value: 1 },
+    { name: 'y', value: 2 },
+    { name: 'width', value: 3 },
+    { name: 'height', value: 4 },
+  ],
+  displayFields: [
+    { label: 'x', value: 1 },
+    { label: 'y', value: 2 },
+    { label: 'width', value: 3 },
+    { label: 'height', value: 4 },
+  ],
+});
+const groupPreview = (id: string) => ({ type: 'g', id, attributes: [], displayFields: [] });
 describe('STR-01—07 / REG-GROUP / TX-12 independent final-tree fixtures', () => {
   const cases: {
     id: string;
@@ -73,16 +90,24 @@ describe('STR-01—07 / REG-GROUP / TX-12 independent final-tree fixtures', () =
         expect(doc.require(id).captureState()).toBe(own[i]);
       if (c.id === 'STR-02')
         expect(changes.describe('forward')).toEqual([
-          { kind: 'placement', id: 'G', from: null, to: { parent: null, index: 3 } },
+          {
+            kind: 'placement',
+            id: 'G',
+            shape: groupPreview('G'),
+            from: null,
+            to: { parent: null, index: 3 },
+          },
           {
             kind: 'placement',
             id: 'B',
+            shape: leafPreview('B'),
             from: { parent: 'P', index: 0 },
             to: { parent: 'G', index: 0 },
           },
           {
             kind: 'placement',
             id: 'D',
+            shape: leafPreview('D'),
             from: { parent: null, index: 2 },
             to: { parent: 'G', index: 1 },
           },
@@ -179,16 +204,24 @@ describe('STR-08—17 structural placements', () => {
       {
         kind: 'placement',
         id: 'u',
+        shape: leafPreview('u'),
         from: { parent: 'G', index: 0 },
         to: { parent: 'P', index: 1 },
       },
       {
         kind: 'placement',
         id: 'v',
+        shape: leafPreview('v'),
         from: { parent: 'G', index: 0 },
         to: { parent: 'P', index: 2 },
       },
-      { kind: 'placement', id: 'G', from: { parent: 'P', index: 3 }, to: null },
+      {
+        kind: 'placement',
+        id: 'G',
+        shape: groupPreview('G'),
+        from: { parent: 'P', index: 3 },
+        to: null,
+      },
     ]);
     edit(doc, (tx) => changes.replay(tx, 'backward'));
     expect(doc.require('G')).toBe(g);

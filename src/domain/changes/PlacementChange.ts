@@ -1,8 +1,9 @@
 import { Change } from './Change.js';
 import type { Shape } from '../shapes/Shape.js';
 import type { Placement, ReplayWriter } from '../internal/protocols.js';
-import type { Direction, ChangeDescription } from '../values/contracts.js';
+import type { Direction, ChangeDescription, ShapeDescription } from '../values/contracts.js';
 export class PlacementChange extends Change {
+  readonly #shape: ShapeDescription;
   readonly from: Placement | null;
   readonly to: Placement | null;
   constructor(
@@ -11,6 +12,7 @@ export class PlacementChange extends Change {
     to: Placement | null,
   ) {
     super();
+    this.#shape = node.describe();
     this.from = from ? Object.freeze({ ...from }) : null;
     this.to = to ? Object.freeze({ ...to }) : null;
     Object.freeze(this);
@@ -28,6 +30,7 @@ export class PlacementChange extends Change {
     return Object.freeze({
       kind: 'placement',
       id: this.node.id,
+      shape: this.#shape,
       from: describe(direction === 'forward' ? this.from : this.to),
       to: describe(direction === 'forward' ? this.to : this.from),
     });

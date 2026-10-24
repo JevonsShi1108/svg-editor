@@ -48,3 +48,5 @@ REG-LIMITS-01：审查发现空/缺字段 ResourceLimits 会绕过构造验证�
 M01 修正了检查器配置错误：dependency-cruiser API 必须在调用层开启 validate，规则集 options 不接受该字段；以真实禁止边确认修复。M02 审查补充拒绝继承自 Object 原型的伪属性；类型之间按 SPEC 互相引用，但运行期导入图单独检查无环，分层规则仍覆盖 type-only。M03 修正测试夹具的根追加索引手算错误：根已有 parent，因此新节点应在索引 1（LAB 规定追加）；组内首节点为 0，未修改正确的产品预期。M06 审查将 Session 的全部内部方法改为运行期 # 私有，防止绕过 execute 获得 live Document；负例已执行。
 
 M13 模型自检缺陷：REG-MODEL-ORACLE-01 依据 SPEC §6.1 / CFG-04 修正 empty dirty 和负零规范化；REG-MODEL-HARNESS-01 修正“注入 indeterminate 并不表示 save 已进入 IO”的文件核对条件。两者保留修复前日志、seed/path/replayPath、具体缩减请求和固定回归。v1 默认长度生成器失败已重放；v2 显式 size=max 保证实际长序列，旧反例可脱离生成器由具体请求回放。纯模型依赖只允许本目录和无行为类型；植入模型→Shape 的违规边已被实际检出。
+
+REG-PREVIEW-SHAPE-01：按 SPEC ChangePreview 的受影响图形摘要契约，发现 dry create 只有 ID/位置，缺失创建内容。先保存 7 个固定失败用例，再使 PlacementChange 在写前捕获纯值 ShapeDescription；后续 describe 不读取 live 状态。六类型 preview 与手写初态、正式 commit 对应，回滚后及后续 set 后仍稳定；中段摘要分配失败也补偿此前 Placement。原 REG-GROUP/ungroup 的精确位置断言不放宽，独立补充新摘要字段预期。修复后完整 751 用例中 750 通过、仅 FS-10 仍 EPERM，0 skip，性能 8 项与覆盖率通过数值门槛；源摘要已重新验证。
