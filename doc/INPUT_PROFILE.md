@@ -1,5 +1,7 @@
 # INPUT_PROFILE — EXEC-P1 v1.0
 
+M09 落实注记（解释既有 §4.6，不更改 CFG）：CDATA 只作为 text 的纯文本来源；容器排版空白为普通 XML 字符数据。namespace 声明的解码值也执行属性长度准入，因此小限额的属性 L±1 测试使用 L=40，足以容纳 SVG namespace URI。具体证据在 codec.test.ts；未额外设 save 字节限额。
+
 实际必验平台：Windows；Node 24.14.0 / npm 11.9.0。无更晚的用户 CFG 决定。工具精确版本见 package-lock.json。来源原文的以下选择在本工程直接采用；各项影响对应 TEST CFG-01—17 及 VAL/CLI/XML/LIM/FS 用例。
 
 ## 4. 一次性确定的 P1 输入与环境细则

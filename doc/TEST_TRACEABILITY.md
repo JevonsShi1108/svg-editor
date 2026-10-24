@@ -12,6 +12,8 @@ M03 领域子场景证据：`test/unit/shapes.test.ts` 含 6×2 创建、36×set
 
 合法延后范围：E2E-08 环境无法可视预览时 manual_acceptance；DEL-02/03/04 标签/推送/截止 after_user_acceptance；显式可选变异/额外平台 optional。其他必须项不允许擅自延后。
 
+M09 Codec 证据：`test/integration/codec.test.ts` 的 124 个正/反/资源/ID 场景、`test/property/codec.test.ts` 的 PROP-07/08/11 及 `test/regressions/root-px.test.ts`。覆盖 XML 解码侧、ID-01—10 的 Codec 部分、SEC 解析侧和 LIM 读取准入部分；ID-06/10/11 的 Session 原子发布/dirty/read/save 部分到 M10，终端安全呈现到 M12。不得由直接 decode 成功替代 read 发布测试。
+
 M08 编码证据：`test/integration/encoder.test.ts` 的 19 个真实用例独立核对 XML-09—16/24 的编码侧与 LIM-10 输出边界，使用 @xmldom/xmldom，不靠自家 decode 往返；XML 各编号的解码/发布侧仍留 M09/M10。
 
 M07 证据：`test/integration/memory-commands.test.ts` 包含全部编辑生命周期/空操作/36 set/6×2 API/无保存点 canvas/同名重用；`test/integration/faults.test.ts` 包含 prepared/root/preview、Undo/Redo 部分中止补偿、FAIL-09/10/11、FAULT init 恢复；`test/property/session.test.ts` 实际执行 PROP-01/02/03/09/10/13。`test/regressions/limits-shape.test.ts` 固定 REG-LIMITS-01。完整保存点、read/save dry-run 模式/poisoned 拒绝及 read 恢复留 M10，CLI 全协议留 M12，不记提前通过。
