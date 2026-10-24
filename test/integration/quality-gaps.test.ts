@@ -10,6 +10,63 @@ import { SvgDocument } from '../../src/domain/document/SvgDocument.js';
 import type { CommandRequest } from '../../src/application/contracts/api.js';
 const source =
   '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" fill="blue" font-size="16"><g id="G" fill="red" data-kind="box"><rect id="r" x="1" y="2" width="3" height="4"/><circle id="c" cx="5" cy="6" r="7"/><ellipse id="e" cx="8" cy="9" rx="10" ry="11"/><line id="l" x1="1" y1="2" x2="3" y2="4" stroke="black"/><text id="t" x="12" y="13" text-anchor="middle"> a  中文🙂 </text></g></svg>';
+it('CRT-05 case-sensitive IDs edit/delete/replay independently across different types', async () => {
+  const { session } = ioFixture();
+  committed(await session.execute({ command: 'read', path: 'a.svg' }));
+  committed(
+    await session.execute({
+      command: 'create',
+      shape: { type: 'circle', id: 'R1', cx: 2, cy: 3, r: 4 },
+    }),
+  );
+  committed(await session.execute({ command: 'move', id: 'R1', dx: 5, dy: 0 }));
+  const lower = committed(await session.execute({ command: 'show', id: 'r1' }));
+  expect(lower.data.kind === 'show' && lower.data.shape.attributes).toContainEqual({
+    name: 'x',
+    value: 10,
+  });
+  committed(await session.execute({ command: 'delete', id: 'r1' }));
+  expect((await session.execute({ command: 'show', id: 'r1' })).ok).toBe(false);
+  const upper = committed(await session.execute({ command: 'show', id: 'R1' }));
+  expect(upper.data.kind === 'show' && upper.data.shape.attributes).toContainEqual({
+    name: 'cx',
+    value: 7,
+  });
+  committed(await session.execute({ command: 'undo' }));
+  expect((await session.execute({ command: 'show', id: 'r1' })).ok).toBe(true);
+  committed(await session.execute({ command: 'redo' }));
+  expect((await session.execute({ command: 'show', id: 'r1' })).ok).toBe(false);
+  expect((await session.execute({ command: 'show', id: 'R1' })).ok).toBe(true);
+});
+it('SET-03 nonempty Group set changes only its own three style fields, preserving inherited absence and explicit child styles through undo/redo', async () => {
+  const { session, files } = ioFixture();
+  files.files.set(
+    '/memory/styles.svg',
+    '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><g id="G" fill="red" stroke-width="3"><rect id="inherited" width="10" height="20"/><circle id="explicit" r="2" fill="blue" stroke="none" stroke-width="1"/></g></svg>',
+  );
+  committed(await session.execute({ command: 'read', path: 'styles.svg' }));
+  const before = await semantic(session),
+    children = before.children[0]!.children;
+  for (const [attribute, value] of [
+    ['fill', 'green'],
+    ['stroke', 'black'],
+    ['stroke-width', 7],
+  ] as const) {
+    const result = committed(await session.execute({ command: 'set', id: 'G', attribute, value }));
+    expect(result.contentChanged).toBe(true);
+    expect((await semantic(session)).children[0]!.children).toEqual(children);
+  }
+  const after = await semantic(session);
+  expect(after.children[0]!.shape.attributes).toEqual([
+    { name: 'fill', value: 'green' },
+    { name: 'stroke-width', value: 7 },
+    { name: 'stroke', value: 'black' },
+  ]);
+  for (let i = 0; i < 3; i++) committed(await session.execute({ command: 'undo' }));
+  expect(await semantic(session)).toEqual(before);
+  for (let i = 0; i < 3; i++) committed(await session.execute({ command: 'redo' }));
+  expect(await semantic(session)).toEqual(after);
+});
 it('DOC-03/07 six-type read publishes new document identities, exact readonly/presence/text and repaired saved-state', async () => {
   const { session, files, codec } = ioFixture();
   files.files.set('/memory/six.svg', source);

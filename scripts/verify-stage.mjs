@@ -1,56 +1,21 @@
-import { spawnSync } from 'node:child_process';
+import { runChecks } from './run-checks.mjs';
 const stage = process.argv[2];
-const supported = [
-  'M00',
-  'M01',
-  'M02',
-  'M03',
-  'M04',
-  'M05',
-  'M06',
-  'M07',
-  'M08',
-  'M09',
-  'M10',
-  'M11',
-  'M12',
-  'M13',
-];
-if (!supported.includes(stage)) throw new Error(`Stage not established: ${stage}`);
-const commands =
-  stage === 'M00'
-    ? [['ls', '--depth=0']]
-    : ['typecheck', 'lint', 'format:check', 'check:deps', 'test:unit'].map((name) => ['run', name]);
-for (const args of commands) {
-  const result = spawnSync(process.execPath, [process.env.npm_execpath, ...args], {
-    stdio: 'inherit',
-  });
-  if (result.status !== 0) process.exit(result.status ?? 1);
+if (!/^M(?:0\d|1[0-5])$/.test(stage ?? '')) throw new Error('Expected M00 through M15');
+const steps = [];
+const add = (script, args = []) => steps.push({ id: script, script, args });
+if (stage === 'M00') steps.push({ id: 'dependencies', npmArgs: ['ls', '--depth=0'] });
+else {
+  for (const script of ['typecheck', 'lint', 'format:check', 'check:deps', 'test:unit'])
+    add(script);
+  if (stage >= 'M03') add('test:property');
+  if (stage >= 'M06') add('test:integration');
+  if (stage >= 'M11') add('test:e2e');
+  if (stage >= 'M13') add('test:model');
+  if (stage >= 'M14') {
+    add('test:coverage');
+    add('test:performance');
+    add('check:traceability', ['--stage', stage]);
+  }
 }
-if (stage >= 'M03') {
-  const result = spawnSync(process.execPath, [process.env.npm_execpath, 'run', 'test:property'], {
-    stdio: 'inherit',
-  });
-  if (result.status !== 0) process.exit(result.status ?? 1);
-}
-if (stage >= 'M06') {
-  const result = spawnSync(
-    process.execPath,
-    [process.env.npm_execpath, 'run', 'test:integration'],
-    { stdio: 'inherit' },
-  );
-  if (result.status !== 0) process.exit(result.status ?? 1);
-}
-if (stage >= 'M11') {
-  const result = spawnSync(process.execPath, [process.env.npm_execpath, 'run', 'test:e2e'], {
-    stdio: 'inherit',
-  });
-  if (result.status !== 0) process.exit(result.status ?? 1);
-}
-if (stage >= 'M13') {
-  const result = spawnSync(process.execPath, [process.env.npm_execpath, 'run', 'test:model'], {
-    stdio: 'inherit',
-  });
-  if (result.status !== 0) process.exit(result.status ?? 1);
-}
-console.log(`${stage}: established checks passed. Future milestones remain planned.`);
+const result = runChecks('stage-' + stage, steps, { stage });
+process.exitCode = result.success ? 0 : 1;

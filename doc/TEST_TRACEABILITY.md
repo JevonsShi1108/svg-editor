@@ -31,3 +31,9 @@ M04 领域结构证据：`test/unit/structure.test.ts` 的 19 个真实用例与
 M12 协议证据：test/fixtures/cli-protocol.ts 为独立手写 19 命令及非法参数表；test/unit/cli-protocol.test.ts、terminal.test.ts、test/integration/cli-protocol.test.ts 覆盖 CLI-01—14/ERR-01—14 和全部 36 CLI set。test/e2e/lab.test.ts、output-failure.test.ts、smoke.test.ts 共 7 个真实进程用例通过 E2E-01—07；课程两份脚本在 test/fixtures/sessions/，other.svg 逐字来自 LAB。test/property/cli.test.ts 实际执行 PROP-16（2×50 次）。QRY 跨状态及其他尚待最终逐项审查的条目暂不提前关闭。
 
 M13：test/model/ReferenceModel.ts 使用独立 flat testUid 记录、完整内容快照历史、内容 token；group 由数值路径和一次重建计算，未复制生产插组/逐点 Placement 算法。test/unit/model-calibration.test.ts 独立校准 STR-01—04、12 兄弟反选、REG-STATE 和同名身份。test/model-run/ 的模型、资源、实际文件、回放探针及具体反例共 7 例通过 ci 档。MODEL-01—10 现有自动证据闭合；原语 poison 的全部义务仍由确定性故障套件承担。check:deps 实际检查纯模型及其禁止边。
+
+M14 追踪与门禁检查点（2026-10-25）：逐项重新审查 339 个编号，包含 8 个 E2E；追踪存每条断言审查、实际 Vitest case 选择器和证据。检查器的编号正则曾遗漏带数字的 E2E 前缀，已固定提取回归并补齐这 8 条，不把仅有测试文件当作追踪闭合。M14 到期 local_required 共 310 条，FS-10 仍 blocked；M15 交付/预览保持 planned，变异 20 条未运行、远程/标签/截止 3 条验收后、DEL-08 由精确 SHA 收据关闭。23 个元数据自检断言检出缺证据、错误降级和未来项误通过；AST 检查禁止 .only/skip/todo 等遗漏修饰。
+
+新增明确六类型 × 根/组内 CLI 创建和实际进程测试、大小写 ID 独立编辑/删除、非空 Group 自身三样式、Unicode 文本/原始属性 L−1/L/L+1 跨入口，以及 ungroup 首/中/末前写故障。完整覆盖率套件现 767 例，766 passed / 1 FS-10 EPERM、0 skip；语句 95.67% (1505/1573)、行 97.18% (1380/1420)、分支 92.86% (859/925)。M14 阶段静态、单元、属性、E2E、模型、性能通过；集成/覆盖率套件/追踪因同一个 FS-10 保持失败。实际收集日志和退出码见 artifacts/verification/latest-stage-M14.json，追踪报告 artifacts/traceability/report.json。新增 ci 档固定与新 seed 再次通过（artifacts/verification/latest-random-ci.json）。
+
+verify、verify:stage、random:local/ci/release 都执行真实工具并保留每步日志/退出码/源码和锁文件摘要；失败后继续无依赖检查，最终仍返回失败，不重试到绿。verify 的全 local_required 检查不会预先要求自身最终收据。当前用户答复将开启开发者模式后通知，尚无开启完成确认，FS-10 不作人工延后。下一步 M15 报告/PlantUML、真实预览能力、精确 SHA 干净复验及提交外收据；尚未 READY。

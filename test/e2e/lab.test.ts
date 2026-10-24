@@ -10,6 +10,106 @@ const elements = (source: string) => {
   const doc = parseXml10(source);
   return Array.from(doc.getElementsByTagName('*')).filter((e) => e.tagName !== 'svg');
 };
+it('CLI-07/E2E-07 all 19 commands execute through the compiled real-port CLI and preserve final hand geometry', async () => {
+  const temp = await TempDirectory.create();
+  try {
+    const lines = [
+      'init',
+      'canvas 400 300',
+      'create g outer',
+      'create g inner in outer',
+      'create rect r 1 2 3 4 in inner',
+      'scale r 2',
+      'ungroup inner',
+      'create g other',
+      'addto other r',
+      'create circle c 5 6 7 in other',
+      'front r',
+      'back r',
+      'set r fill RED',
+      'move r 0 0',
+      'show r',
+      'tree other',
+      'delete c',
+      'undo',
+      'redo',
+      'group bundle other outer',
+      'undo',
+      'redo',
+      'save all.svg',
+      'read all.svg',
+      'canvas',
+      'help',
+    ];
+    expect(new Set(lines.map((line) => line.split(' ')[0])).size).toBe(19);
+    const output = await runCli(temp.path, lines.join('\n') + '\n');
+    expect(output.code).toBe(0);
+    expect(output.stderr).toBe('');
+    const nodes = elements(await fs.readFile(path.join(temp.path, 'all.svg'), 'utf8'));
+    expect(nodes.map((n) => n.getAttribute('id'))).toEqual(['bundle', 'outer', 'other', 'r']);
+    const rect = nodes[3]!;
+    expect(rect.parentNode).toBe(nodes[2]);
+    expect(['x', 'y', 'width', 'height', 'fill'].map((name) => rect.getAttribute(name))).toEqual([
+      '2',
+      '4',
+      '6',
+      '8',
+      'red',
+    ]);
+    expect(output.stdout).toContain('rect#r  parent=g#other');
+    expect(output.stdout).toContain('(4 elements)');
+    expect(output.stdout).toContain('canvas 400x300');
+  } finally {
+    await temp.close();
+  }
+});
+it('CRT-01/E2E-07 six types at root and in Group use actual CLI schema and save/read 13 explicit nodes', async () => {
+  const temp = await TempDirectory.create();
+  try {
+    const output = await runCli(
+      temp.path,
+      [
+        'init',
+        'create g P',
+        'create rect r 0 0 1 1',
+        'create circle c 1 2 3',
+        'create ellipse e 1 2 3 4',
+        'create line l 0 0 1 1',
+        'create text t 5 6 "A"',
+        'create g g',
+        'create rect ir 0 0 1 1 in P',
+        'create circle ic 1 2 3 in P',
+        'create ellipse ie 1 2 3 4 in P',
+        'create line il 0 0 1 1 in P',
+        'create text it 5 6 "A" in P',
+        'create g ig in P',
+        'save six.svg',
+        'read six.svg',
+        'tree',
+      ].join('\n') + '\n',
+    );
+    expect(output.code).toBe(0);
+    expect(output.stderr).toBe('');
+    expect(output.stdout).toContain('(13 elements)');
+    const nodes = elements(await fs.readFile(path.join(temp.path, 'six.svg'), 'utf8'));
+    expect(nodes).toHaveLength(13);
+    expect(
+      Object.fromEntries(
+        ['rect', 'circle', 'ellipse', 'line', 'text', 'g'].map((type) => [
+          type,
+          nodes.filter((n) => n.tagName === type).length,
+        ]),
+      ),
+    ).toEqual({ rect: 2, circle: 2, ellipse: 2, line: 2, text: 2, g: 3 });
+    const parent = nodes.find((n) => n.getAttribute('id') === 'P')!;
+    for (const id of ['r', 'c', 'e', 'l', 't', 'g']) {
+      expect(nodes.find((n) => n.getAttribute('id') === id)!.parentNode!.nodeName).toBe('svg');
+      expect(nodes.find((n) => n.getAttribute('id') === `i${id}`)!.parentNode).toBe(parent);
+    }
+  } finally {
+    await temp.close();
+  }
+});
 it('E2E-01 LAB §6 actual full course session: group error, delete restoration, 5/7 counts and ID warning', async () => {
   const temp = await TempDirectory.create();
   try {

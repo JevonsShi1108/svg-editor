@@ -310,7 +310,7 @@ describe('FAIL-03 group / ungroup prewrite abort and prepared rollback', () => {
       InvariantOracle.check(doc);
       doc.beginEdit().rollback();
     });
-  for (const stop of ['v', 'G'])
+  for (const stop of ['u', 'v', 'G'])
     it(`ungroup abort at ${stop}`, () => {
       const doc = buildTree([['P', 'L', ['G', 'u', 'v'], 'R']]);
       const before = doc.describe();

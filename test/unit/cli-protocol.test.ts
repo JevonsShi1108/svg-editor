@@ -2,8 +2,27 @@ import { expect, it } from 'vitest';
 import { CliParser } from '../../src/cli/CliParser.js';
 import { sessionFixture } from '../helpers/session.js';
 import { protocolCases, invalidLines } from '../fixtures/cli-protocol.js';
+import type { ShapeCreation } from '../../src/domain/values/contracts.js';
 const { catalog } = sessionFixture();
 const parser = new CliParser(catalog);
+const creations: readonly (readonly [string, ShapeCreation])[] = [
+  ['create rect r 10 20 30 40', { type: 'rect', id: 'r', x: 10, y: 20, width: 30, height: 40 }],
+  ['create circle c 12 18 5', { type: 'circle', id: 'c', cx: 12, cy: 18, r: 5 }],
+  ['create ellipse e 9 15 3 6', { type: 'ellipse', id: 'e', cx: 9, cy: 15, rx: 3, ry: 6 }],
+  ['create line l 1 2 11 22', { type: 'line', id: 'l', x1: 1, y1: 2, x2: 11, y2: 22 }],
+  ['create text t 7 8 "A"', { type: 'text', id: 't', x: 7, y: 8, text: 'A' }],
+  ['create g g', { type: 'g', id: 'g' }],
+];
+for (const parentId of [undefined, 'P'])
+  it.each(creations)(`CRT-01 CLI six types parent=${parentId ?? 'root'} %s`, (line, shape) => {
+    const request = parser.parse(line + (parentId === undefined ? '' : ` in ${parentId}`));
+    expect(request).toEqual({
+      command: 'create',
+      shape,
+      ...(parentId === undefined ? {} : { parentId }),
+    });
+    expect(() => catalog.bind(request!)).not.toThrow();
+  });
 it.each(protocolCases)(
   'CLI-07 independent 19-command request and binding: %s',
   (line, expected) => {

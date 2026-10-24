@@ -22,10 +22,10 @@
 - M11 implemented_unverified：真实 NodeFileStore、编译 CLI 已实现；build/type/lint/format/deps、214 单元、15 性质、276 集成、1 编译进程 E2E 通过。必须 FS-10 的真实文件符号链接/悬空链接夹具在正常 Windows 环境也因 EPERM 不能创建（1 集成失败），阶段门禁退出 1，未记完成。已异步请求系统链接能力；同一断言保留，没有 skip 或改为人工。
 - M12 implemented_unverified：完整 19 命令手写 parse/bind 表、错误恢复、36 个 CLI set、终端转义、可定位的变化预览/历史摘要、PROP-16 与真实课程会话已完成。288 单元/回归、16 性质各 2×50 次及 7 编译进程 E2E 通过；集成唯一未通过项仍为 FS-10 系统能力。完整阶段门禁未关闭。
 - M13 implemented_unverified：独立平面节点/快照模型通过手算结构、REG-STATE、同名 testUid 校准；297 单元/回归、7 个模型/回放/资源用例通过。ci 档 16 性质各 2×200 次，模型每 seed 100 条、最长实际达到 80 步（上限 80、≤40 活动节点），另有真实 Codec/FileStore 短序列各 200 次；无新增生产失败。整体仍因 FS-10 未关闭。
-- M14 active：全生产覆盖率已达到门槛，性能 8 项及 106 跨入口值表/5 个需求缺口用例通过，架构逐边负例加强。全量 736 中 735 通过、唯一 FS-10 系统 EPERM；完整追踪门禁和最终验证脚本尚未完成，未关闭阶段。
+- M14 implemented_unverified：完整实现、339 项追踪和真实最终门禁脚本已具备；767 例中 766 通过、唯一 FS-10 EPERM，0 skip。覆盖率、8 项性能、架构/静态检查、ci 随机档通过；全阶段仍因必须链接能力未关闭。
 - M15 planned：课程报告、预览能力核验、精确 SHA 干净检出与收据；远程/final 待验收。
 
-最新下一动作：M14 全生产覆盖率、性能和独立需求复核；等待用户确认开发者模式已开启后复跑真实 FS-10。M11/M12 是如实记录能力阻塞的本地检查点，不能作为全绿候选。
+最新下一动作：M15 课程报告、预览和精确 SHA 收据；等待用户确认开发者模式已开启后复跑真实 FS-10。M11/M12 是如实记录能力阻塞的本地检查点，不能作为全绿候选。
 
 ## 决策
 
@@ -50,3 +50,9 @@ M01 修正了检查器配置错误：dependency-cruiser API 必须在调用层�
 M13 模型自检缺陷：REG-MODEL-ORACLE-01 依据 SPEC §6.1 / CFG-04 修正 empty dirty 和负零规范化；REG-MODEL-HARNESS-01 修正“注入 indeterminate 并不表示 save 已进入 IO”的文件核对条件。两者保留修复前日志、seed/path/replayPath、具体缩减请求和固定回归。v1 默认长度生成器失败已重放；v2 显式 size=max 保证实际长序列，旧反例可脱离生成器由具体请求回放。纯模型依赖只允许本目录和无行为类型；植入模型→Shape 的违规边已被实际检出。
 
 REG-PREVIEW-SHAPE-01：按 SPEC ChangePreview 的受影响图形摘要契约，发现 dry create 只有 ID/位置，缺失创建内容。先保存 7 个固定失败用例，再使 PlacementChange 在写前捕获纯值 ShapeDescription；后续 describe 不读取 live 状态。六类型 preview 与手写初态、正式 commit 对应，回滚后及后续 set 后仍稳定；中段摘要分配失败也补偿此前 Placement。原 REG-GROUP/ungroup 的精确位置断言不放宽，独立补充新摘要字段预期。修复后完整 751 用例中 750 通过、仅 FS-10 仍 EPERM，0 skip，性能 8 项与覆盖率通过数值门槛；源摘要已重新验证。
+
+M14 追踪与门禁检查点（2026-10-25）：逐项重新审查 339 个编号，包含 8 个 E2E；追踪存每条断言审查、实际 Vitest case 选择器和证据。检查器的编号正则曾遗漏带数字的 E2E 前缀，已固定提取回归并补齐这 8 条，不把仅有测试文件当作追踪闭合。M14 到期 local_required 共 310 条，FS-10 仍 blocked；M15 交付/预览保持 planned，变异 20 条未运行、远程/标签/截止 3 条验收后、DEL-08 由精确 SHA 收据关闭。23 个元数据自检断言检出缺证据、错误降级和未来项误通过；AST 检查禁止 .only/skip/todo 等遗漏修饰。
+
+新增明确六类型 × 根/组内 CLI 创建和实际进程测试、大小写 ID 独立编辑/删除、非空 Group 自身三样式、Unicode 文本/原始属性 L−1/L/L+1 跨入口，以及 ungroup 首/中/末前写故障。完整覆盖率套件现 767 例，766 passed / 1 FS-10 EPERM、0 skip；语句 95.67% (1505/1573)、行 97.18% (1380/1420)、分支 92.86% (859/925)。M14 阶段静态、单元、属性、E2E、模型、性能通过；集成/覆盖率套件/追踪因同一个 FS-10 保持失败。实际收集日志和退出码见 artifacts/verification/latest-stage-M14.json，追踪报告 artifacts/traceability/report.json。新增 ci 档固定与新 seed 再次通过（artifacts/verification/latest-random-ci.json）。
+
+verify、verify:stage、random:local/ci/release 都执行真实工具并保留每步日志/退出码/源码和锁文件摘要；失败后继续无依赖检查，最终仍返回失败，不重试到绿。verify 的全 local_required 检查不会预先要求自身最终收据。当前用户答复将开启开发者模式后通知，尚无开启完成确认，FS-10 不作人工延后。下一步 M15 报告/PlantUML、真实预览能力、精确 SHA 干净复验及提交外收据；尚未 READY。
