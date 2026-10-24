@@ -31,7 +31,7 @@ export class ShapeFactory {
   create(type: string, id: string, owner: DocumentId, rules: ValueRules, state: OwnState): Shape {
     return this.definition(type).construct(id, owner, rules, state);
   }
-  fromCreation(creation: ShapeCreation, owner: DocumentId, rules: ValueRules): Shape {
+  validateCreation(creation: ShapeCreation, rules: ValueRules): ShapeCreation {
     if (!creation || typeof creation !== 'object') throw new DomainError('INVALID_VALUE');
     const schema = this.definition(creation.type).schema;
     const raw = creation as unknown as Record<string, unknown>;
@@ -49,9 +49,23 @@ export class ShapeFactory {
     }
     if (schema.optionalPaint && raw[schema.optionalPaint] !== undefined)
       attributes[schema.optionalPaint] = rules.paint(raw[schema.optionalPaint]);
-    return this.create(creation.type, rules.id(creation.id), owner, rules, {
-      attributes,
+    return Object.freeze({
+      type: creation.type,
+      id: rules.id(creation.id),
+      ...attributes,
       ...(schema.contentModel === 'text' ? { text: rules.text(raw.text) } : {}),
+    }) as ShapeCreation;
+  }
+  fromCreation(creation: ShapeCreation, owner: DocumentId, rules: ValueRules): Shape {
+    const value = this.validateCreation(creation, rules);
+    const attributes = Object.fromEntries(
+      Object.entries(value).filter(([key]) => !['type', 'id', 'text'].includes(key)),
+    );
+    return this.create(value.type, value.id, owner, rules, {
+      attributes,
+      ...(this.definition(value.type).schema.contentModel === 'text'
+        ? { text: (value as { text: string }).text }
+        : {}),
     });
   }
 }

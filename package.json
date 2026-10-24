@@ -13,6 +13,7 @@
     "check:deps": "node scripts/check-deps.mjs",
     "test:unit": "vitest run test/unit",
     "test:property": "vitest run test/property",
+    "test:integration": "vitest run test/integration",
     "verify:stage": "node scripts/verify-stage.mjs",
     "verify": "node scripts/verify.mjs"
   },
