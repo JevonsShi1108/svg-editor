@@ -16,9 +16,10 @@
 - M05 verified：不可变 HistoryEntry/双链栈头、屏障/no-op、文档/State/条目身份校验、连续性。176 确定性用例与 6 条性质各 2×50 次通过；10,000 条合法身份链的 push/pop 不复制整个历史。
 - M06 verified：私有 SessionHead/协调能力、唯一 Catalog、8 命令切片、串行请求复制冻结、准备完整再发布、Parser/Presenter/REPL 真实内存适配链。211 单元、9 集成、6 性质通过，性质各 2×50 次。假端口仅在 test，无生产启动 stub。
 - M07 verified：17 内存命令、canvas、真实 dry-run 回滚、no-op/屏障/身份/revision、部分回放补偿、poisoned 隔离与 init 恢复。212 单元/固定回归、90 集成、12 性质各 2×50 次通过；read/save 相关子项按 EXEC 留 M10。
-- M08—M15 planned：不得把本阶段门禁冒充整体完成。
+- M08 verified：独立 XmlSvgEncoder、共享 XML 字符规则、schema 属性元数据复用。212 单元/回归、109 集成（新增 19 编码独立预言机）、12 性质各 2×50 次通过；严格子集 decode 仍未接入。
+- M09—M15 planned：不得把本阶段门禁冒充整体完成。
 
-最新下一动作：M08 独立 SVG 编码与另一 XML 库验证输出；M09 严格解码。正式入口仍留 M11 真端口装配。
+最新下一动作：M09 saxes 严格解码、两遍补 ID、namespace/内容模型、安全/资源边界和往返性质；正式入口仍留 M11 真端口装配。
 
 ## 决策
 

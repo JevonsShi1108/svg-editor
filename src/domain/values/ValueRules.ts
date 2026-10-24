@@ -1,6 +1,7 @@
 import { DomainError } from '../errors/DomainError.js';
 import type { CanvasSize, NumericRule, ResourceLimits } from './contracts.js';
 import { Paint } from './Paint.js';
+import { XmlCharacters } from './XmlCharacters.js';
 
 export class ValueRules {
   readonly #limits: ResourceLimits;
@@ -102,16 +103,7 @@ export class ValueRules {
     let count = 0;
     for (const scalar of value) {
       const cp = scalar.codePointAt(0)!;
-      if (
-        !(
-          cp === 9 ||
-          cp === 10 ||
-          cp === 13 ||
-          (cp >= 0x20 && cp <= 0xd7ff) ||
-          (cp >= 0xe000 && cp <= 0xfffd) ||
-          (cp >= 0x10000 && cp <= 0x10ffff)
-        )
-      ) {
+      if (!XmlCharacters.isAllowed(cp)) {
         throw new DomainError('INVALID_XML_CHARACTER', { field });
       }
       if (++count > max) throw new DomainError('RESOURCE_LIMIT', { field });

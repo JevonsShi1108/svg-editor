@@ -2,6 +2,17 @@ import type { ContentModel, NumericRule, OwnState, AttributeValue } from '../val
 import { ValueRules } from '../values/ValueRules.js';
 import { DomainError } from '../errors/DomainError.js';
 export class ShapeSchema {
+  get allowedAttributes(): readonly string[] {
+    return Object.freeze([
+      ...Object.keys(this.geometry),
+      'fill',
+      'stroke',
+      'stroke-width',
+      'font-size',
+      'text-anchor',
+      ...(this.allowsMetadata ? ['data-kind'] : []),
+    ]);
+  }
   readonly geometry: Readonly<Record<string, NumericRule>>;
   readonly required: readonly string[];
   constructor(

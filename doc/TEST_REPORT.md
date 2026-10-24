@@ -1,6 +1,6 @@
 # Phase 1 测试报告
 
-当前：M07 阶段通过，完整验收尚未就绪；M08—M15 planned。M01 的 `npm run verify:stage -- M01` 实际执行 strict 类型检查、lint、格式、架构规则及 76 个非空单元测试。失败 0、跳过 0；值层覆盖 VAL-01—06、GEO-10、XML-14、LIM-07/08 的当前适用部分；跨入口完整用例仍按阶段补齐。
+当前：M08 阶段通过，完整验收尚未就绪；M09—M15 planned。M01 的 `npm run verify:stage -- M01` 实际执行 strict 类型检查、lint、格式、架构规则及 76 个非空单元测试。失败 0、跳过 0；值层覆盖 VAL-01—06、GEO-10、XML-14、LIM-07/08 的当前适用部分；跨入口完整用例仍按阶段补齐。
 
 ARCH-11 以三条实际禁止依赖验证检查器（含 domain→application 的纯类型和 domain→Node fs）。Snapshot 正反例分别检出顺序、根样式、文本空白和画布尺寸差异。预期来自手工表和 EXEC CFG，不调用生产校验器生成预期。
 
@@ -9,6 +9,8 @@ M02：`npm run verify:stage -- M02` 通过，87 tests / 2 files，失败 0、跳
 M03：`npm run verify:stage -- M03` 通过，152 确定性测试 / 3 files，3 条性质 / 1 file，失败 0、跳过 0。六类型各根/组内 12 创建场景、36 set 组合逐条执行、TEST §7.4 的 move 与 scale 从独立初态手算验证。三级混合组、stroke-width/font-size 保留、空组非法因子、后段溢出/下溢回滚均执行。性质每条执行 local 50 次×2 seeds（20261025 及本次新 seed），真实参数和结果在 `artifacts/random/*.json`；本阶段总计 300 次。日志 `artifacts/logs/M03.log`。CLI/Session 跨入口完整预期仍待后续。
 
 最终候选将从精确 SHA 干净检出执行锁文件安装、构建、verify、release 随机和覆盖率；完整 SHA 和结果写入提交外收据。未执行推送、final 或用户验收。
+
+M08：`npm run verify:stage -- M08` 通过，212 单元/回归、109 集成 / 5 files（新增 19 编码用例）、12 性质 / 3 files 各 2×50 次；失败 0、跳过 0。日志 `artifacts/logs/M08.log`。编码由另一测试库 @xmldom/xmldom 独立解析，未调用生产 decoder：核对 namespace/viewBox、六类型/层序、缺省属性不输出、根/组/叶只读属性、metadata、实体恰好转义一次、CR 字符引用、精确 double、text 无漂亮打印污染及超输入字节上限输出不裁剪。没有生产 decode stub 或 FileStore IO。
 
 M07：`npm run verify:stage -- M07` 通过，212 单元/回归 / 7 files、90 集成 / 4 files、12 性质 / 3 files，失败 0、跳过 0。每条性质 local 50 次×固定/新 2 seeds，共 1,200 次；日志 `artifacts/logs/M07.log`、参数 `artifacts/random/`。所有 10 类编辑逐一 dry-run→commit→undo→redo，8 类 no-op 在 Redo/屏障分别执行，36 set 组合和 6×2 API 创建/几何手算执行。prepared preview/root 结果失败、Undo/Redo 中途受控中止、实际可能部分写入、补偿失败、历史身份错误与新文档恢复均执行。poisoned 保留可信诊断元数据，拒绝观察旧树；read/save 的恢复/保存点子项仍按 EXEC 待 M10。REG-LIMITS-01 有修复前真实失败日志和修复后固定回归。
 
