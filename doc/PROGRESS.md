@@ -23,7 +23,7 @@
 - M12 implemented_unverified：完整 19 命令手写 parse/bind 表、错误恢复、36 个 CLI set、终端转义、可定位的变化预览/历史摘要、PROP-16 与真实课程会话已完成。288 单元/回归、16 性质各 2×50 次及 7 编译进程 E2E 通过；集成唯一未通过项仍为 FS-10 系统能力。完整阶段门禁未关闭。
 - M13 implemented_unverified：独立平面节点/快照模型通过手算结构、REG-STATE、同名 testUid 校准；297 单元/回归、7 个模型/回放/资源用例通过。ci 档 16 性质各 2×200 次，模型每 seed 100 条、最长实际达到 80 步（上限 80、≤40 活动节点），另有真实 Codec/FileStore 短序列各 200 次；无新增生产失败。整体仍因 FS-10 未关闭。
 - M14 implemented_unverified：完整实现、339 项追踪和真实最终门禁脚本已具备；767 例中 766 通过、唯一 FS-10 EPERM，0 skip。覆盖率、8 项性能、架构/静态检查、ci 随机档通过；全阶段仍因必须链接能力未关闭。
-- M15 planned：课程报告、预览能力核验、精确 SHA 干净检出与收据；远程/final 待验收。
+- M15 active：课程报告、真实 PlantUML 图、代表 SVG 与浏览器截图完成；候选前 release 档通过。待最终提交后的精确 SHA 干净检出与收据，FS-10 必须能力阻塞保持。
 
 最新下一动作：M15 课程报告、预览和精确 SHA 收据；等待用户确认开发者模式已开启后复跑真实 FS-10。M11/M12 是如实记录能力阻塞的本地检查点，不能作为全绿候选。
 
@@ -56,3 +56,7 @@ M14 追踪与门禁检查点（2026-10-25）：逐项重新审查 339 个编号�
 新增明确六类型 × 根/组内 CLI 创建和实际进程测试、大小写 ID 独立编辑/删除、非空 Group 自身三样式、Unicode 文本/原始属性 L−1/L/L+1 跨入口，以及 ungroup 首/中/末前写故障。完整覆盖率套件现 767 例，766 passed / 1 FS-10 EPERM、0 skip；语句 95.67% (1505/1573)、行 97.18% (1380/1420)、分支 92.86% (859/925)。M14 阶段静态、单元、属性、E2E、模型、性能通过；集成/覆盖率套件/追踪因同一个 FS-10 保持失败。实际收集日志和退出码见 artifacts/verification/latest-stage-M14.json，追踪报告 artifacts/traceability/report.json。新增 ci 档固定与新 seed 再次通过（artifacts/verification/latest-random-ci.json）。
 
 verify、verify:stage、random:local/ci/release 都执行真实工具并保留每步日志/退出码/源码和锁文件摘要；失败后继续无依赖检查，最终仍返回失败，不重试到绿。verify 的全 local_required 检查不会预先要求自身最终收据。当前用户答复将开启开发者模式后通知，尚无开启完成确认，FS-10 不作人工延后。下一步 M15 报告/PlantUML、真实预览能力、精确 SHA 干净复验及提交外收据；尚未 READY。
+
+M15 交付产物检查点：doc/README.md 已按实际代码完成架构方案、过程记录、一致性自查与质量保证；doc/architecture.puml 经官方 PlantUML 1.2026.8 校验 jar 在本地 Java 实际渲染，图和源摘要记录于 architecture.meta.json。两个 8 节点代表 SVG 经实际编译 CLI 保存并读回，真实浏览器已观察位置/中文/层序/继承并保存 PNG，source/SVG/截图摘要见 doc/examples/preview.json；E2E-08 verified，不等于用户验收。预览原沙箱服务超时，获批普通 Windows 只读 loopback 服务成功。
+
+候选前 release 档已实际通过：16 性质各固定与新 seed ×1,000 次，模型每 seed 500×最多200命令/60节点，另有 MODEL-IO 每 seed 1,000 短真实文件序列；日志 artifacts/verification/latest-random-release.json。本轮无产品随机失败。完整 verify 当前仍仅因 FS-10 系统 EPERM 返回失败；Git 增量/报告/图/实现偏差四交付条目已核验，DEL-08 保持待最终收据。candidate:verify 会在干净精确 SHA 中实际 npm ci、build、verify（含覆盖率/性能/local随机）与 release，保留逐检查日志和10个闭合子项；不在被测提交中写自身SHA。

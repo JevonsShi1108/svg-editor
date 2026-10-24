@@ -1,0 +1,22 @@
+{
+  "sourceSha256": "885072b0eff51df21e7cb2911473b27d4f1b17d60b6c1c972af6d6281f3ae064",
+  "lockSha256": "bd89a16d5c334879790a27628d0432c8c82e948f86faf4875513a96c0f798094",
+  "node": "v24.14.0",
+  "command": "npm run doc:examples",
+  "examples": [
+    {
+      "script": "doc/examples/flowchart.txt",
+      "scriptSha256": "24049c3bf397c7d9f694f26889ddf499fca58fc365838c3e142d0ea3d1a81d2b",
+      "artifact": "doc/examples/flowchart.svg",
+      "artifactSha256": "1c4b205ccfaf893e185af7b97870ede545d5c726ce1ba7020428920d2bcdfd3b",
+      "nodeCount": 8
+    },
+    {
+      "script": "doc/examples/gallery.txt",
+      "scriptSha256": "78de70d7c8145c43a2c179f5ca27e9d746fbb7ec3674327634744c4189e43c23",
+      "artifact": "doc/examples/gallery.svg",
+      "artifactSha256": "1ca218fcaf4d960245ae0a211b0ab4e299ef9e00494b622ac8aa6041e89df64b",
+      "nodeCount": 8
+    }
+  ]
+}

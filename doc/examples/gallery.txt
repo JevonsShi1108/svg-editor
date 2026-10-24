@@ -1,0 +1,15 @@
+init 640 360
+create rect background 0 0 640 360 white
+create g panel
+set panel fill navy
+create rect card 40 50 250 160 #4a90d9 in panel
+create circle orb 290 130 60 #f5a623 in panel
+create ellipse oval 425 130 75 40 #2a9d8f in panel
+create line edge 505 130 580 130 black in panel
+set edge stroke-width 3
+create text label 50 270 "中文 🙂 & <SVG>" in panel
+create g empty in panel
+tree
+save doc/examples/gallery.svg
+read doc/examples/gallery.svg
+tree

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <rect id="background" fill="white" height="360" width="640" x="0" y="0"/>
+  <g id="panel" fill="navy">
+    <rect id="card" fill="#4a90d9" height="160" width="250" x="40" y="50"/>
+    <circle id="orb" cx="290" cy="130" fill="#f5a623" r="60"/>
+    <ellipse id="oval" cx="425" cy="130" fill="#2a9d8f" rx="75" ry="40"/>
+    <line id="edge" stroke="black" stroke-width="3" x1="505" x2="580" y1="130" y2="130"/>
+    <text id="label" x="50" y="270">中文 🙂 &amp; &lt;SVG&gt;</text>
+    <g id="empty"/>
+  </g>
+</svg>

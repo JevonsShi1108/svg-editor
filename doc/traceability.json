@@ -7733,9 +7733,21 @@
     "assertion": "Git 历史体现增量开发，非 one-shot 大提交 | 有意义的功能/测试/修复提交及审查记录 |",
     "required_by": "M15",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "doc/README.md",
+      "doc/architecture.puml",
+      "doc/architecture.svg",
+      "doc/architecture.meta.json",
+      "scripts/check-traceability.mjs"
+    ],
+    "evidence": [
+      "Actual local incremental commit history; doc/README.md course report and rendered PlantUML bound by SHA-256",
+      "artifacts/traceability/report.json"
+    ],
+    "cases": [],
+    "checks": ["deliverables"],
+    "review": "实际 Git 从来源基线逐功能、测试和修复提交；本地历史保留，staged diff 逐次审查，不改写为一次提交。"
   },
   {
     "id": "DEL-02",
@@ -7776,9 +7788,21 @@
     "assertion": "`doc/README.md` 格式与栏目完整 | 架构方案、过程记录、一致性自查、质量保证 |",
     "required_by": "M15",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "doc/README.md",
+      "doc/architecture.puml",
+      "doc/architecture.svg",
+      "doc/architecture.meta.json",
+      "scripts/check-traceability.mjs"
+    ],
+    "evidence": [
+      "Actual local incremental commit history; doc/README.md course report and rendered PlantUML bound by SHA-256",
+      "artifacts/traceability/report.json"
+    ],
+    "cases": [],
+    "checks": ["deliverables"],
+    "review": "人工逐节核对课程报告的架构方案、过程记录、一致性自查、质量保证、启动/复验/验收，区分当前失败与收据待闭合。"
   },
   {
     "id": "DEL-06",
@@ -7786,9 +7810,21 @@
     "assertion": "架构图使用课程要求的 PlantUML 组件图/包图 | 源码/渲染与实际目录对应；本方案表格或其他图不替代该要求 |",
     "required_by": "M15",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "doc/README.md",
+      "doc/architecture.puml",
+      "doc/architecture.svg",
+      "doc/architecture.meta.json",
+      "scripts/check-traceability.mjs"
+    ],
+    "evidence": [
+      "Actual local incremental commit history; doc/README.md course report and rendered PlantUML bound by SHA-256",
+      "artifacts/traceability/report.json"
+    ],
+    "cases": [],
+    "checks": ["deliverables"],
+    "review": "本地 Java 运行官方校验 jar 生成真实 PlantUML 包/组件图；PNG 实际检查后改进布局，源/渲染摘要绑定。"
   },
   {
     "id": "DEL-07",
@@ -7796,9 +7832,21 @@
     "assertion": "实现与方案偏差已记录 | 模块、依赖、变化点、两处分派待演化说明 |",
     "required_by": "M15",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "doc/README.md",
+      "doc/architecture.puml",
+      "doc/architecture.svg",
+      "doc/architecture.meta.json",
+      "scripts/check-traceability.mjs"
+    ],
+    "evidence": [
+      "Actual local incremental commit history; doc/README.md course report and rendered PlantUML bound by SHA-256",
+      "artifacts/traceability/report.json"
+    ],
+    "cases": [],
+    "checks": ["deliverables"],
+    "review": "记录两处分派未来演化、权限/事务/历史/成本边界；仅远程final验收后时序与已知系统能力限制，未增box/GUI/协议。"
   },
   {
     "id": "DEL-08",
@@ -8310,9 +8358,20 @@
     "assertion": "最终构建输出的代表 SVG 预览 | 在浏览器查看结构位置、文字、层序、继承，无新增内嵌渲染器要求 |",
     "required_by": "M15",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": [],
-    "note": "M15 must attempt real preview capability before deciding whether explicit manual deferral is applicable."
+    "status": "verified",
+    "tests": [
+      "doc/examples/flowchart.svg",
+      "doc/examples/gallery.svg",
+      "doc/examples/flowchart.preview.png",
+      "doc/examples/gallery.preview.png",
+      "doc/examples/preview.json"
+    ],
+    "evidence": [
+      "Actual in-app browser observations and screenshots, source/SVG/PNG SHA-256 in doc/examples/preview.json"
+    ],
+    "note": "Browser preview performed; user acceptance still pending. Committed evidence binds current production digest and representative artifacts.",
+    "cases": [],
+    "checks": ["preview"],
+    "review": "实际浏览器观察位置、文字、层序、继承；flowchart移动撤销原位和中文v2，gallery遮挡/线宽/navy继承正确。"
   }
 ]

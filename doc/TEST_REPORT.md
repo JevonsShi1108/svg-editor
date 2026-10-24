@@ -39,3 +39,16 @@ M14 追踪与门禁检查点（2026-10-25）：逐项重新审查 339 个编号�
 新增明确六类型 × 根/组内 CLI 创建和实际进程测试、大小写 ID 独立编辑/删除、非空 Group 自身三样式、Unicode 文本/原始属性 L−1/L/L+1 跨入口，以及 ungroup 首/中/末前写故障。完整覆盖率套件现 767 例，766 passed / 1 FS-10 EPERM、0 skip；语句 95.67% (1505/1573)、行 97.18% (1380/1420)、分支 92.86% (859/925)。M14 阶段静态、单元、属性、E2E、模型、性能通过；集成/覆盖率套件/追踪因同一个 FS-10 保持失败。实际收集日志和退出码见 artifacts/verification/latest-stage-M14.json，追踪报告 artifacts/traceability/report.json。新增 ci 档固定与新 seed 再次通过（artifacts/verification/latest-random-ci.json）。
 
 verify、verify:stage、random:local/ci/release 都执行真实工具并保留每步日志/退出码/源码和锁文件摘要；失败后继续无依赖检查，最终仍返回失败，不重试到绿。verify 的全 local_required 检查不会预先要求自身最终收据。当前用户答复将开启开发者模式后通知，尚无开启完成确认，FS-10 不作人工延后。下一步 M15 报告/PlantUML、真实预览能力、精确 SHA 干净复验及提交外收据；尚未 READY。
+
+M15 交付产物检查点：doc/README.md 已按实际代码完成架构方案、过程记录、一致性自查与质量保证；doc/architecture.puml 经官方 PlantUML 1.2026.8 校验 jar 在本地 Java 实际渲染，图和源摘要记录于 architecture.meta.json。两个 8 节点代表 SVG 经实际编译 CLI 保存并读回，真实浏览器已观察位置/中文/层序/继承并保存 PNG，source/SVG/截图摘要见 doc/examples/preview.json；E2E-08 verified，不等于用户验收。预览原沙箱服务超时，获批普通 Windows 只读 loopback 服务成功。
+
+候选前 release 档已实际通过：16 性质各固定与新 seed ×1,000 次，模型每 seed 500×最多200命令/60节点，另有 MODEL-IO 每 seed 1,000 短真实文件序列；日志 artifacts/verification/latest-random-release.json。本轮无产品随机失败。完整 verify 当前仍仅因 FS-10 系统 EPERM 返回失败；Git 增量/报告/图/实现偏差四交付条目已核验，DEL-08 保持待最终收据。candidate:verify 会在干净精确 SHA 中实际 npm ci、build、verify（含覆盖率/性能/local随机）与 release，保留逐检查日志和10个闭合子项；不在被测提交中写自身SHA。
+
+环境与来源绑定：Windows x64 / Node v24.14.0 / npm 11.9.0，TypeScript 5.9.3、Vitest/coverage-v8 5.0.5、fast-check 4.5.3、saxes 6.0.0、独立测试 XML 库 @xmldom/xmldom 0.9.12。锁文件 SHA-256 bd89a16d5c334879790a27628d0432c8c82e948f86faf4875513a96c0f798094。来源原文按初始 Git blob 保留，实际摘要：
+
+- doc/spec/phase_cli_1.md SHA-256 d8bbf9409a9596035f13ae809888c64e813ea76966b649911536da44eabc7f76
+- doc/spec/SVG_Editor_Phase1_Implementation_Spec.md SHA-256 1e6919c454e635f63137e89d3f303ac992e4fc9a5c91646289adb987ae5ecf92
+- doc/spec/SVG_Editor_Phase1_Test_Plan.md SHA-256 4ba6dfcb4300a6106cfd7dc18a662a6eefc32ed462e74588d6a089b391bb73ba
+- doc/spec/SVG_Editor_Phase1_Codex_Execution_Plan.md SHA-256 99c600a60300d3157adb1d8db3efa87d98bc2665d0060c8676a8a3d8f0e00409
+
+M15 预提交 npm run verify 已实际运行，日志 artifacts/logs/M15-precommit-verify.log；类型/lint/格式/架构/性能通过，767 例中766通过/唯一FS-10失败/0跳过，追踪的315个到期本地条目仅FS-10未闭合，正常退出码1。此工作树含尚未提交的文档/收据脚本；不能将基准662dd4b伪称为这次精确被测提交。最后必要提交之后的准确SHA、clean_checkout及所有最终门禁只由提交外收据绑定。

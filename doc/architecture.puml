@@ -1,0 +1,47 @@
+@startuml
+!pragma layout smetana
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontSize 14
+top to bottom direction
+title SVG Editor Phase 1 - packages, contracts and adapters
+component "src/main.ts\nComposition root: assemble real ports and terminal" as Main #E2E8F0
+package "src/cli" #EFF6FF {
+  component "Tokenizer / CliParser\nCliRepl / TextPresenter / NodeTerminal\nParse input, call execute, present pure values" as CLI
+}
+package "src/application" #F0FDF4 {
+  component "EditorSession: serial queue + private Head\nCommandCatalog + 19 Command classes\nHistoryManager / HistoryEntry / stack heads\napi.ts: SessionExecutor, CommandParser, pure results" as App
+  component "FileStore\napplication port" as FS <<interface>>
+  component "SvgCodec\napplication port" as SC <<interface>>
+}
+package "src/domain" #FFF7ED {
+  component "SvgDocument / CanvasRoot / Builder\nShapeFactory / ShapeSchema\nShape + Rect/Circle/Ellipse/Line/Text/Group\nGroup Composite delegates move/scale" as Domain
+  component "EditLease / EditTransaction / TransactionState\nChangeSet: NodeStateChange + PlacementChange\nValueRules / Paint / XmlCharacters / pure DTO" as Tx
+}
+package "src/infrastructure" #FAF5FF {
+  component "NodeFileStore / NodeFileSystem\nstrict UTF-8 + same-directory replacement" as Files
+  component "XmlSvgCodec / Decoder / Encoder\nstrict namespace and content model" as Codec
+}
+component "Node.js filesystem" as Node #F8FAFC
+component "saxes strict XML parser" as Saxes #F8FAFC
+Main --> CLI : assemble
+Main ..> App : assemble
+Main ..> Files : inject
+Main ..> Codec : inject
+CLI --> App : public contracts only
+App --> Domain : domain operations
+App --> FS
+App --> SC
+Domain --> Tx
+Files ..> FS : implements
+Codec ..> SC : implements
+Files --> Node
+Codec --> Domain : unpublished Builder + shared schema
+Codec --> Saxes
+note bottom of Tx
+  Names dispatch only in CommandCatalog and ShapeFactory.
+  Domain has no application, CLI, infrastructure, DOM or Node IO imports.
+  Runtime graph is acyclic; private collaborators are omitted here.
+end note
+@enduml

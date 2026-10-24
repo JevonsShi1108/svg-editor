@@ -1,6 +1,8 @@
 import { readFileSync, existsSync, mkdirSync, writeFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import ts from 'typescript';
+import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 import { extractRequirementIds, validateMetadata, testMetadataGuard } from './traceability-lib.mjs';
 import {
   readEvidence,
@@ -145,6 +147,14 @@ const coverage = checkCoverage(issues, notBefore);
 checkArchitecture(issues, notBefore);
 checkPerformance(issues, notBefore);
 const randomFiles = checkRandom(issues, notBefore, 'local');
+const matchesHash = (file, expected) => {
+  try {
+    return createHash('sha256').update(readFileSync(file)).digest('hex') === expected;
+  } catch {
+    return false;
+  }
+};
+let deliveryHistory = null;
 if (!readFileSync('doc/INPUT_PROFILE.md', 'utf8').includes('EXEC-P1 v1.0'))
   issues.push('input profile is not documented');
 if (due.some((row) => row.checks?.includes('deliverables'))) {
@@ -173,17 +183,46 @@ if (due.some((row) => row.checks?.includes('deliverables'))) {
       if (!text.includes(directory) || !existsSync(directory))
         issues.push(`diagram does not represent ${directory}`);
   }
+  const diagram = readEvidence('doc/architecture.meta.json', issues);
+  if (
+    diagram?.tool !== 'PlantUML' ||
+    !matchesHash(diagram.source ?? '', diagram.sourceSha256) ||
+    !matchesHash(diagram.output ?? '', diagram.outputSha256)
+  )
+    issues.push('PlantUML source/render binding differs');
+  const history = execFileSync('git', ['log', '--format=%H %s'], { encoding: 'utf8' })
+    .trim()
+    .split('\n');
+  deliveryHistory = { count: history.length, commits: history };
+  if (history.length < 2) issues.push('incremental local history absent');
+  const examples = readEvidence('doc/examples/evidence.json', issues);
+  if (examples?.sourceSha256 !== sourceDigest() || examples.examples?.length !== 2)
+    issues.push('representative CLI outputs do not match production sources');
+  for (const example of examples?.examples ?? [])
+    if (
+      !matchesHash(example.script, example.scriptSha256) ||
+      !matchesHash(example.artifact, example.artifactSha256)
+    )
+      issues.push(`representative CLI artifact changed: ${example.artifact}`);
 }
 for (const row of rows.filter((r) => r.gate_scope === 'manual_acceptance'))
   if (!existsSync(row.manual?.artifact ?? '')) issues.push(`${row.id}: representative SVG missing`);
 if (due.some((row) => row.checks?.includes('preview'))) {
-  const preview = readEvidence('artifacts/preview/result.json', issues);
+  const preview = readEvidence('doc/examples/preview.json', issues);
   if (
     !preview?.observed ||
-    !existsSync(preview.artifact ?? '') ||
-    !existsSync(preview.screenshot ?? '')
+    preview.sourceSha256 !== sourceDigest() ||
+    preview.observations?.length !== 2
   )
     issues.push('preview was not actually observed');
+  for (const observation of preview?.observations ?? [])
+    if (
+      !observation.observed ||
+      !observation.findings ||
+      !matchesHash(observation.artifact, observation.artifactSha256) ||
+      !matchesHash(observation.screenshot, observation.screenshotSha256)
+    )
+      issues.push(`observed preview binding differs: ${observation.artifact}`);
 }
 mkdirSync('artifacts/traceability', { recursive: true });
 const report = {
@@ -196,6 +235,7 @@ const report = {
   issues,
   coverage,
   randomFiles,
+  deliveryHistory,
   counts: Object.fromEntries(
     [
       'local_required',

@@ -13,7 +13,7 @@
     "test:e2e": "npm run build && vitest run test/e2e --reporter=default --reporter=json --outputFile=artifacts/test-results/e2e.json",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src test scripts",
-    "format:check": "prettier --check src test scripts *.json *.mjs vitest*.config.ts AGENTS.md doc/PROGRESS.md doc/INPUT_PROFILE.md doc/TEST_TRACEABILITY.md doc/TEST_REPORT.md",
+    "format:check": "prettier --check src test scripts *.json *.mjs vitest*.config.ts AGENTS.md doc/PROGRESS.md doc/INPUT_PROFILE.md doc/TEST_TRACEABILITY.md doc/TEST_REPORT.md doc/README.md doc/ARCHITECTURE_REVIEW.md",
     "check:deps": "node scripts/check-deps.mjs",
     "test:unit": "vitest run test/unit test/regressions --reporter=default --reporter=json --outputFile=artifacts/test-results/unit.json",
     "test:property": "vitest run test/property --reporter=default --reporter=json --outputFile=artifacts/test-results/property.json",
@@ -26,7 +26,10 @@
     "random:local": "node scripts/random-profile.mjs local",
     "random:ci": "node scripts/random-profile.mjs ci",
     "random:release": "node scripts/random-profile.mjs release",
-    "check:traceability": "node scripts/check-traceability.mjs"
+    "check:traceability": "node scripts/check-traceability.mjs",
+    "doc:diagram": "node scripts/render-architecture.mjs",
+    "doc:examples": "npm run build && node scripts/generate-examples.mjs",
+    "candidate:verify": "node scripts/verify-candidate.mjs"
   },
   "dependencies": {
     "saxes": "6.0.0"

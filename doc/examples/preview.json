@@ -1,0 +1,25 @@
+{
+  "observed": true,
+  "observedAt": "2026-10-24T22:32:54.381Z",
+  "browser": "ChatGPT in-app browser",
+  "sourceSha256": "885072b0eff51df21e7cb2911473b27d4f1b17d60b6c1c972af6d6281f3ae064",
+  "method": "Actual compiled CLI writes/readbacks, served read-only on 127.0.0.1 in approved normal Windows environment; browser screenshots directly observed.",
+  "observations": [
+    {
+      "artifact": "doc/examples/flowchart.svg",
+      "artifactSha256": "1c4b205ccfaf893e185af7b97870ede545d5c726ce1ba7020428920d2bcdfd3b",
+      "screenshot": "doc/examples/flowchart.preview.png",
+      "screenshotSha256": "b48bdc1d8fe673ad49eae8ebe9497c61db50f5b707b5d7248c78559c1cfeb239",
+      "observed": true,
+      "findings": "Observed blue start at (120,100), orange process at (520,100), line between them, Chinese labels including updated v2; move undone."
+    },
+    {
+      "artifact": "doc/examples/gallery.svg",
+      "artifactSha256": "1ca218fcaf4d960245ae0a211b0ab4e299ef9e00494b622ac8aa6041e89df64b",
+      "screenshot": "doc/examples/gallery.preview.png",
+      "screenshotSha256": "d72ec04598b944a8f2eb07156140189743a4ddb59c0334a927690f913f1134d8",
+      "observed": true,
+      "findings": "Observed white background, blue rectangle overlapped by orange circle, green ellipse, black 3-unit line, navy inherited Chinese/emoji and literal & <SVG> text."
+    }
+  ]
+}
