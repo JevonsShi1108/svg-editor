@@ -4,4 +4,6 @@
 
 M00 只执行工具链/文档初始化，无功能测试。最终门禁必须拒绝任何到期 local_required 缺少真实证据；candidate_verification 只由提交外最终收据关闭。
 
+M01 部分证据：`test/unit/values.test.ts` 的 76 个真实断言用例和 `test/helpers/SemanticSnapshot.ts` 正反样例；`scripts/check-deps.mjs` 包括真实违规夹具。VAL/几何/文本/限额的跨入口部分尚不具备依赖，未记整条 verified。阶段门禁为 `npm run verify:stage -- M01`。
+
 合法延后范围：E2E-08 环境无法可视预览时 manual_acceptance；DEL-02/03/04 标签/推送/截止 after_user_acceptance；显式可选变异/额外平台 optional。其他必须项不允许擅自延后。

@@ -9,7 +9,8 @@
 ## 阶段
 
 - M00 verified：基线、锁文件、工具链和输入细则。纯初始化，无功能测试，不计测试通过。verify:stage M00 与 npm audit（0 漏洞）已实际通过；Node/npm 版本及精确依赖锁定。
-- M01—M15 planned：不得把本阶段门禁冒充整体完成。
+- M01 verified：统一值规则、不可变纯描述契约、独立快照正反例。76 个真实测试；strict/lint/format/dependency checks 通过；违规夹具确认禁止的 type-only 和 IO 边可被发现。完整跨入口 VAL 留待 CLI/Codec 就绪，不能由值层通过替代。
+- M02—M15 planned：不得把本阶段门禁冒充整体完成。
 
 ## 决策
 
@@ -17,4 +18,4 @@
 
 ## 缺陷与下一动作
 
-无产品测试结果。下一步 M01 值规则、纯契约、比较器正反例和真实静态违规夹具。
+M01 修正了检查器配置错误：dependency-cruiser API 必须在调用层开启 validate，规则集 options 不接受该字段；以真实禁止边确认修复。下一步 M02 的 rect/g、Builder、事务两原语和精确回放。
