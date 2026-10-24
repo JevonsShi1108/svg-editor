@@ -1,6 +1,16 @@
 export const rules = {
   forbidden: [
     {
+      name: 'domain-no-node-core',
+      from: { path: '(^|/)domain/' },
+      to: { dependencyTypes: ['core'] },
+    },
+    {
+      name: 'application-no-node-core',
+      from: { path: '(^|/)application/' },
+      to: { dependencyTypes: ['core'] },
+    },
+    {
       name: 'domain-inward-only',
       from: { path: '(^|/)domain/' },
       to: { path: '(^|/)(application|cli|infrastructure)/|^(node:|fs$|path$|saxes$|@xmldom/)' },
@@ -16,11 +26,20 @@ export const rules = {
       to: { path: '(^|/)infrastructure/|(^|/)domain/(?!values/|errors/)' },
     },
     {
+      name: 'cli-application-surface',
+      from: { path: '(^|/)cli/' },
+      to: { path: '(^|/)application/(commands|history|internal)/' },
+    },
+    {
       name: 'infrastructure-no-cli-or-session',
       from: { path: '(^|/)infrastructure/' },
-      to: { path: '(^|/)cli/|(^|/)application/(session|history|commands)/' },
+      to: { path: '(^|/)cli/|(^|/)application/(session|history|commands|internal)/' },
     },
-    { name: 'production-no-tests', from: { path: '^src/' }, to: { path: '(^|/)(test|tests)/' } },
+    {
+      name: 'production-no-tests',
+      from: { path: '(^|/)src/' },
+      to: { path: '(^|/)(test|tests)/' },
+    },
     {
       name: 'model-independent',
       from: { path: '(^|/)test/model/' },

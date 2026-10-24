@@ -151,12 +151,23 @@ for (const fault of ['partial-write', 'compensation', 'history-mismatch'] as con
       { command: 'show', id: 'a' },
       { command: 'canvas' },
       { command: 'move', id: 'a', dx: 1, dy: 0 },
+      { command: 'create', shape: { type: 'g', id: 'fresh' } },
+      { command: 'delete', id: 'a' },
+      { command: 'scale', id: 'a', factor: 1 },
+      { command: 'set', id: 'a', attribute: 'x', value: 1 },
+      { command: 'group', newId: 'fresh', ids: ['a', 'b'] },
+      { command: 'ungroup', id: 'all' },
+      { command: 'addto', containerId: 'all', id: 'a' },
+      { command: 'front', id: 'a' },
+      { command: 'back', id: 'a' },
+      { command: 'save', path: 'blocked.svg' },
       { command: 'undo' },
       { command: 'redo' },
       { command: 'canvas', size: { width: 1, height: 1 } },
     ] as CommandRequest[]) {
       const result = await session.execute(blocked);
       expect(result.ok).toBe(false);
+      if (!result.ok) expect(result.error.code).toBe('SESSION_POISONED');
       expect(result.status).toEqual(failed.status);
     }
     expect((await session.execute({ command: 'help' })).ok).toBe(true);

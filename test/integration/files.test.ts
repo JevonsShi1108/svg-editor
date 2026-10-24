@@ -15,6 +15,33 @@ afterEach(async () => {
   for (const temp of owned.splice(0)) await temp.close();
 });
 describe('M11 real NodeFileStore on actual platform, no production stubs', () => {
+  it.each([
+    { bytes: Buffer.from('abc'), max: 100, stage: 'close' },
+    { bytes: Buffer.from([0xff]), max: 100, stage: 'decode' },
+    { bytes: Buffer.from('abc'), max: 1, stage: 'resource' },
+  ])(
+    'FS-03 read close failure preserves the primary $stage classification and handle is closed',
+    async ({ bytes, max, stage }) => {
+      const { temp } = await fixture(),
+        port = new FaultFileSystem();
+      port.failClose = true;
+      const store = new NodeFileStore(temp.path, port),
+        file = store.resolve('read.svg');
+      await fs.writeFile(file, bytes);
+      if (stage === 'resource')
+        await expect(store.readUtf8(file, max)).rejects.toMatchObject({
+          diagnostic: { code: 'RESOURCE_LIMIT' },
+        });
+      else
+        await expect(store.readUtf8(file, max)).rejects.toMatchObject({
+          failure: { operation: 'read', path: file, stage },
+        });
+      expect(port.events).toContain('close:done');
+      port.failClose = false;
+      await fs.writeFile(file, 'recovered');
+      expect(await store.readUtf8(file, 100)).toBe('recovered');
+    },
+  );
   it('FS-01/02 strict UTF-8 split multibyte, BOM retained and malformed/truncated bytes reject', async () => {
     const { temp, store } = await fixture();
     const text = '\uFEFF' + 'a'.repeat(NodeFileStore.readChunkBytes - 4) + '🙂中文';
