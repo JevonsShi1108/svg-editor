@@ -1,5 +1,7 @@
 # INPUT_PROFILE — EXEC-P1 v1.0
 
+M11 平台与文件策略落实：Windows 普通本地文件系统；同目录 `.目标名.svg-editor-UUID.tmp`、wx 独占、最多 8 次碰撞、完整 write→close→rename，不先删目标。替换阶段 EIO/未知错误归 indeterminate，明确非提交错误码按实现集中白名单分类。沙箱 AppContainer 的临时目录 rename 被 EPERM，真实文件门禁在获批普通环境运行；该环境实际 file symlink 也 EPERM，FS-10 仍为必须自动门禁阻塞，等待链接权限，未改成可选或人工。
+
 M09 落实注记（解释既有 §4.6，不更改 CFG）：CDATA 只作为 text 的纯文本来源；容器排版空白为普通 XML 字符数据。namespace 声明的解码值也执行属性长度准入，因此小限额的属性 L±1 测试使用 L=40，足以容纳 SVG namespace URI。具体证据在 codec.test.ts；未额外设 save 字节限额。
 
 实际必验平台：Windows；Node 24.14.0 / npm 11.9.0。无更晚的用户 CFG 决定。工具精确版本见 package-lock.json。来源原文的以下选择在本工程直接采用；各项影响对应 TEST CFG-01—17 及 VAL/CLI/XML/LIM/FS 用例。

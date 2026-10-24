@@ -1,6 +1,19 @@
 import { spawnSync } from 'node:child_process';
 const stage = process.argv[2];
-const supported = ['M00', 'M01', 'M02', 'M03', 'M04', 'M05', 'M06', 'M07', 'M08', 'M09', 'M10'];
+const supported = [
+  'M00',
+  'M01',
+  'M02',
+  'M03',
+  'M04',
+  'M05',
+  'M06',
+  'M07',
+  'M08',
+  'M09',
+  'M10',
+  'M11',
+];
 if (!supported.includes(stage)) throw new Error(`Stage not established: ${stage}`);
 const commands =
   stage === 'M00'
@@ -24,6 +37,12 @@ if (stage >= 'M06') {
     [process.env.npm_execpath, 'run', 'test:integration'],
     { stdio: 'inherit' },
   );
+  if (result.status !== 0) process.exit(result.status ?? 1);
+}
+if (stage >= 'M11') {
+  const result = spawnSync(process.execPath, [process.env.npm_execpath, 'run', 'test:e2e'], {
+    stdio: 'inherit',
+  });
   if (result.status !== 0) process.exit(result.status ?? 1);
 }
 console.log(`${stage}: established checks passed. Future milestones remain planned.`);

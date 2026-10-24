@@ -1,6 +1,6 @@
 # Phase 1 测试报告
 
-当前：M10 阶段通过，完整验收尚未就绪；M11—M15 planned。M01 的 `npm run verify:stage -- M01` 实际执行 strict 类型检查、lint、格式、架构规则及 76 个非空单元测试。失败 0、跳过 0；值层覆盖 VAL-01—06、GEO-10、XML-14、LIM-07/08 的当前适用部分；跨入口完整用例仍按阶段补齐。
+当前：M10 已通过；M11 已实现但必须 FS-10 真实链接夹具因系统 EPERM 未完成，完整验收尚未就绪；继续 M12—M15 的不受影响工作。M01 的 `npm run verify:stage -- M01` 实际执行 strict 类型检查、lint、格式、架构规则及 76 个非空单元测试。值层覆盖 VAL-01—06、GEO-10、XML-14、LIM-07/08 的当前适用部分；跨入口完整用例仍按阶段补齐。
 
 ARCH-11 以三条实际禁止依赖验证检查器（含 domain→application 的纯类型和 domain→Node fs）。Snapshot 正反例分别检出顺序、根样式、文本空白和画布尺寸差异。预期来自手工表和 EXEC CFG，不调用生产校验器生成预期。
 
@@ -9,6 +9,8 @@ M02：`npm run verify:stage -- M02` 通过，87 tests / 2 files，失败 0、跳
 M03：`npm run verify:stage -- M03` 通过，152 确定性测试 / 3 files，3 条性质 / 1 file，失败 0、跳过 0。六类型各根/组内 12 创建场景、36 set 组合逐条执行、TEST §7.4 的 move 与 scale 从独立初态手算验证。三级混合组、stroke-width/font-size 保留、空组非法因子、后段溢出/下溢回滚均执行。性质每条执行 local 50 次×2 seeds（20261025 及本次新 seed），真实参数和结果在 `artifacts/random/*.json`；本阶段总计 300 次。日志 `artifacts/logs/M03.log`。CLI/Session 跨入口完整预期仍待后续。
 
 最终候选将从精确 SHA 干净检出执行锁文件安装、构建、verify、release 随机和覆盖率；完整 SHA 和结果写入提交外收据。未执行推送、final 或用户验收。
+
+M11 检查点（未过阶段门禁）：`npm run verify:stage -- M11` 在正常 Windows 环境退出 1：214 单元/回归通过、15 性质各 2×50 次通过、276 集成通过 / 1 集成因 OS `fs.symlink(...,'file')` EPERM 失败、0 skip。静态检查通过；独立 `npm run test:e2e` 构建及 1 个真实 CLI/文件冒烟通过。日志 `artifacts/logs/M11.log`、`artifacts/logs/M11-e2e.log`。真实 UTF-8/跨块/BOM/非法字节、实际累计字节限制、普通文件新建覆盖、8 次独占碰撞、写/close/已知替换失败、清理失败、不确定 EIO（实际 OLD/NEW）均执行。FS-10 的稳定 cwd/字面路径和 injected lstat 拒绝已通过，但真实文件链接及悬空链接仍是自动必测阻塞，不能计通过或转人工。沙箱临时目录原生 rename 的 EPERM 已用对照探针识别，获批普通环境解决该项；正常环境仍缺链接权限，已请求用户补足。
 
 M10：`npm run verify:stage -- M10` 通过，214 单元/回归 / 9 files、261 集成 / 8 files、15 性质 / 4 files 各 local 2×50 次；失败 0、跳过 0，日志 `artifacts/logs/M10.log`。真实 Codec 配可控 FileStore 验证 read 新身份/路径/警告/dirty，clean save 仍提交屏障，not-committed、committed、indeterminate（物理 OLD/NEW 两种）及未知异常分类；encode/下一 history/DTO 失败时 replace 调用 0。REG-STATE 15 步逐项断言版本/历史/dirty/路径；QUEUE 用 Deferred 闸门证明所有请求串行、数组/路径入队复制、EOF 等最终 save。poisoned 后 save 不编码/写端口，read 可建立新可信文档；提交后 stdout 失败不重试、不回滚。REG-CANDIDATE-01 有先失败后修复记录。真实 Node 文件端口/进程验证仍待 M11/M12。
 

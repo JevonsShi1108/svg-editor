@@ -2305,9 +2305,12 @@
     "assertion": "普通路径/相对路径/符号链接/悬空链接 | 按 CFG-14 冻结策略逐项验证，不假定所有 OS 相同 |",
     "required_by": "M11",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "blocked",
+    "tests": ["test/integration/files.test.ts"],
+    "evidence": [
+      "artifacts/logs/M11.log: real file symlink fixture creation EPERM, including approved normal Windows execution"
+    ],
+    "note": "local_required unchanged; path/injected metadata subcases pass but do not close real symlink/dangling subcase; user OS link capability requested."
   },
   {
     "id": "FS-11",

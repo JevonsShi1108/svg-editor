@@ -12,6 +12,8 @@ M03 领域子场景证据：`test/unit/shapes.test.ts` 含 6×2 创建、36×set
 
 合法延后范围：E2E-08 环境无法可视预览时 manual_acceptance；DEL-02/03/04 标签/推送/截止 after_user_acceptance；显式可选变异/额外平台 optional。其他必须项不允许擅自延后。
 
+M11（未关闭）：`test/integration/files.test.ts` 16 例中 15 例通过、FS-10 真实 file symlink/dangling 例在 `fs.symlink` 处 EPERM；完整集成套件 276 passed/1 failed。`test/e2e/smoke.test.ts` 1 例真实编译入口/端口冒烟通过。FS-10 gate_scope 保持 local_required，状态 blocked；lstat 注入和路径解析通过不替代真实链接，后续完整 verify 必须拒绝此缺口。
+
 M10 应用 IO 证据：`test/integration/io-session.test.ts` 与 `queue-io.test.ts` 共新增 28 个用例，覆盖 DOC/ID 的发布/保存点、REG-STATE/REG-SAVE、IO 应用三态/呈现失败、QUEUE-01—07 与 FAULT read 恢复。`test/regressions/candidate-isolation.test.ts` 固定候选隔离缺陷。所有测试使用真实 Codec/Session/History/Domain，FileStore 替身只在 test；FS-01—11 的底层真实适配器证据不在本阶段关闭。
 
 M09 Codec 证据：`test/integration/codec.test.ts` 的 124 个正/反/资源/ID 场景、`test/property/codec.test.ts` 的 PROP-07/08/11 及 `test/regressions/root-px.test.ts`。覆盖 XML 解码侧、ID-01—10 的 Codec 部分、SEC 解析侧和 LIM 读取准入部分；ID-06/10/11 的 Session 原子发布/dirty/read/save 部分到 M10，终端安全呈现到 M12。不得由直接 decode 成功替代 read 发布测试。

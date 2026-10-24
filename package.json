@@ -7,6 +7,10 @@
     "node": ">=24"
   },
   "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "precli": "npm run build",
+    "cli": "node dist/main.js",
+    "test:e2e": "npm run build && vitest run test/e2e",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src test scripts",
     "format:check": "prettier --check src test scripts *.json *.mjs AGENTS.md doc/PROGRESS.md doc/INPUT_PROFILE.md doc/TEST_TRACEABILITY.md doc/TEST_REPORT.md",

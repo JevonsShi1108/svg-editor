@@ -5,6 +5,8 @@ export interface FileFailure {
   readonly path: string;
   readonly stage: string;
   readonly cause?: unknown;
+  readonly cleanupError?: unknown;
+  readonly temporaryPath?: string;
 }
 export type WriteOutcome =
   | { readonly status: 'committed' }
