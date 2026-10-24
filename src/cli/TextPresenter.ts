@@ -4,7 +4,7 @@ export class TextPresenter {
   safe(value: unknown): string {
     return [...String(value)]
       .map((char) =>
-        char.charCodeAt(0) >= 32 && char.charCodeAt(0) !== 127
+        char.charCodeAt(0) >= 32 && (char.charCodeAt(0) < 127 || char.charCodeAt(0) > 159)
           ? char
           : char === '\n'
             ? '\\n'
@@ -52,8 +52,8 @@ export class TextPresenter {
       stderr: result.warnings.map((w) => this.diagnostic(w)).join(''),
     };
   }
-  private shape(shape: ShapeDescription): string {
-    return `${this.safe(shape.type)}#${this.safe(shape.id)}${shape.displayFields.length ? '  ' + shape.displayFields.map((f) => `${this.safe(f.label)}=${this.safe(f.value)}`).join(' ') : ''}${shape.text === undefined ? '' : ` ${JSON.stringify(shape.text)}`}`;
+  private shape(shape: ShapeDescription, annotation = ''): string {
+    return `${this.safe(shape.type)}#${this.safe(shape.id)}${annotation ? ` ${annotation}` : ''}${shape.displayFields.length ? '  ' + shape.displayFields.map((f) => `${this.safe(f.label)}=${this.safe(f.value)}`).join(' ') : ''}${shape.text === undefined ? '' : ` ${this.safe(JSON.stringify(shape.text))}`}`;
   }
   private tree(node: TreeNodeDescription, prefix = '', branch = ''): string {
     let output = `${prefix}${branch}${this.shape(node.shape)}\n`;
@@ -75,11 +75,18 @@ export class TextPresenter {
         return out;
       }
       case 'show':
-        return `${this.safe(data.shape.type)}#${this.safe(data.shape.id)}  parent=${data.parent.kind === 'root' ? 'svg' : `g#${this.safe(data.parent.id)}`}\n${data.shape.attributes.map((a) => `  ${this.safe(a.name)}=${this.safe(a.value)}\n`).join('')}${data.shape.text === undefined ? '' : `  text=${JSON.stringify(data.shape.text)}\n`}`;
+        return `${this.safe(data.shape.type)}#${this.safe(data.shape.id)}  parent=${data.parent.kind === 'root' ? 'svg' : `g#${this.safe(data.parent.id)}`}\n${data.shape.attributes.map((a) => `  ${this.safe(a.name)}=${this.safe(a.value)}\n`).join('')}${data.shape.text === undefined ? '' : `  text=${this.safe(JSON.stringify(data.shape.text))}\n`}`;
       case 'edit':
-        return `${data.facts.operation} ${data.facts.shapes.map((s) => `${this.safe(s.type)}#${this.safe(s.id)}`).join(', ')}\n`;
+        return data.facts.shapes
+          .map((shape) => {
+            const details = Object.entries(data.facts.details ?? {})
+              .map(([key, value]) => `${this.safe(key)}=${this.safe(JSON.stringify(value))}`)
+              .join(' ');
+            return `${this.shape(shape, `${this.safe(data.facts.action)}${details ? ` (${details})` : ''}`)}\n`;
+          })
+          .join('');
       case 'history':
-        return `${data.direction} ${data.description.operation} ${data.description.targetIds.map((id) => this.safe(id)).join(', ')}\n`;
+        return `${data.direction} ${data.description.operation} ${data.description.targetIds.map((id) => this.safe(id)).join(', ')}\n${data.shapes.map((shape) => `  ${this.shape(shape)}\n`).join('')}`;
       case 'canvas':
         return `canvas ${data.size.width}x${data.size.height}\n`;
       case 'document':

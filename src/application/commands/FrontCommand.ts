@@ -11,6 +11,11 @@ export class FrontCommand extends EditCommand {
   override run(doc: SvgDocument, tx: EditTransaction): EditFacts {
     const node = doc.require(this.#id);
     doc.bringToFront(tx, node);
-    return { operation: 'front', targetIds: [this.#id], shapes: [node.describe()] };
+    return {
+      operation: 'front',
+      action: 'brought to front',
+      targetIds: [this.#id],
+      shapes: [node.describe()],
+    };
   }
 }

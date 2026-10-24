@@ -57,6 +57,9 @@ export class CanvasRoot implements StateTarget, ContainerRef {
   captureState(): NodeMemento {
     return this.#state;
   }
+  describeTarget(): import('../values/contracts.js').StateTargetDescription {
+    return Object.freeze({ kind: 'canvas' });
+  }
   stateEquals(a: NodeMemento, b: NodeMemento): boolean {
     a.read(this);
     b.read(this);

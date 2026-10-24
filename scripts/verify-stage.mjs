@@ -13,6 +13,7 @@ const supported = [
   'M09',
   'M10',
   'M11',
+  'M12',
 ];
 if (!supported.includes(stage)) throw new Error(`Stage not established: ${stage}`);
 const commands =

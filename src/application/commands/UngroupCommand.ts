@@ -12,6 +12,6 @@ export class UngroupCommand extends EditCommand {
     const node = doc.require(this.#id);
     const shape = node.describe();
     doc.ungroup(tx, node);
-    return { operation: 'ungroup', targetIds: [this.#id], shapes: [shape] };
+    return { operation: 'ungroup', action: 'ungrouped', targetIds: [this.#id], shapes: [shape] };
   }
 }

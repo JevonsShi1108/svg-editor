@@ -1,4 +1,4 @@
-import type { DocumentId, Direction } from '../values/contracts.js';
+import type { DocumentId, Direction, ChangePreview } from '../values/contracts.js';
 import type { AppliedChange } from '../internal/protocols.js';
 import type { EditTransaction } from '../transactions/EditTransaction.js';
 export class ChangeSet {
@@ -29,7 +29,7 @@ export class ChangeSet {
             : 'forward',
       );
   }
-  describe(direction: Direction): readonly unknown[] {
+  describe(direction: Direction): ChangePreview {
     const records = direction === 'forward' ? this.#records : [...this.#records].reverse();
     return Object.freeze(
       records.map((r) =>

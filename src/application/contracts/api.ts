@@ -4,6 +4,7 @@ import type {
   DocumentDescription,
   ShapeDescription,
   TreeNodeDescription,
+  ChangePreview,
 } from '../../domain/values/contracts.js';
 import type { HistoryStatus, OperationDescription } from './history.js';
 export type EditRequest =
@@ -60,6 +61,7 @@ export interface SessionStatus {
   readonly history: HistoryStatus;
 }
 export interface EditFacts {
+  readonly action: string;
   readonly operation: string;
   readonly targetIds: readonly string[];
   readonly shapes: readonly ShapeDescription[];
@@ -89,7 +91,8 @@ export type ResultData =
       readonly kind: 'history';
       readonly direction: 'undo' | 'redo';
       readonly description: OperationDescription;
-      readonly changes: readonly unknown[];
+      readonly changes: ChangePreview;
+      readonly shapes: readonly ShapeDescription[];
     }
   | { readonly kind: 'help'; readonly commands: readonly CommandHelp[] };
 export type ExecutionResult =
@@ -106,7 +109,7 @@ export type ExecutionResult =
       readonly ok: true;
       readonly mode: 'dry-run';
       readonly wouldChange: boolean;
-      readonly preview: readonly unknown[];
+      readonly preview: ChangePreview;
       readonly warnings: readonly Diagnostic[];
       readonly status: SessionStatus;
     }

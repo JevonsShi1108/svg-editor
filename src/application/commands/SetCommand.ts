@@ -17,6 +17,7 @@ export class SetCommand extends EditCommand {
     node.set(tx, this.#attribute, this.#value);
     return {
       operation: 'set',
+      action: 'updated',
       targetIds: [node.id],
       shapes: [node.describe()],
       details: { attribute: this.#attribute, value: this.#value },

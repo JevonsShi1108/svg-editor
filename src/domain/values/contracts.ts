@@ -44,6 +44,27 @@ export interface OwnState {
 export type NumericRule = 'coordinate' | 'nonnegative' | 'positive';
 export type ContentModel = 'empty' | 'text' | 'container';
 export type Direction = 'forward' | 'backward';
+export type StateTargetDescription =
+  | { readonly kind: 'canvas' }
+  | { readonly kind: 'shape'; readonly type: string; readonly id: string };
+export interface PlacementDescription {
+  readonly parent: string | null;
+  readonly index: number;
+}
+export type ChangeDescription =
+  | {
+      readonly kind: 'state';
+      readonly target: StateTargetDescription;
+      readonly before: OwnStateDescription;
+      readonly after: OwnStateDescription;
+    }
+  | {
+      readonly kind: 'placement';
+      readonly id: string;
+      readonly from: PlacementDescription | null;
+      readonly to: PlacementDescription | null;
+    };
+export type ChangePreview = readonly ChangeDescription[];
 export type ShapeCreation =
   | {
       readonly type: 'circle';

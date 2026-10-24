@@ -1,12 +1,9 @@
 import type { SessionHead } from './protocols.js';
 import type { SessionStatus, ResultData, ExecutionResult, Diagnostic } from '../contracts/api.js';
 import { FrozenValue } from './FrozenValue.js';
+import type { ChangePreview } from '../../domain/values/contracts.js';
 export class ResultFactory {
-  static preview(
-    head: SessionHead,
-    wouldChange: boolean,
-    preview: readonly unknown[],
-  ): ExecutionResult {
+  static preview(head: SessionHead, wouldChange: boolean, preview: ChangePreview): ExecutionResult {
     return FrozenValue.freeze({
       ok: true as const,
       mode: 'dry-run' as const,

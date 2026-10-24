@@ -16,6 +16,7 @@ export class CreateCommand extends EditCommand {
     const node = doc.create(tx, this.#creation, parent);
     return {
       operation: 'create',
+      action: 'created',
       targetIds: [node.id],
       shapes: [node.describe()],
       ...(this.#parentId === undefined ? {} : { details: { parentId: this.#parentId } }),

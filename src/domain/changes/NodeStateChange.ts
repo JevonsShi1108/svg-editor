@@ -1,7 +1,7 @@
 import { Change } from './Change.js';
 import type { StateTarget, ReplayWriter } from '../internal/protocols.js';
 import type { NodeMemento } from '../values/NodeMemento.js';
-import type { Direction } from '../values/contracts.js';
+import type { Direction, ChangeDescription } from '../values/contracts.js';
 export class NodeStateChange extends Change {
   constructor(
     readonly target: StateTarget,
@@ -18,9 +18,10 @@ export class NodeStateChange extends Change {
       direction === 'forward' ? this.after : this.before,
     );
   }
-  override describe(direction: Direction): unknown {
+  override describe(direction: Direction): ChangeDescription {
     return Object.freeze({
       kind: 'state',
+      target: this.target.describeTarget(),
       before: this.target.describeState(direction === 'forward' ? this.before : this.after),
       after: this.target.describeState(direction === 'forward' ? this.after : this.before),
     });

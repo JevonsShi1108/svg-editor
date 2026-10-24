@@ -24,6 +24,7 @@ export class ShapeFactory {
     ['g', { schema: GroupShape.schema, construct: (...args) => new GroupShape(...args) }],
   ]);
   definition(type: string): Definition {
+    if (typeof type !== 'string') throw new DomainError('INVALID_VALUE', { field: 'type' });
     const definition = this.#definitions.get(type);
     if (!definition) throw new DomainError('UNKNOWN_SHAPE_TYPE', { type });
     return Object.freeze(definition);

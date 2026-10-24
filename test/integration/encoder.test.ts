@@ -1,15 +1,10 @@
 import { expect, it, describe } from 'vitest';
-import { DOMParser } from '@xmldom/xmldom';
+import { parseXml10 } from '../helpers/parse-xml10.js';
 import { XmlSvgEncoder } from '../../src/infrastructure/svg/XmlSvgEncoder.js';
 import { SvgDocumentBuilder } from '../../src/domain/document/SvgDocumentBuilder.js';
 import { defaultLimits } from '../../src/domain/values/defaultLimits.js';
 import { edit } from '../helpers/edit.js';
-const parse = (source: string) =>
-  new DOMParser({
-    onError: (level, message) => {
-      throw new Error(`${level}: ${message}`);
-    },
-  }).parseFromString(source, 'application/xml');
+const parse = parseXml10;
 const encodeText = (text: string) => {
   const builder = new SvgDocumentBuilder(defaultLimits);
   builder.append('text', 't', { attributes: { x: 1, y: 2 }, text });

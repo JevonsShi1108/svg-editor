@@ -20,15 +20,20 @@
 - M09 verified：saxes 严格 namespace/内容模型/DTD/PI 拒绝、两遍全局 ID、纯文本/CDATA、五项限额准入、六类往返与规范化。213 单元/回归、233 集成、15 性质各 2×50 次通过；root px 缺陷已有修复前失败及固定回归。
 - M10 verified：19 命令已绑定；真实 Codec+可控测试 FileStore 完成原子 read/save、保存点/dirty、三态、受控队列、完整 REG-STATE/REG-SAVE、poisoned read 恢复。214 单元/回归、261 集成、15 性质各 2×50 次通过。
 - M11 implemented_unverified：真实 NodeFileStore、编译 CLI 已实现；build/type/lint/format/deps、214 单元、15 性质、276 集成、1 编译进程 E2E 通过。必须 FS-10 的真实文件符号链接/悬空链接夹具在正常 Windows 环境也因 EPERM 不能创建（1 集成失败），阶段门禁退出 1，未记完成。已异步请求系统链接能力；同一断言保留，没有 skip 或改为人工。
-- M12—M15 planned：继续不依赖链接权限的协议、模型、覆盖率和报告工作；完整门禁仍必须等 FS-10。
+- M12 implemented_unverified：完整 19 命令手写 parse/bind 表、错误恢复、36 个 CLI set、终端转义、可定位的变化预览/历史摘要、PROP-16 与真实课程会话已完成。288 单元/回归、16 性质各 2×50 次及 7 编译进程 E2E 通过；集成唯一未通过项仍为 FS-10 系统能力。完整阶段门禁未关闭。
+- M13—M15 planned：继续独立模型、覆盖率和报告；完整门禁仍必须等 FS-10。
 
-最新下一动作：M12 完整 CLI 课程会话/输出/19 命令协议；同时等待用户解除真实文件符号链接权限缺失。M11 为如实记录能力阻塞的本地检查点，不能作为全绿候选。
+最新下一动作：M13 独立快照模型及可重放长序列；等待用户确认开发者模式已开启后复跑真实 FS-10。M11/M12 是如实记录能力阻塞的本地检查点，不能作为全绿候选。
 
 ## 决策
 
 采用 EXEC-P1 v1.0；Windows 是本轮必验平台，其他平台可选未执行。生产入口在 M11 接真实端口前不建立。
 
 ## 缺陷与下一动作
+
+REG-REQUEST-SHAPE-01：缺失/非字符串图形类型会使诊断参数违反纯标量契约；先保存失败日志 `artifacts/logs/REG-REQUEST-SHAPE-01-before.log`，再补类型验证及固定回归。M12 将 ChangePreview 明确为纯值联合，状态变化含目标 type/id，历史结果在发布前准备受影响图形的当前描述。
+
+M12 预言机校准：成功路径按已采纳 EXEC-P1 §4.7 的稳定绝对路径核对，保留 LAB 文件名和动态 5/7/8 计数；不把示例路径显示形式当成业务路径契约。独立 XML 库 xmldom 默认使用 XML 1.1 行尾规范化，现按 W3C XML 1.0 §2.11 配置仅 CRLF/CR→LF，并用 NEL/行分隔符/字符引用的手写测试校准；没有放宽文本保持预期。
 
 ENV-FS10：沙箱 AppContainer 临时目录原生 rename 也 EPERM，而项目目录内探针成功。获批普通 Windows 环境后，真实文件替换/编译 CLI 已通过；真实文件 symlink 仍 EPERM，说明还有系统链接能力缺失。实际失败在 `fs.symlink(target, link, 'file')`，尚未进入编辑器拒绝链接的断言。日志 `artifacts/logs/M11.log`（276 passed/1 failed）和 `M11-e2e.log`（1 passed）。保留此必须门禁，最小解除方式为 Windows 开发者模式或创建符号链接权限；不得用 mocked lstat 的通过替代真实夹具。
 

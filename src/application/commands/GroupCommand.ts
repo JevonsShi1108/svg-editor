@@ -20,6 +20,7 @@ export class GroupCommand extends EditCommand {
     );
     return {
       operation: 'group',
+      action: 'created',
       targetIds: [this.#newId, ...this.#ids],
       shapes: [group.describe()],
       details: { childCount: group.childCount },

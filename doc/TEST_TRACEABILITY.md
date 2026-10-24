@@ -1,6 +1,6 @@
 # Phase 1 测试追踪
 
-权威编号来自 `spec/SVG_Editor_Phase1_Test_Plan.md`；可执行追踪存 `traceability.json`，每条保留来源行、断言、required_by、gate_scope、状态、测试路径和证据。当前功能均 planned，不计通过。
+权威编号来自 `spec/SVG_Editor_Phase1_Test_Plan.md`；可执行追踪存 `traceability.json`，每条保留来源行、断言、required_by、gate_scope、状态、测试路径和证据。尚未完整核验的条目保持 planned；局部证据不计整条通过。
 
 M00 只执行工具链/文档初始化，无功能测试。最终门禁必须拒绝任何到期 local_required 缺少真实证据；candidate_verification 只由提交外最终收据关闭。
 
@@ -27,3 +27,5 @@ M06 应用切片证据：`test/unit/cli.test.ts` 35 个词法/请求/语法例�
 M05 历史证据：`test/unit/history.test.ts` 的 5 个真实用例覆盖 HIS-03/04/05/07/09/12/13 的 HistoryManager 层、ARCH-10/PERF-06 的栈结构与长链；使用真实 ChangeSet，两个不同类的同名节点恢复其原对象。dirty/revision/应用发布部分到 M06/M07/M10 才具备依赖。
 
 M04 领域结构证据：`test/unit/structure.test.ts` 的 19 个真实用例与 `test/property/structure.test.ts` 的 PROP-06/14/15；精确验证 REG-GROUP 的 index=3、Ungroup 的逐步 index=1/2/3、原对象 Undo/Redo、跨文档/过期计划和中途补偿。状态相关 STR/HIS/FAIL 子项在 M07 补齐。
+
+M12 协议证据：test/fixtures/cli-protocol.ts 为独立手写 19 命令及非法参数表；test/unit/cli-protocol.test.ts、terminal.test.ts、test/integration/cli-protocol.test.ts 覆盖 CLI-01—14/ERR-01—14 和全部 36 CLI set。test/e2e/lab.test.ts、output-failure.test.ts、smoke.test.ts 共 7 个真实进程用例通过 E2E-01—07；课程两份脚本在 test/fixtures/sessions/，other.svg 逐字来自 LAB。test/property/cli.test.ts 实际执行 PROP-16（2×50 次）。QRY 跨状态及其他尚待最终逐项审查的条目暂不提前关闭。

@@ -57,6 +57,9 @@ export abstract class Shape implements StateTarget {
   captureState(): NodeMemento {
     return this.#state;
   }
+  describeTarget(): import('../values/contracts.js').StateTargetDescription {
+    return Object.freeze({ kind: 'shape', type: this.#schema.type, id: this.id });
+  }
   stateEquals(a: NodeMemento, b: NodeMemento): boolean {
     a.read(this);
     b.read(this);

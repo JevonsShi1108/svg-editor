@@ -295,9 +295,17 @@
     "assertion": "空行、仅空白、`# comment`；分别在 empty、屏障、Redo 状态输入 | 无命令执行，无版本、屏障、历史变化 |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "CLI-02",
@@ -305,9 +313,17 @@
     "assertion": "`create rect r 0 0 10 10 #4a90d9` | # 颜色完整传入，不视为行内注释 |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "CLI-03",
@@ -315,9 +331,17 @@
     "assertion": "`create text t 1 2 \"a  in b # c 中文🙂\" in g1` | text 保留双空格/in/#/Unicode；只有末尾独立 in 子句被解析 |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "CLI-04",
@@ -325,9 +349,17 @@
     "assertion": "`create text t 1 2 \"\"`、前后带空格的文本 | 空串和前后空格按输入保留 |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "CLI-05",
@@ -335,9 +367,17 @@
     "assertion": "双引号未闭合、缺参数、多参数、残缺/重复 in | 一条语法诊断，原状态不变 |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "CLI-06",
@@ -345,9 +385,17 @@
     "assertion": "文件路径含空格；引号与反斜杠边界 | 传入 FileStore 的原始路径值正确；额外转义依 CFG-06 |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "CLI-07",
@@ -355,9 +403,17 @@
     "assertion": "19 个合法命令逐一 parse/bind | 得到人工列出的请求字段；不是“把同一 Catalog 输出再比较自己” |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "CLI-08",
@@ -365,9 +421,17 @@
     "assertion": "各命令少一参/多一参、未知命令 | 语法/未知命令错误；init/canvas/group 边界依 CFG-01/02 |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "CLI-09",
@@ -375,9 +439,17 @@
     "assertion": "数字 `10oops`、NaN、Infinity、空数字；API 传入非有限 number | 各入口都拒绝，不用 parseFloat 截断接受 |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "CLI-10",
@@ -385,9 +457,17 @@
     "assertion": "text/g 创建时附加 fill；line 可选颜色 | text/g 多参失败；line 颜色写 stroke，不写 fill |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "CLI-11",
@@ -395,9 +475,17 @@
     "assertion": "在无文档时执行所有依赖文档的请求 | 统一无文档错误；help 可用；init/read 可建立文档 |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "CLI-12",
@@ -405,9 +493,17 @@
     "assertion": "CLI create/group 不提供 ID | 语法失败，不自动命名；自动 ID 仅属于 SVG 导入 |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "CLI-13",
@@ -415,9 +511,17 @@
     "assertion": "每种用户错误后再执行合法查询/编辑 | REPL 与 Session 队列继续工作，不丢下一行 |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "CLI-14",
@@ -425,9 +529,17 @@
     "assertion": "已成功业务提交后 Presenter/stdout 抛错 | 不重新 execute、不回滚，不把输出错误映射为文件写失败 |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "DOC-01",
@@ -865,9 +977,17 @@
     "assertion": "ID 冲突 | `error: id already exists: r1` |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "ERR-02",
@@ -875,9 +995,17 @@
     "assertion": "图形不存在 | `error: no such shape: r9` |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "ERR-03",
@@ -885,9 +1013,17 @@
     "assertion": "in 目标不存在 | `error: no such container: node9` |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "ERR-04",
@@ -895,9 +1031,17 @@
     "assertion": "in 目标非容器 | `error: not a container: start` |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "ERR-05",
@@ -905,9 +1049,17 @@
     "assertion": "未知类型 | `error: unknown shape type: hexagon (is the plugin loaded?)` |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "ERR-06",
@@ -915,9 +1067,17 @@
     "assertion": "group 同选祖先和后代 | `error: cannot group a container into its own descendant: g1` |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "ERR-07",
@@ -925,9 +1085,17 @@
     "assertion": "顶层 ungroup | `error: cannot ungroup top-level container: scene` |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "ERR-08",
@@ -935,9 +1103,17 @@
     "assertion": "非正缩放因子 | `error: scale factor must be positive` |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "ERR-09",
@@ -945,9 +1121,17 @@
     "assertion": "无法读取 | `error: cannot read file: a.svg` |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "ERR-10",
@@ -955,9 +1139,17 @@
     "assertion": "确认未提交的写失败 | `error: cannot write file: a.svg` |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "ERR-11",
@@ -965,9 +1157,17 @@
     "assertion": "无文档 | `error: no document. use 'init' or 'read' first` |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "ERR-12",
@@ -975,9 +1175,17 @@
     "assertion": "未知属性 | `error: unknown attribute: bogus` |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "ERR-13",
@@ -985,9 +1193,17 @@
     "assertion": "Undo 被 IO 屏障阻止 | `error: undo not allowed after io command` |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "ERR-14",
@@ -995,9 +1211,17 @@
     "assertion": "补匿名 rect ID | `warning: assigned id rect1 to unnamed <rect>` |",
     "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/cli.test.ts",
+      "test/unit/cli-protocol.test.ts",
+      "test/unit/terminal.test.ts",
+      "test/integration/cli-protocol.test.ts",
+      "test/e2e/output-failure.test.ts"
+    ],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "STR-01",
@@ -2546,11 +2770,13 @@
     "id": "PROP-16",
     "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:963",
     "assertion": "同一初态下等价的 CLI/API 请求 | 结果文档和公开状态对应；不比较新建会话的内部 token |",
-    "required_by": "M13",
+    "required_by": "M12",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": ["test/property/cli.test.ts"],
+    "evidence": [
+      "M12 relevant suites passed; artifacts/logs/M12.log; full stage remains blocked only by FS-10"
+    ]
   },
   {
     "id": "MODEL-01",

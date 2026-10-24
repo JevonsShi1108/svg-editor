@@ -17,6 +17,7 @@ export class MoveCommand extends EditCommand {
     node.move(tx, this.#dx, this.#dy);
     return {
       operation: 'move',
+      action: 'moved',
       targetIds: [node.id],
       shapes: [node.describe()],
       details: { dx: this.#dx, dy: this.#dy },

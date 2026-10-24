@@ -1,7 +1,7 @@
 import { Change } from './Change.js';
 import type { Shape } from '../shapes/Shape.js';
 import type { Placement, ReplayWriter } from '../internal/protocols.js';
-import type { Direction } from '../values/contracts.js';
+import type { Direction, ChangeDescription } from '../values/contracts.js';
 export class PlacementChange extends Change {
   readonly from: Placement | null;
   readonly to: Placement | null;
@@ -22,7 +22,7 @@ export class PlacementChange extends Change {
       direction === 'forward' ? this.to : this.from,
     );
   }
-  override describe(direction: Direction): unknown {
+  override describe(direction: Direction): ChangeDescription {
     const describe = (p: Placement | null) =>
       p ? Object.freeze({ parent: p.parent.ownerShape?.id ?? null, index: p.index }) : null;
     return Object.freeze({

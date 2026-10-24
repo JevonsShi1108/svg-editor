@@ -11,6 +11,11 @@ export class BackCommand extends EditCommand {
   override run(doc: SvgDocument, tx: EditTransaction): EditFacts {
     const node = doc.require(this.#id);
     doc.sendToBack(tx, node);
-    return { operation: 'back', targetIds: [this.#id], shapes: [node.describe()] };
+    return {
+      operation: 'back',
+      action: 'sent to back',
+      targetIds: [this.#id],
+      shapes: [node.describe()],
+    };
   }
 }

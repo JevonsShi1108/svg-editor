@@ -12,6 +12,6 @@ export class DeleteCommand extends EditCommand {
     const node = doc.require(this.#id);
     const shape = node.describe();
     node.delete(tx);
-    return { operation: 'delete', targetIds: [this.#id], shapes: [shape] };
+    return { operation: 'delete', action: 'deleted', targetIds: [this.#id], shapes: [shape] };
   }
 }

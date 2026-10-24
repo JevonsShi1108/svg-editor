@@ -3,6 +3,7 @@ import type { NodeMemento } from '../values/NodeMemento.js';
 import type { Shape } from '../shapes/Shape.js';
 import type { MutationAuthority } from './MutationAuthority.js';
 export interface StateTarget {
+  describeTarget(): import('../values/contracts.js').StateTargetDescription;
   readonly ownerDocumentId: DocumentId;
   captureState(): NodeMemento;
   stateEquals(left: NodeMemento, right: NodeMemento): boolean;

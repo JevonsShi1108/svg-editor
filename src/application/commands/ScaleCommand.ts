@@ -15,6 +15,7 @@ export class ScaleCommand extends EditCommand {
     node.scale(tx, this.#factor);
     return {
       operation: 'scale',
+      action: 'scaled',
       targetIds: [node.id],
       shapes: [node.describe()],
       details: { factor: this.#factor },

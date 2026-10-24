@@ -15,6 +15,7 @@ export class AddToCommand extends EditCommand {
     doc.addTo(tx, node, doc.requireContainer(this.#containerId));
     return {
       operation: 'addto',
+      action: 'moved',
       targetIds: [this.#id],
       shapes: [node.describe()],
       details: { parentId: this.#containerId },

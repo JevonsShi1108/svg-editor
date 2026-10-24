@@ -300,13 +300,28 @@ export class EditorSession implements SessionExecutor {
         history,
         revision: before.revision + 1,
       });
+      const changes = entry.changes.describe(direction === 'undo' ? 'backward' : 'forward');
+      const affectedIds = new Set([
+        ...entry.description.targetIds,
+        ...changes.flatMap((change) =>
+          change.kind === 'placement'
+            ? [change.id]
+            : change.target.kind === 'shape'
+              ? [change.target.id]
+              : [],
+        ),
+      ]);
       result = ResultFactory.commit(
         next,
         {
           kind: 'history',
           direction,
           description: entry.description,
-          changes: entry.changes.describe(direction === 'undo' ? 'backward' : 'forward'),
+          changes,
+          shapes: [...affectedIds].flatMap((id) => {
+            const node = document.find(id);
+            return node ? [node.describe()] : [];
+          }),
         },
         true,
         true,
