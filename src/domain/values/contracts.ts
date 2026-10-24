@@ -46,6 +46,39 @@ export type ContentModel = 'empty' | 'text' | 'container';
 export type Direction = 'forward' | 'backward';
 export type ShapeCreation =
   | {
+      readonly type: 'circle';
+      readonly id: string;
+      readonly cx: number;
+      readonly cy: number;
+      readonly r: number;
+      readonly fill?: string;
+    }
+  | {
+      readonly type: 'ellipse';
+      readonly id: string;
+      readonly cx: number;
+      readonly cy: number;
+      readonly rx: number;
+      readonly ry: number;
+      readonly fill?: string;
+    }
+  | {
+      readonly type: 'line';
+      readonly id: string;
+      readonly x1: number;
+      readonly y1: number;
+      readonly x2: number;
+      readonly y2: number;
+      readonly stroke?: string;
+    }
+  | {
+      readonly type: 'text';
+      readonly id: string;
+      readonly x: number;
+      readonly y: number;
+      readonly text: string;
+    }
+  | {
       readonly type: 'rect';
       readonly id: string;
       readonly x: number;

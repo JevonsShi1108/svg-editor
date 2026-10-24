@@ -12,6 +12,7 @@
     "format:check": "prettier --check src test scripts *.json *.mjs AGENTS.md doc/PROGRESS.md doc/INPUT_PROFILE.md doc/TEST_TRACEABILITY.md doc/TEST_REPORT.md",
     "check:deps": "node scripts/check-deps.mjs",
     "test:unit": "vitest run test/unit",
+    "test:property": "vitest run test/property",
     "verify:stage": "node scripts/verify-stage.mjs",
     "verify": "node scripts/verify.mjs"
   },

@@ -6,4 +6,6 @@ ARCH-11 以三条实际禁止依赖验证检查器（含 domain→application �
 
 M02：`npm run verify:stage -- M02` 通过，87 tests / 2 files，失败 0、跳过 0；日志 `artifacts/logs/M02.log`。新增真实事务生命周期、prepared 回滚、跨文档、同 ID 大小写、独立索引/计数检查、不可变历史描述、资源限额和前写失败补偿。InvariantOracle 用损坏夹具验证重复父/循环入口/幽灵计数/错误索引会失败；生产未增加破坏入口。完整 Session 层、全部图形/结构及故障态测试仍 planned。
 
+M03：`npm run verify:stage -- M03` 通过，152 确定性测试 / 3 files，3 条性质 / 1 file，失败 0、跳过 0。六类型各根/组内 12 创建场景、36 set 组合逐条执行、TEST §7.4 的 move 与 scale 从独立初态手算验证。三级混合组、stroke-width/font-size 保留、空组非法因子、后段溢出/下溢回滚均执行。性质每条执行 local 50 次×2 seeds（20261025 及本次新 seed），真实参数和结果在 `artifacts/random/*.json`；本阶段总计 300 次。日志 `artifacts/logs/M03.log`。CLI/Session 跨入口完整预期仍待后续。
+
 最终候选将从精确 SHA 干净检出执行锁文件安装、构建、verify、release 随机和覆盖率；完整 SHA 和结果写入提交外收据。未执行推送、final 或用户验收。

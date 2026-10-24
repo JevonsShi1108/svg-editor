@@ -4,6 +4,10 @@ import type { ValueRules } from '../values/ValueRules.js';
 import type { Shape } from './Shape.js';
 import type { ShapeSchema } from './ShapeSchema.js';
 import { RectShape } from './RectShape.js';
+import { CircleShape } from './CircleShape.js';
+import { EllipseShape } from './EllipseShape.js';
+import { LineShape } from './LineShape.js';
+import { TextShape } from './TextShape.js';
 import { GroupShape } from './GroupShape.js';
 import { DomainError } from '../errors/DomainError.js';
 type Definition = {
@@ -12,13 +16,17 @@ type Definition = {
 };
 export class ShapeFactory {
   readonly #definitions = new Map<string, Definition>([
+    ['circle', { schema: CircleShape.schema, construct: (...args) => new CircleShape(...args) }],
+    ['ellipse', { schema: EllipseShape.schema, construct: (...args) => new EllipseShape(...args) }],
+    ['line', { schema: LineShape.schema, construct: (...args) => new LineShape(...args) }],
+    ['text', { schema: TextShape.schema, construct: (...args) => new TextShape(...args) }],
     ['rect', { schema: RectShape.schema, construct: (...args) => new RectShape(...args) }],
     ['g', { schema: GroupShape.schema, construct: (...args) => new GroupShape(...args) }],
   ]);
   definition(type: string): Definition {
     const definition = this.#definitions.get(type);
     if (!definition) throw new DomainError('UNKNOWN_SHAPE_TYPE', { type });
-    return definition;
+    return Object.freeze(definition);
   }
   create(type: string, id: string, owner: DocumentId, rules: ValueRules, state: OwnState): Shape {
     return this.definition(type).construct(id, owner, rules, state);
