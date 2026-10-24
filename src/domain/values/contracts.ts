@@ -44,3 +44,14 @@ export interface OwnState {
 export type NumericRule = 'coordinate' | 'nonnegative' | 'positive';
 export type ContentModel = 'empty' | 'text' | 'container';
 export type Direction = 'forward' | 'backward';
+export type ShapeCreation =
+  | {
+      readonly type: 'rect';
+      readonly id: string;
+      readonly x: number;
+      readonly y: number;
+      readonly width: number;
+      readonly height: number;
+      readonly fill?: string;
+    }
+  | { readonly type: 'g'; readonly id: string };

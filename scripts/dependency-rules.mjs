@@ -26,7 +26,6 @@ export const rules = {
       from: { path: '^test/model/' },
       to: { path: '^src/(?!application/contracts/|domain/values/contracts)' },
     },
-    { name: 'no-cycles', from: {}, to: { circular: true } },
   ],
   options: {
     tsPreCompilationDeps: true,

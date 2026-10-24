@@ -1,6 +1,6 @@
 import { spawnSync } from 'node:child_process';
 const stage = process.argv[2];
-const supported = ['M00', 'M01'];
+const supported = ['M00', 'M01', 'M02'];
 if (!supported.includes(stage)) throw new Error(`Stage not established: ${stage}`);
 const commands =
   stage === 'M00'

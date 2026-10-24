@@ -12,6 +12,22 @@ const actual = await cruise(['src'], {
 const report = JSON.parse(actual.output);
 if (report.summary.violations.length)
   throw new Error(JSON.stringify(report.summary.violations, null, 2));
+// SPEC interfaces refer to one another through types. Runtime imports must still be acyclic.
+const graph = new Map(
+  report.modules.map((m) => [
+    m.source,
+    m.dependencies.filter((d) => !d.dependencyTypes.includes('type-only')).map((d) => d.resolved),
+  ]),
+);
+const finished = new Set();
+const visitRuntime = (name, active = new Set()) => {
+  if (active.has(name)) throw new Error(`Runtime dependency cycle: ${name}`);
+  if (finished.has(name)) return;
+  const next = new Set(active).add(name);
+  for (const target of graph.get(name) ?? []) visitRuntime(target, next);
+  finished.add(name);
+};
+for (const name of graph.keys()) visitRuntime(name);
 const visitFiles = (directory) =>
   readdirSync(directory, { withFileTypes: true }).flatMap((entry) =>
     entry.isDirectory()
