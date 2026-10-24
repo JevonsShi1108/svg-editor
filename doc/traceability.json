@@ -1,0 +1,3222 @@
+[
+  {
+    "id": "CFG-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:100",
+    "assertion": "init/canvas 单尺寸参数 | 建议只接受 0 或 2 个尺寸，1 个报语法错误；无参 init 800×600，无参 canvas 查询已经确定 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CFG-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:101",
+    "assertion": "group 最小目标数 | 建议至少 2 个不同目标，与 LAB 的 id1/id2 语法一致；0/1/2 个分别测试，1 个的预期取决于最终记录 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CFG-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:102",
+    "assertion": "零尺寸、零半径、零笔画 | 建议画布宽高 >0，图形宽高/半径/stroke-width ≥0；负坐标允许。不要把所有数值一律要求 >0 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CFG-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:103",
+    "assertion": "数值词法、负零和下溢 | 建议完整十进制/科学计数解析；输入 -0 统一规范为 +0；对非零运算结果下溢成 0 明确选择拒绝或允许并记录。NaN/Infinity/尾随垃圾/溢出拒绝已经确定 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CFG-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:104",
+    "assertion": "px 与 viewBox 词法 | 明确 SVG 长度是否接受显式 px；CLI 数字建议仅裸数；viewBox 分隔符和数值等价规则统一。百分比/em 与非规范坐标变换已确定拒绝 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CFG-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:105",
+    "assertion": "引号和转义 | 必须支持双引号与未闭合检测；建议只专门处理引号、反斜杠的转义，其他反斜杠保留字面含义。不要自动做 shell 展开；文本换行测试可通过 API/XML 输入 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CFG-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:106",
+    "assertion": "ID 词法 | 记录完整可接受集合，包含空串、空白、中文、首字符和长度规则；大小写敏感、不自动 trim、不自动修复非法显式 ID 已确定。建议先选明确的合法子集，避免各入口自行猜测 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CFG-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:107",
+    "assertion": "颜色词法及规范化 | 至少明确命名颜色、none、#RGB/#RRGGBB；#RGBA/#RRGGBBAA 是否支持、大小写是否规范化须记录；url()/var()/复杂 paint 拒绝已确定 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CFG-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:108",
+    "assertion": "缺省几何和画布尺寸推导 | 逐属性记录“可省略及默认值”或“必填”；记录缺失 width/height 能否由 viewBox 推导。允许缺省时必须保留显式存在性，不能由测试任意补齐 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CFG-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:109",
+    "assertion": "根与只读属性 schema | 列出根/g/叶各自允许的 fill、stroke、stroke-width、font-size、text-anchor、data-kind 等；尤其说明根 id、xmlns 声明、字体零值、data-kind 值和位置。根允许的继承属性不得丢失 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CFG-11",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:110",
+    "assertion": "文本内容模型与 XML 词法细节 | text 为纯文本；明确 CDATA/注释的处理、容器排版空白、XML 声明编码与版本、UTF-8 BOM；建议只接受 UTF-8、XML 1.0，CDATA 作为纯文本来源，不保留其字面形式 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CFG-12",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:111",
+    "assertion": "资源阈值与计量 | 生产阈值由 composition 统一确定；maxSvgBytes 用 UTF-8 字节，节点计数不含根，深度建议根=0、直接孩子=1；文本/属性长度建议按 Unicode 标量计数，并记录是否还有原始词法长度限制 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CFG-13",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:112",
+    "assertion": "SVG 输出的字节准入 | maxSvgBytes 在 SPEC 中是输入限制；单独决定 save 是否限制输出大小。不能因输入上限而擅自要求每次编辑重新编码全文，也不能自动断言大输出 save 必须失败 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CFG-14",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:113",
+    "assertion": "文件系统平台策略 | 明确支持的操作系统、相对路径的解析基点、符号链接目标处理、目录目标、临时文件命名与替换能力。普通文件原子替换三态契约已确定；symlink 策略不能由测试猜测 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CFG-15",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:114",
+    "assertion": "非规定文本、输出流与退出 | 建议正常结果到 stdout、诊断到 stderr；明确 EOF/致命呈现错误的进程行为。原文固定错误文本必须保留，不为每条 REPL 错误设计独立进程退出码 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CFG-16",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:115",
+    "assertion": "工具版本与多错误优先级 | Node、TS、XML 库和测试库锁版本；未规定的多重错误优先级先不锁死，需求用例采用单故障输入；最终确需优先级时集中记录 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CFG-17",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:116",
+    "assertion": "poisoned 的诊断元数据 | state=poisoned、dirty=null、受限操作已确定；故障转移时 revision 如何反映发布、history 诊断字段如何保留须记录，建议首次故障转移 revision +1，失败恢复尝试不再递增 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "INV-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:247",
+    "assertion": "根唯一、无父；叶子没有孩子 | 从 root 遍历并核对节点能力 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "INV-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:248",
+    "assertion": "每个活动图形恰有一个父容器 | 身份集合检测重复可达，核对 parent 与 children |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "INV-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:249",
+    "assertion": "不成环 | 按对象身份维护访问集；检测重复访问，不只看 ID |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "INV-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:250",
+    "assertion": "活动 ID 全局唯一、大小写敏感 | 遍历得到独立 Map |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "INV-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:251",
+    "assertion": "活动索引恰好对应可达树 | 核对索引大小、所有 key、每个 key 对应对象；额外核对已删除 ID 不可查 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "INV-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:252",
+    "assertion": "nodeCount 等于可达 Shape 总数 | 遍历计数，不含根 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "INV-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:253",
+    "assertion": "所有活动节点属于同一 Document，且 owner 自创建起不变 | 对比 ownerDocumentId；在删除、重挂和回放前后核对稳定身份 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "INV-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:254",
+    "assertion": "数值、文本、属性和结构资源合法 | 对照独立边界表和注入配额 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "INV-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:255",
+    "assertion": "节点自身状态不包含动态父子结构副本 | 快照/结构操作交叉检查与代码审查 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "INV-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:256",
+    "assertion": "命令结束后无遗留活动事务 | 再开始合法事务或下一次有效编辑应成功 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "INV-11",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:257",
+    "assertion": "分离子树内部 parent 可以保留，但都不是活动成员 | 删除组后分别检查每个后代 isAttached/index |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "INV-12",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:258",
+    "assertion": "查询及 DTO 修改不能修改文档 | 尝试修改返回嵌套数组/属性；再次查询仍原值 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CLI-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:372",
+    "assertion": "空行、仅空白、`# comment`；分别在 empty、屏障、Redo 状态输入 | 无命令执行，无版本、屏障、历史变化 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CLI-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:373",
+    "assertion": "`create rect r 0 0 10 10 #4a90d9` | # 颜色完整传入，不视为行内注释 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CLI-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:374",
+    "assertion": "`create text t 1 2 \"a  in b # c 中文🙂\" in g1` | text 保留双空格/in/#/Unicode；只有末尾独立 in 子句被解析 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CLI-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:375",
+    "assertion": "`create text t 1 2 \"\"`、前后带空格的文本 | 空串和前后空格按输入保留 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CLI-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:376",
+    "assertion": "双引号未闭合、缺参数、多参数、残缺/重复 in | 一条语法诊断，原状态不变 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CLI-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:377",
+    "assertion": "文件路径含空格；引号与反斜杠边界 | 传入 FileStore 的原始路径值正确；额外转义依 CFG-06 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CLI-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:378",
+    "assertion": "19 个合法命令逐一 parse/bind | 得到人工列出的请求字段；不是“把同一 Catalog 输出再比较自己” |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CLI-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:379",
+    "assertion": "各命令少一参/多一参、未知命令 | 语法/未知命令错误；init/canvas/group 边界依 CFG-01/02 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CLI-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:380",
+    "assertion": "数字 `10oops`、NaN、Infinity、空数字；API 传入非有限 number | 各入口都拒绝，不用 parseFloat 截断接受 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CLI-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:381",
+    "assertion": "text/g 创建时附加 fill；line 可选颜色 | text/g 多参失败；line 颜色写 stroke，不写 fill |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CLI-11",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:382",
+    "assertion": "在无文档时执行所有依赖文档的请求 | 统一无文档错误；help 可用；init/read 可建立文档 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CLI-12",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:383",
+    "assertion": "CLI create/group 不提供 ID | 语法失败，不自动命名；自动 ID 仅属于 SVG 导入 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CLI-13",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:384",
+    "assertion": "每种用户错误后再执行合法查询/编辑 | REPL 与 Session 队列继续工作，不丢下一行 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CLI-14",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:385",
+    "assertion": "已成功业务提交后 Presenter/stdout 抛错 | 不重新 execute、不回滚，不把输出错误映射为文件写失败 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DOC-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:393",
+    "assertion": "无参/双尺寸 init；对已有文档再 init | 默认 800×600；新 Document/State；空树；dirty=true；路径=null；清栈、init 屏障、revision+1 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DOC-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:394",
+    "assertion": "init 尺寸非法或候选构建失败 | 保留整个旧会话；empty 状态下仍为 empty |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DOC-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:395",
+    "assertion": "读取合法六类 SVG；分别有/无补 ID | 候选成功后统一替换；read 屏障、revision+1、路径更新；仅补 ID 时 dirty=true |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DOC-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:396",
+    "assertion": "canvas 无参及实际修改尺寸 | 无参纯查询；实变只改根尺寸和规范 viewBox，子图形各字段不变，清栈设屏障、revision+1 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DOC-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:397",
+    "assertion": "canvas 设置原尺寸，分别在 barrier 和有 Redo 时 | 完整无变化，不设/解屏障、不清 Redo、不增加 revision |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DOC-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:398",
+    "assertion": "save 显式路径后无参 save；read 新路径后无参 save；init 后无参 save | 总是使用最近成功路径；init 清路径；没有目标时失败，不猜文件名 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DOC-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:399",
+    "assertion": "相同内容/相同文件再次 read 或 init | 成功文档替换仍产生新文档身份、清历史与设屏障，不按内容相同优化成编辑 no-op |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DOC-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:400",
+    "assertion": "clean 文档再 save | 内容不变但会话提交：清栈、save 屏障、revision+1；dirty=false |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DOC-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:401",
+    "assertion": "有保存点和 Redo 时，canvas 输入负数/非有限数/零值边界（CLI 与 API） | 零值依 CFG-03；非法输入后根尺寸、规范 viewBox、子树、路径、dirty、U/R、屏障、revision 全不变 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CRT-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:409",
+    "assertion": "六种类型 × 默认根/指定 Group | 各字段和类型正确；挂父容器末尾；活动 ID、计数+1；一个 Undo 单元 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CRT-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:410",
+    "assertion": "rect/circle/ellipse 可选 fill；line 可选 stroke | 省略时属性缺失，指定时存在；不偷偷补 fill=black/stroke=none |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CRT-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:411",
+    "assertion": "创建嵌套 Group、空 Group、Group 中 text | 统一容器能力；text 是自身文本值，序列化为 XML 子文本 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CRT-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:412",
+    "assertion": "相同/不同类型复用活动 ID | 全局重复失败；已有树、索引、历史不变 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CRT-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:413",
+    "assertion": "`r1` 和 `R1` | 作为两个不同 ID；编辑与删除不串对象 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CRT-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:414",
+    "assertion": "`create box`、hexagon、未知 type 的结构化 API | unknown shape type，CLI 保留 plugin 后缀；不意外加载插件 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CRT-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:415",
+    "assertion": "in 目标不存在或为叶子 | 分别使用规定的 no such container / not a container |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CRT-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:416",
+    "assertion": "非法几何、颜色、文本及节点/深度超限 | 失败不留下半创建节点、活动索引或历史条目 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "CRT-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:417",
+    "assertion": "create→undo→redo；同一请求先 dry-run 再 commit | 恢复原位置；正式创建结果符合预览；临时节点不占用 ID |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "GEO-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:433",
+    "assertion": "上表所有叶子 move | 仅平移位置；line 两端都移动；文本内容/尺寸类属性不变 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "GEO-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:434",
+    "assertion": "上表所有叶子 scale | 位置与尺寸同乘，围绕文档原点；不围绕自身中心 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "GEO-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:435",
+    "assertion": "三级混合 Group move/scale，旁边有非目标子树 | 所有后代恰好变换一次；非目标节点不变；一条历史 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "GEO-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:436",
+    "assertion": "图形/祖先含 stroke-width=3、font-size=16 | move/scale 都不修改这两个属性或其存在性 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "GEO-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:437",
+    "assertion": "move 0 0、scale 1、空 Group 的合法变换 | 无内容变化；按空编辑规则处理屏障与 Redo |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "GEO-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:438",
+    "assertion": "空 Group 执行 scale 0/-1/NaN 或非法 move | 必须先校验参数并失败，不能因无孩子而成功 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "GEO-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:439",
+    "assertion": "F-OVERFLOW 执行 scale g 2 | a 的先前修改精确回滚；b 写入前拒绝；全部状态恢复 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "GEO-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:440",
+    "assertion": "move 的加法溢出；尺寸/radius 运算超界 | 同样失败原子；不是只检查输入有限就放行结果 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "GEO-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:441",
+    "assertion": "x=0.1、scale 3 后 undo/redo | before/after 数值精确恢复；不通过乘倒数实现撤销 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "GEO-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:442",
+    "assertion": "零几何、-0、subnormal、下溢和大有限数 | 按 CFG-03/04 的逐项规则；允许的退化值不应被错误统一拒绝 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "SET-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:461",
+    "assertion": "36 个合法组合逐行设置有效的新值 | 只改目标自身对应字段；历史一条；undo/redo 恢复 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "SET-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:462",
+    "assertion": "各类型设置另一类型专属属性，例如 circle.width、g.x | unknown attribute；不创建任意动态字段 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "SET-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:463",
+    "assertion": "g 设置 fill/stroke/stroke-width | 只改 g 自身；子节点显式样式不被覆写 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "SET-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:464",
+    "assertion": "缺失 fill→显式 black→undo→redo | 第一步是真变化；undo 恢复缺失；redo 恢复显式存在 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "SET-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:465",
+    "assertion": "同一显式属性设为同一规范值 | 真正 no-op；不清 Redo；有屏障时仅解屏障 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "SET-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:466",
+    "assertion": "set id/transform/style/font-size/text-anchor/data-kind/label | 当前 CLI 白名单均拒绝，即使导入可以保留部分只读属性 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "SET-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:467",
+    "assertion": "负尺寸、非有限、非法 paint、非法 XML 字符 | 共享值验证；保留原值、原属性存在性和全部会话状态 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "SET-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:468",
+    "assertion": "text 设置空串、中文/emoji、连续空格、&<> | 内容精确；查询与保存转义不改变真实文本 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "SET-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:469",
+    "assertion": "持有旧 describe/preview/历史 before 值后继续 set | 旧值不变化；没有共享可变属性 Map/数组 |",
+    "required_by": "M03",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "QRY-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:475",
+    "assertion": "tree 全文档，包括空树、空 Group、六类型 | 层级、顺序、类型、ID、画布及关键几何字段完整 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "QRY-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:476",
+    "assertion": "tree id | 只输出该节点与子孙，不混入兄弟；节点顺序真实 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "QRY-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:477",
+    "assertion": "show 各类型，父为根/Group | 父级正确，显式属性和文本正确；无 live 对象 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "QRY-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:478",
+    "assertion": "help 在 empty/ready/poisoned | 19 命令说明与语法正确；无业务状态改变 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "QRY-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:479",
+    "assertion": "有屏障/Redo 时多次 tree/show/help/canvas 查询 | 两栈、屏障、路径、dirty、revision 不变，不触发 save 或预览副作用 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "QRY-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:480",
+    "assertion": "统计含多层组、删除/undo 后的节点数 | 包括 g，不包括 root；LAB 的 5/7/8 仅在相应夹具状态下成立 |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ERR-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:488",
+    "assertion": "ID 冲突 | `error: id already exists: r1` |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ERR-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:489",
+    "assertion": "图形不存在 | `error: no such shape: r9` |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ERR-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:490",
+    "assertion": "in 目标不存在 | `error: no such container: node9` |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ERR-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:491",
+    "assertion": "in 目标非容器 | `error: not a container: start` |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ERR-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:492",
+    "assertion": "未知类型 | `error: unknown shape type: hexagon (is the plugin loaded?)` |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ERR-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:493",
+    "assertion": "group 同选祖先和后代 | `error: cannot group a container into its own descendant: g1` |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ERR-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:494",
+    "assertion": "顶层 ungroup | `error: cannot ungroup top-level container: scene` |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ERR-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:495",
+    "assertion": "非正缩放因子 | `error: scale factor must be positive` |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ERR-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:496",
+    "assertion": "无法读取 | `error: cannot read file: a.svg` |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ERR-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:497",
+    "assertion": "确认未提交的写失败 | `error: cannot write file: a.svg` |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ERR-11",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:498",
+    "assertion": "无文档 | `error: no document. use 'init' or 'read' first` |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ERR-12",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:499",
+    "assertion": "未知属性 | `error: unknown attribute: bogus` |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ERR-13",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:500",
+    "assertion": "Undo 被 IO 屏障阻止 | `error: undo not allowed after io command` |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ERR-14",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:501",
+    "assertion": "补匿名 rect ID | `warning: assigned id rect1 to unnamed <rect>` |",
+    "required_by": "M12",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "STR-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:517",
+    "assertion": "root=[A,B,C,D]；`group G D B` | root=[A,C,G]，G=[B,D]；忽略参数的反向顺序 |",
+    "required_by": "M04",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "STR-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:518",
+    "assertion": "root=[A,P,D,Z]，P=[B,C]；`group G D B` | root=[A,P,G,Z]，P=[C]，G=[B,D] |",
+    "required_by": "M04",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "STR-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:519",
+    "assertion": "root=[P,Q,Z]，P=[a,b]，Q=[c,d]；组 b,c | root=[P,Q,G,Z]，P=[a]，Q=[d]，G=[b,c]；最后第一层分支 Q 仍保留 |",
+    "required_by": "M04",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "STR-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:520",
+    "assertion": "最近公共父容器为内层 P，而不是 root | G 挂在 P；不把全部跨父分组提升到根 |",
+    "required_by": "M04",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "STR-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:521",
+    "assertion": "新组 ID 重复、重复目标、缺目标、目标数不合法 | 全失败；不留下空 G 或索引；数量边界依 CFG-02 |",
+    "required_by": "M04",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "STR-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:522",
+    "assertion": "同选容器及后代，参数顺序交换；选完整 Group 与无关叶子 | 前两例拒绝；后例合法，整棵 Group 子树保持完整 |",
+    "required_by": "M04",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "STR-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:523",
+    "assertion": "group 导致节点数或深度超限；已有 Redo | 原子拒绝，目标仍在原父/原序；Redo 保留 |",
+    "required_by": "M04",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "STR-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:524",
+    "assertion": "root=[P]；P=[L,G,R]，G=[u,v]；ungroup G | P=[L,u,v,R]，G 不在活动索引；undo 精确重建 P/G 与全部原位置 |",
+    "required_by": "M04",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "STR-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:525",
+    "assertion": "ungroup 根直接子 Group；目标为叶子或不存在 | 各自拒绝；顶层空 Group 也不能例外 |",
+    "required_by": "M04",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "STR-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:526",
+    "assertion": "解散嵌套空 Group / 单孩子 Group | 空组删除是实变，有一个 Undo 单元；单孩子占据组原位置 |",
+    "required_by": "M04",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "STR-11",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:527",
+    "assertion": "addto 跨父、同父中间、同父最后 | 跨父/中间移到目标末尾；同父最后为 no-op |",
+    "required_by": "M04",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "STR-12",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:528",
+    "assertion": "addto 自己到自己、祖先到后代、非法目标、目标超深 | 不产生环或半移走；所有状态保持 |",
+    "required_by": "M04",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "STR-13",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:529",
+    "assertion": "[A,B,C,D] 中 front B / back B；单兄弟/已经边界 | 分别 [A,C,D,B] / [B,A,C,D]；边界 no-op；只改同级顺序 |",
+    "required_by": "M04",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "STR-14",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:530",
+    "assertion": "缺失 fill 的节点从红组移到蓝组；旁边有显式 fill | 节点自身状态不补样式；显式 fill 不变；不承诺继承后的外观不变 |",
+    "required_by": "M04",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "STR-15",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:531",
+    "assertion": "delete 深层 Group | 整个子树退出活动索引/计数；外部节点不变；undo 一次完整恢复 |",
+    "required_by": "M04",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "STR-16",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:532",
+    "assertion": "创建合法 ID 为 `svg` 的普通图形，再编辑/删除它 | 操作该图形，根画布不受影响；未存在此 ID 时不能把字符串当根哨兵 |",
+    "required_by": "M04",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "STR-17",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:533",
+    "assertion": "删除组后逐个查原后代；再 undo/redo | 后代未活动时查不到；内部 parent 可保留，不能据 parent!=null 误判活动 |",
+    "required_by": "M04",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "HIS-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:604",
+    "assertion": "每种编辑分别执行→undo→redo | 一命令至多一个条目；恢复完整 before/after |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "HIS-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:605",
+    "assertion": "多步 group/delete 子树/递归 move | 一次 undo 完成整条命令，不暴露半恢复 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "HIS-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:606",
+    "assertion": "编辑 A,B；undo B；实变编辑 C | Redo B 被截断；undo C 返回 A 后状态 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "HIS-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:607",
+    "assertion": "有 Redo 后查询、失败编辑、合法 no-op | Redo 保留，能重放旧条目 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "HIS-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:608",
+    "assertion": "init/read/save/实际 canvas 成功后 undo/redo | 两栈清空，HISTORY_BLOCKED；下一条成功编辑解除 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "HIS-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:609",
+    "assertion": "屏障后空行/注释/查询/失败/dry-run | 全部不解屏障 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "HIS-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:610",
+    "assertion": "屏障后 move 0 0 或合法空组变换 | 解屏障但不创建历史；再 undo 为“空历史”，不是 HISTORY_BLOCKED |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "HIS-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:611",
+    "assertion": "同尺寸 canvas、clean save 再保存 | 前者不改屏障；后者仍重新设置 save 屏障 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "HIS-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:612",
+    "assertion": "删除旧 r1，创建不同类型的新 r1；双 undo/双 redo | 旧/新对象不混淆；历史按稳定身份重放 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "HIS-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:613",
+    "assertion": "保存点后编辑→undo→redo | dirty true→false→true；revision 每次成功增加 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "HIS-11",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:614",
+    "assertion": "保存点后 move +1 再 move -1 | 几何可相同，新的内容身份仍 dirty；不能按文件 hash 擅自判 clean |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "HIS-12",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:615",
+    "assertion": "无文档、屏障、无可撤销条目、无可重做条目 | 错误类别区分且状态不变；不要把空历史等同屏障 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "HIS-13",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:616",
+    "assertion": "old HistoryManager 引用、多次 afterEdit/afterUndo | 旧历史值不被修改；条目移动是同一对象；快照不随未来改变 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "TX-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:662",
+    "assertion": "active→prepare→commitPrepared | prepared 禁止新业务写入；提交后权限失效且下次事务可开始 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "TX-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:663",
+    "assertion": "active→rollback；prepared→rollback | 都恢复完整状态；prepared 回滚不能被仅允许 active 的断言错误阻断 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "TX-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:664",
+    "assertion": "committed/rolled-back tx 再调用 changeState/place | 拒绝，不改变文档 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "TX-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:665",
+    "assertion": "同文档嵌套 beginEdit | 拒绝；外层事务仍可完成或回滚 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "TX-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:666",
+    "assertion": "跨 Document 使用 tx/节点/容器/GroupPlan | 拒绝；两份文档都不变 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "TX-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:667",
+    "assertion": "Builder build 成功后再次修改/发布；把旧构建能力用于已发布文档 | 权限失效，不绕过事务 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "TX-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:668",
+    "assertion": "用其他 target 的 Memento 或过期 expected 状态回放 | 检出身份/状态不匹配；不按 SVG ID 猜测恢复目标 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "TX-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:669",
+    "assertion": "持有 ChangeSet、Memento、ChangePreview 后继续编辑 | 历史 before/after 不变；describeState 解释给定快照而非当前值 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "TX-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:670",
+    "assertion": "尝试从 Command/公共 API 获取 lease 控制端或原始 writer authority | 不可得；没有“持有普通 tx 就能无日志写字段”的接口 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "TX-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:671",
+    "assertion": "canvas 修改通过根状态事务；根状态准备失败 | 根与保存元数据原子恢复；成功不进入 Undo |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "TX-11",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:672",
+    "assertion": "删除、重挂、undo/redo 后核对 ownerDocumentId | 所有节点 owner 从创建起不变，分离不变成新文档节点 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "TX-12",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:673",
+    "assertion": "GroupPlan 同一窗口使用及过期/跨文档误用 | 成功计划不跨 await/后续命令缓存；越界使用被内部契约或架构审查检出 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAIL-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:683",
+    "assertion": "命令绑定/值校验，在事务前失败 | unchanged；领域/文件副作用为 0 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAIL-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:684",
+    "assertion": "原语日志位置预留/快照准备失败，尚未写入 | 当前原语无写入；此前完成原语完整补偿 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAIL-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:685",
+    "assertion": "复合命令第 k 个原语写前失败 | 已完成 1…k−1 逆序恢复；索引、计数、顺序和权限恢复 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAIL-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:686",
+    "assertion": "prepare 已完成，HistoryEntry/下一 HistoryManager 准备失败 | prepared 事务仍可回滚；没有“内容变了但历史没记”的状态 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAIL-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:687",
+    "assertion": "prepare 后下一 Head/完整结果 DTO 构造失败 | 完整回滚；revision、保存点和两栈保持 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAIL-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:688",
+    "assertion": "dry-run preview 构造失败 | 不返回残缺预览；回滚后 unchanged |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAIL-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:689",
+    "assertion": "undo 已回放部分记录，下一步受控中止 | 补偿实际方向；旧栈不移动；之后可再次 undo |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAIL-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:690",
+    "assertion": "redo 已回放部分记录，下一步受控中止 | 同上；不能重新执行业务命令“补救” |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAIL-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:691",
+    "assertion": "原始写入可能只完成一部分，无法证明恢复 | untrusted；poisoned；dirty=null，禁止继续编辑/保存 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAIL-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:692",
+    "assertion": "rollback/历史补偿本身失败 | 同上，不声称 unchanged |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAIL-11",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:693",
+    "assertion": "历史 DocumentId/StateId/条目对象/中间 expected 不匹配 | 内部不变量错误，按 poisoned 路径；不降级为 SHAPE_NOT_FOUND |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAIL-12",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:694",
+    "assertion": "poisoned 状态恢复 init/read 候选失败 | 保留故障态；不能只清错误标志后继续旧文档 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DRY-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:704",
+    "assertion": "每个 EditRequest 的合法实变参数 | 使用同样验证和领域逻辑；wouldChange=true；回滚后原会话不变 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DRY-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:705",
+    "assertion": "各合法 no-op | wouldChange=false；不创建历史，不增加 revision |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DRY-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:706",
+    "assertion": "处于 IO 屏障时 dry-run，含合法 no-op | 不解除屏障，与 commit 空编辑不同 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DRY-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:707",
+    "assertion": "已有 Redo 时 dry-run create/group/delete | Redo 完整保留；临时节点不在索引；后续 redo 成功 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DRY-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:708",
+    "assertion": "非法请求与中途失败 | 与正式执行相同的错误类别；完整恢复，无预览成功 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DRY-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:709",
+    "assertion": "preview 返回后再查询/编辑、尝试修改 preview | 预览仍描述候选结果，且不影响当前文档 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DRY-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:710",
+    "assertion": "dry-run 后在相同前置状态 commit 同请求 | 语义结果与预览一致；临时 ID 不造成重复冲突 |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DRY-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:711",
+    "assertion": "init/read/save/canvas/tree/show/help/undo/redo 使用 dry-run | 模式不支持，完整不变；不发起文件 IO |",
+    "required_by": "M07",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAULT-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:719",
+    "assertion": "所有编辑、undo/redo、save | 拒绝；不输出不可信 SVG，不进行保存 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAULT-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:720",
+    "assertion": "tree/show/canvas 查询 | 不读取不可信内容；返回故障诊断 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAULT-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:721",
+    "assertion": "help | 可用；状态仍 poisoned、dirty=null |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAULT-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:722",
+    "assertion": "合法 init | 发布全新可信文档；ready、dirty=true、路径清空、init 屏障 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAULT-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:723",
+    "assertion": "合法 read，有/无补 ID | 发布全新文档；read 屏障；dirty 由补 ID 决定 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FAULT-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:724",
+    "assertion": "非法 init/失败 read | 保留 poisoned；成功恢复前不允许绕过限制 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:738",
+    "assertion": "一个 SVG namespace 根；六类图形、嵌套组、空组 | decode 与人工 expected DTO 一致；children 顺序保留 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:739",
+    "assertion": "默认 namespace 与任意合法前缀映射到相同 SVG URI | 得到等价文档；不依前缀字符串识别图形 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:740",
+    "assertion": "缺/错 namespace、同 local name 不同 URI、局部将使用中的前缀重绑定到非 SVG URI | 明确拒绝；不按标签尾部名称误接受 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:741",
+    "assertion": "无 viewBox / `0 0 width height` / 数值等价的规范表示 | 接受；encode 统一生成规范 viewBox，画布不改变 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:742",
+    "assertion": "viewBox 原点非零、尺寸不等、数量错误、非有限数 | 拒绝；不静默重映射坐标 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:743",
+    "assertion": "根/组/叶上 transform，包括 translate(0,0)、scale(1) | 都拒绝；不因为恰好为恒等变换而放宽支持范围 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:744",
+    "assertion": "path/use/image/defs/foreignObject/script、嵌套 svg | 明确拒绝；不能丢元素后成功 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:745",
+    "assertion": "style/class/filter/clip-path/mask/href/事件属性、未知 data-* | 依严格白名单拒绝；已允许属性之外不透传 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:746",
+    "assertion": "根/Group/叶上的允许只读展示属性 | 按 CFG-10 验证后保留；编辑其他字段、undo/redo、保存都不丢 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:747",
+    "assertion": "父组显式 fill、子缺失 fill、另一个子显式 fill | 三者各自显式状态保留；不把继承结果写入子节点 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-11",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:748",
+    "assertion": "分别导入缺失 fill 与显式 fill=black | 两份语义和输出存在性可区分，不能折叠 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-12",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:749",
+    "assertion": "文本中文、emoji、空串、前后/连续空格、实体 | 解码后精确保留；无全局 trim |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-13",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:750",
+    "assertion": "字面 CR/CRLF 与 `&#xD;`；领域文本含真实 CR | 按 XML 行尾规则解码；需要保留的 CR 编码为字符引用 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-14",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:751",
+    "assertion": "U+0000、XML 禁止控制字符、未配对代理项 | 拒绝；合法补充平面字符保留 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-15",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:752",
+    "assertion": "大有限数、小非零数、非整小数 | 编码不固定小数截断；读回同一规范有限值 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-16",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:753",
+    "assertion": "encode 漂亮打印后查看 text | 只允许元素间格式化，不向 text 内插入额外空格/换行 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-17",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:754",
+    "assertion": "text 含 tspan/textPath/其他子元素 | 拒绝，不压平为纯文本 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-18",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:755",
+    "assertion": "非容器含图形孩子、容器内非排版文本、未知内容模型 | 明确拒绝；排版空白按 CFG-11 处理 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-19",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:756",
+    "assertion": "XML 注释、CDATA、不同引号/缩进/属性顺序 | 按 CFG-11 接受的形式规范化；不因此 semanticRepair=true |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-20",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:757",
+    "assertion": "`g data-kind=\"box\"`，放在非顶层 Group 内 | 普通 Group，保留标记；set label 仍拒绝；set fill 仅改自身；可按普通嵌套组 ungroup |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-21",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:758",
+    "assertion": "不闭合、多根、重复属性、未定义实体、末尾非空白垃圾 | 解码失败；read 旧会话不变，无部分警告 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-22",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:759",
+    "assertion": "合法 XML 声明与 xml-stylesheet/其他 PI | 声明按 CFG-11 接受；额外 PI 拒绝 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-23",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:760",
+    "assertion": "字节/节点/深度/文本/属性分别越限 | 可分类资源错误；不截断文档以宣称成功 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "XML-24",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:761",
+    "assertion": "直接调用 decode/encode | 不调用 FileStore，不写终端，不读 Session，不修改源描述 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ID-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:806",
+    "assertion": "前部匿名 rect，后部显式 rect1 | 匿名分配 rect2；后部 rect1 不变 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ID-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:807",
+    "assertion": "显式 rect1/rect3；两个匿名 rect | 依文档顺序分配 rect2、rect4 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ID-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:808",
+    "assertion": "显式 rect1 位于 circle 上，匿名 rect 在前 | 仍避开 rect1；预留是全局、跨类型的 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ID-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:809",
+    "assertion": "匿名 g 内匿名 rect/circle，后有匿名 rect | 按文档顺序；各标签编号独立；警告与实际节点匹配 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ID-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:810",
+    "assertion": "跨父/跨类型的显式重复 ID | 整份导入失败，没有补 ID 警告发布 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ID-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:811",
+    "assertion": "前段匿名、后段非法尺寸/结构/超限 | 丢候选和全部警告；旧会话不变 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ID-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:812",
+    "assertion": "失败 read 后再读同一合法匿名文件；重复独立读入 | 分配结果相同，不被上次编号器污染 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ID-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:813",
+    "assertion": "`id=\"\"`、非法显式 ID、仅空白 ID | 按 CFG-07 拒绝，不能当作“缺失”自动改名 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ID-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:814",
+    "assertion": "`r1` 与 `R1`，显式 ID 占用多个编号空洞 | 大小写敏感；精确保留显式值、跳过冲突 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ID-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:815",
+    "assertion": "全显式 ID，仅注释/排版/viewBox 规范化 | semanticRepair=false，读后 clean |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ID-11",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:816",
+    "assertion": "成功导入至少一个匿名节点 | semanticRepair=true，读后 dirty；成功 save 后 clean |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "SEC-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:849",
+    "assertion": "任意 DOCTYPE，包括不带实体的 DTD | 直接拒绝，不加载 DTD |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "SEC-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:850",
+    "assertion": "内部实体、小型递归/扩展实体样例 | 拒绝；不能启动不受控展开 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "SEC-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:851",
+    "assertion": "外部实体与外部 DTD，使用受控虚拟 URL/路径 | 拒绝；外部 resolver、网络、额外文件访问次数为 0 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "SEC-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:852",
+    "assertion": "script、事件属性、javascript:/url()/href、foreignObject | 严格 schema 拒绝，不透传到保存文件 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "SEC-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:853",
+    "assertion": "namespace 混淆、XInclude、同名异 URI 属性 | 拒绝，不按前缀或 local name 单独放行 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "SEC-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:854",
+    "assertion": "过深树、过长属性/文本、大量小节点 | 在配额边界分类拒绝，不能栈溢出/卡死后才失败 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "SEC-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:855",
+    "assertion": "错误文本中的换行、ANSI 控制字符、原始 XML | 诊断保持单行、无终端注入，不泄露原始内容/堆栈 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "SEC-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:856",
+    "assertion": "普通合法实体 `&amp;`、数值字符引用及纯文本 | 合法字符不被“禁所有实体”误拒绝 |",
+    "required_by": "M09",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "IO-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:880",
+    "assertion": "resolve 路径、最近成功路径、中文/空格路径 | Application 不自行使用 cwd/path API；失败不更改 currentPath |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "IO-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:881",
+    "assertion": "read 在读取/解码/补 ID 后校验/结果准备失败 | 当前文档和元数据全不变；不发布局部 warning；队列可继续 |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "IO-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:882",
+    "assertion": "save 无路径或 encode 失败 | replaceUtf8 调用 0 次；状态不变 |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "IO-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:883",
+    "assertion": "encode 成功，保存后 Head/结果准备失败 | replaceUtf8 仍 0 次，证明完整准备在外部提交之前 |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "IO-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:884",
+    "assertion": "temp create/write/close 失败或确认替换未发生 | 旧文件完整；not-committed；不发布预备保存状态 |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "IO-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:885",
+    "assertion": "replaceUtf8 committed | 文件新内容完整；只发布一次；原文档对象/当前内容身份不变 |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "IO-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:886",
+    "assertion": "replaceUtf8 indeterminate；或异常无法证明未替换 | 按不确定处理，不猜 OLD、不自动重试、不把内存标故障 |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "IO-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:887",
+    "assertion": "committed 后格式化/stdout 失败 | 已保存事实、路径、检查点、历史屏障和 revision 保留；不报 cannot write file |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "IO-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:888",
+    "assertion": "替换前清理 temp 失败；成功后诊断失败 | 不误删原目标；主错误不被掩盖；成功后不降格 not-committed |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "IO-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:889",
+    "assertion": "文件被其他进程在确认保存后修改 | savedStateId 仍表示最近确认保存点；当前阶段不自动监视/重算 dirty |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FS-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:897",
+    "assertion": "真实临时目录中的合法 UTF-8 SVG | 读取正确；多字节 Unicode 跨读取块也能正确解码 |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FS-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:898",
+    "assertion": "非法 UTF-8 字节、截断多字节序列 | 严格解码报错，不静默替成 U+FFFD |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FS-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:899",
+    "assertion": "不存在文件、目录误作文件、受控访问错误 | 分类读写错误，无旧会话改变 |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FS-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:900",
+    "assertion": "首次保存与覆盖已有普通文件 | 正确新建/替换，结果完整；不先删除旧目标 |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FS-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:901",
+    "assertion": "临时文件碰撞 | 独占创建不覆盖已有碰撞文件；处理方式按适配器策略 |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FS-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:902",
+    "assertion": "写入与 close 未完成时观察替换调用 | 不能提前替换；临时文件位于目标同目录 |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FS-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:903",
+    "assertion": "部分 temp 写、close 失败、确认替换未发生 | OLD 完整，尽力清理；只清理本操作拥有的 temp |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FS-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:904",
+    "assertion": "清理再次失败 | 保留主要阶段/错误；残留如实报告，不误删目标 |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FS-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:905",
+    "assertion": "stat 大小与实际流字节数不一致 | 按实际累计读取执行 maxSvgBytes，不能仅凭 stat 放行 |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FS-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:906",
+    "assertion": "普通路径/相对路径/符号链接/悬空链接 | 按 CFG-14 冻结策略逐项验证，不假定所有 OS 相同 |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "FS-11",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:907",
+    "assertion": "替换异常且无法确认目标是否改变 | indeterminate；不对文件实际内容作旧/新断言，应用行为同 IO-07 |",
+    "required_by": "M11",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "QUEUE-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:917",
+    "assertion": "用 Deferred 闸门阻塞 save 的 replace；随后排队 edit、query | 后续请求既不执行也不返回；释放后按入队顺序处理 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "QUEUE-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:918",
+    "assertion": "阻塞 read；排队查询/编辑/历史命令 | 所有类别同队列，不能读到候选半成品 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "QUEUE-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:919",
+    "assertion": "前任务返回用户错误/IO错误；后任务合法 | 后任务正常运行，Promise 链不永久 rejected |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "QUEUE-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:920",
+    "assertion": "入队后修改 caller request.shape、ids 数组、path 字段 | 实际执行采用入队时复制冻结的值 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "QUEUE-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:921",
+    "assertion": "不逐条 await，排队 delete r1、create 新 r1、move r1 | move 在执行时解析 ID，作用于新对象，不能捕获旧 Shape |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "QUEUE-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:922",
+    "assertion": "前序编辑后紧接 save；save 后再查询 | save 编码已提交前序内容；各 status 是各自完成时的独立快照 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "QUEUE-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:923",
+    "assertion": "save 三态逐一释放闸门 | 后任务分别从新 Head 或原 Head 继续；不因时间竞争提前放行 |",
+    "required_by": "M10",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PROP-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:948",
+    "assertion": "C 是成功实变、可撤销编辑 | undo(C(D)) 与 D 语义等价，身份/历史按规则；revision 增加。C 已清掉的旧 Redo 不要求恢复 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PROP-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:949",
+    "assertion": "对应 undo 后，该历史条目仍为 Redo 栈顶，且未建立屏障 | redo 后语义等于第一次 C 的 after；核心层复用相同条目/节点 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PROP-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:950",
+    "assertion": "从可信状态执行 EditRequest dry-run，且未发生不可信内部故障 | 成功或 effect=unchanged 时原会话不变；成功预览回滚后仍有效；同初态/依赖条件下紧接的成功 commit，其 contentChanged 与 wouldChange 对应。补偿失败按 poisoned 测试 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PROP-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:951",
+    "assertion": "合法混合 Group、合法变换 | Group 变换结果等于独立计算各叶子一次的结果，非后代不变 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PROP-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:952",
+    "assertion": "任意可信提交/普通失败/dry-run 后 | 可达节点集合、活动索引、父指针、计数满足独立 INV |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PROP-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:953",
+    "assertion": "合法结构重挂/分组/解组/重排 | 存活节点自身状态不变，顺序及归属按具体规则；不比较 computed style |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PROP-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:954",
+    "assertion": "D 属支持子集，encode(D) 满足 decode 配额 | decode(encode(D)) ≡ D，含存在性/只读属性/元数据，不含会话身份 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PROP-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:955",
+    "assertion": "X 是被支持且有足够配额的 SVG | N(N(X))=N(X)，N=encode∘decode；同时检查首次规范化语义 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PROP-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:956",
+    "assertion": "初态可信，且错误返回 effect=unchanged | 可信完整会话保持，后续合法请求可继续 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PROP-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:957",
+    "assertion": "已完成参数/合法性验证的真正 no-op | 不加 Undo、不清 Redo；屏障及 revision 按 §9.1 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PROP-11",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:958",
+    "assertion": "相同输入和支持规则 | 自动 ID、警告顺序及 semanticRepair 确定，不受以前失败影响 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PROP-12",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:959",
+    "assertion": "任意返回 DTO/preview | 调用者改动不影响核心；未来编辑不反向改变旧返回值 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PROP-13",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:960",
+    "assertion": "对两个不同叶子的独立合法字段修改 | 交换顺序后最终文档语义相同；不要求历史/token/revision 的中间序列相同 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PROP-14",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:961",
+    "assertion": "front/back/addto 目标不变，第一次成功 | 第二次相同操作无内容变化；若屏障已解除则无会话变化 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PROP-15",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:962",
+    "assertion": "任何成功的资源受限编辑/导入 | 活动规模、深度、文本及属性不超限；拒绝不得裁剪内容 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PROP-16",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:963",
+    "assertion": "同一初态下等价的 CLI/API 请求 | 结果文档和公开状态对应；不比较新建会话的内部 token |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MODEL-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1109",
+    "assertion": "对 §8、§9 的手算轨迹给出精确预期；作为状态机主入口 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MODEL-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1110",
+    "assertion": "参考模型不导入生产行为/事务/Codec，依赖检查验证 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MODEL-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1111",
+    "assertion": "分组最终树算法独立，跨父/反序/最后分支保留均覆盖 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MODEL-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1112",
+    "assertion": "故意失败命令确实执行，不能全部被 check 跳过 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MODEL-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1113",
+    "assertion": "记录有效操作类别、no-op、错误、屏障及 Redo 状态覆盖 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MODEL-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1114",
+    "assertion": "模型恢复快照和内容 token，不把 revision 回滚 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MODEL-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1115",
+    "assertion": "同名不同 testUid 重用、删除子树与回放被抽样到 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MODEL-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1116",
+    "assertion": "save 三态及 read semanticRepair 被建模，文件未知不冒称 OLD |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MODEL-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1117",
+    "assertion": "seed/path/replayPath 和具体最小命令序列可重放；保存失败步骤差异 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MODEL-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1118",
+    "assertion": "每个确认缺陷的缩减反例转为固定回归，修复后保留 |",
+    "required_by": "M13",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ARCH-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1206",
+    "assertion": "TypeScript strict、类层次、字段封装、一类一文件 | 类型检查、类/文件名检查 | 纯类型分组合理；不是贫血模型配外部过程式内核 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ARCH-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1207",
+    "assertion": "依赖方向与类型归属 | dependency-cruiser，包括 type-only 和别名 | Domain 类型没有反向放进 application/contracts |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ARCH-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1208",
+    "assertion": "CLI 只负责适配 | 依赖规则、真实假端口执行 | 无图形编辑/历史/文件提交业务 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ARCH-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1209",
+    "assertion": "Command 实际落地 | 命令类与 Catalog 校验 | 不是空包装，Session 不再按所有 command 写第二套分派 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ARCH-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1210",
+    "assertion": "Composite | Group/叶子行为测试 | Group.move/scale 委托孩子；Group.set 自身语义；delete 用统一结构原语 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ARCH-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1211",
+    "assertion": "两处名称分派 | AST/文本搜索辅助清单 | Catalog/Factory 唯一映射；Codec/Presenter/Parser 无第三处按 tag 业务分派 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ARCH-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1212",
+    "assertion": "状态和副作用归属 | 多 Session 隔离、禁止 IO 模块依赖 | 无全局会话、无第二份可变 XML 属性表、无环境变量侵入 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ARCH-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1213",
+    "assertion": "运行期封装与公开能力 | exports/声明检查、DTO 修改负例 | 没有公开 live Document、原始 setter、authority 或 lease 控制端 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ARCH-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1214",
+    "assertion": "扩展点与范围 | 用 FakeCodec/FileStore 替换实现运行核心 | 不为了通过测试先做 box/动态插件/GUI；变化点按文档标注 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ARCH-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1215",
+    "assertion": "普通编辑成本和历史结构 | 编码调用检测、性能辅助证据 | 不全文复制/hash；不可变历史栈不每次复制整个数组 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "ARCH-11",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1216",
+    "assertion": "架构规则本身有效 | 独立违规 fixture 中植入禁止依赖，检查必报错 | 不因 glob/路径别名/构建目录排除失去约束 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "LIM-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1268",
+    "assertion": "maxSvgBytes，含中文/emoji | 按实际 UTF-8 字节限制；跨块多字节不误判；超限分类拒绝 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "LIM-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1269",
+    "assertion": "maxNodeCount，read/create/group | 按最终活动 Shape 计数，g 算、root 不算；临界成功/超限失败 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "LIM-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1270",
+    "assertion": "删除子树后再创建；历史持有已删对象 | 删除释放活动配额；历史保留对象不算活动节点 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "LIM-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1271",
+    "assertion": "maxTreeDepth，create in 深组 | 根/直接孩子深度按统一定义，恰好等于上限可接受 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "LIM-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1272",
+    "assertion": "addto 移动高子树至深容器 | 考虑整棵被移子树高度，不只看目标父深度 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "LIM-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1273",
+    "assertion": "group 包装导致深度增加 | 超限时不留下新组、不丢目标；失败保留 Redo |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "LIM-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1274",
+    "assertion": "maxTextLength，create/set/read | 同一计量单位，含 Unicode 区分样例，越限不截断 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "LIM-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1275",
+    "assertion": "maxAttributeLength，ID/paint/只读属性 | 按冻结适用范围一致检查，不被不同入口漏过 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "LIM-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1276",
+    "assertion": "会话创建后调用者修改原 limits 对象/环境变量 | 当前会话的规则不变；undo/redo 不受动态配置污染 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "LIM-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1277",
+    "assertion": "合法内存文档编码超过输入字节上限 | 再 decode 可明确超限；save 输出限制按 CFG-13；不裁剪、不要求每条编辑全文 encode |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PERF-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1287",
+    "assertion": "单叶 move/set 随无关文档规模增长 | 时间/分配趋势应无显著全文处理；明确禁止普通编辑调用 encode/hash/全树深拷贝 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PERF-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1288",
+    "assertion": "Group move/scale | 成本随涉及后代 k 增长，未涉及子树不遍历做业务修改 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PERF-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1289",
+    "assertion": "删除子树与索引维护 | 全部 k 个后代正确注销；不能为追求常数时间漏更新 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PERF-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1290",
+    "assertion": "同级重排/addto | 接受数组带来的 O(s)，检测重复无关全文扫描 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PERF-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1291",
+    "assertion": "group 宽树/跨父 | 记录 O(ks) 最坏增长可能；不错误要求所有情况 O(k) |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PERF-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1292",
+    "assertion": "长历史 push/pop 与 Undo/Redo | 栈头操作不复制全部历史；回放成本与实际变化/数组维护相称 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PERF-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1293",
+    "assertion": "decode/encode | 记录 B+n 规模趋势、峰值内存与配额拒绝，不声称任意复杂 SVG 都可处理 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "PERF-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1294",
+    "assertion": "文档操作设置屏障并清历史/实变编辑截断 Redo/替换文档后的引用释放 | 无永久全节点注册表；按可达引用解释内存保留 |",
+    "required_by": "M14",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1324",
+    "assertion": "front/back 首尾颠倒 | STR-13 |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1325",
+    "assertion": "group 按参数顺序，而非原文档顺序 | STR-01/02、REG-GROUP |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1326",
+    "assertion": "保存 G 最终索引覆盖创建时索引 | REG-GROUP undo |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1327",
+    "assertion": "delete 只注销 Group，不注销子孙 | STR-15/17、INV-05 |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1328",
+    "assertion": "历史根据 SVG ID 查当前对象 | HIS-09、同名不同代轨迹 |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1329",
+    "assertion": "undo scale 使用倒数 | GEO-09、PROP-01/02 |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1330",
+    "assertion": "把缺失 fill 当显式 black | SET-04、XML-11、PROP-07 |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1331",
+    "assertion": "成功 no-op 清 Redo 或加入 Undo | HIS-04/07、PROP-10 |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-09",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1332",
+    "assertion": "同尺寸 canvas 调用 afterEdit(null) | DOC-05、REG-STATE |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-10",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1333",
+    "assertion": "dry-run 解屏障或增加 revision | DRY-03/04 |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-11",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1334",
+    "assertion": "read 边读边补 ID/提前发 warning | ID-01/03/06/07 |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-12",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1335",
+    "assertion": "自动补 ID 后仍标 clean | ID-11、DOC-03 |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-13",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1336",
+    "assertion": "clean save 直接短路不设屏障 | DOC-08、HIS-08 |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-14",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1337",
+    "assertion": "indeterminate 自动重试或当 not-committed | IO-07、REG-SAVE |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-15",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1338",
+    "assertion": "stdout 失败时业务回滚 | IO-08、CLI-14 |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-16",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1339",
+    "assertion": "入队请求不复制或提前解析 Shape | QUEUE-04/05 |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-17",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1340",
+    "assertion": "删除 transform/未知属性后继续导入 | XML-06/08 |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-18",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1341",
+    "assertion": "在 text 内插入缩进或固定小数截断 | XML-15/16、PROP-07 |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-19",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1342",
+    "assertion": "prepare 后不可回滚/先提交再构造结果 | FAIL-04/05、TX-02 |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "MUT-20",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1343",
+    "assertion": "忽略 type-only 的依赖违规 | ARCH-02/11 的违规夹具 |",
+    "required_by": "M14",
+    "gate_scope": "optional",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DEL-01",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1464",
+    "assertion": "Git 历史体现增量开发，非 one-shot 大提交 | 有意义的功能/测试/修复提交及审查记录 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DEL-02",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1465",
+    "assertion": "代码推送远程仓库 | 远程可核对的对应提交 |",
+    "required_by": "M15",
+    "gate_scope": "after_user_acceptance",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DEL-03",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1466",
+    "assertion": "final tag 指向确实验证过的最终提交 | tag 目标 SHA 与报告一致；不能验证 A 却标记 B |",
+    "required_by": "M15",
+    "gate_scope": "after_user_acceptance",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DEL-04",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1467",
+    "assertion": "final tag 在课程截止前完成 | 按真实课程截止核对；来源未提供日期，不能自行补造 |",
+    "required_by": "M15",
+    "gate_scope": "after_user_acceptance",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DEL-05",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1468",
+    "assertion": "`doc/README.md` 格式与栏目完整 | 架构方案、过程记录、一致性自查、质量保证 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DEL-06",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1469",
+    "assertion": "架构图使用课程要求的 PlantUML 组件图/包图 | 源码/渲染与实际目录对应；本方案表格或其他图不替代该要求 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DEL-07",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1470",
+    "assertion": "实现与方案偏差已记录 | 模块、依赖、变化点、两处分派待演化说明 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  },
+  {
+    "id": "DEL-08",
+    "source": "doc/spec/SVG_Editor_Phase1_Test_Plan.md:1471",
+    "assertion": "从 final 对应干净检出可复现 | 锁依赖安装、构建、测试入口、fixture 和文档齐全 |",
+    "required_by": "M15",
+    "gate_scope": "local_required",
+    "status": "planned",
+    "tests": [],
+    "evidence": []
+  }
+]
