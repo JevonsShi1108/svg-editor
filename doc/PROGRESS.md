@@ -13,9 +13,10 @@
 - M02 verified：CanvasRoot、rect/g、独占 Builder、活动索引、两类 Change、EditTransaction/EditLease 和双向日志回放。87 个单元测试（含已有 76）；M02 阶段门禁通过。原对象/属性缺失/子树索引/父关系在 active 与 prepared 回滚后恢复，跨文档和过期能力拒绝。
 - M03 verified：六类图形、36 个 set 组合、Composite move/scale、自身样式及几何存在性。152 个确定性测试与 PROP-04/05/12 三条性质各固定 seed+新 seed×50 次通过；strict/lint/format/架构门禁通过。
 - M04 verified：完整结构编辑、LCA/原文档顺序分组、一次性 GroupPlan 生命周期、嵌套解组、重挂/层序/子树删除、最终配额。171 确定性用例与 6 条性质各 2×50 次通过；group/ungroup 多点前写故障及 prepare 后回滚通过。
-- M05—M15 planned：不得把本阶段门禁冒充整体完成。
+- M05 verified：不可变 HistoryEntry/双链栈头、屏障/no-op、文档/State/条目身份校验、连续性。176 确定性用例与 6 条性质各 2×50 次通过；10,000 条合法身份链的 push/pop 不复制整个历史。
+- M06—M15 planned：不得把本阶段门禁冒充整体完成。
 
-最新下一动作：M05 不可变历史值、内容身份和原对象双栈回放。
+最新下一动作：M06 私有 SessionHead、串行 execute、CommandCatalog 和最小 CLI 适配切片；正式入口留 M11 真端口装配。
 
 ## 决策
 

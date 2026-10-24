@@ -10,4 +10,6 @@ M03：`npm run verify:stage -- M03` 通过，152 确定性测试 / 3 files，3 �
 
 最终候选将从精确 SHA 干净检出执行锁文件安装、构建、verify、release 随机和覆盖率；完整 SHA 和结果写入提交外收据。未执行推送、final 或用户验收。
 
+M05：`npm run verify:stage -- M05` 通过，176 确定性用例 / 5 files、6 性质 / 2 files，失败 0、跳过 0；随机各 local 2×50 次。日志 `artifacts/logs/M05.log`。HistoryManager 旧值不变、栈顶原条目移动、空编辑仅解屏障、Redo 截断、身份不匹配、同 ID 两代真实对象双撤销重做及 10,000 条身份连续的历史链均执行；源码为 O(1) 栈头更新，未复制历史数组。
+
 M04：`npm run verify:stage -- M04` 通过，171 确定性用例 / 4 files、6 性质 / 2 files，失败 0、跳过 0；性质各 2×50 次（总 600）固定+新 seed。日志 `artifacts/logs/M04.log`；随机参数 `artifacts/random/`。STR-01—17 领域算法及 REG-GROUP 的三条精确位置日志已执行；跨父/内层 LCA/保留最后分支、顶层解组拒绝、空/单孩子解组、样式存在性、整棵子树索引与限额均覆盖。预留未来 Session 的 Redo/屏障断言，不在本阶段伪造。
