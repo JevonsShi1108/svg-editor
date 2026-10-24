@@ -11,3 +11,5 @@ M02 部分证据：`test/unit/core.test.ts`（11 个用例）通过真实 rect/g
 M03 领域子场景证据：`test/unit/shapes.test.ts` 含 6×2 创建、36×set、每叶 move/scale 独立手算、GEO-03—10/SET-02—09 相关领域断言；`test/property/geometry.test.ts` 实际运行 PROP-04/05/12。状态/CLI 相关子场景按 EXEC 仍留 M07/M12；不把领域组合完成冒充全部跨入口完成。
 
 合法延后范围：E2E-08 环境无法可视预览时 manual_acceptance；DEL-02/03/04 标签/推送/截止 after_user_acceptance；显式可选变异/额外平台 optional。其他必须项不允许擅自延后。
+
+M04 领域结构证据：`test/unit/structure.test.ts` 的 19 个真实用例与 `test/property/structure.test.ts` 的 PROP-06/14/15；精确验证 REG-GROUP 的 index=3、Ungroup 的逐步 index=1/2/3、原对象 Undo/Redo、跨文档/过期计划和中途补偿。状态相关 STR/HIS/FAIL 子项在 M07 补齐。

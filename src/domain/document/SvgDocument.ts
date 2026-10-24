@@ -7,7 +7,8 @@ import type {
   ShapeCreation,
   TreeNodeDescription,
 } from '../values/contracts.js';
-import type { ContainerRef, Placement, StateTarget } from '../internal/protocols.js';
+import type { ContainerRef, Placement, StateTarget, GroupPlan } from '../internal/protocols.js';
+import type { GroupShape } from '../shapes/GroupShape.js';
 import type { EditTransaction } from '../transactions/EditTransaction.js';
 import type { Shape } from '../shapes/Shape.js';
 import { CanvasRoot } from './CanvasRoot.js';
@@ -35,6 +36,8 @@ export class SvgDocument {
   readonly #factory: ShapeFactory;
   #active = false;
   #published = false;
+  #generation = 0;
+  readonly #plans = new WeakMap<GroupPlan, number>();
   constructor(
     limits: ResourceLimits,
     size: CanvasSize,
@@ -53,7 +56,10 @@ export class SvgDocument {
           throw new DomainError('INTERNAL_INVARIANT_ERROR', { reason: 'state mismatch' });
         validateState(target, next);
       },
-      writeState: (authority, target, next) => installState(authority, target, next),
+      writeState: (authority, target, next) => {
+        installState(authority, target, next);
+        this.#generation++;
+      },
       validatePlacement: (node, expected, next) => this.validatePlacement(node, expected, next),
       writePlacement: (authority, node, next) => this.writePlacement(authority, node, next),
     });
@@ -140,6 +146,111 @@ export class SvgDocument {
         attributes: { ...state.attributes, ...this.#rules.size(size) },
       }),
     );
+  }
+  planGroup(newId: string, selected: readonly Shape[]): GroupPlan {
+    this.#rules.id(newId);
+    if (this.find(newId)) throw new DomainError('DUPLICATE_ID', { id: newId });
+    if (selected.length < 2) throw new DomainError('INVALID_GROUP_SIZE');
+    const selection = new Set(selected);
+    if (selection.size !== selected.length) throw new DomainError('DUPLICATE_TARGET');
+    for (const node of selected) {
+      this.assertStateTarget(node);
+      for (
+        let ancestor = parentOf(node)?.ownerShape;
+        ancestor;
+        ancestor = parentOf(ancestor)?.ownerShape
+      )
+        if (selection.has(ancestor)) throw new DomainError('GROUP_ANCESTOR', { id: ancestor.id });
+    }
+    const parentPaths = selected.map((node) => {
+      const path: ContainerRef[] = [];
+      let current: ContainerRef | null = parentOf(node);
+      while (current) {
+        path.unshift(current);
+        current = current.ownerShape ? parentOf(current.ownerShape) : null;
+      }
+      return path;
+    });
+    let level = 0;
+    while (
+      parentPaths.every((path) => path[level] === parentPaths[0]![level]) &&
+      parentPaths[0]![level]
+    )
+      level++;
+    const parent = parentPaths[0]![level - 1]!;
+    let lastIndex = -1;
+    for (const node of selected) {
+      let branch = node;
+      while (parentOf(branch) !== parent) branch = parentOf(branch)!.ownerShape!;
+      lastIndex = Math.max(lastIndex, parent.childrenSnapshot().indexOf(branch));
+    }
+    const ordered: Shape[] = [];
+    const traverse = (container: ContainerRef) => {
+      for (const child of container.childrenSnapshot()) {
+        if (selection.has(child)) ordered.push(child);
+        const c = child.asContainer();
+        if (c) traverse(c);
+      }
+    };
+    traverse(parent);
+    if (this.nodeCount + 1 > this.#rules.limits.maxNodeCount)
+      throw new DomainError('RESOURCE_LIMIT', { field: 'nodes' });
+    if (
+      selected.some(
+        (node) => this.depth(parent) + 2 + this.height(node) > this.#rules.limits.maxTreeDepth,
+      )
+    )
+      throw new DomainError('RESOURCE_LIMIT', { field: 'depth' });
+    const plan: GroupPlan = Object.freeze({
+      documentId: this.documentId,
+      newId,
+      parent,
+      initialInsertionIndex: lastIndex + 1,
+      selectedInDocumentOrder: Object.freeze(ordered),
+    });
+    this.#plans.set(plan, this.#generation);
+    return plan;
+  }
+  group(tx: EditTransaction, plan: GroupPlan): GroupShape {
+    tx.assertDocument(this.documentId);
+    if (plan.documentId !== this.documentId || this.#plans.get(plan) !== this.#generation)
+      throw new DomainError('INTERNAL_INVARIANT_ERROR', { reason: 'expired group plan' });
+    this.#plans.delete(plan);
+    const group = this.#factory.create('g', plan.newId, this.documentId, this.#rules, {
+      attributes: {},
+    }) as GroupShape;
+    tx.place(group, { parent: plan.parent, index: plan.initialInsertionIndex });
+    for (const node of plan.selectedInDocumentOrder)
+      tx.place(node, { parent: group.asContainer(), index: group.childCount });
+    return group;
+  }
+  ungroup(tx: EditTransaction, group: Shape): void {
+    tx.assertTarget(group);
+    const container = group.asContainer();
+    if (!container) throw new DomainError('NOT_A_CONTAINER', { id: group.id });
+    const placement = this.placementOf(group)!;
+    if (placement.parent === this.root)
+      throw new DomainError('TOP_LEVEL_UNGROUP', { id: group.id });
+    while (container.childCount) {
+      const current = this.placementOf(group)!;
+      tx.place(container.childAt(0), { parent: current.parent, index: current.index });
+    }
+    group.delete(tx);
+  }
+  addTo(tx: EditTransaction, node: Shape, parent: ContainerRef): void {
+    tx.assertTarget(node);
+    const current = this.placementOf(node)!;
+    tx.place(node, { parent, index: parent.childCount - (current.parent === parent ? 1 : 0) });
+  }
+  bringToFront(tx: EditTransaction, node: Shape): void {
+    tx.assertTarget(node);
+    const current = this.placementOf(node)!;
+    tx.place(node, { parent: current.parent, index: current.parent.childCount - 1 });
+  }
+  sendToBack(tx: EditTransaction, node: Shape): void {
+    tx.assertTarget(node);
+    const current = this.placementOf(node)!;
+    tx.place(node, { parent: current.parent, index: 0 });
   }
   describeTree(node: Shape): TreeNodeDescription {
     return Object.freeze({
@@ -242,6 +353,7 @@ export class SvgDocument {
     installParent(authority, node, next?.parent ?? null);
     if (from && !next) for (const item of nodes) this.#index.delete(item.id);
     if (!from && next) for (const item of nodes) this.#index.set(item.id, item);
+    this.#generation++;
   }
   assertInvariants(): void {
     const seen = new Map<string, Shape>();

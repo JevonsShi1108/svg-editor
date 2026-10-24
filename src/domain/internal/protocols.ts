@@ -19,6 +19,13 @@ export interface Placement {
   readonly parent: ContainerRef;
   readonly index: number;
 }
+export interface GroupPlan {
+  readonly documentId: DocumentId;
+  readonly newId: string;
+  readonly parent: ContainerRef;
+  readonly initialInsertionIndex: number;
+  readonly selectedInDocumentOrder: readonly Shape[];
+}
 export interface ReplayWriter {
   state(target: StateTarget, expected: NodeMemento, next: NodeMemento): void;
   placement(node: Shape, expected: Placement | null, next: Placement | null): void;
