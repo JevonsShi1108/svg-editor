@@ -3366,9 +3366,9 @@
     "assertion": "### 9.3 REG-STATE",
     "required_by": "M10",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": ["test/integration/io-session.test.ts", "test/integration/queue-io.test.ts"],
+    "evidence": ["npm run verify:stage -- M10; artifacts/logs/M10.log"]
   },
   {
     "id": "REG-SAVE",
@@ -3376,8 +3376,8 @@
     "assertion": "### 12.5 REG-SAVE",
     "required_by": "M10",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": ["test/integration/io-session.test.ts", "test/integration/queue-io.test.ts"],
+    "evidence": ["npm run verify:stage -- M10; artifacts/logs/M10.log"]
   }
 ]

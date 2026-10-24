@@ -30,4 +30,6 @@ export interface CommandCoordinator {
   initialize(size: CanvasSize, mode: ExecuteMode): ExecutionResult;
   history(direction: 'undo' | 'redo', mode: ExecuteMode): ExecutionResult;
   canvas(size: CanvasSize | undefined, mode: ExecuteMode): ExecutionResult;
+  read(path: string, mode: ExecuteMode): Promise<ExecutionResult>;
+  save(path: string | undefined, mode: ExecuteMode): Promise<ExecutionResult>;
 }

@@ -1,6 +1,6 @@
 # Phase 1 测试报告
 
-当前：M09 阶段通过，完整验收尚未就绪；M10—M15 planned。M01 的 `npm run verify:stage -- M01` 实际执行 strict 类型检查、lint、格式、架构规则及 76 个非空单元测试。失败 0、跳过 0；值层覆盖 VAL-01—06、GEO-10、XML-14、LIM-07/08 的当前适用部分；跨入口完整用例仍按阶段补齐。
+当前：M10 阶段通过，完整验收尚未就绪；M11—M15 planned。M01 的 `npm run verify:stage -- M01` 实际执行 strict 类型检查、lint、格式、架构规则及 76 个非空单元测试。失败 0、跳过 0；值层覆盖 VAL-01—06、GEO-10、XML-14、LIM-07/08 的当前适用部分；跨入口完整用例仍按阶段补齐。
 
 ARCH-11 以三条实际禁止依赖验证检查器（含 domain→application 的纯类型和 domain→Node fs）。Snapshot 正反例分别检出顺序、根样式、文本空白和画布尺寸差异。预期来自手工表和 EXEC CFG，不调用生产校验器生成预期。
 
@@ -9,6 +9,8 @@ M02：`npm run verify:stage -- M02` 通过，87 tests / 2 files，失败 0、跳
 M03：`npm run verify:stage -- M03` 通过，152 确定性测试 / 3 files，3 条性质 / 1 file，失败 0、跳过 0。六类型各根/组内 12 创建场景、36 set 组合逐条执行、TEST §7.4 的 move 与 scale 从独立初态手算验证。三级混合组、stroke-width/font-size 保留、空组非法因子、后段溢出/下溢回滚均执行。性质每条执行 local 50 次×2 seeds（20261025 及本次新 seed），真实参数和结果在 `artifacts/random/*.json`；本阶段总计 300 次。日志 `artifacts/logs/M03.log`。CLI/Session 跨入口完整预期仍待后续。
 
 最终候选将从精确 SHA 干净检出执行锁文件安装、构建、verify、release 随机和覆盖率；完整 SHA 和结果写入提交外收据。未执行推送、final 或用户验收。
+
+M10：`npm run verify:stage -- M10` 通过，214 单元/回归 / 9 files、261 集成 / 8 files、15 性质 / 4 files 各 local 2×50 次；失败 0、跳过 0，日志 `artifacts/logs/M10.log`。真实 Codec 配可控 FileStore 验证 read 新身份/路径/警告/dirty，clean save 仍提交屏障，not-committed、committed、indeterminate（物理 OLD/NEW 两种）及未知异常分类；encode/下一 history/DTO 失败时 replace 调用 0。REG-STATE 15 步逐项断言版本/历史/dirty/路径；QUEUE 用 Deferred 闸门证明所有请求串行、数组/路径入队复制、EOF 等最终 save。poisoned 后 save 不编码/写端口，read 可建立新可信文档；提交后 stdout 失败不重试、不回滚。REG-CANDIDATE-01 有先失败后修复记录。真实 Node 文件端口/进程验证仍待 M11/M12。
 
 M09：`npm run verify:stage -- M09` 通过，213 单元/回归 / 8 files、233 集成 / 6 files（新增 124 Codec 场景）、15 性质 / 4 files 各 local 50×2 seeds，共 1,500 次；失败 0、跳过 0。日志 `artifacts/logs/M09.log`。独立手写描述、六类型/存在性/只读属性、纯文本和 XML 词法、namespace、安全拒绝表、跨类型/后部显式 ID 预留、候选局部警告、字节/节点/深度/片段累计文本/属性边界均执行。PROP-07/08/11 包括全六类型往返、首轮语义与规范化幂等、独立计算补 ID。REG-ROOT-PX-01 保留修复前失败日志；read 失败旧 Head/警告发布、dirty/保存点由 M10 验证，SEC-07 终端诊断由 CLI 检查补齐。
 

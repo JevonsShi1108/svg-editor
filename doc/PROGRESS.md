@@ -18,15 +18,18 @@
 - M07 verified：17 内存命令、canvas、真实 dry-run 回滚、no-op/屏障/身份/revision、部分回放补偿、poisoned 隔离与 init 恢复。212 单元/固定回归、90 集成、12 性质各 2×50 次通过；read/save 相关子项按 EXEC 留 M10。
 - M08 verified：独立 XmlSvgEncoder、共享 XML 字符规则、schema 属性元数据复用。212 单元/回归、109 集成（新增 19 编码独立预言机）、12 性质各 2×50 次通过；严格子集 decode 仍未接入。
 - M09 verified：saxes 严格 namespace/内容模型/DTD/PI 拒绝、两遍全局 ID、纯文本/CDATA、五项限额准入、六类往返与规范化。213 单元/回归、233 集成、15 性质各 2×50 次通过；root px 缺陷已有修复前失败及固定回归。
-- M10—M15 planned：不得把本阶段门禁冒充整体完成。
+- M10 verified：19 命令已绑定；真实 Codec+可控测试 FileStore 完成原子 read/save、保存点/dirty、三态、受控队列、完整 REG-STATE/REG-SAVE、poisoned read 恢复。214 单元/回归、261 集成、15 性质各 2×50 次通过。
+- M11—M15 planned：不得把本阶段门禁冒充整体完成。
 
-最新下一动作：M10 read/save 候选协议、保存点/dirty、保存三态和受控异步队列；正式入口仍留 M11 真端口装配。
+最新下一动作：M11 NodeFileStore 真实 UTF-8/同目录替换、故障端口与临时文件测试、首次编译 CLI 真端口装配。M10 只验应用协议，没有声称实际文件系统 E2E。
 
 ## 决策
 
 采用 EXEC-P1 v1.0；Windows 是本轮必验平台，其他平台可选未执行。生产入口在 M11 接真实端口前不建立。
 
 ## 缺陷与下一动作
+
+REG-CANDIDATE-01：审查并固定复现 init 候选准备内部错误会误 poison 原可信文档（`artifacts/logs/REG-CANDIDATE-01-before.log`）。修复为候选构建失败保留旧 Head；只有已发布文档的写入/回放完整性失败才转 poisoned。M10 read/save 的只读候选准备同样隔离。M10 新增 read 帮助的 `<file.svg>` 暴露提示符测试的子串误判；提示符断言改为行起始/实际 stdout 写调用，保持非 TTY=0、TTY=3 的原期望，不将合法帮助文本当提示符。
 
 REG-ROOT-PX-01：独立 XML 正例发现根 font-size="0px" 被按内存裸数误拒绝。先运行最小固定回归确认失败（`artifacts/logs/REG-ROOT-PX-01-before.log`），然后在 Decoder 用 CanvasRoot 同一 schema 进行 SVG 归一化再交 Builder；子节点和根保持同样规则，未放宽单位。
 

@@ -36,19 +36,22 @@ it('M06 real adapter → Session → Domain → history slice, errors do not dis
   expect(stdout).toContain('rect#r');
   expect(stdout).toContain('x=10');
   expect(stdout).toContain('parent=svg');
-  expect(stdout).not.toContain('svg>');
+  expect(stdout).not.toMatch(/(?:^|\n)svg> /);
   expect(stderr).toBe('error: no such shape: missing\n');
   expect(ports.calls).toEqual([]);
 });
 it('TTY prompts, while blank lines never execute or alter history', async () => {
   const { session, catalog } = sessionFixture();
   let stdout = '';
+  const writes: string[] = [];
   await new CliRepl(session, new CliParser(catalog)).run(lines(['', 'help']), {
     interactive: true,
     stdout: async (text) => {
       stdout += text;
+      writes.push(text);
     },
     stderr: async () => {},
   });
-  expect(stdout.match(/svg> /g)).toHaveLength(3);
+  expect(writes.filter((text) => text === 'svg> ')).toHaveLength(3);
+  expect(stdout).toContain('help');
 });

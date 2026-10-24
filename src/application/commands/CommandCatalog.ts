@@ -23,6 +23,8 @@ import { AddToCommand } from './AddToCommand.js';
 import { FrontCommand } from './FrontCommand.js';
 import { BackCommand } from './BackCommand.js';
 import { CanvasCommand } from './CanvasCommand.js';
+import { ReadCommand } from './ReadCommand.js';
+import { SaveCommand } from './SaveCommand.js';
 interface Definition {
   readonly help: CommandHelp;
   readonly fields: readonly string[];
@@ -35,6 +37,35 @@ export class CommandCatalog implements CommandParser {
   readonly #factory = new ShapeFactory();
   constructor(limits: ResourceLimits) {
     this.#rules = new ValueRules(limits);
+    this.add<Extract<CommandRequest, { command: 'read' }>>(
+      'read',
+      'read <file.svg>',
+      'Read strict SVG',
+      ['path'],
+      (a) => {
+        a.expect(1);
+        return { command: 'read', path: a.value(0) };
+      },
+      (r) => {
+        if (typeof r.path !== 'string') throw new EditorError('INVALID_VALUE');
+        return new ReadCommand(r.path);
+      },
+    );
+    this.add<Extract<CommandRequest, { command: 'save' }>>(
+      'save',
+      'save [file.svg]',
+      'Save current document',
+      ['path'],
+      (a) => {
+        a.expect(0, 1);
+        return { command: 'save', ...(a.tokens.length ? { path: a.value(0) } : {}) };
+      },
+      (r) => {
+        if (r.path !== undefined && typeof r.path !== 'string')
+          throw new EditorError('INVALID_VALUE');
+        return new SaveCommand(r.path);
+      },
+    );
     this.add<{ command: 'delete'; id: string }>(
       'delete',
       'delete <id>',

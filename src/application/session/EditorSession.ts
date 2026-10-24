@@ -17,6 +17,7 @@ import type { QueryCommand } from '../commands/QueryCommand.js';
 import type { CanvasSize } from '../../domain/values/contracts.js';
 import type { SvgDocument } from '../../domain/document/SvgDocument.js';
 import type { EditLease } from '../../domain/transactions/EditLease.js';
+import type { FilePath, WriteOutcome } from '../ports/FileStore.js';
 import { SvgDocumentBuilder } from '../../domain/document/SvgDocumentBuilder.js';
 import { ValueRules } from '../../domain/values/ValueRules.js';
 import { HistoryManager } from '../history/HistoryManager.js';
@@ -46,6 +47,8 @@ export class EditorSession implements SessionExecutor {
       initialize: (size: CanvasSize, mode: ExecuteMode) => this.#initialize(size, mode),
       history: (direction: 'undo' | 'redo', mode: ExecuteMode) => this.#history(direction, mode),
       canvas: (size: CanvasSize | undefined, mode: ExecuteMode) => this.#canvas(size, mode),
+      read: (path: string, mode: ExecuteMode) => this.#read(path, mode),
+      save: (path: string | undefined, mode: ExecuteMode) => this.#save(path, mode),
     });
   }
   execute(request: CommandRequest, options?: ExecuteOptions): Promise<ExecutionResult> {
@@ -85,24 +88,148 @@ export class EditorSession implements SessionExecutor {
   #initialize(size: CanvasSize, mode: ExecuteMode): ExecutionResult {
     this.#requireCommit(mode);
     const before = this.#head;
-    const document = new SvgDocumentBuilder(this.#dependencies.limits, size).build();
-    const next: SessionHead = Object.freeze({
-      document,
-      currentStateId: Symbol('state') as StateId,
-      savedStateId: null,
-      currentPath: null,
-      history: HistoryManager.empty().afterBarrier('init'),
-      revision: before.revision + 1,
-      health: 'ready',
-    });
-    const result = ResultFactory.commit(
-      next,
-      { kind: 'document', operation: 'init', size: document.root.size, nodeCount: 0 },
-      true,
-      true,
+    try {
+      const document = new SvgDocumentBuilder(this.#dependencies.limits, size).build();
+      const next: SessionHead = Object.freeze({
+        document,
+        currentStateId: Symbol('state') as StateId,
+        savedStateId: null,
+        currentPath: null,
+        history: HistoryManager.empty().afterBarrier('init'),
+        revision: before.revision + 1,
+        health: 'ready',
+      });
+      const result = ResultFactory.commit(
+        next,
+        { kind: 'document', operation: 'init', size: document.root.size, nodeCount: 0 },
+        true,
+        true,
+      );
+      this.#head = next;
+      return result;
+    } catch (error) {
+      return ResultFactory.failure(before, EditorError.from(error).diagnostic);
+    }
+  }
+  async #read(path: string, mode: ExecuteMode): Promise<ExecutionResult> {
+    this.#requireCommit(mode);
+    const before = this.#head;
+    let resolved: FilePath;
+    let source: string;
+    try {
+      resolved = this.#dependencies.files.resolve(path);
+      source = await this.#dependencies.files.readUtf8(
+        resolved,
+        this.#dependencies.limits.maxSvgBytes,
+      );
+    } catch (error) {
+      const diagnostic = EditorError.from(error).diagnostic;
+      return ResultFactory.failure(
+        before,
+        diagnostic.code === 'RESOURCE_LIMIT'
+          ? diagnostic
+          : new EditorError('FILE_IO_ERROR', { operation: 'read', path }).diagnostic,
+      );
+    }
+    try {
+      const decoded = this.#dependencies.codec.decode(source, this.#dependencies.limits);
+      const state = Symbol('state') as StateId;
+      const next: SessionHead = Object.freeze({
+        document: decoded.document,
+        currentStateId: state,
+        savedStateId: decoded.semanticRepair ? null : state,
+        currentPath: resolved,
+        revision: before.revision + 1,
+        history: HistoryManager.empty().afterBarrier('read'),
+        health: 'ready',
+      });
+      const result = ResultFactory.commit(
+        next,
+        {
+          kind: 'document',
+          operation: 'read',
+          size: decoded.document.root.size,
+          nodeCount: decoded.document.nodeCount,
+          path: resolved,
+        },
+        true,
+        true,
+        decoded.warnings,
+      );
+      this.#head = next;
+      return result;
+    } catch (error) {
+      return ResultFactory.failure(before, EditorError.from(error).diagnostic);
+    }
+  }
+  async #save(path: string | undefined, mode: ExecuteMode): Promise<ExecutionResult> {
+    this.#requireCommit(mode);
+    const before = this.#head;
+    const document = this.#requireDocument();
+    let resolved: FilePath;
+    if (path === undefined && before.currentPath === null) throw new EditorError('NO_SAVE_PATH');
+    const displayPath = path ?? before.currentPath!;
+    try {
+      resolved = path === undefined ? before.currentPath! : this.#dependencies.files.resolve(path);
+    } catch {
+      return ResultFactory.failure(
+        before,
+        new EditorError('FILE_IO_ERROR', { operation: 'write', path: displayPath }).diagnostic,
+      );
+    }
+    let next: SessionHead;
+    let result: ExecutionResult;
+    let source: string;
+    try {
+      source = this.#dependencies.codec.encode(document.describe());
+      next = Object.freeze({
+        ...before,
+        currentPath: resolved,
+        savedStateId: before.currentStateId,
+        history: before.history.afterBarrier('save'),
+        revision: before.revision + 1,
+      });
+      result = ResultFactory.commit(
+        next,
+        {
+          kind: 'document',
+          operation: 'save',
+          size: document.root.size,
+          nodeCount: document.nodeCount,
+          path: resolved,
+        },
+        false,
+        true,
+      );
+    } catch (error) {
+      return ResultFactory.failure(before, EditorError.from(error).diagnostic);
+    }
+    let outcome: WriteOutcome;
+    try {
+      outcome = await this.#dependencies.files.replaceUtf8(resolved, source);
+      if (!outcome || !['committed', 'not-committed', 'indeterminate'].includes(outcome.status))
+        throw new Error('Invalid write outcome');
+    } catch {
+      return ResultFactory.failure(
+        before,
+        new EditorError('SAVE_OUTCOME_UNKNOWN', { path: displayPath }).diagnostic,
+        'external-unknown',
+      );
+    }
+    if (outcome.status === 'committed') {
+      this.#head = next;
+      return result;
+    }
+    if (outcome.status === 'not-committed')
+      return ResultFactory.failure(
+        before,
+        new EditorError('FILE_IO_ERROR', { operation: 'write', path: displayPath }).diagnostic,
+      );
+    return ResultFactory.failure(
+      before,
+      new EditorError('SAVE_OUTCOME_UNKNOWN', { path: displayPath }).diagnostic,
+      'external-unknown',
     );
-    this.#head = next;
-    return result;
   }
   #query(command: QueryCommand, mode: ExecuteMode): ExecutionResult {
     this.#requireCommit(mode);
