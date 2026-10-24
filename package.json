@@ -18,6 +18,7 @@
     "test:unit": "vitest run test/unit test/regressions",
     "test:property": "vitest run test/property",
     "test:integration": "vitest run test/integration",
+    "test:model": "vitest run test/model-run",
     "verify:stage": "node scripts/verify-stage.mjs",
     "verify": "node scripts/verify.mjs"
   },

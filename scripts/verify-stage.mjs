@@ -14,6 +14,7 @@ const supported = [
   'M10',
   'M11',
   'M12',
+  'M13',
 ];
 if (!supported.includes(stage)) throw new Error(`Stage not established: ${stage}`);
 const commands =
@@ -42,6 +43,12 @@ if (stage >= 'M06') {
 }
 if (stage >= 'M11') {
   const result = spawnSync(process.execPath, [process.env.npm_execpath, 'run', 'test:e2e'], {
+    stdio: 'inherit',
+  });
+  if (result.status !== 0) process.exit(result.status ?? 1);
+}
+if (stage >= 'M13') {
+  const result = spawnSync(process.execPath, [process.env.npm_execpath, 'run', 'test:model'], {
     stdio: 'inherit',
   });
   if (result.status !== 0) process.exit(result.status ?? 1);

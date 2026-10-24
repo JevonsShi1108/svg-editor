@@ -21,9 +21,10 @@
 - M10 verified：19 命令已绑定；真实 Codec+可控测试 FileStore 完成原子 read/save、保存点/dirty、三态、受控队列、完整 REG-STATE/REG-SAVE、poisoned read 恢复。214 单元/回归、261 集成、15 性质各 2×50 次通过。
 - M11 implemented_unverified：真实 NodeFileStore、编译 CLI 已实现；build/type/lint/format/deps、214 单元、15 性质、276 集成、1 编译进程 E2E 通过。必须 FS-10 的真实文件符号链接/悬空链接夹具在正常 Windows 环境也因 EPERM 不能创建（1 集成失败），阶段门禁退出 1，未记完成。已异步请求系统链接能力；同一断言保留，没有 skip 或改为人工。
 - M12 implemented_unverified：完整 19 命令手写 parse/bind 表、错误恢复、36 个 CLI set、终端转义、可定位的变化预览/历史摘要、PROP-16 与真实课程会话已完成。288 单元/回归、16 性质各 2×50 次及 7 编译进程 E2E 通过；集成唯一未通过项仍为 FS-10 系统能力。完整阶段门禁未关闭。
-- M13—M15 planned：继续独立模型、覆盖率和报告；完整门禁仍必须等 FS-10。
+- M13 implemented_unverified：独立平面节点/快照模型通过手算结构、REG-STATE、同名 testUid 校准；297 单元/回归、7 个模型/回放/资源用例通过。ci 档 16 性质各 2×200 次，模型每 seed 100 条、最长实际达到 80 步（上限 80、≤40 活动节点），另有真实 Codec/FileStore 短序列各 200 次；无新增生产失败。整体仍因 FS-10 未关闭。
+- M14—M15 planned：继续覆盖率、性能、独立审查、完整追踪及报告。
 
-最新下一动作：M13 独立快照模型及可重放长序列；等待用户确认开发者模式已开启后复跑真实 FS-10。M11/M12 是如实记录能力阻塞的本地检查点，不能作为全绿候选。
+最新下一动作：M14 全生产覆盖率、性能和独立需求复核；等待用户确认开发者模式已开启后复跑真实 FS-10。M11/M12 是如实记录能力阻塞的本地检查点，不能作为全绿候选。
 
 ## 决策
 
@@ -44,3 +45,5 @@ REG-ROOT-PX-01：独立 XML 正例发现根 font-size="0px" 被按内存裸数�
 REG-LIMITS-01：审查发现空/缺字段 ResourceLimits 会绕过构造验证。先运行固定回归确认失败（`artifacts/logs/REG-LIMITS-01-before.log`），再要求恰好五个字段且各自为正安全整数。固定回归纳入 test:unit 的 test/regressions，不通过改预期修复。M07 全阶段门禁恢复绿色。
 
 M01 修正了检查器配置错误：dependency-cruiser API 必须在调用层开启 validate，规则集 options 不接受该字段；以真实禁止边确认修复。M02 审查补充拒绝继承自 Object 原型的伪属性；类型之间按 SPEC 互相引用，但运行期导入图单独检查无环，分层规则仍覆盖 type-only。M03 修正测试夹具的根追加索引手算错误：根已有 parent，因此新节点应在索引 1（LAB 规定追加）；组内首节点为 0，未修改正确的产品预期。M06 审查将 Session 的全部内部方法改为运行期 # 私有，防止绕过 execute 获得 live Document；负例已执行。
+
+M13 模型自检缺陷：REG-MODEL-ORACLE-01 依据 SPEC §6.1 / CFG-04 修正 empty dirty 和负零规范化；REG-MODEL-HARNESS-01 修正“注入 indeterminate 并不表示 save 已进入 IO”的文件核对条件。两者保留修复前日志、seed/path/replayPath、具体缩减请求和固定回归。v1 默认长度生成器失败已重放；v2 显式 size=max 保证实际长序列，旧反例可脱离生成器由具体请求回放。纯模型依赖只允许本目录和无行为类型；植入模型→Shape 的违规边已被实际检出。

@@ -23,8 +23,8 @@ export const rules = {
     { name: 'production-no-tests', from: { path: '^src/' }, to: { path: '(^|/)(test|tests)/' } },
     {
       name: 'model-independent',
-      from: { path: '^test/model/' },
-      to: { path: '^src/(?!application/contracts/|domain/values/contracts)' },
+      from: { path: '(^|/)test/model/' },
+      to: { pathNot: '^test/model/|^src/application/contracts/|^src/domain/values/contracts' },
     },
   ],
   options: {

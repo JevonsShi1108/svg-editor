@@ -3,7 +3,7 @@ import { readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import ts from 'typescript';
 import { rules } from './dependency-rules.mjs';
-const actual = await cruise(['src'], {
+const actual = await cruise(['src', 'test/model'], {
   ...rules.options,
   validate: true,
   ruleSet: rules,
@@ -46,7 +46,7 @@ for (const file of visitFiles('src').filter((f) => f.endsWith('.ts'))) {
     throw new Error(`One class / matching filename violated: ${file}`);
 }
 const base = 'artifacts/architecture-fixtures';
-for (const directory of ['domain', 'application', 'cli', 'infrastructure'])
+for (const directory of ['domain', 'application', 'cli', 'infrastructure', 'test/model'])
   mkdirSync(`${base}/${directory}`, { recursive: true });
 writeFileSync(
   `${base}/application/Contract.ts`,
@@ -64,12 +64,16 @@ writeFileSync(
   `${base}/cli/BadCli.ts`,
   "import type { Adapter } from '../infrastructure/Adapter.js'; export type BadCli = Adapter;\n",
 );
+writeFileSync(
+  `${base}/test/model/BadModel.ts`,
+  "import { Shape } from '../../../../src/domain/shapes/Shape.js'; export const forbidden = Shape;\n",
+);
 const bad = JSON.parse(
   (await cruise([base], { ...rules.options, validate: true, ruleSet: rules, outputType: 'json' }))
     .output,
 );
 const violations = bad.summary.violations;
-for (const name of ['domain-inward-only', 'cli-no-live-domain'])
+for (const name of ['domain-inward-only', 'cli-no-live-domain', 'model-independent'])
   if (!violations.some((v) => v.rule.name === name))
     throw new Error(`ARCH-11 fixture escaped ${name}`);
 if (

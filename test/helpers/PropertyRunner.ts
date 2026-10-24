@@ -1,5 +1,6 @@
 import fc from 'fast-check';
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 export class PropertyRunner {
   static async checkAsync<T>(name: string, property: fc.IAsyncProperty<T>): Promise<void> {
     const profile = this.profile();
@@ -14,26 +15,19 @@ export class PropertyRunner {
         seed,
         ...(path === undefined ? {} : { path }),
       });
-      writeFileSync(
-        `artifacts/random/${name}-${result.seed}.json`,
-        JSON.stringify(
-          {
-            name,
-            profile,
-            seed: result.seed,
-            path: result.counterexamplePath,
-            replayPath: null,
-            runs: result.numRuns,
-            skips: result.numSkips,
-            shrinks: result.numShrinks,
-            failed: result.failed,
-            counterexample: result.counterexample,
-            error: result.failed ? String(result.errorInstance) : null,
-          },
-          null,
-          2,
-        ),
-      );
+      this.save(name, result.seed, profile.name, {
+        name,
+        profile,
+        seed: result.seed,
+        path: result.counterexamplePath,
+        replayPath: null,
+        runs: result.numRuns,
+        skips: result.numSkips,
+        shrinks: result.numShrinks,
+        failed: result.failed,
+        counterexample: result.counterexample,
+        error: result.failed ? String(result.errorInstance) : null,
+      });
       console.log(
         `PROPERTY ${name} profile=${profile.name} seed=${result.seed} runs=${result.numRuns} failed=${result.failed}`,
       );
@@ -82,14 +76,38 @@ export class PropertyRunner {
         counterexample: result.counterexample,
         error: result.failed ? String(result.errorInstance) : null,
       };
-      writeFileSync(
-        `artifacts/random/${name}-${result.seed}.json`,
-        JSON.stringify(evidence, null, 2),
-      );
+      this.save(name, result.seed, profile.name, evidence);
       console.log(
         `PROPERTY ${name} profile=${profile.name} seed=${result.seed} runs=${result.numRuns} failed=${result.failed}`,
       );
       if (result.failed) throw result.errorInstance;
+    }
+  }
+  private static save(
+    name: string,
+    seed: number,
+    profile: string,
+    evidence: Record<string, unknown>,
+  ): void {
+    mkdirSync(`artifacts/random/${profile}`, { recursive: true });
+    const source = JSON.stringify(
+      {
+        ...evidence,
+        inputProfile: 'EXEC-P1 v1.0',
+        node: process.version,
+        lockSha256: createHash('sha256').update(readFileSync('package-lock.json')).digest('hex'),
+      },
+      null,
+      2,
+    );
+    writeFileSync(`artifacts/random/${name}-${seed}.json`, source);
+    writeFileSync(`artifacts/random/${profile}/${name}-${seed}.json`, source);
+    if (evidence.failed) {
+      mkdirSync('artifacts/random/failures', { recursive: true });
+      writeFileSync(
+        `artifacts/random/failures/${name}-${profile}-${seed}-${Date.now()}.json`,
+        source,
+      );
     }
   }
 }

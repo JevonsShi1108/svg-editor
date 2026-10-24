@@ -2784,9 +2784,22 @@
     "assertion": "对 §8、§9 的手算轨迹给出精确预期；作为状态机主入口 |",
     "required_by": "M13",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/model-calibration.test.ts",
+      "test/model-run/model.test.ts",
+      "test/model-run/resource.test.ts",
+      "test/model-run/real-io.test.ts",
+      "test/model-run/replay.test.ts",
+      "test/model-run/concrete.test.ts",
+      "test/regressions/model-harness.test.ts"
+    ],
+    "evidence": [
+      "npm run test:model (ci); artifacts/logs/M13-model-ci.log",
+      "npm run test:unit: 297 passed",
+      "npm run check:deps: 89 modules, model forbidden edge caught",
+      "artifacts/random/ci/MODEL-01-20261025.json; test/fixtures/regressions/"
+    ]
   },
   {
     "id": "MODEL-02",
@@ -2794,9 +2807,22 @@
     "assertion": "参考模型不导入生产行为/事务/Codec，依赖检查验证 |",
     "required_by": "M13",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/model-calibration.test.ts",
+      "test/model-run/model.test.ts",
+      "test/model-run/resource.test.ts",
+      "test/model-run/real-io.test.ts",
+      "test/model-run/replay.test.ts",
+      "test/model-run/concrete.test.ts",
+      "test/regressions/model-harness.test.ts"
+    ],
+    "evidence": [
+      "npm run test:model (ci); artifacts/logs/M13-model-ci.log",
+      "npm run test:unit: 297 passed",
+      "npm run check:deps: 89 modules, model forbidden edge caught",
+      "artifacts/random/ci/MODEL-01-20261025.json; test/fixtures/regressions/"
+    ]
   },
   {
     "id": "MODEL-03",
@@ -2804,9 +2830,22 @@
     "assertion": "分组最终树算法独立，跨父/反序/最后分支保留均覆盖 |",
     "required_by": "M13",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/model-calibration.test.ts",
+      "test/model-run/model.test.ts",
+      "test/model-run/resource.test.ts",
+      "test/model-run/real-io.test.ts",
+      "test/model-run/replay.test.ts",
+      "test/model-run/concrete.test.ts",
+      "test/regressions/model-harness.test.ts"
+    ],
+    "evidence": [
+      "npm run test:model (ci); artifacts/logs/M13-model-ci.log",
+      "npm run test:unit: 297 passed",
+      "npm run check:deps: 89 modules, model forbidden edge caught",
+      "artifacts/random/ci/MODEL-01-20261025.json; test/fixtures/regressions/"
+    ]
   },
   {
     "id": "MODEL-04",
@@ -2814,9 +2853,22 @@
     "assertion": "故意失败命令确实执行，不能全部被 check 跳过 |",
     "required_by": "M13",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/model-calibration.test.ts",
+      "test/model-run/model.test.ts",
+      "test/model-run/resource.test.ts",
+      "test/model-run/real-io.test.ts",
+      "test/model-run/replay.test.ts",
+      "test/model-run/concrete.test.ts",
+      "test/regressions/model-harness.test.ts"
+    ],
+    "evidence": [
+      "npm run test:model (ci); artifacts/logs/M13-model-ci.log",
+      "npm run test:unit: 297 passed",
+      "npm run check:deps: 89 modules, model forbidden edge caught",
+      "artifacts/random/ci/MODEL-01-20261025.json; test/fixtures/regressions/"
+    ]
   },
   {
     "id": "MODEL-05",
@@ -2824,9 +2876,22 @@
     "assertion": "记录有效操作类别、no-op、错误、屏障及 Redo 状态覆盖 |",
     "required_by": "M13",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/model-calibration.test.ts",
+      "test/model-run/model.test.ts",
+      "test/model-run/resource.test.ts",
+      "test/model-run/real-io.test.ts",
+      "test/model-run/replay.test.ts",
+      "test/model-run/concrete.test.ts",
+      "test/regressions/model-harness.test.ts"
+    ],
+    "evidence": [
+      "npm run test:model (ci); artifacts/logs/M13-model-ci.log",
+      "npm run test:unit: 297 passed",
+      "npm run check:deps: 89 modules, model forbidden edge caught",
+      "artifacts/random/ci/MODEL-01-20261025.json; test/fixtures/regressions/"
+    ]
   },
   {
     "id": "MODEL-06",
@@ -2834,9 +2899,22 @@
     "assertion": "模型恢复快照和内容 token，不把 revision 回滚 |",
     "required_by": "M13",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/model-calibration.test.ts",
+      "test/model-run/model.test.ts",
+      "test/model-run/resource.test.ts",
+      "test/model-run/real-io.test.ts",
+      "test/model-run/replay.test.ts",
+      "test/model-run/concrete.test.ts",
+      "test/regressions/model-harness.test.ts"
+    ],
+    "evidence": [
+      "npm run test:model (ci); artifacts/logs/M13-model-ci.log",
+      "npm run test:unit: 297 passed",
+      "npm run check:deps: 89 modules, model forbidden edge caught",
+      "artifacts/random/ci/MODEL-01-20261025.json; test/fixtures/regressions/"
+    ]
   },
   {
     "id": "MODEL-07",
@@ -2844,9 +2922,22 @@
     "assertion": "同名不同 testUid 重用、删除子树与回放被抽样到 |",
     "required_by": "M13",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/model-calibration.test.ts",
+      "test/model-run/model.test.ts",
+      "test/model-run/resource.test.ts",
+      "test/model-run/real-io.test.ts",
+      "test/model-run/replay.test.ts",
+      "test/model-run/concrete.test.ts",
+      "test/regressions/model-harness.test.ts"
+    ],
+    "evidence": [
+      "npm run test:model (ci); artifacts/logs/M13-model-ci.log",
+      "npm run test:unit: 297 passed",
+      "npm run check:deps: 89 modules, model forbidden edge caught",
+      "artifacts/random/ci/MODEL-01-20261025.json; test/fixtures/regressions/"
+    ]
   },
   {
     "id": "MODEL-08",
@@ -2854,9 +2945,22 @@
     "assertion": "save 三态及 read semanticRepair 被建模，文件未知不冒称 OLD |",
     "required_by": "M13",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/model-calibration.test.ts",
+      "test/model-run/model.test.ts",
+      "test/model-run/resource.test.ts",
+      "test/model-run/real-io.test.ts",
+      "test/model-run/replay.test.ts",
+      "test/model-run/concrete.test.ts",
+      "test/regressions/model-harness.test.ts"
+    ],
+    "evidence": [
+      "npm run test:model (ci); artifacts/logs/M13-model-ci.log",
+      "npm run test:unit: 297 passed",
+      "npm run check:deps: 89 modules, model forbidden edge caught",
+      "artifacts/random/ci/MODEL-01-20261025.json; test/fixtures/regressions/"
+    ]
   },
   {
     "id": "MODEL-09",
@@ -2864,9 +2968,22 @@
     "assertion": "seed/path/replayPath 和具体最小命令序列可重放；保存失败步骤差异 |",
     "required_by": "M13",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/model-calibration.test.ts",
+      "test/model-run/model.test.ts",
+      "test/model-run/resource.test.ts",
+      "test/model-run/real-io.test.ts",
+      "test/model-run/replay.test.ts",
+      "test/model-run/concrete.test.ts",
+      "test/regressions/model-harness.test.ts"
+    ],
+    "evidence": [
+      "npm run test:model (ci); artifacts/logs/M13-model-ci.log",
+      "npm run test:unit: 297 passed",
+      "npm run check:deps: 89 modules, model forbidden edge caught",
+      "artifacts/random/ci/MODEL-01-20261025.json; test/fixtures/regressions/"
+    ]
   },
   {
     "id": "MODEL-10",
@@ -2874,9 +2991,22 @@
     "assertion": "每个确认缺陷的缩减反例转为固定回归，修复后保留 |",
     "required_by": "M13",
     "gate_scope": "local_required",
-    "status": "planned",
-    "tests": [],
-    "evidence": []
+    "status": "verified",
+    "tests": [
+      "test/unit/model-calibration.test.ts",
+      "test/model-run/model.test.ts",
+      "test/model-run/resource.test.ts",
+      "test/model-run/real-io.test.ts",
+      "test/model-run/replay.test.ts",
+      "test/model-run/concrete.test.ts",
+      "test/regressions/model-harness.test.ts"
+    ],
+    "evidence": [
+      "npm run test:model (ci); artifacts/logs/M13-model-ci.log",
+      "npm run test:unit: 297 passed",
+      "npm run check:deps: 89 modules, model forbidden edge caught",
+      "artifacts/random/ci/MODEL-01-20261025.json; test/fixtures/regressions/"
+    ]
   },
   {
     "id": "ARCH-01",

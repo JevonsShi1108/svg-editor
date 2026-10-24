@@ -1,0 +1,97 @@
+{
+  "kind": "fixed-regression",
+  "defect": "model-harness-01",
+  "generatorVersion": "v1-default-size",
+  "profile": {
+    "name": "local",
+    "numRuns": 50,
+    "modelRuns": 30,
+    "maxCommands": 40,
+    "maxNodes": 30
+  },
+  "seed": 1875250422,
+  "path": "0:1:5:7:7:7",
+  "replayPath": "L:B",
+  "selection": "{\"kind\":17,\"a\":0,\"b\":80,\"value\":0,\"shape\":0} /*replayPath=\"L:B\"*/",
+  "steps": [
+    {
+      "request": {
+        "command": "init"
+      }
+    },
+    {
+      "request": {
+        "command": "create",
+        "shape": {
+          "type": "g",
+          "id": "P"
+        }
+      }
+    },
+    {
+      "request": {
+        "command": "create",
+        "shape": {
+          "type": "g",
+          "id": "Q"
+        }
+      }
+    },
+    {
+      "request": {
+        "command": "create",
+        "shape": {
+          "type": "rect",
+          "id": "a",
+          "x": 1,
+          "y": 2,
+          "width": 3,
+          "height": 4
+        },
+        "parentId": "P"
+      }
+    },
+    {
+      "request": {
+        "command": "create",
+        "shape": {
+          "type": "circle",
+          "id": "b",
+          "cx": 5,
+          "cy": 6,
+          "r": 7
+        },
+        "parentId": "Q"
+      }
+    },
+    {
+      "request": {
+        "command": "create",
+        "shape": {
+          "type": "text",
+          "id": "t",
+          "x": 8,
+          "y": 9,
+          "text": " a  in # 中文🙂 "
+        },
+        "parentId": "Q"
+      }
+    },
+    {
+      "request": {
+        "command": "save"
+      },
+      "outcome": "indeterminate",
+      "physical": true
+    }
+  ],
+  "limits": {
+    "maxNodes": 30,
+    "maxDepth": 5,
+    "maxSvgBytes": 1048576,
+    "maxTextLength": 1000,
+    "maxAttributeLength": 100
+  },
+  "node": "v24.14.0",
+  "lockSha256": "bd89a16d5c334879790a27628d0432c8c82e948f86faf4875513a96c0f798094"
+}

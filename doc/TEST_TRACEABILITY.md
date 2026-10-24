@@ -29,3 +29,5 @@ M05 历史证据：`test/unit/history.test.ts` 的 5 个真实用例覆盖 HIS-0
 M04 领域结构证据：`test/unit/structure.test.ts` 的 19 个真实用例与 `test/property/structure.test.ts` 的 PROP-06/14/15；精确验证 REG-GROUP 的 index=3、Ungroup 的逐步 index=1/2/3、原对象 Undo/Redo、跨文档/过期计划和中途补偿。状态相关 STR/HIS/FAIL 子项在 M07 补齐。
 
 M12 协议证据：test/fixtures/cli-protocol.ts 为独立手写 19 命令及非法参数表；test/unit/cli-protocol.test.ts、terminal.test.ts、test/integration/cli-protocol.test.ts 覆盖 CLI-01—14/ERR-01—14 和全部 36 CLI set。test/e2e/lab.test.ts、output-failure.test.ts、smoke.test.ts 共 7 个真实进程用例通过 E2E-01—07；课程两份脚本在 test/fixtures/sessions/，other.svg 逐字来自 LAB。test/property/cli.test.ts 实际执行 PROP-16（2×50 次）。QRY 跨状态及其他尚待最终逐项审查的条目暂不提前关闭。
+
+M13：test/model/ReferenceModel.ts 使用独立 flat testUid 记录、完整内容快照历史、内容 token；group 由数值路径和一次重建计算，未复制生产插组/逐点 Placement 算法。test/unit/model-calibration.test.ts 独立校准 STR-01—04、12 兄弟反选、REG-STATE 和同名身份。test/model-run/ 的模型、资源、实际文件、回放探针及具体反例共 7 例通过 ci 档。MODEL-01—10 现有自动证据闭合；原语 poison 的全部义务仍由确定性故障套件承担。check:deps 实际检查纯模型及其禁止边。

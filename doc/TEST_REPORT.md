@@ -1,6 +1,6 @@
 # Phase 1 测试报告
 
-当前：M10 已通过；M11/M12 已实现但必须 FS-10 真实链接夹具因系统 EPERM 未完成，完整验收尚未就绪；继续 M13—M15 的不受影响工作。M01 的 `npm run verify:stage -- M01` 实际执行 strict 类型检查、lint、格式、架构规则及 76 个非空单元测试。值层覆盖 VAL-01—06、GEO-10、XML-14、LIM-07/08 的当前适用部分；跨入口完整用例仍按阶段补齐。
+当前：M10 已通过；M11/M12 已实现但必须 FS-10 真实链接夹具因系统 EPERM 未完成，完整验收尚未就绪；继续 M14—M15 的不受影响工作。M01 的 `npm run verify:stage -- M01` 实际执行 strict 类型检查、lint、格式、架构规则及 76 个非空单元测试。值层覆盖 VAL-01—06、GEO-10、XML-14、LIM-07/08 的当前适用部分；跨入口完整用例仍按阶段补齐。
 
 ARCH-11 以三条实际禁止依赖验证检查器（含 domain→application 的纯类型和 domain→Node fs）。Snapshot 正反例分别检出顺序、根样式、文本空白和画布尺寸差异。预期来自手工表和 EXEC CFG，不调用生产校验器生成预期。
 
@@ -27,3 +27,5 @@ M05：`npm run verify:stage -- M05` 通过，176 确定性用例 / 5 files、6 �
 M04：`npm run verify:stage -- M04` 通过，171 确定性用例 / 4 files、6 性质 / 2 files，失败 0、跳过 0；性质各 2×50 次（总 600）固定+新 seed。日志 `artifacts/logs/M04.log`；随机参数 `artifacts/random/`。STR-01—17 领域算法及 REG-GROUP 的三条精确位置日志已执行；跨父/内层 LCA/保留最后分支、顶层解组拒绝、空/单孩子解组、样式存在性、整棵子树索引与限额均覆盖。预留未来 Session 的 Redo/屏障断言，不在本阶段伪造。
 
 M12 检查点（仍未关闭 FS-10）：288 单元/回归、16 条性质各 local 2×50 次、294 集成通过/1 系统链接失败、7 编译进程 E2E 通过，0 skip。日志 artifacts/logs/M12.log 与 M12-e2e.log。独立手写 19 命令字段/绑定及多参缺参表、36 个 CLI set、错误后恢复、empty/屏障/Redo 的空输入隔离、ERR 固定文案、C0/DEL/C1 转义、实际 stdout 断管后的保存保留和停止后续请求均核对。LAB §6 和 §6.1 A 夹具保留真实 5/7/8 计数，另用 1/2/3 节点排除硬编码；用独立 XML 解析实际落盘文件断言几何/父级/文本。PROP-16 比较等价 CLI/API 的完整结果、状态、文档及真实 Codec 输出。成功文件路径以 CFG 稳定绝对路径核对；XML 独立预言机按 XML 1.0 行尾规则校准，不用 XML 1.1 默认行为误改期望。
+
+M13：297 单元/回归、模型套件 7 例/5 files 通过，0 skip；ci 性质 16×2×200=6,400 次通过，模型每 seed 100 条/最大 80 步、实际固定 seed 最大 80 步共 3,988 个随机请求，另加每序列 6 个固定初始请求。固定宏覆盖全部 19 命令、no-op、Redo、屏障、保存三态物理 OLD/NEW 与补 ID；MODEL-IO 是独立真实临时文件短序列（每 seed 200 次）。日志 artifacts/logs/M13-model-ci.log、M13-property-ci.log，运行参数和分类计数在 artifacts/random/。MODEL-09 故意失败探针确认 shrinking、seed/path/replayPath 及具体最小 [2] 均可回放，探针成功不冒充产品缺陷；两个真实测试模型缺陷分别先失败、固定回归、修复，缩减请求跟踪在 test/fixtures/regressions/。当前未发现需要修改生产行为的新反例。完整 M13 阶段仍受 FS-10 真实链接能力阻塞，不宣称全绿。

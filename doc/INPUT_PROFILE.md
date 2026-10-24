@@ -145,3 +145,5 @@ Codex 在 M00 根据已有锁文件、实际运行环境和官方兼容性选择
 多重错误优先级未规定时，不新增复杂全局排序工程。使用确定验证流程，用单故障输入锁定固定错误；新增诊断由 Presenter 集中映射，不把 XML 库内部异常直接输出给用户。
 
 <a id="exec-05"></a>
+
+M13 随机实施：沿用 local=50/30×40/30 nodes、ci=200/100×80/40 nodes、release=1000/500×200/60 nodes。各固定 seed 20261025 加实际新 seed，纯模型 maxDepth=5；生产限额不变。状态机生成器 v2-max-size 使用 fast-check commands size=max，全部 check=true，非法操作真实执行；replay 的 FC_SEED/FC_PATH/FC_REPLAY_PATH 只用于 FC_TARGET=MODEL-01。旧 v1 反例保存完整具体请求，不依赖后续生成器。额外 MODEL-IO 用同档 numRuns 跑短真实文件序列。
