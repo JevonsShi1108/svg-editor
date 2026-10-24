@@ -60,3 +60,5 @@ verify、verify:stage、random:local/ci/release 都执行真实工具并保留�
 M15 交付产物检查点：doc/README.md 已按实际代码完成架构方案、过程记录、一致性自查与质量保证；doc/architecture.puml 经官方 PlantUML 1.2026.8 校验 jar 在本地 Java 实际渲染，图和源摘要记录于 architecture.meta.json。两个 8 节点代表 SVG 经实际编译 CLI 保存并读回，真实浏览器已观察位置/中文/层序/继承并保存 PNG，source/SVG/截图摘要见 doc/examples/preview.json；E2E-08 verified，不等于用户验收。预览原沙箱服务超时，获批普通 Windows 只读 loopback 服务成功。
 
 候选前 release 档已实际通过：16 性质各固定与新 seed ×1,000 次，模型每 seed 500×最多200命令/60节点，另有 MODEL-IO 每 seed 1,000 短真实文件序列；日志 artifacts/verification/latest-random-release.json。本轮无产品随机失败。完整 verify 当前仍仅因 FS-10 系统 EPERM 返回失败；Git 增量/报告/图/实现偏差四交付条目已核验，DEL-08 保持待最终收据。candidate:verify 会在干净精确 SHA 中实际 npm ci、build、verify（含覆盖率/性能/local随机）与 release，保留逐检查日志和10个闭合子项；不在被测提交中写自身SHA。
+
+REG-DIAGRAM-EOL-01：7702cb7 精确干净检出的图源校验实际失败：工作区 CRLF 摘要25df14…，Git LF blob 摘要b409bd…（artifacts/logs/REG-DIAGRAM-EOL-01-before.json）。修复生成器先按仓库 LF 规则规范图源，再真实渲染并计算摘要；来源版本摘要也以 Git LF blob 记载。生产 sourceDigest 在原工作区和该干净检出完全相同885072b0…，代表 SVG/浏览器证据未受影响。修复后 doc:diagram 实际成功，追踪仅保留FS-10失败；下一精确SHA仍须完整安装复验。

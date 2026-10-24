@@ -44,7 +44,7 @@ M15 交付产物检查点：doc/README.md 已按实际代码完成架构方案�
 
 候选前 release 档已实际通过：16 性质各固定与新 seed ×1,000 次，模型每 seed 500×最多200命令/60节点，另有 MODEL-IO 每 seed 1,000 短真实文件序列；日志 artifacts/verification/latest-random-release.json。本轮无产品随机失败。完整 verify 当前仍仅因 FS-10 系统 EPERM 返回失败；Git 增量/报告/图/实现偏差四交付条目已核验，DEL-08 保持待最终收据。candidate:verify 会在干净精确 SHA 中实际 npm ci、build、verify（含覆盖率/性能/local随机）与 release，保留逐检查日志和10个闭合子项；不在被测提交中写自身SHA。
 
-环境与来源绑定：Windows x64 / Node v24.14.0 / npm 11.9.0，TypeScript 5.9.3、Vitest/coverage-v8 5.0.5、fast-check 4.5.3、saxes 6.0.0、独立测试 XML 库 @xmldom/xmldom 0.9.12。锁文件 SHA-256 bd89a16d5c334879790a27628d0432c8c82e948f86faf4875513a96c0f798094。来源原文按初始 Git blob 保留，实际摘要：
+环境与来源绑定：Windows x64 / Node v24.14.0 / npm 11.9.0，TypeScript 5.9.3、Vitest/coverage-v8 5.0.5、fast-check 4.5.3、saxes 6.0.0、独立测试 XML 库 @xmldom/xmldom 0.9.12。锁文件 SHA-256 bd89a16d5c334879790a27628d0432c8c82e948f86faf4875513a96c0f798094。来源原文按初始 Git blob 保留；以下摘要按 Git 的 LF blob 计算，避免原始工作区行尾影响版本绑定：
 
 - doc/spec/phase_cli_1.md SHA-256 d8bbf9409a9596035f13ae809888c64e813ea76966b649911536da44eabc7f76
 - doc/spec/SVG_Editor_Phase1_Implementation_Spec.md SHA-256 1e6919c454e635f63137e89d3f303ac992e4fc9a5c91646289adb987ae5ecf92
@@ -52,3 +52,5 @@ M15 交付产物检查点：doc/README.md 已按实际代码完成架构方案�
 - doc/spec/SVG_Editor_Phase1_Codex_Execution_Plan.md SHA-256 99c600a60300d3157adb1d8db3efa87d98bc2665d0060c8676a8a3d8f0e00409
 
 M15 预提交 npm run verify 已实际运行，日志 artifacts/logs/M15-precommit-verify.log；类型/lint/格式/架构/性能通过，767 例中766通过/唯一FS-10失败/0跳过，追踪的315个到期本地条目仅FS-10未闭合，正常退出码1。此工作树含尚未提交的文档/收据脚本；不能将基准662dd4b伪称为这次精确被测提交。最后必要提交之后的准确SHA、clean_checkout及所有最终门禁只由提交外收据绑定。
+
+REG-DIAGRAM-EOL-01：7702cb7 精确干净检出的图源校验实际失败：工作区 CRLF 摘要25df14…，Git LF blob 摘要b409bd…（artifacts/logs/REG-DIAGRAM-EOL-01-before.json）。修复生成器先按仓库 LF 规则规范图源，再真实渲染并计算摘要；来源版本摘要也以 Git LF blob 记载。生产 sourceDigest 在原工作区和该干净检出完全相同885072b0…，代表 SVG/浏览器证据未受影响。修复后 doc:diagram 实际成功，追踪仅保留FS-10失败；下一精确SHA仍须完整安装复验。

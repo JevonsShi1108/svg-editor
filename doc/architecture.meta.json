@@ -4,7 +4,7 @@
   "url": "https://github.com/plantuml/plantuml/releases/download/v1.2026.8/plantuml-1.2026.8.jar",
   "jarSha256": "5e1ecfa8ecd32c90b03bbf3b1eb6f020943f98ab0fcf4032be31a0002ee2c462",
   "source": "doc/architecture.puml",
-  "sourceSha256": "25df14e84e743e718c6742f023fdabcd794a3558a65a399f7c14e055d0f731df",
+  "sourceSha256": "b409bd9c1fe006a51136a381c8cd36d24425c994f6eae088b9f2dfd89c5cbc78",
   "output": "doc/architecture.svg",
   "outputSha256": "83a3aa7426a24b71834e44d008bb2b53cf34fd30c0df3cdbdd7b75370923a4fa",
   "layout": "smetana",

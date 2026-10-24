@@ -6,6 +6,11 @@ const jarSha256 = '5e1ecfa8ecd32c90b03bbf3b1eb6f020943f98ab0fcf4032be31a0002ee2c
 const jar = `artifacts/tools/plantuml-${version}.jar`;
 const url = `https://github.com/plantuml/plantuml/releases/download/v${version}/plantuml-${version}.jar`;
 const hash = (bytes) => createHash('sha256').update(bytes).digest('hex');
+// Match the repository's LF checkout contract before rendering and hashing the source.
+writeFileSync(
+  'doc/architecture.puml',
+  readFileSync('doc/architecture.puml', 'utf8').replace(/\r\n?/g, '\n'),
+);
 mkdirSync('artifacts/tools', { recursive: true });
 if (!existsSync(jar)) {
   const response = await globalThis.fetch(url);
