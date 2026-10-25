@@ -2,7 +2,7 @@
 
 本项目是 TypeScript OO 的本地 CLI SVG 编辑器。实现 19 个命令、六类图形和 36 个合法 set 组合；以 Command、Composite、可补偿事务和身份历史维持编辑、撤销、预览及文件发布的一致性。产品基线来自原有 LAB 和 SPEC v1.0，测试编号来自 TEST v1.0，执行与 CFG 默认值按 EXEC-P1 v1.0，原文保存在 [spec](spec/)。外围选择见 [INPUT_PROFILE.md](INPUT_PROFILE.md)。
 
-本报告记录已经发生的验证。当前完整 767 例中 766 通过、1 项 FS-10 因 Windows 创建真实文件符号链接返回 EPERM 未通过，0 skip；尚未 READY_FOR_USER_REVIEW。最终提交 SHA、干净检出及 release 档的结果只写入提交外 `artifacts/acceptance/<完整SHA>.json`，以实际收据为准，不把本报告早期结果冒充最终验证。尚未推送、创建远程/PR、发布或创建/移动 final 标签；用户验收不由测试结果替代。
+本报告记录候选提交前已经发生的验证。2026-10-25 用户开启开发者模式后，原 FS-10 及同文件 19 项全部通过；完整 verify 的 767 项全部通过、0 failed、0 skip，315 个 local_required 全绿。此前系统 EPERM 与 BLOCKED 收据保留为过程证据。READY_FOR_USER_REVIEW 必须由最后提交后的精确 SHA 干净检出收据确认。最终提交 SHA、干净检出及 release 档的结果只写入提交外 `artifacts/acceptance/<完整SHA>.json`，以实际收据为准，不把本报告早期结果冒充最终验证。尚未推送、创建远程/PR、发布或创建/移动 final 标签；用户验收不由测试结果替代。
 
 ## 运行与复验
 
@@ -42,7 +42,7 @@ npm run random:release
 npm run candidate:verify -- <完整40位SHA>
 ```
 
-`verify:stage` 检查到期项；`verify` 包含 strict、lint、格式、依赖、构建、全部测试及 local 随机、覆盖率、性能和全部 local_required 追踪。它会保留每步退出码并继续独立检查，整体失败仍退出 1。重放诊断参数不允许带入完整门禁。每次运行在 `artifacts/verification/runs/` 独立保存日志和 JSON，`latest-*.json` 只是索引。FS-10 当前会令完整验证失败，不能以单独绿色子套件替代。
+`verify:stage` 检查到期项；`verify` 包含 strict、lint、格式、依赖、构建、全部测试及 local 随机、覆盖率、性能和全部 local_required 追踪。它会保留每步退出码并继续独立检查，整体失败仍退出 1。重放诊断参数不允许带入完整门禁。每次运行在 `artifacts/verification/runs/` 独立保存日志和 JSON，`latest-*.json` 只是索引。FS-10 的系统能力阻塞已解除，仍以完整门禁及新精确 SHA 收据判定候选。
 
 可独立运行 `test:unit`、`test:integration`、`test:e2e`、`test:property`、`test:model`、`test:coverage`、`test:performance`、`check:deps`、`check:traceability`。随机失败保存 seed/path/replayPath、初态、配额、最小具体请求和逐步差异；具体固定反例通过 `MODEL_REPLAY_FILE` 交给 `test:model`，生成器重放使用 `FC_TARGET`、`FC_SEED`、`FC_PATH`、`FC_REPLAY_PATH`，详细参数在失败 JSON 内。它们不适用于最终完整门禁。
 
@@ -94,7 +94,7 @@ CommandCatalog 与 ShapeFactory 的两处显式按名分派均为后续待重构
 
 - M00—M05：工具和 CFG、值/不变量、事务/两类记录、六图形、结构/LCA 与精确位置日志、O(1) 历史栈头。测试随每个增量接入，M00 明确没有功能测试。
 - M06—M10：Session 及 CLI 适配切片，完整内存编辑/no-op/dry-run/poisoned，独立 XML 编码预言机、严格解码与补 ID、真实 Codec 加可控边界端口的 read/save 三态与队列。
-- M11—M13：正式真实文件/编译 CLI、LAB 会话、全部命令协议、独立平面节点/快照状态机、seed/path/replayPath 与具体反例重放。FS-10 从发现系统能力缺失时一直保持必须失败项，未改为人工或 skip。
+- M11—M13：正式真实文件/编译 CLI、LAB 会话、全部命令协议、独立平面节点/快照状态机、seed/path/replayPath 与具体反例重放。FS-10 在系统能力缺失期间保持必须失败项；用户开启开发者模式后原断言通过，未改为人工或 skip。
 - M14：覆盖率、n/k/s/B 性能、架构植入负例、跨入口值与配额边界、逐编号复核及实际证据门禁；M15 补课程报告、PlantUML、真实浏览器预览和提交外精确版本收据。
 
 代表性缺陷均保留先失败后修复的日志和回归：REG-LIMITS-01 拒绝不完整 limits；REG-CANDIDATE-01 修正失败候选误 poison 旧可信文档；REG-ROOT-PX-01 统一根与孩子 font-size 的 px 归一化；REG-PREVIEW-SHAPE-01 补 dry create 内容摘要并保持旧历史摘要稳定；REG-ARCH-CORE-01 修正依赖库将 node:crypto 规范为 crypto 后的 Node core 规则缺口。
@@ -111,9 +111,9 @@ SPEC 已确认接口与权限保持；纯描述的 placement 摘要增加了受�
 
 ## 质量保证手段
 
-完整 V8 套件 767 项：766 passed、FS-10 1 failed、0 skip；单元/回归 318、集成 417、属性 16、模型/回放/资源 7、真实进程 E2E 9。性能另有 8 项。失败发生在 `fs.symlink(target, link, 'file')` 创建夹具处，尚未运行到真实链接拒绝断言；injected lstat 通过不能替代它。正常 Windows 的真实替换、严格 UTF-8、实际字节累积、碰撞/写/close/rename/清理错误和不确定物理 OLD/NEW 均有实际测试。
+本次 V8 套件 767 项：767 passed、0 failed、0 skip；单元/回归 318、集成 417、属性 16、模型/回放/资源 7、真实进程 E2E 9。性能另有 8 项。此前失败发生在 `fs.symlink(target, link, 'file')` 创建夹具处；开启开发者模式后原断言现已实际通过；injected lstat 通过不能替代它。正常 Windows 的真实替换、严格 UTF-8、实际字节累积、碰撞/写/close/rename/清理错误和不确定物理 OLD/NEW 均有实际测试。
 
-全生产范围覆盖率：语句 95.67% (1505/1573)、行 97.18% (1380/1420)、分支 92.86% (859/925)。门槛为全局语句/行 80%、分支 75%；domain/history/session 分别语句/行 90%、分支 85%。仅纯类型文件明确排除并由 AST 再核对；main.ts 保留为 0（子进程未合并到 V8 统计），未排除入口凑比例。数值达标不表示含 FS-10 的套件已通过。
+全生产范围覆盖率：语句 95.67% (1505/1573)、行 97.18% (1380/1420)、分支 92.86% (859/925)。门槛为全局语句/行 80%、分支 75%；domain/history/session 分别语句/行 90%、分支 85%。仅纯类型文件明确排除并由 AST 再核对；main.ts 保留为 0（子进程未合并到 V8 统计），未排除入口凑比例。本次完整套件已通过，最终准确版本的覆盖率和门禁状态仍由提交外收据绑定。
 
 测试预期来自手算、独立数据表、通用 XML 解析器或纯平面模型。REG-GROUP/STATE/SAVE 精确断言位置日志、15 步状态和文件三态；36 set、6×2 创建、poisoned 全编辑/保存、早/中/晚故障均实际执行。模型用 testUid 区分同 ID 两代对象，历史只快照内容，revision/path/save token 单独计算；所有生成命令 check=true，非法操作也实际提交给系统。
 
@@ -135,9 +135,9 @@ SPEC 已确认接口与权限保持；纯描述的 placement 摘要增加了受�
 
 验收步骤：
 
-1. 待 FS-10 系统能力具备后，复跑原真实文件测试和全部门禁；核对提交外收据状态、完整 SHA、干净检出、release 结果和无跟踪文件变动。
+1. 核对提交外收据状态、完整 SHA、干净检出、release 结果和无跟踪文件变动；FS-10 必须包含真实链接和悬空链接的通过证据。
 2. 用 `npm run cli` 重走上述示例，检查 tree/show/help、Undo/Redo、错误后继续及 save/read；在浏览器打开代表 SVG 比对截图。
 3. 核对架构图、需求矩阵和测试报告，针对该精确 SHA 给出验收或修改意见。候选代码变化则重新提交并生成新 SHA 收据。
 4. 用户明确验收并授权之后才处理远程 push 与 final；实际截止日期仍需以课程提供值核对，当前不创建或移动标签。
 
-已知限制：严格 Phase 1 子集不导入一般复杂 SVG；无 GUI/box/CSS/transform/额外 CLI 参数协议。文件路径检查按冻结策略处理最终条目，不承诺抵御恶意并发换路径或断电持久性；不确定替换不自动重试。Windows 真实链接能力仍是必须自动门禁阻塞，用户已答复开启开发者模式后通知，目前未收到完成确认。
+已知限制：严格 Phase 1 子集不导入一般复杂 SVG；无 GUI/box/CSS/transform/额外 CLI 参数协议。文件路径检查按冻结策略处理最终条目，不承诺抵御恶意并发换路径或断电持久性；不确定替换不自动重试。Windows 用户现已开启开发者模式，原真实链接门禁及同文件回归 19 项通过；此前能力失败与旧收据保留为过程证据。

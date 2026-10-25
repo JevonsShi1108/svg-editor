@@ -1,6 +1,8 @@
 # Phase 1 测试报告
 
-当前：M00—M10 已通过，M11—M14 已实现但必须 FS-10 真实链接夹具因系统 EPERM 未完成；完整 767 例中 766 通过、1 失败、0 skip，尚未 READY。继续 M15 不受影响工作。M01 的 `npm run verify:stage -- M01` 实际执行 strict 类型检查、lint、格式、架构规则及 76 个非空单元测试。值层覆盖 VAL-01—06、GEO-10、XML-14、LIM-07/08 的当前适用部分；跨入口完整用例仍按阶段补齐。
+2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。
+
+此前检查点：M00—M10 已通过，M11—M14 曾因 FS-10 系统能力未完成；当时完整 767 例中 766 通过、1 失败、0 skip。以下是当时的真实阶段记录，本次结果见顶部恢复记录及末尾后续记录。M01 的 `npm run verify:stage -- M01` 实际执行 strict 类型检查、lint、格式、架构规则及 76 个非空单元测试。值层覆盖 VAL-01—06、GEO-10、XML-14、LIM-07/08 的当前适用部分；跨入口完整用例仍按阶段补齐。
 
 ARCH-11 以三条实际禁止依赖验证检查器（含 domain→application 的纯类型和 domain→Node fs）。Snapshot 正反例分别检出顺序、根样式、文本空白和画布尺寸差异。预期来自手工表和 EXEC CFG，不调用生产校验器生成预期。
 
@@ -54,3 +56,13 @@ M15 交付产物检查点：doc/README.md 已按实际代码完成架构方案�
 M15 预提交 npm run verify 已实际运行，日志 artifacts/logs/M15-precommit-verify.log；类型/lint/格式/架构/性能通过，767 例中766通过/唯一FS-10失败/0跳过，追踪的315个到期本地条目仅FS-10未闭合，正常退出码1。此工作树含尚未提交的文档/收据脚本；不能将基准662dd4b伪称为这次精确被测提交。最后必要提交之后的准确SHA、clean_checkout及所有最终门禁只由提交外收据绑定。
 
 REG-DIAGRAM-EOL-01：7702cb7 精确干净检出的图源校验实际失败：工作区 CRLF 摘要25df14…，Git LF blob 摘要b409bd…（artifacts/logs/REG-DIAGRAM-EOL-01-before.json）。修复生成器先按仓库 LF 规则规范图源，再真实渲染并计算摘要；来源版本摘要也以 Git LF blob 记载。生产 sourceDigest 在原工作区和该干净检出完全相同885072b0…，代表 SVG/浏览器证据未受影响。修复后 doc:diagram 实际成功，追踪仅保留FS-10失败；下一精确SHA仍须完整安装复验。
+
+## 2026-10-25 系统能力恢复后的完整验证
+
+用户确认已开启开发者模式，原 FS-10 和生产实现均未改动。npx vitest run test/integration/files.test.ts 实际19 passed/0 failed/0 skip，真实链接/悬空链接成功创建后 read 拒绝、replace not-committed、链接存在及 target=OLD 断言执行；日志 artifacts/logs/FS10-developer-mode-rerun.log，JSON artifacts/test-results/fs10-resume.json。
+
+npm run verify 在普通 Windows 执行环境退出0；767项全部通过（318单元/回归、417集成、16性质、7模型/回放/资源、9真实进程E2E），0失败、0跳过。类型/lint/格式/依赖、全部生产V8覆盖率、8项性能和339编号中的315个local_required检查通过。原始运行 artifacts/verification/runs/2026-10-25T04-31-11.016Z-8c8dc74c/report.json；汇总 artifacts/logs/M15-FS10-resolved-verify.log。UTC日志时间对应本地2026-10-25 12:31。
+
+覆盖率仍为语句95.67% (1505/1573)、行97.18% (1380/1420)、分支92.86% (859/925)，核心domain/history/Session各范围均达到冻结门槛。生产源码和测试断言未改变，sourceDigest仍885072b0eff51df21e7cb2911473b27d4f1b17d60b6c1c972af6d6281f3ae064。先前系统能力失败及旧收据均保留；这里记录本次预提交工作树事实，最终完整SHA、clean_checkout、release与DEL-08十个闭合子项由新提交外收据记录，报告不包含自身SHA。未执行push或final。
+
+能力恢复后的 ci 档亦实际通过：artifacts/verification/runs/2026-10-25T04-32-06.881Z-9412366b/report.json。16个性质各固定/新seed ×200次，MODEL-01每seed 100组×最多80命令/40活动节点，MODEL-IO每seed 200短真实文件序列。最终精确候选另跑release，不能由ci替代。

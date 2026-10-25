@@ -1,5 +1,7 @@
 # Phase 1 实现进度
 
+2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。
+
 目标：完整本地候选，未推送、未创建/移动 final；验收属于用户。
 
 ## 来源和现场
@@ -19,13 +21,13 @@
 - M08 verified：独立 XmlSvgEncoder、共享 XML 字符规则、schema 属性元数据复用。212 单元/回归、109 集成（新增 19 编码独立预言机）、12 性质各 2×50 次通过；严格子集 decode 仍未接入。
 - M09 verified：saxes 严格 namespace/内容模型/DTD/PI 拒绝、两遍全局 ID、纯文本/CDATA、五项限额准入、六类往返与规范化。213 单元/回归、233 集成、15 性质各 2×50 次通过；root px 缺陷已有修复前失败及固定回归。
 - M10 verified：19 命令已绑定；真实 Codec+可控测试 FileStore 完成原子 read/save、保存点/dirty、三态、受控队列、完整 REG-STATE/REG-SAVE、poisoned read 恢复。214 单元/回归、261 集成、15 性质各 2×50 次通过。
-- M11 implemented_unverified：真实 NodeFileStore、编译 CLI 已实现；build/type/lint/format/deps、214 单元、15 性质、276 集成、1 编译进程 E2E 通过。必须 FS-10 的真实文件符号链接/悬空链接夹具在正常 Windows 环境也因 EPERM 不能创建（1 集成失败），阶段门禁退出 1，未记完成。已异步请求系统链接能力；同一断言保留，没有 skip 或改为人工。
-- M12 implemented_unverified：完整 19 命令手写 parse/bind 表、错误恢复、36 个 CLI set、终端转义、可定位的变化预览/历史摘要、PROP-16 与真实课程会话已完成。288 单元/回归、16 性质各 2×50 次及 7 编译进程 E2E 通过；集成唯一未通过项仍为 FS-10 系统能力。完整阶段门禁未关闭。
-- M13 implemented_unverified：独立平面节点/快照模型通过手算结构、REG-STATE、同名 testUid 校准；297 单元/回归、7 个模型/回放/资源用例通过。ci 档 16 性质各 2×200 次，模型每 seed 100 条、最长实际达到 80 步（上限 80、≤40 活动节点），另有真实 Codec/FileStore 短序列各 200 次；无新增生产失败。整体仍因 FS-10 未关闭。
-- M14 implemented_unverified：完整实现、339 项追踪和真实最终门禁脚本已具备；767 例中 766 通过、唯一 FS-10 EPERM，0 skip。覆盖率、8 项性能、架构/静态检查、ci 随机档通过；全阶段仍因必须链接能力未关闭。
-- M15 active：课程报告、真实 PlantUML 图、代表 SVG 与浏览器截图完成；候选前 release 档通过。待最终提交后的精确 SHA 干净检出与收据，FS-10 必须能力阻塞保持。
+- M11 verified：真实 NodeFileStore、编译 CLI 和原 FS-10 file/dangling symlink 全部实际通过（原文件19例），此前系统 EPERM 检查点保留在历史报告。
+- M12 verified：完整19命令协议、36 CLI set、课程会话和9个真实进程 E2E 已纳入本次完整767例绿色门禁，含终端故障/恢复。
+- M13 verified：独立平面节点模型、固定回放、故意非法请求和真实文件短序列通过；原 ci/release 配额保留，能力恢复后完整 verify 再次通过。
+- M14 verified：339项追踪中315个 local_required 全部 verified；全767例、覆盖率、8性能、架构/静态、ci随机通过，FS-10阻塞解除。
+- M15 本地前置 verified：课程报告、真实 PlantUML、SVG/浏览器证据及完整自动门禁已完成。最后必要提交后的精确 SHA 干净安装/构建/verify/release 由提交外收据闭合，不把预提交通过当作用户验收。
 
-最新下一动作：M15 课程报告、预览和精确 SHA 收据；等待用户确认开发者模式已开启后复跑真实 FS-10。M11/M12 是如实记录能力阻塞的本地检查点，不能作为全绿候选。
+最新下一动作：提交本次已审查证据；从该完整 SHA 干净检出运行 candidate:verify，将准确结果写入提交外收据。全部自动门禁和10个收据子项闭合后才交用户验收。
 
 ## 决策
 
@@ -62,3 +64,5 @@ M15 交付产物检查点：doc/README.md 已按实际代码完成架构方案�
 候选前 release 档已实际通过：16 性质各固定与新 seed ×1,000 次，模型每 seed 500×最多200命令/60节点，另有 MODEL-IO 每 seed 1,000 短真实文件序列；日志 artifacts/verification/latest-random-release.json。本轮无产品随机失败。完整 verify 当前仍仅因 FS-10 系统 EPERM 返回失败；Git 增量/报告/图/实现偏差四交付条目已核验，DEL-08 保持待最终收据。candidate:verify 会在干净精确 SHA 中实际 npm ci、build、verify（含覆盖率/性能/local随机）与 release，保留逐检查日志和10个闭合子项；不在被测提交中写自身SHA。
 
 REG-DIAGRAM-EOL-01：7702cb7 精确干净检出的图源校验实际失败：工作区 CRLF 摘要25df14…，Git LF blob 摘要b409bd…（artifacts/logs/REG-DIAGRAM-EOL-01-before.json）。修复生成器先按仓库 LF 规则规范图源，再真实渲染并计算摘要；来源版本摘要也以 Git LF blob 记载。生产 sourceDigest 在原工作区和该干净检出完全相同885072b0…，代表 SVG/浏览器证据未受影响。修复后 doc:diagram 实际成功，追踪仅保留FS-10失败；下一精确SHA仍须完整安装复验。
+
+能力恢复后的 ci 档亦实际通过：artifacts/verification/runs/2026-10-25T04-32-06.881Z-9412366b/report.json。16个性质各固定/新seed ×200次，MODEL-01每seed 100组×最多80命令/40活动节点，MODEL-IO每seed 200短真实文件序列。最终精确候选另跑release，不能由ci替代。

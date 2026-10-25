@@ -1,5 +1,7 @@
 # Phase 1 测试追踪
 
+2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。
+
 权威编号来自 `spec/SVG_Editor_Phase1_Test_Plan.md`；可执行追踪存 `traceability.json`，每条保留来源行、断言、required_by、gate_scope、状态、测试路径和证据。尚未完整核验的条目保持 planned；局部证据不计整条通过。
 
 M00 只执行工具链/文档初始化，无功能测试。最终门禁必须拒绝任何到期 local_required 缺少真实证据；candidate_verification 只由提交外最终收据关闭。
@@ -41,3 +43,11 @@ verify、verify:stage、random:local/ci/release 都执行真实工具并保留�
 M15 交付产物检查点：doc/README.md 已按实际代码完成架构方案、过程记录、一致性自查与质量保证；doc/architecture.puml 经官方 PlantUML 1.2026.8 校验 jar 在本地 Java 实际渲染，图和源摘要记录于 architecture.meta.json。两个 8 节点代表 SVG 经实际编译 CLI 保存并读回，真实浏览器已观察位置/中文/层序/继承并保存 PNG，source/SVG/截图摘要见 doc/examples/preview.json；E2E-08 verified，不等于用户验收。预览原沙箱服务超时，获批普通 Windows 只读 loopback 服务成功。
 
 候选前 release 档已实际通过：16 性质各固定与新 seed ×1,000 次，模型每 seed 500×最多200命令/60节点，另有 MODEL-IO 每 seed 1,000 短真实文件序列；日志 artifacts/verification/latest-random-release.json。本轮无产品随机失败。完整 verify 当前仍仅因 FS-10 系统 EPERM 返回失败；Git 增量/报告/图/实现偏差四交付条目已核验，DEL-08 保持待最终收据。candidate:verify 会在干净精确 SHA 中实际 npm ci、build、verify（含覆盖率/性能/local随机）与 release，保留逐检查日志和10个闭合子项；不在被测提交中写自身SHA。
+
+## 2026-10-25 系统能力恢复后的完整验证
+
+用户确认已开启开发者模式，原 FS-10 和生产实现均未改动。npx vitest run test/integration/files.test.ts 实际19 passed/0 failed/0 skip，真实链接/悬空链接成功创建后 read 拒绝、replace not-committed、链接存在及 target=OLD 断言执行；日志 artifacts/logs/FS10-developer-mode-rerun.log，JSON artifacts/test-results/fs10-resume.json。
+
+npm run verify 在普通 Windows 执行环境退出0；767项全部通过（318单元/回归、417集成、16性质、7模型/回放/资源、9真实进程E2E），0失败、0跳过。类型/lint/格式/依赖、全部生产V8覆盖率、8项性能和339编号中的315个local_required检查通过。原始运行 artifacts/verification/runs/2026-10-25T04-31-11.016Z-8c8dc74c/report.json；汇总 artifacts/logs/M15-FS10-resolved-verify.log。UTC日志时间对应本地2026-10-25 12:31。
+
+覆盖率仍为语句95.67% (1505/1573)、行97.18% (1380/1420)、分支92.86% (859/925)，核心domain/history/Session各范围均达到冻结门槛。生产源码和测试断言未改变，sourceDigest仍885072b0eff51df21e7cb2911473b27d4f1b17d60b6c1c972af6d6281f3ae064。先前系统能力失败及旧收据均保留；这里记录本次预提交工作树事实，最终完整SHA、clean_checkout、release与DEL-08十个闭合子项由新提交外收据记录，报告不包含自身SHA。未执行push或final。

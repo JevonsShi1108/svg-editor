@@ -1,8 +1,10 @@
 # INPUT_PROFILE — EXEC-P1 v1.0
 
+2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。
+
 M14 质量细则：V8 include 全部 src，明确排除仅被 TS 擦除的接口/类型文件，不排除 main。全局 lines/statements ≥80%、branches ≥75%；domain、history、Session 各范围 lines/statements ≥90%、branches ≥85%，不自动更新阈值。基准固定 n=100/1000/5000，warmup=3、samples=11，leaf 每样本 50 次，其余批数逐指标记录；同时记录 k/s/B、median/p95、heap 前/后/样本峰值和源码摘要，无跨机器硬毫秒门槛。测试 worker 未提供 gc 时如实记 gcAvailable=false，不声称已验证立即回收；引用可达性结合源码审查与实际屏障/Redo 截断行为判断。
 
-M11 平台与文件策略落实：Windows 普通本地文件系统；同目录 `.目标名.svg-editor-UUID.tmp`、wx 独占、最多 8 次碰撞、完整 write→close→rename，不先删目标。替换阶段 EIO/未知错误归 indeterminate，明确非提交错误码按实现集中白名单分类。沙箱 AppContainer 的临时目录 rename 被 EPERM，真实文件门禁在获批普通环境运行；该环境实际 file symlink 也 EPERM，FS-10 仍为必须自动门禁阻塞，等待链接权限，未改成可选或人工。
+M11 历史现场与文件策略落实：Windows 普通本地文件系统；同目录 `.目标名.svg-editor-UUID.tmp`、wx 独占、最多 8 次碰撞、完整 write→close→rename，不先删目标。替换阶段 EIO/未知错误归 indeterminate，明确非提交错误码按实现集中白名单分类。沙箱 AppContainer 的临时目录 rename 被 EPERM，真实文件门禁在获批普通环境运行；该环境实际 file symlink 也 EPERM，FS-10 仍为必须自动门禁阻塞，等待链接权限，未改成可选或人工。
 
 M09 落实注记（解释既有 §4.6，不更改 CFG）：CDATA 只作为 text 的纯文本来源；容器排版空白为普通 XML 字符数据。namespace 声明的解码值也执行属性长度准入，因此小限额的属性 L±1 测试使用 L=40，足以容纳 SVG namespace URI。具体证据在 codec.test.ts；未额外设 save 字节限额。
 

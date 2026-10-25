@@ -5978,13 +5978,14 @@
     "assertion": "普通路径/相对路径/符号链接/悬空链接 | 按 CFG-14 冻结策略逐项验证，不假定所有 OS 相同 |",
     "required_by": "M11",
     "gate_scope": "local_required",
-    "status": "blocked",
+    "status": "verified",
     "tests": ["test/integration/files.test.ts"],
     "evidence": [
-      "artifacts/logs/M14-files.log: actual fs.symlink EPERM; local_required remains blocked."
+      "artifacts/logs/FS10-developer-mode-rerun.log: original files.test.ts 19 passed, 0 failed, 0 skipped",
+      "artifacts/test-results/fs10-resume.json; subsequent full coverage/traceability and exact-SHA candidate receipt"
     ],
-    "note": "local_required unchanged; path/injected metadata subcases pass but do not close real symlink/dangling subcase; user OS link capability requested.",
-    "review": "稳定 cwd/字面路径与 injected lstat 已过；真实 file symlink/dangling 因 OS EPERM 夹具未建立，保留必验阻塞。",
+    "note": "Original OS capability block resolved after user enabled Developer Mode. gate_scope remains local_required; no assertion/test/source changed.",
+    "review": "2026-10-25 用户开启开发者模式后，原测试未修改：实际建立 file symlink 和 dangling link；read 拒绝、save not-committed、链接条目保留、原 target 为 OLD。稳定 cwd/字面路径和 metadata 拒绝一并通过。",
     "cases": [
       {
         "file": "test/integration/files.test.ts",
@@ -7854,9 +7855,11 @@
     "assertion": "从 final 对应干净检出可复现 | 锁依赖安装、构建、测试入口、fixture 和文档齐全 |",
     "required_by": "M15",
     "gate_scope": "candidate_verification",
-    "status": "planned",
-    "tests": [],
-    "evidence": [],
+    "status": "implemented_unverified",
+    "tests": ["scripts/verify-candidate.mjs"],
+    "evidence": [
+      "Exact candidate receipt under artifacts/acceptance/<fullSHA>.json; all ten receipt_checks must close after final commit."
+    ],
     "note": "Post-commit exact SHA clean checkout receipt must close npm ci/build/verify/coverage/release random/source matching/clean status; not a pre-existing receipt prerequisite.",
     "receipt_checks": [
       "exact_sha_clean_checkout",
