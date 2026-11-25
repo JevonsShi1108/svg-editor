@@ -52,6 +52,8 @@ P2-14 增加 P2-PROP-01 独立快照模型，覆盖 set、保存、失败保存�
 
 P2-14 由固定 SHA-256 的 PlantUML 1.2026.8 本地生成阶段二依赖图，核对位图预览后调整了接口标签的重叠。用同一 TypeScript AST 脚本重新生成两端文件清单、函数迁移和增量，`--check` 对输出逐字节核对。
 
+P2-14 总门禁已覆盖 11 组条款追踪、真实宿主与 8 张窗口记录、24 次进程字节对照、6 个 Git 接入证明、图与指标复算。完整 verify 12 步通过。准确候选的声明须额外匹配现场两张复验图、40 位 SHA、检出路径、扩展构建及夹具。
+
 # Phase 1 实现进度
 
 2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。

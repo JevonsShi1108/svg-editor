@@ -4,6 +4,8 @@ P2-00 的基线覆盖两套课程会话 `test/e2e/lab.test.ts`，以及真实 CL
 
 P2-12 配置装配兄弟提交从 `83028b23bbfa0194172e08290983cd5dbf695e89` 安装同一个 shape-box 包，根配置启用。独立锁文件安装、构建、插件与集成断言及真实 `--config` 会话验证创建、改名、undo 和树输出。
 
+Phase 2 的机器追踪按课程条款记录断言、测试文件及窗口步骤。`check:p2:evidence` 读取本轮真实 coverage 测试结果、Electron 宿主报告、逐字节进程收据、Git 差异证明和图像文件摘要，检查关联用例全部通过。P2-PROP-01 使用独立维护的标题、颜色、两条历史栈及保存点核对真实 Session。桌面 U0–U4 的图片与源码、夹具、构建和版本绑定；P2-15 的准确检出另存两张现场截图。[机器追踪](phase2/traceability.json) · [观测清单](phase2/vscode-evidence.json)
+
 # Phase 1 测试追踪
 
 2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。

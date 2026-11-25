@@ -35,7 +35,10 @@
     "test:vscode:host": "npm run build:vscode && node scripts/test-vscode-host.mjs",
     "metrics:p2": "node scripts/metrics-p2.mjs",
     "test:p2:assemblies": "node scripts/test-assemblies.mjs",
-    "check:p2:diffs": "node scripts/check-plugin-diffs.mjs"
+    "check:p2:diffs": "node scripts/check-plugin-diffs.mjs",
+    "verify:p2": "node scripts/verify-p2.mjs",
+    "check:p2:evidence": "node scripts/check-p2-evidence.mjs",
+    "check:p2:metrics": "node scripts/metrics-p2.mjs --check"
   },
   "dependencies": {
     "import-meta-resolve": "4.2.0",

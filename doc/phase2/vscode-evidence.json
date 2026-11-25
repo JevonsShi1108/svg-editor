@@ -1,0 +1,64 @@
+{
+  "version": "1.147.0",
+  "extension": "svg-editor-lab.svg-tools",
+  "extensionSha256": "f13cf1e94ef4e6049927ea9dab35a5959ff2f116c038898b573535b3feccf8bc",
+  "manifestSha256": "faeac6e02c8a7f6d2237e05cfad69b3d2cb7d93eeec97c16f1b923e5c757e368",
+  "fixtureSha256": "8a7fa28022a65c879a30b2de91760d71c384aec0ada159ceb47f65b0699461a2",
+  "buildCommit": "31212ac",
+  "sourceFiles": {
+    "extensions/svg-tools/src/extension.ts": "e91d31787889d7c6bee33dc48210a19d73c6bee3680aa2bc3c9a63b802a7a8f6",
+    "extensions/svg-tools/src/SvgFileDecorationProvider.ts": "a7f00559ab0e5657ff3ca7af484a79a4a384d169a31c0b8cad6742bd0e36e16e",
+    "extensions/svg-tools/src/SvgOutline.ts": "3cb2bfc431d1f1a48a7dc5a1bdf25695556de05bc33d35ef08d7a14b285b2e90",
+    "extensions/svg-tools/src/SvgSymbolProvider.ts": "8498fb45eb977e86051e8824ca04ac14712da5b64b7cbe1fbc065eaafd70e754"
+  },
+  "observations": [
+    {
+      "step": "U1",
+      "file": "docs/images/p2-vscode-badge.png",
+      "sha256": "4aab9edb2cb9bdbd2062eaa4ce961de8de67ba45a22df5ced1a289aae125c9f6",
+      "observed": "Only the SVG file has [] while plain.txt is active."
+    },
+    {
+      "step": "U2",
+      "file": "docs/images/p2-vscode-outline.png",
+      "sha256": "cff16c3df40c2bc2bd322ff6a82e7a1d4ec5110cba559b4997da3d5c0f8f79db",
+      "observed": "rect#start selected, Ln 3 Col 5, nested text has no ID."
+    },
+    {
+      "step": "U3",
+      "file": "docs/images/p2-vscode-edited.jpg",
+      "sha256": "5100d9ab090efa06c9d318b2b818bee8d16c3c78045a5c416da811d37f3f65af",
+      "observed": "Dirty editor, rect#ready selected, Ln 4 Col 5."
+    },
+    {
+      "step": "U4-incomplete",
+      "file": "docs/images/p2-vscode-incomplete.jpg",
+      "sha256": "51aa9cb46de770e48ddab1cb17ea931f876a08c4f6147bccbdf893a4a4fec191",
+      "observed": "The buffer ends in </svg and the outline reports no symbols."
+    },
+    {
+      "step": "U4-recovered",
+      "file": "docs/images/p2-vscode-recovered.jpg",
+      "sha256": "e86c5870f9f2e56bdb69af43ff781ec661c6d6ae58f9ad1e1d370c3d70f52e60",
+      "observed": "Closing > restored. In the same dirty editor the tree returns and clicking selects line 4."
+    },
+    {
+      "step": "U0-markdown",
+      "file": "doc/phase2/native-markdown.jpg",
+      "sha256": "3e57b61e6130a9aafeb84dcc915d20ae63c25409608f9d2f8a845cb8552cac74",
+      "observed": "Native Markdown outline shows Canvas updated before saving."
+    },
+    {
+      "step": "U0-svg",
+      "file": "doc/phase2/native-svg.jpg",
+      "sha256": "5f4a01e775ee2f24b2e6c511c7022b7e3877e572bf836b4d05842c2c7a03f4cb",
+      "observed": "Native XML editor has no symbols for the same SVG without this extension."
+    },
+    {
+      "step": "U2-before-fix",
+      "file": "doc/phase2/navigation-before.jpg",
+      "sha256": "df2e93322007106654a56e1641b9c8c0c7a302304250efc9f812a5eb748b4e2f",
+      "observed": "Clicking the symbol with the old editor association reopened Image Preview."
+    }
+  ]
+}

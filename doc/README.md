@@ -20,6 +20,69 @@
 
 **桌面反例与修正。** 实测未加载扩展时，Markdown 大纲能跳转并响应未保存编辑，而同一份 SVG 文本没有符号。最初版本返回了正确的符号范围，实际点击却重新打开图像预览。带选区的真实 `vscode.open` 测试复现了该错误。提交 `31212ac` 提供文本编辑器默认关联后，重载并重做相同动作，才取得上面的第 3 行截图。实拍使用 VS Code 1.147.0（8a14f0cc），扩展包入口构建 SHA-256 为 `f13cf1e94ef4e6049927ea9dab35a5959ff2f116c038898b573535b3feccf8bc`，示例 SVG 的 SHA-256 为 `8a7fa28022a65c879a30b2de91760d71c384aec0ada159ceb47f65b0699461a2`。
 
+## CLI 运行与配置
+
+从仓库根目录运行 `npm ci` 和 `npm run build`。构建产物包括 `dist/main.js`、各工作区插件的 `dist/index.js` 和类型声明。默认入口提供 Phase 1 的 19 条命令和六种图形。以下三条命令均在启动进程的工作目录读写相对路径。
+
+```sh
+node dist/main.js
+node dist/main.js --preset demo
+node dist/main.js --config plugins.config.json
+```
+
+代码装配的 `base` 保留旧 CLI，`commands` 只加 stats 和 dir，`box` 加 box、属性处理器和类型标签，`demo` 再包含统计、目录和未保存星号。配置装配可分别启用各包。课程基础、手工组合与复合流程图、统计和目录的输入均已归档。执行 `npm run test:p2:assemblies` 将在同一绝对工作目录重放，对 stdout、stderr 和落盘 SVG 分别比较字节，同时保留日志、长度、摘要和退出码。[会话输入与独立期望](transcript/) · [演示配置](../plugins.config.json)
+
+根配置的 `plugins` 是按加载顺序排列的数组。每项必须有非空字符串 `module`，可带布尔 `enabled` 和对象 `options`。相对目录以配置所在目录为基准，通过其中 package.json 的 main 找入口；包名通过 Node ESM import 条件解析。禁用项在解析前跳过。两个入口都调用 `PluginHost.activate`，将 options 的深拷贝冻结后交给该插件实例。每个包声明 `contributes.shapes/commands/decorators/attributes`，省略的列表为空。
+
+```json
+{
+  "plugins": [
+    { "module": "@svgframe/plugin-dir", "options": {} },
+    { "module": "./plugins/shape-box" },
+    { "module": "./plugins/tree-star", "enabled": false }
+  ]
+}
+```
+
+## 架构变化与公开扩展点
+
+Phase 1 由主程序直接创建 Session、Codec 和 FileStore，命令表同时绑定内置命令。Phase 2 将 19 份绑定保存在 BuiltinCommands，CommandRegistry 只管理查找和顺序；内置六图形通过 NativeShapeProvider 实例加入同一视图。主程序把该视图注入 CLI、Session 与 Codec。代码预设和配置加载汇入同一个暂存注册过程。插件通过工作区包 `@svgframe/api` 取得公开契约。CLI 的 NodeNext 构建和 VS Code 的 CommonJS 构建各自独立。
+
+![Phase 1 模块依赖](architecture.svg)
+
+![Phase 2 模块依赖及两种装配的汇合点](phase2/architecture.svg)
+
+两张图均由 PlantUML 渲染。运行 `npm run doc:diagram` 或 `npm run doc:diagram -- --phase2` 可重建对应图。源文件与渲染摘要随仓库保存。[Phase 1 图源](architecture.puml) · [Phase 2 图源](phase2/architecture.puml) · [Phase 2 渲染收据](phase2/architecture.meta.json)
+
+1. **ShapeProvider** 声明运行时名称、创建参数规则、XML tag/data-kind 映射、创建计划、构造器及必要子部件。调用链从 `BuiltinCommands.parseCreate` 到 `ShapeRegistry.validateCreation/plan/create`、`SvgDocument.create`；读写分别使用 `XmlSvgDecoder.decode` 的 fromTag 和 `XmlSvgEncoder.node` 的 definition。六个 NativeShapeProvider 和 BoxProvider 共用该路径。关闭 box 后仍可读其普通 g 子树；未知创建类型返回 UNKNOWN_SHAPE_TYPE，重复类型或 XML 映射拒绝注册，构造器的类型、id、所有者不符返回 INVALID_VALUE。[接口](../src/domain/shapes/ShapeProvider.ts) · [注册表](../src/domain/shapes/ShapeRegistry.ts) · [跨入口测试](../test/integration/shape-provider.test.ts)
+2. **Command** 提供 help、参数个数、是否需要文档及只读执行函数。19 条原命令仍由 BoundCommand 系列实现。`CommandRegistry.parse/bind/describe` 管理统一分发；插件通过 `PluginCommandBinding.bind` 进入 `PluginQuery.run`，由 `EditorSession.#query` 在会话队列中等待。StatsCommand 对当前树深度优先计数，DirCommand 无需文档。关闭时 help 无相应条目，调用产生 `error: unknown command: <name>`。额外参数报语法错误，返回非字符串数组报 INVALID_COMMAND_RESULT。只读查询不改变 dirty、历史与 IO 屏障。[接口](../src/application/contracts/Command.ts) · [队列测试](../test/integration/registered-command.test.ts)
+3. **AttributeHandler** 声明稳定名称、匹配谓词和同步修改。`SetCommand.run` 在原事务中调用 `AttributeDispatch.set`。BoxAttributes 将 fill 写入矩形，将 label 写入文字。零匹配保留各图形自己的白名单；多匹配返回 ATTRIBUTE_CONFLICT。命中后任何修改失败都沿当前 lease 回滚。只有目标和直接子部件可通过限时门面读取或设置。[接口](../src/application/contracts/AttributeHandler.ts) · [调度](../src/application/commands/AttributeDispatch.ts) · [双部件故障测试](../test/integration/attribute-handler.test.ts)
+4. **TreeDecorator** 在 `TreeDecorations.apply` 中从完整只读文档准备行回调。每行按注册顺序收集非空标签，`TextPresenter.tree/data` 在换行前追加。根用 null 识别，允许普通图形实际使用 id “svg”。BoxTypeLabel 按运行时类型输出 `(box)`，ModifiedStar 按保存内容输出 `*`。零实现保留旧行字节。回调抛错或返回多行，中止当次查询并报告 DECORATOR_FAILED；已有文件写入不会重做。[接口](../src/application/contracts/TreeDecorator.ts) · [树查询与观察器](../src/application/session/TreeDecorations.ts) · [查询故障测试](../test/integration/tree-decorator.test.ts)
+
+## 设计决策记录
+
+**ADR-01　set 的写权限与历史。** 处理器可能同时声明同一属性。覆盖或依次执行会让注册顺序影响实际写入。调度器先用只读 ShapeDescription 收集所有匹配者，冲突在首笔写入前失败。唯一匹配者取得本次目标及直接子部件的同步编辑门面；返回后门面失效。第二次写入发生故障时，Session 回滚第一次写入并保留已有 redo 分支。成功的多部件修改仍只有一个 ChangeSet。创建/编辑可附提交及回放文案，历史保存不可变副本，undo/redo 重放变更时无需再调用处理器。[验证](../test/integration/attribute-handler.test.ts)
+
+**ADR-02　复合结构、标记与降级。** 采用普通 SVG 的 `g data-kind="box"`。BoxProvider 生成 `<id>-rect` 和 `<id>-label`，标题定位为 `(x+20, y+h/2+5)`。未发布子树完成后一次挂入活动文档，检查重复 id、节点预算与深度。打开插件时拒绝缺件、错型和重复 id 的候选；关闭时保留原组、元数据与孩子。普通子节点和嵌套 box 均可追加。保护必要件的拆出、单独几何变换及位置调整，整框移动/缩放则递归处理。根级和嵌套复合容器均拒绝 ungroup。[插件](../plugins/shape-box/src/) · [读回、限额与撤销](../test/integration/box-roundtrip.test.ts)
+
+**ADR-03　星号比较保存内容。** 若只记录“发生过编辑”，undo 回到保存内容仍会留星。ModifiedStar 在实例字段中保存每行的规范化自身属性、文字、父级和有序子 id；根还包含画布尺寸。新增节点立即标星。树查询时自底向上传播变化，独立反向编辑回原值也能清星。删除和换父会改变父级孩子清单。成功 save 或 read 才换基准，自动补 id 的行和祖先仍待保存。多个标签按登记顺序拼接，demo 的框体类型在星号之前。SessionStatus 的历史状态身份继续供 CLI 其他操作使用。[独立状态机](../test/unit/star-plugin.test.ts) · [确认写入与保存点](../test/integration/star-checkpoints.test.ts)
+
+**ADR-04　激活成功后一次发布。** 逐条直接登记会留下半个包。配置先整体验证，每包在独立暂存区运行。四类名称逐类作集合比较，禁止同类重名；这也覆盖与内置命令、图形冲突的情况。成功后才替换整组注册，失败则保留旧注册并继续下一包。上下文在激活结束后关闭。模块定位与模块求值分开，因此缺内部依赖属于加载失败。语法或结构错误返回 `error: invalid plugin config` 并以默认能力启动。四种模块错误分别用 `plugin not found`、`plugin has no default export`、`plugin manifest mismatch`、`plugin failed to activate`，重复名用 `duplicate registration: 类别/名称`。真实进程检查诊断顺序和值，并继续执行后续好包。[宿主](../src/host/loader/PluginHost.ts) · [配置加载器](../src/host/loader/ConfigLoader.ts) · [进程测试](../test/e2e/plugin-loader.test.ts)
+
+**目录访问适配器。** DirCommand 是客户端，DirectoryReader 是目标接口，NodeDirectoryReader 将 Node 的 `readdir({withFileTypes:true})` 和 Dirent 适配成只读名称及类别。客户端按目录、文件分组，各组以 JS 字符串顺序排序，包括隐藏项，略过链接和特殊项。每个标记后恰好两个 ASCII 空格。目录取启动时注入的 cwd。读取失败在 stderr 报告目标路径，下一条命令仍可执行。假 Reader、真实临时目录、真实链接和跨目录 save/read 均有测试。[适配器](../plugins/dir/src/NodeDirectoryReader.ts) · [独立和集成断言](../test/integration/dir-plugin.test.ts)
+
+## 差异、指标与复验
+
+共同父提交为 `83028b23bbfa0194172e08290983cd5dbf695e89`。代码接入提交为 `1f37244fb9f2c60d0271fd93889a24595928dabe`，配置接入提交为 `bd981ac204470e58589c96832ccf4945a133a873`。二者独立建包与运行，box 包的 Git tree 均为 `a7a655d7495053fac9ee9812c371d94f53ff30de`，合并提交 `76882ba` 保留两个父系。A 更新唯一顶层装配文件，B 只更新配置；两边的 lockfile 都只加入工作区包和链接记录。测试用于验证模板、原子编辑、真实 XML，文档记录当步工作。新增包的 package.json 声明入口、API 依赖和 contributes，无构建钩子。
+
+`npm run check:p2:diffs` 对 stats、dir、两次 box 接入和两个标签检查完整 name-status、真实存在的保护路径、包 tree 与锁文件差异。ConfigLoader 只按模块字符串定位，未导入任何已知插件包。配置黑盒夹具用未出现在宿主源码的新包名验证了这条路径。[Git 核对脚本](../scripts/check-plugin-diffs.mjs)
+
+按 Git blob 的同一算法复算，CLI 生产代码从 3,997 行增至 5,292 行，函数圈复杂度总和从 1,005 增至 1,367。新增插件占 341 行、复杂度 78。解析与构造、目录访问及注册故障隔离各有实际分支；分组移动从 GroupShape 迁至 ContainerShape 后，单个方法的圈复杂度保持 2。VS Code 扩展单列 107 行、复杂度 21。[按类别的指标、函数迁移与逐文件清单](../docs/metrics/README.md)
+
+**AI 建议的实测修正。** 首次窗口点击揭示了 Image Preview 的二次接管，带选区的宿主断言先失败、修正清单后通过。另一处偏差发生在 A/B 的 help：各命令独立用例正确，完整 stdout 的字节对照却发现注册顺序相反，统一顺序后相同输入的字节匹配。配置分支首次终端作业与分支切换重叠，其结果已弃用；两个准确 SHA 各自重新检出、安装、构建、运行并断言 stderr 为空。[导航反例](phase2/navigation-before.jpg) · [装配顺序回归](../test/e2e/assembly-order.test.ts) · [过程日志](PROGRESS.md)
+
+**验收入口。** `npm run verify` 执行静态检查、分层回归、覆盖率、性能、追踪和 Phase 2 实验门禁；`npm run random:ci` 和 `npm run random:release` 记录固定及新种子。精确候选使用干净检出和完整 40 位 SHA，收据保存在提交外 `artifacts/acceptance/`。源提交和远程发布依次核对。[测试报告](TEST_REPORT.md) · [条款追踪](TEST_TRACEABILITY.md)
+
 # SVG 编辑器 Phase 1 课程报告
 
 本项目使用 TypeScript 实现命令行 SVG 编辑器，支持 19 个命令、6 类图形和 36 个合法的 `set` 类型与属性组合。设计以课程要求和已确认的需求决策为依据，采用面向对象模型，将命令行交互、编辑协调、图形行为和文件读写分开。

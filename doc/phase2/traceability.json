@@ -1,0 +1,94 @@
+[
+  {
+    "clause": "A.1",
+    "expectation": "普通 SVG 的徽标、目录/文本对照和文件字节不变",
+    "tests": [],
+    "desktop": ["U1"]
+  },
+  {
+    "clause": "A.2-A.3",
+    "expectation": "原生大纲、UTF-16 范围、未保存编辑、异常恢复与源码定位",
+    "tests": ["test/unit/svg-outline.test.ts"],
+    "desktop": ["U0-markdown", "U0-svg", "U2", "U3", "U4-incomplete", "U4-recovered"]
+  },
+  {
+    "clause": "§1",
+    "expectation": "六图形、十九命令、注册表顺序和缺省能力",
+    "tests": [
+      "test/unit/command-registry.test.ts",
+      "test/integration/shape-provider.test.ts",
+      "test/unit/cli-protocol.test.ts"
+    ],
+    "desktop": []
+  },
+  {
+    "clause": "§2-stats",
+    "expectation": "深度优先首现顺序、容器与空文档",
+    "tests": [
+      "test/unit/stats-plugin.test.ts",
+      "test/e2e/config-selection.test.ts",
+      "test/integration/registered-command.test.ts"
+    ],
+    "desktop": []
+  },
+  {
+    "clause": "§2-dir",
+    "expectation": "真实目录适配、双空格、启动 cwd、失败后历史与屏障",
+    "tests": ["test/integration/dir-plugin.test.ts", "test/e2e/config-selection.test.ts"],
+    "desktop": []
+  },
+  {
+    "clause": "§3",
+    "expectation": "一条 set 一次 undo、冲突及部分写入整体回滚",
+    "tests": [
+      "test/integration/attribute-handler.test.ts",
+      "test/integration/box-roundtrip.test.ts"
+    ],
+    "desktop": []
+  },
+  {
+    "clause": "§4",
+    "expectation": "子树创建与保护、标记、读回、降级和资源边界",
+    "tests": [
+      "test/unit/box-plugin.test.ts",
+      "test/integration/box-roundtrip.test.ts",
+      "test/integration/shape-provider.test.ts"
+    ],
+    "desktop": []
+  },
+  {
+    "clause": "§5",
+    "expectation": "星号保存点、祖先传播、双标签及顺序",
+    "tests": [
+      "test/unit/star-plugin.test.ts",
+      "test/unit/box-label.test.ts",
+      "test/integration/star-checkpoints.test.ts",
+      "test/integration/tree-decorator.test.ts",
+      "test/e2e/config-selection.test.ts"
+    ],
+    "desktop": []
+  },
+  {
+    "clause": "§6",
+    "expectation": "选项、两种入口、原子暂存、清单不匹配、重复、故障后继续",
+    "tests": [
+      "test/unit/plugin-host.test.ts",
+      "test/e2e/plugin-loader.test.ts",
+      "test/e2e/assembly-order.test.ts",
+      "test/e2e/assembly-isolation.test.ts"
+    ],
+    "desktop": []
+  },
+  {
+    "clause": "§6-history",
+    "expectation": "独立快照模型和真实进程旧协议",
+    "tests": ["test/property/plugin-session.test.ts", "test/e2e/lab.test.ts"],
+    "desktop": []
+  },
+  {
+    "clause": "§7",
+    "expectation": "兄弟 Git 差异、比较脚本、图与指标、准确候选",
+    "tests": [],
+    "desktop": []
+  }
+]

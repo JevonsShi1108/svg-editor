@@ -143,6 +143,35 @@ const conditions = {
     hash('package-lock.json') === receipt.environment.dependencyLock.sha256,
   clean_after: cleanAfter && execution.cleanAfter && execution.inputsStable,
 };
+const phase2 = loadEvidence('artifacts/phase2/verification.json');
+const desktopPath = 'artifacts/desktop-candidate/receipt.json';
+let desktop = null;
+try {
+  desktop = read(desktopPath);
+  if (
+    desktop.candidate !== candidate ||
+    path.resolve(desktop.checkout) !== path.resolve(process.cwd()) ||
+    desktop.extensionSha256 !== phase2?.host.extensionSha256 ||
+    desktop.fixtureSha256 !== phase2?.host.fixtureSha256 ||
+    desktop.version !== phase2?.host.version ||
+    !desktop.window?.includes('Extension Development Host') ||
+    desktop.line !== 3 ||
+    desktop.symbol !== 'rect#start' ||
+    desktop.badge !== '[]' ||
+    !['badge', 'outline'].every(
+      (name) =>
+        desktop.images?.[name]?.file === `artifacts/desktop-candidate/${name}.jpg` &&
+        existsSync(desktop.images[name].file) &&
+        hash(desktop.images[name].file) === desktop.images[name].sha256,
+    )
+  )
+    issues.push(
+      'Candidate desktop replay does not match the exact checkout, build, fixture or images.',
+    );
+} catch (error) {
+  issues.push('Candidate desktop replay: ' + error.message);
+}
+if (phase2?.head !== candidate) issues.push('Phase 2 gate missing for exact candidate.');
 const rows = read('doc/traceability.json');
 Object.assign(receipt, {
   status:
@@ -150,6 +179,8 @@ Object.assign(receipt, {
       ? 'READY_FOR_USER_REVIEW'
       : 'BLOCKED',
   finishedAt: new Date().toISOString(),
+  phase2,
+  desktop,
   tracked_files_unchanged_after_checks: cleanAfter,
   checks: execution.checks,
   verification: verify,
@@ -190,11 +221,26 @@ const snapshotFiles = new Set([
   'artifacts/verification/latest-random-release.json',
   'artifacts/test-results/coverage.json',
   'coverage/coverage-summary.json',
+  'artifacts/phase2/verification.json',
+  'artifacts/vscode-host/latest.json',
+  'artifacts/assemblies/latest.json',
+  'artifacts/plugin-diffs/latest.json',
+  'artifacts/performance/phase2.json',
+  desktopPath,
+  ...(desktop
+    ? ['artifacts/desktop-candidate/badge.jpg', 'artifacts/desktop-candidate/outline.jpg']
+    : []),
   'artifacts/performance/report.json',
   'artifacts/architecture/report.json',
   'artifacts/traceability/report.json',
   ...randomFiles,
 ]);
+if (existsSync('artifacts/assemblies/latest.json')) {
+  const raw = read('artifacts/assemblies/latest.json').raw;
+  if (path.dirname(path.resolve(raw)) === path.resolve('artifacts/assemblies'))
+    for (const item of readdirSync(raw, { withFileTypes: true }))
+      if (item.isFile()) snapshotFiles.add(path.relative(process.cwd(), path.join(raw, item.name)));
+}
 const addLogs = (record) => {
   for (const check of record?.checks ?? []) snapshotFiles.add(check.log);
 };

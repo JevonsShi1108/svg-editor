@@ -2,6 +2,13 @@
 
 2026-11-25 在 `.candidate/p2-final-baseline` 的干净 `final` 检出完成锁文件安装、构建及 `npm run verify`。覆盖率套件通过 767 项，失败及跳过均为 0。各门禁日志见该检出的 `artifacts/verification/runs/2026-11-25T14-02-54.464Z-77993fa1/`。
 
+Phase 2 开发回归已执行 797 个 Vitest 用例，包括全部旧用例，0 失败、0 跳过。V8 覆盖率为行 92.92%、语句 91.34%、分支 87.24%。宿主测试另用 VS Code 1.147.0 执行真实注册、打开选区、未保存修改、清空恢复及第二文档切换。9 个性能测试包含原 8 项；新增观测使用 11 次采样，5,000 个节点时，大纲解析和保存差异准备的开发机中位数分别为 4.42 ms 和 1.21 ms。准确候选的采样值随提交外收据归档。
+
+- 真实 CLI 运行 24 次。Phase 1 两套旧会话、help、整树与子树均对照 `final`。Phase 2 的 box 和插件会话对照代码/配置两种装配，并独立检查 SVG 结构与手写命令输出。
+- 已验证部分写入抛错、重复 id、损坏的复合读入、清单不符、重复注册、求值失败及失败后的继续执行。ci 档包含原性质与模型，另有 P2-PROP-01 的固定/新种子各 200 组。
+- 修复与反例见进度记录，包括符号点击重开预览、空符号命令返回 undefined、分支切换竞争以及 help 顺序差异。截图、原生基线、转录命令、质量工具和指标可在仓库内重放或校验。
+- `npm run verify` 汇总日常门禁，`npm run candidate:verify -- <完整 SHA>` 在干净准确检出重新安装、构建、执行全门禁及 release 随机档。`artifacts/acceptance/<SHA>.json` 记录最终结果，另有同名证据目录。两张准确候选的窗口复验图在该检出 `artifacts/desktop-candidate/`，现场观察记录见同目录 `receipt.json`。
+
 # Phase 1 测试报告
 
 2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。
