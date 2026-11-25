@@ -1,40 +1,29 @@
 # SVG 编辑器 Phase 2 课程报告
 
-## VS Code 扩展
+在 Phase 1 中，画一个带标题的框需要分别创建矩形和文字，再把它们编成一组。Phase 2 把这项操作做成了 `box` 插件。输入 `create box n1 120 100 160 60 "开始"` 就能创建整个框，`move n1 0 100` 会让框体和标题一起移动。本阶段还为 VS Code 添加了 SVG 文件标记和大纲导航。
 
-在仓库根目录使用 Node 24 运行 `npm ci`，用 VS Code 打开仓库，选择 **Phase 2: SVG Extension** 后按 F5。启动任务构建 CommonJS 扩展并把示例复制到 `artifacts/ui/development`。Explorer 中打开 `plain.txt` 即可看见同级 `example.svg` 的徽标。选择 SVG，展开 Explorer 下方的 Outline，点击 `rect#start`。扩展清单将 SVG 的默认编辑器设为文本编辑器，已有的用户或工作区关联可以覆盖此默认值。图像预览仍可从编辑器选择菜单打开。
+### 扩展点设计
 
-若要装入单独的实验 profile，可先运行 `npm run build:vscode`，再用 VS Code 的 **Developer: Install Extension from Location...** 选择已构建的 `extensions/svg-tools` 目录。日常调试使用上面的 F5 配置即可。
+#### CLI 的四个扩展点
 
-在终端运行 `npm run test:vscode:host` 可启动 1.147.0 的 Electron 宿主。已有该版本时可将环境变量 `VSCODE_EXECUTABLE_PATH` 设为 Code 可执行文件的绝对路径。纯解析用例通过 `npx vitest run test/unit/svg-outline.test.ts` 运行。
+创建图形、执行新命令、修改特殊属性和给树行加标签，各有一个扩展点。插件实现公开接口，编辑会话继续统一管理命令顺序、事务和撤销历史。
 
-![选中普通文本时，只有 example.svg 显示徽标](../docs/images/p2-vscode-badge.png)
+1. **`ShapeProvider` 管理一种图形的创建和读写。** 六种原图形通过 `NativeShapeProvider` 注册，复合框由 `BoxProvider` 注册。`BuiltinCommands.parseCreate` 按提供者声明的参数解析输入，`SvgDocument.create` 通过 `ShapeRegistry.plan` 和 `create` 建立图形。保存和读取时，`XmlSvgEncoder.node` 和 `XmlSvgDecoder.decode` 也查询这份注册表。未注册的类型会报 `UNKNOWN_SHAPE_TYPE`，重复的类型名或 XML 映射会被拒绝。如果构造器返回了错误的 ID、类型或所属文档，注册表会报 `INVALID_VALUE`。[接口](../src/domain/shapes/ShapeProvider.ts) · [注册表](../src/domain/shapes/ShapeRegistry.ts)
+2. **`Command` 增加命令及其帮助信息。** `stats` 按深度优先顺序统计叶子图形和容器。一张只含一个 box 的画布会统计出一个矩形、一个文字节点和一个容器。`dir` 列出启动目录，即使尚未创建画布也可以使用。`CommandRegistry` 负责按名称查找和列出帮助，`PluginCommandBinding.bind` 检查参数，`EditorSession` 在会话队列里调用 `PluginQuery.run`。多给参数会报语法错误，执行结果不符合字符串数组约定时会报 `INVALID_COMMAND_RESULT`。关闭插件后，命令从 `help` 中消失，再调用会得到 `error: unknown command: <name>`。[接口](../src/application/contracts/Command.ts) · [命令绑定](../src/application/commands/PluginCommandBinding.ts) · [队列测试](../test/integration/registered-command.test.ts)
+3. **`AttributeHandler` 定义属性应该改到哪里。** 普通矩形的 `fill` 改自身填色。对 box 执行 `set n1 fill red` 时，`BoxAttributes` 把颜色写入内部矩形，而 `set n1 label "处理数据"` 修改内部文字。`SetCommand.run` 调用 `AttributeDispatch.set` 查找处理器。没有匹配者时，沿用原图形允许修改的属性清单。多个处理器同时匹配时，程序在写入前报告 `ATTRIBUTE_CONFLICT`。[接口](../src/application/contracts/AttributeHandler.ts) · [调度实现](../src/application/commands/AttributeDispatch.ts)
+4. **`TreeDecorator` 给树的每一行追加标签。** `TreeDecorations.apply` 把只读文档交给装饰器，`TextPresenter` 按登记顺序把结果放在行尾。`BoxTypeLabel` 用 `(box)` 标出复合框，`ModifiedStar` 用 `*` 标出尚未保存的变化。两者可以在同一行显示为 `g#n1 (box) *`。关闭装饰器时，`tree` 保留原有输出。装饰器抛错或返回多行标签时，本次树查询报告 `DECORATOR_FAILED`。[接口](../src/application/contracts/TreeDecorator.ts) · [标签组合](../src/application/session/TreeDecorations.ts)
 
-![原生 Outline 选中 rect#start，状态栏显示第 3 行第 5 列](../docs/images/p2-vscode-outline.png)
+#### VS Code 的两个扩展接口
 
-**更新与恢复。** 在同一开发宿主把 `start` 改为 `ready`，在矩形前插入一行，文件标签显示未保存，点击新符号定位第 4 行。删去根结束标签的 `>` 后，大纲显示没有符号。补回后完整树恢复，再点击矩形仍定位第 4 行。窗口截图保留了编辑器、树和状态栏。[未保存编辑](../docs/images/p2-vscode-edited.jpg) · [残缺 XML](../docs/images/p2-vscode-incomplete.jpg) · [恢复后导航](../docs/images/p2-vscode-recovered.jpg)
+VS Code 管理文件、编辑缓冲区、Explorer 和原生 Outline。扩展在 `activate` 中注册两个提供者，再由宿主按需调用。Explorer 请求文件装饰时，`SvgFileDecorationProvider` 同时检查小写 `.svg` 后缀和实际文件类型，因此文件 `example.svg` 会有 `[]` 标记，目录 `folder.svg` 没有。经典 Decorator 模式用同接口对象包装原对象并转发调用。这里的组合发生在 Explorer 绘制文件行时，提供者只交付徽标和提示信息，文件名和内容均由宿主管理。[文件标记实现](../extensions/svg-tools/src/SvgFileDecorationProvider.ts)
 
-**注册与显示。** VS Code 管理工作区、文本缓冲区、Explorer、Outline 和编辑器导航。扩展在 `activate` 中注册两个 provider，并将注册句柄和文件监听器加入 `subscriptions`。Explorer 请求 URI 的装饰时，`SvgFileDecorationProvider` 对小写后缀调用宿主文件系统的 stat，仅向普通文件返回带 `[]` 的 FileDecoration。创建与删除事件通知宿主重新查询。经典 Decorator 持有同接口的 Component 并向它转发调用；这里 provider 提供额外显示数据，由 Explorer 将它与名称、图标组合，文件身份、内容与目录树不变。
+大纲使用了 Adapter 模式。`SvgOutline` 读取当前缓冲区，根据 XML 的开始和结束标签记录层级与 UTF-16 字符位置。`SvgSymbolProvider` 再把这些记录转换为宿主需要的 `DocumentSymbol`。符号按 XML 的父子关系排列，每个符号都记录整个元素的范围，点击时定位到它的开标签。这里复用了 Phase 1 的 `saxes` 解析库和栈遍历思路。CLI 读入文档时会给缺少 ID 的元素补名，领域树也不保留源码位置，而大纲必须能原样显示没有 ID 的 `text` 并跟随未保存的编辑，所以直接从当前文本生成符号树。[大纲适配器](../extensions/svg-tools/src/SvgSymbolProvider.ts) · [源码范围测试](../test/unit/svg-outline.test.ts)
 
-**大纲适配。** Outline 需要 DocumentSymbol 数组；`SvgSymbolProvider` 充当 Adapter，将 `SvgOutline` 的 XML 节点和 UTF-16 偏移转换成嵌套符号、全元素范围和开标签选区。宿主按当前缓冲区版本发起请求，扩展同步读取 getText()。每次解析独立，取消的请求返回空列表。残缺 XML 丢弃整棵临时树，下一次编辑可直接恢复。
+### 插件装配方式
 
-**Phase 1 复用。** 两阶段复用 saxes 和事件栈遍历。CLI 解码器需要尺寸、图形白名单、唯一 id 和可提交的领域文档，会给缺 id 的图形分配名字；语义树也没有源码偏移。大纲直接记录源缓冲区的标签，因而能显示无 id 的 `text` 和 CLI 子集外的 `path`，也支持未保存的文本。纯测试用带 CRLF、表情、注释、CDATA 和引号内 `>` 的 XML 核对原始字符切片。
+**方式 A 通过代码选择插件。** `src/host/code-profile.ts` 列出插件、清单和所属预设。基础模式保留 Phase 1 的 19 条命令和六种图形。`commands` 增加 `stats` 和 `dir`，`box` 启用复合框、它的属性处理器和类型标签，`demo` 启用全部五个插件包。[代码装配入口](../src/host/code-profile.ts)
 
-**桌面反例与修正。** 实测未加载扩展时，Markdown 大纲能跳转并响应未保存编辑，而同一份 SVG 文本没有符号。最初版本返回了正确的符号范围，实际点击却重新打开图像预览。带选区的真实 `vscode.open` 测试复现了该错误。提交 `31212ac` 提供文本编辑器默认关联后，重载并重做相同动作，才取得上面的第 3 行截图。实拍使用 VS Code 1.147.0（8a14f0cc），扩展包入口构建 SHA-256 为 `f13cf1e94ef4e6049927ea9dab35a5959ff2f116c038898b573535b3feccf8bc`，示例 SVG 的 SHA-256 为 `8a7fa28022a65c879a30b2de91760d71c384aec0ada159ceb47f65b0699461a2`。
-
-## CLI 运行与配置
-
-从仓库根目录运行 `npm ci` 和 `npm run build`。构建产物包括 `dist/main.js`、各工作区插件的 `dist/index.js` 和类型声明。默认入口提供 Phase 1 的 19 条命令和六种图形。以下三条命令均在启动进程的工作目录读写相对路径。
-
-```sh
-node dist/main.js
-node dist/main.js --preset demo
-node dist/main.js --config plugins.config.json
-```
-
-代码装配的 `base` 保留旧 CLI，`commands` 只加 stats 和 dir，`box` 加 box、属性处理器和类型标签，`demo` 再包含统计、目录和未保存星号。配置装配可分别启用各包。课程基础、手工组合与复合流程图、统计和目录的输入均已归档。执行 `npm run test:p2:assemblies` 将在同一绝对工作目录重放，对 stdout、stderr 和落盘 SVG 分别比较字节，同时保留日志、长度、摘要和退出码。[会话输入与独立期望](transcript/) · [演示配置](../plugins.config.json)
-
-根配置的 `plugins` 是按加载顺序排列的数组。每项必须有非空字符串 `module`，可带布尔 `enabled` 和对象 `options`。相对目录以配置所在目录为基准，通过其中 package.json 的 main 找入口；包名通过 Node ESM import 条件解析。禁用项在解析前跳过。两个入口都调用 `PluginHost.activate`，将 options 的深拷贝冻结后交给该插件实例。每个包声明 `contributes.shapes/commands/decorators/attributes`，省略的列表为空。
+**方式 B 通过配置文件选择插件。** 加载器按 `plugins` 数组的顺序处理每一项。`module` 可以是包名，也可以是相对于配置文件的目录。使用包名时按 ESM 规则解析，使用目录时从包清单的 `main` 查找入口。`enabled: false` 会在解析模块前跳过该项，`options` 以只读副本传给当前插件。下面的配置启用目录命令和复合框，关闭未保存星号。[完整演示配置](../plugins.config.json) · [配置加载器](../src/host/loader/ConfigLoader.ts)
 
 ```json
 {
@@ -46,44 +35,58 @@ node dist/main.js --config plugins.config.json
 }
 ```
 
-## 架构变化与公开扩展点
+两种入口都调用 `PluginHost.activate`。每个插件在自己的 `package.json` 中用 `contributes` 声明提供的 `shapes`、`commands`、`attributes` 和 `decorators`，未填写的列表按空列表处理。例如 box 包同时声明图形 `box` 与处理器 `box-attributes`，宿主会核对这两项是否都已登记。[box 包清单](../plugins/shape-box/package.json) · [插件宿主](../src/host/loader/PluginHost.ts)
 
-Phase 1 由主程序直接创建 Session、Codec 和 FileStore，命令表同时绑定内置命令。Phase 2 将 19 份绑定保存在 BuiltinCommands，CommandRegistry 只管理查找和顺序；内置六图形通过 NativeShapeProvider 实例加入同一视图。主程序把该视图注入 CLI、Session 与 Codec。代码预设和配置加载汇入同一个暂存注册过程。插件通过工作区包 `@svgframe/api` 取得公开契约。CLI 的 NodeNext 构建和 VS Code 的 CommonJS 构建各自独立。
+在仓库根目录用 Node 24 执行 `npm ci` 和 `npm run build` 后，可任选一种方式启动 CLI。
 
-![Phase 1 模块依赖](architecture.svg)
+```sh
+node dist/main.js
+node dist/main.js --preset demo
+node dist/main.js --config plugins.config.json
+```
 
-![Phase 2 模块依赖及两种装配的汇合点](phase2/architecture.svg)
+VS Code 扩展有独立的构建与启动入口。用 VS Code 打开仓库，选择 **Phase 2: SVG Extension** 后按 F5，启动任务会构建扩展并打开临时示例工作区。需要在单独的 VS Code 配置中安装时，可运行 `npm run build:vscode`，再用 **Developer: Install Extension from Location...** 选择 `extensions/svg-tools`。
 
-两张图均由 PlantUML 渲染。运行 `npm run doc:diagram` 或 `npm run doc:diagram -- --phase2` 可重建对应图。源文件与渲染摘要随仓库保存。[Phase 1 图源](architecture.puml) · [Phase 2 图源](phase2/architecture.puml) · [Phase 2 渲染收据](phase2/architecture.meta.json)
+### 重构前后的架构变化与设计决策
 
-1. **ShapeProvider** 声明运行时名称、创建参数规则、XML tag/data-kind 映射、创建计划、构造器及必要子部件。调用链从 `BuiltinCommands.parseCreate` 到 `ShapeRegistry.validateCreation/plan/create`、`SvgDocument.create`；读写分别使用 `XmlSvgDecoder.decode` 的 fromTag 和 `XmlSvgEncoder.node` 的 definition。六个 NativeShapeProvider 和 BoxProvider 共用该路径。关闭 box 后仍可读其普通 g 子树；未知创建类型返回 UNKNOWN_SHAPE_TYPE，重复类型或 XML 映射拒绝注册，构造器的类型、id、所有者不符返回 INVALID_VALUE。[接口](../src/domain/shapes/ShapeProvider.ts) · [注册表](../src/domain/shapes/ShapeRegistry.ts) · [跨入口测试](../test/integration/shape-provider.test.ts)
-2. **Command** 提供 help、参数个数、是否需要文档及只读执行函数。19 条原命令仍由 BoundCommand 系列实现。`CommandRegistry.parse/bind/describe` 管理统一分发；插件通过 `PluginCommandBinding.bind` 进入 `PluginQuery.run`，由 `EditorSession.#query` 在会话队列中等待。StatsCommand 对当前树深度优先计数，DirCommand 无需文档。关闭时 help 无相应条目，调用产生 `error: unknown command: <name>`。额外参数报语法错误，返回非字符串数组报 INVALID_COMMAND_RESULT。只读查询不改变 dirty、历史与 IO 屏障。[接口](../src/application/contracts/Command.ts) · [队列测试](../test/integration/registered-command.test.ts)
-3. **AttributeHandler** 声明稳定名称、匹配谓词和同步修改。`SetCommand.run` 在原事务中调用 `AttributeDispatch.set`。BoxAttributes 将 fill 写入矩形，将 label 写入文字。零匹配保留各图形自己的白名单；多匹配返回 ATTRIBUTE_CONFLICT。命中后任何修改失败都沿当前 lease 回滚。只有目标和直接子部件可通过限时门面读取或设置。[接口](../src/application/contracts/AttributeHandler.ts) · [调度](../src/application/commands/AttributeDispatch.ts) · [双部件故障测试](../test/integration/attribute-handler.test.ts)
-4. **TreeDecorator** 在 `TreeDecorations.apply` 中从完整只读文档准备行回调。每行按注册顺序收集非空标签，`TextPresenter.tree/data` 在换行前追加。根用 null 识别，允许普通图形实际使用 id “svg”。BoxTypeLabel 按运行时类型输出 `(box)`，ModifiedStar 按保存内容输出 `*`。零实现保留旧行字节。回调抛错或返回多行，中止当次查询并报告 DECORATOR_FAILED；已有文件写入不会重做。[接口](../src/application/contracts/TreeDecorator.ts) · [树查询与观察器](../src/application/session/TreeDecorations.ts) · [查询故障测试](../test/integration/tree-decorator.test.ts)
+#### 从固定的命令表和图形工厂，到启动时注册
 
-## 设计决策记录
+Phase 1 的 `CommandCatalog` 集中定义命令的名称、语法和绑定规则，`ShapeFactory` 集中创建六种图形。Phase 2 保留命令行、应用、领域和基础设施四层，将“这次启动要启用哪些能力”移到 `src/main.ts` 和 `src/host`。原命令的绑定保存在 `BuiltinCommands`，内置图形和插件图形共用一份注册表。插件依赖 `@svgframe/api` 的公开接口，文档、历史和 CLI 显示层可以各自演进。
 
-**ADR-01　set 的写权限与历史。** 处理器可能同时声明同一属性。覆盖或依次执行会让注册顺序影响实际写入。调度器先用只读 ShapeDescription 收集所有匹配者，冲突在首笔写入前失败。唯一匹配者取得本次目标及直接子部件的同步编辑门面；返回后门面失效。第二次写入发生故障时，Session 回滚第一次写入并保留已有 redo 分支。成功的多部件修改仍只有一个 ChangeSet。创建/编辑可附提交及回放文案，历史保存不可变副本，undo/redo 重放变更时无需再调用处理器。[验证](../test/integration/attribute-handler.test.ts)
+![重构前：Phase 1 的命令行、应用、领域与基础设施](architecture.svg)
 
-**ADR-02　复合结构、标记与降级。** 采用普通 SVG 的 `g data-kind="box"`。BoxProvider 生成 `<id>-rect` 和 `<id>-label`，标题定位为 `(x+20, y+h/2+5)`。未发布子树完成后一次挂入活动文档，检查重复 id、节点预算与深度。打开插件时拒绝缺件、错型和重复 id 的候选；关闭时保留原组、元数据与孩子。普通子节点和嵌套 box 均可追加。保护必要件的拆出、单独几何变换及位置调整，整框移动/缩放则递归处理。根级和嵌套复合容器均拒绝 ungroup。[插件](../plugins/shape-box/src/) · [读回、限额与撤销](../test/integration/box-roundtrip.test.ts)
+![重构后：代码装配与配置装配汇合到插件宿主](phase2/architecture.svg)
 
-**ADR-03　星号比较保存内容。** 若只记录“发生过编辑”，undo 回到保存内容仍会留星。ModifiedStar 在实例字段中保存每行的规范化自身属性、文字、父级和有序子 id；根还包含画布尺寸。新增节点立即标星。树查询时自底向上传播变化，独立反向编辑回原值也能清星。删除和换父会改变父级孩子清单。成功 save 或 read 才换基准，自动补 id 的行和祖先仍待保存。多个标签按登记顺序拼接，demo 的框体类型在星号之前。SessionStatus 的历史状态身份继续供 CLI 其他操作使用。[独立状态机](../test/unit/star-plugin.test.ts) · [确认写入与保存点](../test/integration/star-checkpoints.test.ts)
+两张组件图均由 PlantUML 渲染。可用 `npm run doc:diagram` 和 `npm run doc:diagram -- --phase2` 分别重建。[Phase 1 图源](architecture.puml) · [Phase 2 图源](phase2/architecture.puml) · [渲染记录](phase2/architecture.meta.json)
 
-**ADR-04　激活成功后一次发布。** 逐条直接登记会留下半个包。配置先整体验证，每包在独立暂存区运行。四类名称逐类作集合比较，禁止同类重名；这也覆盖与内置命令、图形冲突的情况。成功后才替换整组注册，失败则保留旧注册并继续下一包。上下文在激活结束后关闭。模块定位与模块求值分开，因此缺内部依赖属于加载失败。语法或结构错误返回 `error: invalid plugin config` 并以默认能力启动。四种模块错误分别用 `plugin not found`、`plugin has no default export`、`plugin manifest mismatch`、`plugin failed to activate`，重复名用 `duplicate registration: 类别/名称`。真实进程检查诊断顺序和值，并继续执行后续好包。[宿主](../src/host/loader/PluginHost.ts) · [配置加载器](../src/host/loader/ConfigLoader.ts) · [进程测试](../test/e2e/plugin-loader.test.ts)
+为检查新图形能否独立接入，我们从同一提交 `83028b2` 做了两次 box 实验。代码方式的提交 `1f37244` 只改动一处已有运行代码，即顶层装配文件。配置方式的提交 `bd981ac` 通过修改根配置启用新包。两份 box 包的 Git tree ID 相同，锁文件差异只涉及新增工作区包及其链接。检查脚本对六个插件接入提交逐一核对完整差异，并确认受保护的内核、加载器和已有插件路径确实存在。按同一脚本从 Git 统计，CLI 生产代码从 3,997 行增至 5,302 行，函数圈复杂度之和从 1,005 增至 1,372。插件占 341 行，VS Code 扩展的 107 行单独统计。[Git 差异检查](../scripts/check-plugin-diffs.mjs) · [按文件和类别生成的指标](../docs/metrics/README.md)
 
-**目录访问适配器。** DirCommand 是客户端，DirectoryReader 是目标接口，NodeDirectoryReader 将 Node 的 `readdir({withFileTypes:true})` 和 Dirent 适配成只读名称及类别。客户端按目录、文件分组，各组以 JS 字符串顺序排序，包括隐藏项，略过链接和特殊项。每个标记后恰好两个 ASCII 空格。目录取启动时注入的 cwd。读取失败在 stderr 报告目标路径，下一条命令仍可执行。假 Reader、真实临时目录、真实链接和跨目录 save/read 均有测试。[适配器](../plugins/dir/src/NodeDirectoryReader.ts) · [独立和集成断言](../test/integration/dir-plugin.test.ts)
+#### 四项设计决策
 
-## 差异、指标与复验
+- **ADR-01　一次属性修改对应一次撤销。** 唯一匹配的处理器在当前事务内获得临时写权限，只能访问目标和直接子部件。即使要修改两个部件，成功后也只记一条历史。第二处写入失败时，第一处也回滚。撤销和重做使用已保存的变更，避免再次执行处理器。[事务与历史测试](../test/integration/attribute-handler.test.ts)
+- **ADR-02　让普通 SVG 阅读器也能打开 box。** 框保存为 `<g data-kind="box">`，矩形和标题的 ID 分别是 `<id>-rect` 和 `<id>-label`。启用插件时，读入后恢复复合框，拒绝缺件、类型错误和重复 ID。关闭插件时，文件仍能按普通分组读入，孩子与元数据得到保留。允许移动或删除整框，直接拆出必要子部件及对 box 解组会被拒绝。[创建与读回测试](../test/integration/box-roundtrip.test.ts)
+- **ADR-03　星号表示内容与保存点有差异。** 每个装饰器实例记录上次成功保存或读入时的属性、文字、父级和孩子顺序。新建节点立即带星，子节点变化会向祖先传播。撤销回到保存内容时星号消失，重做后重新出现。失败或结果不确定的保存不会清星。多个标签按注册顺序显示。[星号状态机](../test/unit/star-plugin.test.ts) · [保存点测试](../test/integration/star-checkpoints.test.ts)
+- **ADR-04　每个插件整包生效。** 宿主先暂存登记，激活结束后再将四类名称逐项与清单比较。名称重复、清单不符或激活抛错时，丢弃这个包的全部登记，继续加载后面的包。配置文件自身不合法时，以默认内置能力启动。例如一个坏包已经登记图形、随后登记属性失败，用户也不会看见半个可用的插件。[加载器故障测试](../test/e2e/plugin-loader.test.ts)
 
-共同父提交为 `83028b23bbfa0194172e08290983cd5dbf695e89`。代码接入提交为 `1f37244fb9f2c60d0271fd93889a24595928dabe`，配置接入提交为 `bd981ac204470e58589c96832ccf4945a133a873`。二者独立建包与运行，box 包的 Git tree 均为 `a7a655d7495053fac9ee9812c371d94f53ff30de`，合并提交 `76882ba` 保留两个父系。A 更新唯一顶层装配文件，B 只更新配置；两边的 lockfile 都只加入工作区包和链接记录。测试用于验证模板、原子编辑、真实 XML，文档记录当步工作。新增包的 package.json 声明入口、API 依赖和 contributes，无构建钩子。
+`dir` 体现了依赖方向怎样落实到代码。命令面向 `DirectoryReader` 接口，`NodeDirectoryReader` 负责把 Node 的 `readdir` 和 `Dirent` 适配为名称与类别。这样可以单独检查排序和格式，再用真实文件系统检查文件类型。命令列出启动目录的直接子项，包含隐藏项，目录排在文件之前，同组按名称排序，略过符号链接及其他特殊项。读取失败后仍可继续执行下一条命令。[适配器](../plugins/dir/src/NodeDirectoryReader.ts) · [替身与真实目录测试](../test/integration/dir-plugin.test.ts)
 
-`npm run check:p2:diffs` 对 stats、dir、两次 box 接入和两个标签检查完整 name-status、真实存在的保护路径、包 tree 与锁文件差异。ConfigLoader 只按模块字符串定位，未导入任何已知插件包。配置黑盒夹具用未出现在宿主源码的新包名验证了这条路径。[Git 核对脚本](../scripts/check-plugin-diffs.mjs)
+#### 与 AI 协作时的检查和修正
 
-按 Git blob 的同一算法复算，CLI 生产代码从 3,997 行增至 5,302 行，函数圈复杂度总和从 1,005 增至 1,372。新增插件占 341 行、复杂度 78。解析与构造、目录访问及注册故障隔离各有实际分支；分组移动从 GroupShape 迁至 ContainerShape 后，单个方法的圈复杂度保持 2。VS Code 扩展单列 107 行、复杂度 21。[按类别的指标、函数迁移与逐文件清单](../docs/metrics/README.md)
+开发大纲前，我先让 AI 观察原生大纲。Markdown 标题能在点击后跳转，未保存的改名也会立即反映在大纲中。同一窗口以文本方式打开 SVG 时，原生大纲没有符号。第一版扩展已经能返回正确的符号和源码范围，但实际点击 `rect#start` 时，VS Code 又打开了图像预览。AI 用带选区的 `vscode.open` 调用复现了错误，再修改扩展清单，为 SVG 提供默认文本编辑器关联。重载后重做同一次点击，状态栏才显示第 3 行第 5 列。[原生对照](phase2/native-svg.jpg) · [修正前画面](phase2/navigation-before.jpg) · [宿主回归测试](../extensions/svg-tools/test/host.ts)
 
-**AI 建议的实测修正。** 首次窗口点击揭示了 Image Preview 的二次接管，带选区的宿主断言先失败、修正清单后通过。另一处偏差发生在 A/B 的 help：各命令独立用例正确，完整 stdout 的字节对照却发现注册顺序相反，统一顺序后相同输入的字节匹配。配置分支首次终端作业与分支切换重叠，其结果已弃用；两个准确 SHA 各自重新检出、安装、构建、运行并断言 stderr 为空。[导航反例](phase2/navigation-before.jpg) · [装配顺序回归](../test/e2e/assembly-order.test.ts) · [过程日志](PROGRESS.md)
+双装配的检查也发现了单个插件测试看不到的问题。`stats` 和 `dir` 各自执行正确，两种方式的 `help` 却按相反顺序列出它们。我们把完整输出按字节比较，固定失败用例后统一登记顺序。验证 box 时还出现过一次分支切换与终端执行重叠，程序读到了另一份配置。那次结果作废，改为在两个独立检出中分别安装、构建和运行，同时核对创建反馈、标准错误和退出码。[装配顺序回归](../test/e2e/assembly-order.test.ts) · [过程记录](PROGRESS.md)
 
-**验收入口。** `npm run verify` 执行静态检查、分层回归、覆盖率、性能、追踪和 Phase 2 实验门禁；`npm run random:ci` 和 `npm run random:release` 记录固定及新种子。精确候选使用干净检出和完整 40 位 SHA，收据保存在提交外 `artifacts/acceptance/`。源提交和远程发布依次核对。[测试报告](TEST_REPORT.md) · [条款追踪](TEST_TRACEABILITY.md)
+#### 测试与验证材料
+
+- **插件与加载器测试。** 五个插件包各有针对自身行为的用例，覆盖统计顺序、目录排序、复合框的创建与属性、类型标签和未保存标记。加载器测试用“正常包、坏包、正常包”的顺序检查模块找不到、缺少默认导出、清单不符和激活抛错，并额外验证重复注册、整包回滚和后续正常命令仍能执行。[stats](../test/unit/stats-plugin.test.ts) · [dir](../test/integration/dir-plugin.test.ts) · [box](../test/unit/box-plugin.test.ts) · [类型标签](../test/unit/box-label.test.ts) · [星号](../test/unit/star-plugin.test.ts) · [宿主注册](../test/unit/plugin-host.test.ts) · [加载器进程测试](../test/e2e/plugin-loader.test.ts)
+- **功能兼容性验证。** 运行 `npm run test:p2:assemblies`，脚本会启动 24 次编译后的 CLI 进程。基础会话、旧流程图、帮助和树输出与 Phase 1 的 `final` 作对照。box 流程图和新插件会话在相同工作目录下对照两套装配，逐项检查退出码、标准输出、标准错误及保存的 SVG。独立 XML 检查还核对了流程图的 8 个节点、两个框的标记、填色和撤销后的中文标题。[会话输入与手写期望](transcript/) · [验证脚本](../scripts/test-assemblies.mjs) · [测试报告](TEST_REPORT.md)
+- **VS Code 扩展运行截图。** 下列两张图拍自 VS Code 1.147.0 的扩展开发宿主。第一张在选中普通文本时检查 Explorer 的徽标，第二张同时显示大纲中的 `rect#start`、源码和跳转行号。另有同一窗口未保存改名并插行、故意使 XML 残缺、补回结束标签后恢复导航的记录。[未保存编辑](../docs/images/p2-vscode-edited.jpg) · [残缺 XML](../docs/images/p2-vscode-incomplete.jpg) · [同窗恢复](../docs/images/p2-vscode-recovered.jpg) · [截图和构建摘要](phase2/vscode-evidence.json)
+
+![选中 plain.txt 时，只有 example.svg 显示方括号徽标](../docs/images/p2-vscode-badge.png)
+
+![点击 rect#start 后，编辑器定位到第 3 行第 5 列](../docs/images/p2-vscode-outline.png)
+
+代码候选 `dbcb050` 已在干净检出中完成 798 项测试，0 失败、0 跳过，另有 9 项性能检查。真实宿主测试可用 `npm run test:vscode:host` 复验，完整检查使用 `npm run verify`。[需求与测试对照](TEST_TRACEABILITY.md) · [验收摘要](phase2/acceptance.md)
 
 # SVG 编辑器 Phase 1 课程报告
 
