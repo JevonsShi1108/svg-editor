@@ -38,6 +38,14 @@ const sourceVersions = sourceFiles.map((file) => ({
   blob: git(['rev-parse', `HEAD:${file}`]),
   originalBlob: git(['rev-parse', `${baseline}:${file}`]),
 }));
+for (const file of ['doc/spec/phase_cli_2.md', 'doc/spec/SVG_Editor_Phase2_Goal_Plan.md']) {
+  sourceVersions.push({
+    file,
+    sha256: hash(file),
+    blob: git(['rev-parse', `HEAD:${file}`]),
+    originalBlob: git(['rev-parse', `bdc79b7:${file}`]),
+  });
+}
 const startedAt = new Date().toISOString();
 // Written before any checks so an interrupted run cannot leave a false READY receipt.
 const receipt = {

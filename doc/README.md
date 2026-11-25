@@ -4,6 +4,8 @@
 
 在仓库根目录使用 Node 24 运行 `npm ci`，用 VS Code 打开仓库，选择 **Phase 2: SVG Extension** 后按 F5。启动任务构建 CommonJS 扩展并把示例复制到 `artifacts/ui/development`。Explorer 中打开 `plain.txt` 即可看见同级 `example.svg` 的徽标。选择 SVG，展开 Explorer 下方的 Outline，点击 `rect#start`。扩展清单将 SVG 的默认编辑器设为文本编辑器，已有的用户或工作区关联可以覆盖此默认值。图像预览仍可从编辑器选择菜单打开。
 
+若要装入单独的实验 profile，可先运行 `npm run build:vscode`，再用 VS Code 的 **Developer: Install Extension from Location...** 选择已构建的 `extensions/svg-tools` 目录。日常调试使用上面的 F5 配置即可。
+
 在终端运行 `npm run test:vscode:host` 可启动 1.147.0 的 Electron 宿主。已有该版本时可将环境变量 `VSCODE_EXECUTABLE_PATH` 设为 Code 可执行文件的绝对路径。纯解析用例通过 `npx vitest run test/unit/svg-outline.test.ts` 运行。
 
 ![选中普通文本时，只有 example.svg 显示徽标](../docs/images/p2-vscode-badge.png)
@@ -77,7 +79,7 @@ Phase 1 由主程序直接创建 Session、Codec 和 FileStore，命令表同时
 
 `npm run check:p2:diffs` 对 stats、dir、两次 box 接入和两个标签检查完整 name-status、真实存在的保护路径、包 tree 与锁文件差异。ConfigLoader 只按模块字符串定位，未导入任何已知插件包。配置黑盒夹具用未出现在宿主源码的新包名验证了这条路径。[Git 核对脚本](../scripts/check-plugin-diffs.mjs)
 
-按 Git blob 的同一算法复算，CLI 生产代码从 3,997 行增至 5,292 行，函数圈复杂度总和从 1,005 增至 1,367。新增插件占 341 行、复杂度 78。解析与构造、目录访问及注册故障隔离各有实际分支；分组移动从 GroupShape 迁至 ContainerShape 后，单个方法的圈复杂度保持 2。VS Code 扩展单列 107 行、复杂度 21。[按类别的指标、函数迁移与逐文件清单](../docs/metrics/README.md)
+按 Git blob 的同一算法复算，CLI 生产代码从 3,997 行增至 5,302 行，函数圈复杂度总和从 1,005 增至 1,372。新增插件占 341 行、复杂度 78。解析与构造、目录访问及注册故障隔离各有实际分支；分组移动从 GroupShape 迁至 ContainerShape 后，单个方法的圈复杂度保持 2。VS Code 扩展单列 107 行、复杂度 21。[按类别的指标、函数迁移与逐文件清单](../docs/metrics/README.md)
 
 **AI 建议的实测修正。** 首次窗口点击揭示了 Image Preview 的二次接管，带选区的宿主断言先失败、修正清单后通过。另一处偏差发生在 A/B 的 help：各命令独立用例正确，完整 stdout 的字节对照却发现注册顺序相反，统一顺序后相同输入的字节匹配。配置分支首次终端作业与分支切换重叠，其结果已弃用；两个准确 SHA 各自重新检出、安装、构建、运行并断言 stderr 为空。[导航反例](phase2/navigation-before.jpg) · [装配顺序回归](../test/e2e/assembly-order.test.ts) · [过程日志](PROGRESS.md)
 

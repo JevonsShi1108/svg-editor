@@ -2867,7 +2867,7 @@
     ]
   },
   "after": {
-    "digest": "04de97933f8997b8139bb732a3678ea0e2cc8cf358e418d2b025fdeca4f7a176",
+    "digest": "d28ff91de8e8bfac9838814cacee58ad0658808b363248a143b43cd4a4d87d19",
     "groups": {
       "kernel": {
         "files": 96,
@@ -2876,8 +2876,8 @@
       },
       "assembly": {
         "files": 4,
-        "lines": 368,
-        "complexity": 118
+        "lines": 378,
+        "complexity": 123
       },
       "plugin": {
         "files": 14,
@@ -6386,10 +6386,10 @@
       },
       {
         "file": "src/host/loader/PluginHost.ts",
-        "blob": "086be0cd5373d30c3c751d5d664cb896b1bcca2b",
+        "blob": "78ad8f3abf7c45cff9c6f563bf1265f26ca4e1db",
         "category": "assembly",
         "responsibility": "PluginHost · 暂存当前插件的四类注册，核对清单后一次发布",
-        "lines": 159,
+        "lines": 169,
         "functions": [
           {
             "name": "empty",
@@ -6439,47 +6439,42 @@
           {
             "name": "PluginHost.activate",
             "line": 51,
-            "complexity": 14
+            "complexity": 18
           },
           {
             "name": "check",
-            "line": 59,
+            "line": 60,
             "complexity": 7
           },
           {
             "name": "<callback>",
-            "line": 67,
+            "line": 68,
             "complexity": 1
           },
           {
             "name": "registerCommand",
-            "line": 76,
+            "line": 77,
             "complexity": 9
           },
           {
             "name": "<callback>",
-            "line": 85,
+            "line": 86,
             "complexity": 2
           },
           {
             "name": "registerShape",
-            "line": 91,
+            "line": 92,
             "complexity": 3
           },
           {
             "name": "registerAttribute",
-            "line": 97,
+            "line": 98,
             "complexity": 3
           },
           {
             "name": "registerDecorator",
-            "line": 103,
+            "line": 104,
             "complexity": 2
-          },
-          {
-            "name": "<callback>",
-            "line": 114,
-            "complexity": 1
           },
           {
             "name": "<callback>",
@@ -6488,22 +6483,32 @@
           },
           {
             "name": "<callback>",
-            "line": 121,
+            "line": 124,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 129,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 131,
             "complexity": 3
           },
           {
             "name": "<callback>",
-            "line": 124,
+            "line": 134,
             "complexity": 2
           },
           {
             "name": "<callback>",
-            "line": 130,
+            "line": 140,
             "complexity": 4
           },
           {
             "name": "<callback>",
-            "line": 136,
+            "line": 146,
             "complexity": 1
           }
         ]

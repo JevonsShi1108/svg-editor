@@ -16,6 +16,16 @@ const specs = [
 const out = 'artifacts/plugin-diffs';
 mkdirSync(out, { recursive: true });
 const proofs = [];
+function assertProtected(parent, commit, paths) {
+  const diff = git('diff', parent, commit, '--', ...paths);
+  assert.equal(diff, '', 'protected files changed');
+}
+// The pre-integration feedback change genuinely edits the kernel, so this comparison must fail.
+assert.throws(
+  () => assertProtected(resolve('83028b2^'), resolve('83028b2'), ['src/application/history']),
+  /protected files changed/,
+);
+
 for (const [ref, dir, mode] of specs) {
   const commit = resolve(ref),
     parent = resolve(commit + '^'),
@@ -42,7 +52,7 @@ for (const [ref, dir, mode] of specs) {
   for (const folder of protectedPaths)
     for (const rev of [parent, commit])
       assert.ok(git('ls-tree', '-r', '--name-only', rev, '--', folder).length, folder);
-  assert.equal(git('diff', parent, commit, '--', ...protectedPaths), '');
+  assertProtected(parent, commit, protectedPaths);
   for (const [status, file] of files) {
     if (file.startsWith(prefix)) assert.equal(status, 'A');
     else if (file === 'src/host/code-profile.ts') assert.ok(mode !== 'config');

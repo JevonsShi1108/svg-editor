@@ -62,6 +62,10 @@ function equalBytes(label, left, right) {
     `${label}: mismatch at byte ${offset}; ${left.subarray(offset, offset + 32).toString('hex')} / ${right.subarray(offset, offset + 32).toString('hex')}; raw files in ${run}`,
   );
 }
+assert.throws(
+  () => equalBytes('byte sensitivity', Buffer.from([32, 10]), Buffer.from([32, 13])),
+  /mismatch at byte 1/,
+);
 function compare(name, input, profiles, outputFile) {
   const results = [];
   for (const { name: kind, args, entry } of profiles) {
