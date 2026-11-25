@@ -15,9 +15,9 @@ interface InstalledPlugin {
 }
 
 const installed: readonly InstalledPlugin[] = [
-  { plugin: shapeBox, manifest: shapeBoxManifest, presets: ['demo', 'box'] },
-  { plugin: dir, manifest: dirManifest, presets: ['demo', 'commands'] },
   { plugin: stats, manifest: statsManifest, presets: ['demo', 'commands'] },
+  { plugin: dir, manifest: dirManifest, presets: ['demo', 'commands'] },
+  { plugin: shapeBox, manifest: shapeBoxManifest, presets: ['demo', 'box'] },
 ];
 
 export async function loadCodeProfile(name: string, host: PluginHost): Promise<string[]> {
