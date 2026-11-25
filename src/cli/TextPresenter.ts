@@ -20,6 +20,10 @@ export class TextPresenter {
     const p = diagnostic.parameters;
     const value = (name: string) => this.safe(p[name]);
     const text: Readonly<Record<string, () => string>> = {
+      INVALID_COMPOSITE: () =>
+        `invalid composite shape: ${value('id')} (required part: ${value('part')})`,
+      COMPOSITE_UNGROUP: () => `cannot ungroup composite shape: ${value('id')}`,
+      PROTECTED_PART: () => `cannot detach required part: ${value('id')} from ${value('owner')}`,
       DUPLICATE_ID: () => `id already exists: ${value('id')}`,
       SHAPE_NOT_FOUND: () => `no such shape: ${value('id')}`,
       CONTAINER_NOT_FOUND: () => `no such container: ${value('id')}`,
@@ -52,11 +56,11 @@ export class TextPresenter {
       stderr: result.warnings.map((w) => this.diagnostic(w)).join(''),
     };
   }
-  private shape(shape: ShapeDescription, annotation = ''): string {
-    return `${this.safe(shape.type)}#${this.safe(shape.id)}${annotation ? ` ${annotation}` : ''}${shape.displayFields.length ? '  ' + shape.displayFields.map((f) => `${this.safe(f.label)}=${this.safe(f.value)}`).join(' ') : ''}${shape.text === undefined ? '' : ` ${this.safe(JSON.stringify(shape.text))}`}`;
+  private shape(shape: ShapeDescription, annotation = '', tag = shape.type): string {
+    return `${this.safe(tag)}#${this.safe(shape.id)}${annotation ? ` ${annotation}` : ''}${shape.displayFields.length ? '  ' + shape.displayFields.map((f) => `${this.safe(f.label)}=${this.safe(f.value)}`).join(' ') : ''}${shape.text === undefined ? '' : ` ${this.safe(JSON.stringify(shape.text))}`}`;
   }
   private tree(node: TreeNodeDescription, prefix = '', branch = ''): string {
-    let output = `${prefix}${branch}${this.shape(node.shape)}\n`;
+    let output = `${prefix}${branch}${this.shape(node.shape, '', node.xmlTag)}\n`;
     const childPrefix = prefix + (branch ? (branch === '└── ' ? '    ' : '│   ') : '');
     for (const [index, child] of node.children.entries())
       output += this.tree(child, childPrefix, index === node.children.length - 1 ? '└── ' : '├── ');

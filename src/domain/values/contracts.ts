@@ -30,6 +30,7 @@ export interface ShapeDescription extends OwnStateDescription {
   readonly displayFields: readonly DisplayField[];
 }
 export interface TreeNodeDescription {
+  readonly xmlTag?: string;
   readonly shape: ShapeDescription;
   readonly children: readonly TreeNodeDescription[];
 }

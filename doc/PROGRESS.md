@@ -16,6 +16,8 @@ P2-05 将内置命令的 19 份绑定从通用注册表分离。Session 消费�
 
 P2-06 六种图形由 `NativeShapeProvider` 实例装入，CLI 装配共享同一个 ShapeRegistry，贯穿创建、初始化、编码和读回。自定义 `stamp` 用字符串参数并以带标记的 g 往返，缺插件时降级；省略 circle 的独立装配仍可创建 rect。类型、lint、架构和形状/结构/Codec/进程等 239 项测试通过。
 
+P2-07 复合创建先组装未发布子树，再通过一个 placement 加入文档。34 项验证包括派生 id 冲突、子部件保护、整树撤销重做及坏 XML 候选保留原文档。
+
 # Phase 1 实现进度
 
 2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。

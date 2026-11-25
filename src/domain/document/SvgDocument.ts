@@ -9,6 +9,7 @@ import type {
 } from '../values/contracts.js';
 import type { ContainerRef, Placement, StateTarget, GroupPlan } from '../internal/protocols.js';
 import { ContainerShape } from '../shapes/ContainerShape.js';
+import type { ShapePlan } from '../shapes/ShapeProvider.js';
 import type { ShapeRegistry } from '../shapes/ShapeRegistry.js';
 import type { EditTransaction } from '../transactions/EditTransaction.js';
 import type { Shape } from '../shapes/Shape.js';
@@ -135,9 +136,54 @@ export class SvgDocument {
   create(tx: EditTransaction, creation: ShapeCreation, parent: ContainerRef = this.root): Shape {
     tx.assertDocument(this.#id);
     const plan = this.#factory.plan(creation, this.#rules);
-    const node = this.#factory.create(plan.type, plan.id, this.#id, this.#rules, plan.state);
+    const node = this.materialize(plan);
     tx.place(node, { parent, index: parent.childCount });
     return node;
+  }
+  private materialize(plan: ShapePlan): Shape {
+    const root = this.#factory.create(plan.type, plan.id, this.#id, this.#rules, plan.state);
+    if (plan.children?.length) {
+      const authority = new MutationAuthority(this.#id);
+      let count = 1;
+      const populate = (parent: Shape, children: readonly ShapePlan[], depth: number) => {
+        const container = parent.asContainer();
+        if (!container) throw new DomainError('NOT_A_CONTAINER', { id: parent.id });
+        if (depth > this.#rules.limits.maxTreeDepth)
+          throw new DomainError('RESOURCE_LIMIT', { field: 'depth' });
+        for (const child of children) {
+          if (++count > this.#rules.limits.maxNodeCount)
+            throw new DomainError('RESOURCE_LIMIT', { field: 'nodes' });
+          const node = this.#factory.create(
+            child.type,
+            child.id,
+            this.#id,
+            this.#rules,
+            child.state,
+          );
+          spliceChildren(authority, container, container.childCount, 0, node);
+          installParent(authority, node, container);
+          if (child.children?.length) populate(node, child.children, depth + 1);
+          this.validateParts(node);
+        }
+      };
+      try {
+        populate(root, plan.children, 2);
+      } finally {
+        authority.revoke();
+      }
+    }
+    this.validateParts(root);
+    return root;
+  }
+
+  private validateParts(node: Shape): void {
+    const provider = this.#factory.definition(node.schema.type);
+    if (!provider.requiredChildren) return;
+    const children = node.asContainer()?.childrenSnapshot() ?? [];
+    for (const part of provider.requiredChildren(node.id)) {
+      if (!children.some((child) => child.id === part.id && child.schema.type === part.type))
+        throw new DomainError('INVALID_COMPOSITE', { id: node.id, part: part.id });
+    }
   }
   resizeCanvas(tx: EditTransaction, size: CanvasSize): void {
     tx.assertTarget(this.root);
@@ -234,6 +280,8 @@ export class SvgDocument {
     tx.assertTarget(group);
     const container = group.asContainer();
     if (!container) throw new DomainError('NOT_A_CONTAINER', { id: group.id });
+    if (this.#factory.definition(group.schema.type).requiredChildren)
+      throw new DomainError('COMPOSITE_UNGROUP', { id: group.id });
     const placement = this.placementOf(group)!;
     if (placement.parent === this.root)
       throw new DomainError('TOP_LEVEL_UNGROUP', { id: group.id });
@@ -261,6 +309,9 @@ export class SvgDocument {
   describeTree(node: Shape): TreeNodeDescription {
     return Object.freeze({
       shape: node.describe(),
+      ...(this.#factory.definition(node.schema.type).xmlTag !== node.schema.type
+        ? { xmlTag: this.#factory.definition(node.schema.type).xmlTag }
+        : {}),
       children: Object.freeze(
         (node.asContainer()?.childrenSnapshot() ?? []).map((child) => this.describeTree(child)),
       ),
@@ -316,6 +367,16 @@ export class SvgDocument {
     const active = this.isAttached(node);
     if (actual && !active)
       throw new DomainError('INTERNAL_INVARIANT_ERROR', { reason: 'detached descendant' });
+    const owner = actual?.parent.ownerShape;
+    if (
+      owner &&
+      actual?.parent !== next?.parent &&
+      this.#factory
+        .definition(owner.schema.type)
+        .requiredChildren?.(owner.id)
+        .some((part) => part.id === node.id)
+    )
+      throw new DomainError('PROTECTED_PART', { id: node.id, owner: owner.id });
     if (!next) return;
     const parent = next.parent;
     if (
@@ -378,6 +439,7 @@ export class SvgDocument {
         identities.add(node);
         seen.set(node.id, node);
         validateState(node, node.captureState());
+        this.validateParts(node);
         const container = node.asContainer();
         if (container) visit(container, depth + 1);
       }

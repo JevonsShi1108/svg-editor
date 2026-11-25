@@ -67,3 +67,56 @@ it('omits individual builtins and rejects duplicate names or XML mappings', () =
       ]),
   ).toThrow('DUPLICATE_REGISTRATION');
 });
+
+it('publishes a composite subtree as one placement, protects required parts and rejects damaged reads', async () => {
+  const compound: ShapeProvider = {
+    ...stamp,
+    requiredChildren: (id) => [{ id: id + '-part', type: 'rect' }],
+    plan: (id, fields) => ({
+      ...stamp.plan(id, fields),
+      children: [
+        {
+          type: 'rect',
+          id: id + '-part',
+          state: { attributes: { x: 0, y: 0, width: 1, height: 1 } },
+        },
+      ],
+    }),
+  };
+  const shapes = new ShapeRegistry([...builtinShapes, compound]);
+  const files = new TestPorts();
+  const commands = new CommandCatalog(defaultLimits, shapes);
+  const codec = new XmlSvgCodec(shapes);
+  const session = new EditorSession({ commands, files, codec, shapes, limits: defaultLimits });
+  const parser = new CliParser(commands);
+  const run = (line: string) => session.execute(parser.parse(line)!);
+  committed(await run('init'));
+  committed(await run('create rect c-part 0 0 1 1'));
+  expect(await run('create stamp c red')).toMatchObject({
+    ok: false,
+    error: { code: 'DUPLICATE_ID' },
+  });
+  expect((await semantic(session)).children.map((n) => n.shape.id)).toEqual(['c-part']);
+  committed(await run('create stamp x red'));
+  const before = await semantic(session);
+  expect(before.children[1]?.children[0]?.shape.id).toBe('x-part');
+  expect(before.children[1]?.xmlTag).toBe('g');
+  for (const [line, code] of [
+    ['delete x-part', 'PROTECTED_PART'],
+    ['ungroup x', 'COMPOSITE_UNGROUP'],
+  ] as const) {
+    expect(await run(line)).toMatchObject({ ok: false, error: { code } });
+    expect(await semantic(session)).toEqual(before);
+  }
+  committed(await run('undo'));
+  expect((await semantic(session)).children).toHaveLength(1);
+  committed(await run('redo'));
+  expect(await semantic(session)).toEqual(before);
+  const xml = codec.encode(before);
+  files.files.set('/test/bad.svg', xml.replace('id="x-part"', 'id="wrong"'));
+  expect(await run('read bad.svg')).toMatchObject({
+    ok: false,
+    error: { code: 'INVALID_COMPOSITE' },
+  });
+  expect(await semantic(session)).toEqual(before);
+});
