@@ -1,3 +1,5 @@
+import shapeBox from '@svgframe/plugin-shape-box';
+import shapeBoxManifest from '@svgframe/plugin-shape-box/package.json' with { type: 'json' };
 import dir from '@svgframe/plugin-dir';
 import dirManifest from '@svgframe/plugin-dir/package.json' with { type: 'json' };
 import stats from '@svgframe/plugin-stats';
@@ -13,6 +15,7 @@ interface InstalledPlugin {
 }
 
 const installed: readonly InstalledPlugin[] = [
+  { plugin: shapeBox, manifest: shapeBoxManifest, presets: ['demo', 'box'] },
   { plugin: dir, manifest: dirManifest, presets: ['demo', 'commands'] },
   { plugin: stats, manifest: statsManifest, presets: ['demo', 'commands'] },
 ];
