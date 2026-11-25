@@ -4,6 +4,8 @@ P2-00 从 `final^{}`（667fa6efcfe074697aec595ed6f4e6a146b616c1）创建 `codex/
 
 P2-01 在 VS Code 1.147.0 的 `p2-native` 独立窗口用鼠标展开 Outline，点击 `## Canvas` 从第 1 行跳到第 3 行；未保存追加 ` updated` 后原生树同步改名。`example.svg` 默认进入 Image Preview，改用 Text Editor 后语言为 XML，Outline 显示没有符号。原始截图在 `artifacts/ui/u0-*.png`。项目 F5 任务构建独立扩展并复制临时夹具。相同版本的独立 Electron 宿主已实际激活扩展并读取第 3 行。
 
+P2-02 在 `[Extension Development Host] plain.txt - development` 窗口确认仅 `example.svg` 行末显示 `[]`，普通目录、`folder.svg`、文本和备份文件均无标记。实拍见 `docs/images/p2-vscode-badge.png`。夹具观察前后 SHA-256 均为 `8a7fa28022a65c879a30b2de91760d71c384aec0ada159ceb47f65b0699461a2`。真实宿主测试覆盖取消、消失路径、文件类型和禁止传播。
+
 # Phase 1 实现进度
 
 2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。
