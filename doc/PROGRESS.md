@@ -42,6 +42,8 @@ P2-11 代码装配分支在共同基点 `83028b23bbfa0194172e08290983cd5dbf695e8
 
 P2-12 两条兄弟提交 `1f37244fb9f2c60d0271fd93889a24595928dabe`（代码）和 `bd981ac204470e58589c96832ccf4945a133a873`（配置）均在独立准确检出完成 npm ci、build、单包与集成测试，真实进程 stderr 为空并恢复原中文标题。初次配置分支运行与分支切换重叠，已弃用。两包 tree 均为 `a7a655d7495053fac9ee9812c371d94f53ff30de`。集成后的 help 顺序曾不同，补原始字节回归并对齐注册顺序。
 
+P2-13 `box-type-label` 在两种装配中独立注册，仅按只读节点的运行时类型标注。独立用例区分根、标记残留的普通组和实际 box；真实子树首行输出 `g#s (box)`。
+
 # Phase 1 实现进度
 
 2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。

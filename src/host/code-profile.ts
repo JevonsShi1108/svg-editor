@@ -1,3 +1,5 @@
+import boxLabel from '@svgframe/plugin-box-label';
+import boxLabelManifest from '@svgframe/plugin-box-label/package.json' with { type: 'json' };
 import shapeBox from '@svgframe/plugin-shape-box';
 import shapeBoxManifest from '@svgframe/plugin-shape-box/package.json' with { type: 'json' };
 import dir from '@svgframe/plugin-dir';
@@ -18,6 +20,7 @@ const installed: readonly InstalledPlugin[] = [
   { plugin: stats, manifest: statsManifest, presets: ['demo', 'commands'] },
   { plugin: dir, manifest: dirManifest, presets: ['demo', 'commands'] },
   { plugin: shapeBox, manifest: shapeBoxManifest, presets: ['demo', 'box'] },
+  { plugin: boxLabel, manifest: boxLabelManifest, presets: ['demo', 'box'] },
 ];
 
 export async function loadCodeProfile(name: string, host: PluginHost): Promise<string[]> {

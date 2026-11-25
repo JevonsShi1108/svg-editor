@@ -8,6 +8,9 @@
     },
     {
       "module": "./plugins/shape-box"
+    },
+    {
+      "module": "./plugins/box-label"
     }
   ]
 }
