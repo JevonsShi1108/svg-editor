@@ -79,21 +79,14 @@ for (const file of sourceFiles) {
     )
       commandNames.push(node.arguments[0].text);
     if (
-      file.replaceAll('\\', '/').endsWith('/ShapeFactory.ts') &&
+      file.endsWith('builtin-shapes.ts') &&
       ts.isNewExpression(node) &&
       ts.isIdentifier(node.expression) &&
-      node.expression.text === 'Map' &&
+      node.expression.text === 'NativeShapeProvider' &&
       node.arguments?.[0] &&
-      ts.isArrayLiteralExpression(node.arguments[0])
-    ) {
-      for (const entry of node.arguments[0].elements)
-        if (
-          ts.isArrayLiteralExpression(entry) &&
-          entry.elements[0] &&
-          ts.isStringLiteral(entry.elements[0])
-        )
-          shapeNames.push(entry.elements[0].text);
-    }
+      ts.isStringLiteral(node.arguments[0])
+    )
+      shapeNames.push(node.arguments[0].text);
     ts.forEachChild(node, visit);
   };
   visit(ast);

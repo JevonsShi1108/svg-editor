@@ -8,7 +8,8 @@ import type {
   TreeNodeDescription,
 } from '../values/contracts.js';
 import type { ContainerRef, Placement, StateTarget, GroupPlan } from '../internal/protocols.js';
-import type { GroupShape } from '../shapes/GroupShape.js';
+import { ContainerShape } from '../shapes/ContainerShape.js';
+import type { ShapeRegistry } from '../shapes/ShapeRegistry.js';
 import type { EditTransaction } from '../transactions/EditTransaction.js';
 import type { Shape } from '../shapes/Shape.js';
 import { CanvasRoot } from './CanvasRoot.js';
@@ -33,7 +34,7 @@ export class SvgDocument {
   readonly #root: CanvasRoot;
   readonly #index = new Map<string, Shape>();
   readonly #rules: ValueRules;
-  readonly #factory: ShapeFactory;
+  readonly #factory: ShapeRegistry;
   #active = false;
   #published = false;
   #generation = 0;
@@ -42,7 +43,7 @@ export class SvgDocument {
     limits: ResourceLimits,
     size: CanvasSize,
     attributes: OwnState['attributes'] = {},
-    factory = new ShapeFactory(),
+    factory: ShapeRegistry = new ShapeFactory(),
   ) {
     this.#rules = new ValueRules(limits);
     this.#factory = factory;
@@ -133,7 +134,8 @@ export class SvgDocument {
   }
   create(tx: EditTransaction, creation: ShapeCreation, parent: ContainerRef = this.root): Shape {
     tx.assertDocument(this.#id);
-    const node = this.#factory.fromCreation(creation, this.#id, this.#rules);
+    const plan = this.#factory.plan(creation, this.#rules);
+    const node = this.#factory.create(plan.type, plan.id, this.#id, this.#rules, plan.state);
     tx.place(node, { parent, index: parent.childCount });
     return node;
   }
@@ -211,17 +213,21 @@ export class SvgDocument {
     this.#plans.set(plan, this.#generation);
     return plan;
   }
-  group(tx: EditTransaction, plan: GroupPlan): GroupShape {
+  group(tx: EditTransaction, plan: GroupPlan) {
     tx.assertDocument(this.documentId);
     if (plan.documentId !== this.documentId || this.#plans.get(plan) !== this.#generation)
       throw new DomainError('INTERNAL_INVARIANT_ERROR', { reason: 'expired group plan' });
     this.#plans.delete(plan);
-    const group = this.#factory.create('g', plan.newId, this.documentId, this.#rules, {
+    const provider = this.#factory.grouping;
+    if (!provider) throw new DomainError('INVALID_VALUE', { field: 'group provider' });
+    const group = this.#factory.create(provider.name, plan.newId, this.documentId, this.#rules, {
       attributes: {},
-    }) as GroupShape;
+    });
+    if (!(group instanceof ContainerShape))
+      throw new DomainError('NOT_A_CONTAINER', { id: group.id });
     tx.place(group, { parent: plan.parent, index: plan.initialInsertionIndex });
     for (const node of plan.selectedInDocumentOrder)
-      tx.place(node, { parent: group.asContainer(), index: group.childCount });
+      tx.place(node, { parent: group, index: group.childCount });
     return group;
   }
   ungroup(tx: EditTransaction, group: Shape): void {

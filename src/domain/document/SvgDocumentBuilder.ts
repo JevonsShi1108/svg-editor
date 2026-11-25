@@ -1,4 +1,5 @@
 import type { CanvasSize, OwnState, ResourceLimits } from '../values/contracts.js';
+import type { ShapeRegistry } from '../shapes/ShapeRegistry.js';
 import type { Shape } from '../shapes/Shape.js';
 import type { ContainerRef } from '../internal/protocols.js';
 import { SvgDocument } from './SvgDocument.js';
@@ -9,8 +10,9 @@ export class SvgDocumentBuilder {
     limits: ResourceLimits,
     size: CanvasSize = { width: 800, height: 600 },
     attributes: OwnState['attributes'] = {},
+    shapes?: ShapeRegistry,
   ) {
-    this.#document = new SvgDocument(limits, size, attributes);
+    this.#document = new SvgDocument(limits, size, attributes, shapes);
   }
   get root(): ContainerRef {
     return this.#document.root;

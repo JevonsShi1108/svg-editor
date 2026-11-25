@@ -4,11 +4,12 @@ import type {
   TreeNodeDescription,
 } from '../../domain/values/contracts.js';
 import { ShapeFactory } from '../../domain/shapes/ShapeFactory.js';
+import type { ShapeRegistry } from '../../domain/shapes/ShapeRegistry.js';
 import { CanvasRoot } from '../../domain/document/CanvasRoot.js';
 import { XmlCharacters } from '../../domain/values/XmlCharacters.js';
 import { EditorError } from '../../application/errors/EditorError.js';
 export class XmlSvgEncoder {
-  readonly #factory = new ShapeFactory();
+  constructor(private readonly shapes: ShapeRegistry = new ShapeFactory()) {}
   encode(description: DocumentDescription): string {
     const { width, height } = description.size;
     if (!Number.isFinite(width) || !Number.isFinite(height) || width <= 0 || height <= 0)
@@ -21,17 +22,17 @@ export class XmlSvgEncoder {
   }
   private node(node: TreeNodeDescription, depth: number): string {
     const shape = node.shape;
-    const schema = this.#factory.definition(shape.type).schema;
+    const { schema, xmlTag } = this.shapes.definition(shape.type);
     const prefix = '  '.repeat(depth);
-    const open = `${prefix}<${shape.type} id="${this.escape(shape.id, true)}"${this.attributes(shape.attributes, schema.allowedAttributes)}`;
+    const open = `${prefix}<${xmlTag} id="${this.escape(shape.id, true)}"${this.attributes(shape.attributes, schema.allowedAttributes)}`;
     if (schema.contentModel === 'text') {
       if (node.children.length) throw new EditorError('UNSUPPORTED_SVG');
-      return `${open}>${this.escape(shape.text ?? '', false)}</${shape.type}>\n`;
+      return `${open}>${this.escape(shape.text ?? '', false)}</${xmlTag}>\n`;
     }
     if (shape.text !== undefined || (schema.contentModel !== 'container' && node.children.length))
       throw new EditorError('UNSUPPORTED_SVG');
     if (!node.children.length) return `${open}/>\n`;
-    return `${open}>\n${node.children.map((child) => this.node(child, depth + 1)).join('')}${prefix}</${shape.type}>\n`;
+    return `${open}>\n${node.children.map((child) => this.node(child, depth + 1)).join('')}${prefix}</${xmlTag}>\n`;
   }
   private attributes(
     attributes: readonly AttributeDescription[],

@@ -66,7 +66,7 @@ export type ChangeDescription =
       readonly to: PlacementDescription | null;
     };
 export type ChangePreview = readonly ChangeDescription[];
-export type ShapeCreation =
+export type NativeShapeCreation =
   | {
       readonly type: 'circle';
       readonly id: string;
@@ -110,3 +110,15 @@ export type ShapeCreation =
       readonly fill?: string;
     }
   | { readonly type: 'g'; readonly id: string };
+
+// External TypeScript providers augment this map with their validated creation fields.
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type -- declaration merging point for providers
+export interface RegisteredShapeFields {}
+export type ShapeCreation =
+  | NativeShapeCreation
+  | {
+      [Name in keyof RegisteredShapeFields]: {
+        readonly type: Name;
+        readonly id: string;
+      } & RegisteredShapeFields[Name];
+    }[keyof RegisteredShapeFields];

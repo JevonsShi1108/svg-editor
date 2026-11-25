@@ -3,6 +3,7 @@ import { EditorSession } from './application/session/EditorSession.js';
 import { CommandCatalog } from './application/commands/CommandCatalog.js';
 import { XmlSvgCodec } from './infrastructure/svg/XmlSvgCodec.js';
 import { NodeFileStore } from './infrastructure/files/NodeFileStore.js';
+import { ShapeFactory } from './domain/shapes/ShapeFactory.js';
 import { defaultLimits } from './domain/values/defaultLimits.js';
 import { CliParser } from './cli/CliParser.js';
 import { CliRepl } from './cli/CliRepl.js';
@@ -12,10 +13,12 @@ const terminal = new NodeTerminal(
   process.stderr,
   Boolean(process.stdin.isTTY && process.stdout.isTTY),
 );
-const catalog = new CommandCatalog(defaultLimits);
+const shapes = new ShapeFactory();
+const catalog = new CommandCatalog(defaultLimits, shapes);
 const session = new EditorSession({
   commands: catalog,
-  codec: new XmlSvgCodec(),
+  codec: new XmlSvgCodec(shapes),
+  shapes,
   files: new NodeFileStore(process.cwd()),
   limits: defaultLimits,
 });

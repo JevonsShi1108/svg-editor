@@ -1,4 +1,5 @@
 import type { ResourceLimits } from '../../domain/values/contracts.js';
+import type { ShapeRegistry } from '../../domain/shapes/ShapeRegistry.js';
 import { ShapeFactory } from '../../domain/shapes/ShapeFactory.js';
 import { BuiltinCommands } from './BuiltinCommands.js';
 import { CommandRegistry, type CommandBinding } from './CommandRegistry.js';
@@ -7,7 +8,7 @@ import { CommandRegistry, type CommandBinding } from './CommandRegistry.js';
 export class CommandCatalog extends CommandRegistry {
   constructor(
     limits: ResourceLimits,
-    factory = new ShapeFactory(),
+    factory: ShapeRegistry = new ShapeFactory(),
     additions: readonly CommandBinding[] = [],
   ) {
     super(limits, [...new BuiltinCommands(limits, factory).definitions, ...additions]);

@@ -23,7 +23,7 @@ export class GroupCommand extends EditCommand {
       action: 'created',
       targetIds: [this.#newId, ...this.#ids],
       shapes: [group.describe()],
-      details: { childCount: group.childCount },
+      details: { childCount: this.#ids.length },
     };
   }
 }

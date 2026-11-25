@@ -1,7 +1,7 @@
 import type { CommandRequest } from '../contracts/api.js';
-import type { ResourceLimits, ShapeCreation } from '../../domain/values/contracts.js';
+import type { ResourceLimits } from '../../domain/values/contracts.js';
 import { ValueRules } from '../../domain/values/ValueRules.js';
-import { ShapeFactory } from '../../domain/shapes/ShapeFactory.js';
+import type { ShapeRegistry } from '../../domain/shapes/ShapeRegistry.js';
 import { EditorError } from '../errors/EditorError.js';
 import type { CommandBinding } from './CommandRegistry.js';
 import type { BoundCommand } from './BoundCommand.js';
@@ -31,8 +31,8 @@ export class BuiltinCommands {
     return this.#definitions.slice();
   }
   readonly #rules: ValueRules;
-  readonly #factory: ShapeFactory;
-  constructor(limits: ResourceLimits, factory: ShapeFactory) {
+  readonly #factory: ShapeRegistry;
+  constructor(limits: ResourceLimits, factory: ShapeRegistry) {
     this.#factory = factory;
     this.#rules = new ValueRules(limits);
     this.add<Extract<CommandRequest, { command: 'read' }>>(
@@ -296,7 +296,9 @@ export class BuiltinCommands {
   }
   private parseCreate(args: CommandArguments): CommandRequest {
     const type = args.value(0);
-    const schema = this.#factory.definition(type).schema;
+    const provider = this.#factory.definition(type);
+    const schema = provider.schema;
+    const fields = Object.entries(provider.parameters);
     let tokens = args.tokens;
     let parentId: string | undefined;
     if (
@@ -308,13 +310,13 @@ export class BuiltinCommands {
       tokens = tokens.slice(0, -2);
     }
     const a = new CommandArguments(tokens, this.#rules);
-    const count = 2 + schema.creationFields.length;
+    const count = 2 + fields.length;
     a.expect(count, count + (schema.optionalPaint ? 1 : 0));
     const value: Record<string, string | number> = { type, id: a.id(1) };
-    for (const [i, field] of schema.creationFields.entries())
-      value[field] = field === 'text' ? a.value(i + 2) : a.number(i + 2);
+    for (const [i, [field, rule]] of fields.entries())
+      value[field] = rule === 'text' ? a.value(i + 2) : a.number(i + 2);
     if (schema.optionalPaint && tokens.length > count) value[schema.optionalPaint] = a.value(count);
-    const shape = this.#factory.validateCreation(value as unknown as ShapeCreation, this.#rules);
+    const shape = this.#factory.validateCreation(value, this.#rules);
     return { command: 'create', shape, ...(parentId === undefined ? {} : { parentId }) };
   }
 }

@@ -89,7 +89,12 @@ export class EditorSession implements SessionExecutor {
     this.#requireCommit(mode);
     const before = this.#head;
     try {
-      const document = new SvgDocumentBuilder(this.#dependencies.limits, size).build();
+      const document = new SvgDocumentBuilder(
+        this.#dependencies.limits,
+        size,
+        {},
+        this.#dependencies.shapes,
+      ).build();
       const next: SessionHead = Object.freeze({
         document,
         currentStateId: Symbol('state') as StateId,

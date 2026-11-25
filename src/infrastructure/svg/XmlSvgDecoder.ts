@@ -5,13 +5,14 @@ import type { ContainerRef } from '../../domain/internal/protocols.js';
 import type { DecodeResult } from '../../application/ports/SvgCodec.js';
 import type { Diagnostic } from '../../application/contracts/api.js';
 import { ShapeFactory } from '../../domain/shapes/ShapeFactory.js';
+import type { ShapeRegistry } from '../../domain/shapes/ShapeRegistry.js';
 import { SvgDocumentBuilder } from '../../domain/document/SvgDocumentBuilder.js';
 import { CanvasRoot } from '../../domain/document/CanvasRoot.js';
 import { ValueRules } from '../../domain/values/ValueRules.js';
 import { XmlCharacters } from '../../domain/values/XmlCharacters.js';
 import { EditorError } from '../../application/errors/EditorError.js';
 export class XmlSvgDecoder {
-  readonly #factory = new ShapeFactory();
+  constructor(private readonly shapes: ShapeRegistry = new ShapeFactory()) {}
   decode(source: string, limits: ResourceLimits): DecodeResult {
     const rules = new ValueRules(limits);
     if (typeof source !== 'string') throw new EditorError('INVALID_VALUE');
@@ -54,14 +55,6 @@ export class XmlSvgDecoder {
         if (stack.length > limits.maxTreeDepth)
           throw new EditorError('RESOURCE_LIMIT', { field: 'depth' });
       }
-      let content: ParsedElement['content'] = 'container';
-      if (!isRoot) {
-        try {
-          content = this.#factory.definition(tag.local).schema.contentModel;
-        } catch {
-          unsupported();
-        }
-      }
       const attributes: Record<string, string> = Object.create(null) as Record<string, string>;
       for (const attr of Object.values(tag.attributes)) {
         rules.attribute(attr.value);
@@ -69,9 +62,10 @@ export class XmlSvgDecoder {
         if (attr.uri !== '' || attr.prefix !== '') unsupported();
         attributes[attr.local] = attr.value;
       }
+      const provider = isRoot ? undefined : this.shapes.fromTag(tag.local, attributes['data-kind']);
       const element: ParsedElement = {
-        type: tag.local,
-        content,
+        type: provider?.name ?? tag.local,
+        content: provider?.schema.contentModel ?? 'container',
         attributes,
         children: [],
         textParts: [],
@@ -122,7 +116,7 @@ export class XmlSvgDecoder {
       { attributes: { ...rootAttributes, width: size.width, height: size.height } },
       true,
     );
-    const builder = new SvgDocumentBuilder(limits, size, normalizedRoot.attributes);
+    const builder = new SvgDocumentBuilder(limits, size, normalizedRoot.attributes, this.shapes);
     const used = new Set<string>();
     const assigned = new Map<ParsedElement, string>();
     for (const element of preorder)
