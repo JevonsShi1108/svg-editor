@@ -103,6 +103,9 @@ it('publishes a composite subtree as one placement, protects required parts and 
   expect(before.children[1]?.xmlTag).toBe('g');
   for (const [line, code] of [
     ['delete x-part', 'PROTECTED_PART'],
+    ['move x-part 1 2', 'PROTECTED_PART'],
+    ['scale x-part 2', 'PROTECTED_PART'],
+    ['set x-part x 7', 'PROTECTED_PART'],
     ['ungroup x', 'COMPOSITE_UNGROUP'],
   ] as const) {
     expect(await run(line)).toMatchObject({ ok: false, error: { code } });

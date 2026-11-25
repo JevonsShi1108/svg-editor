@@ -14,6 +14,7 @@ export class MoveCommand extends EditCommand {
   }
   override run(doc: SvgDocument, tx: EditTransaction): EditFacts {
     const node = doc.require(this.#id);
+    doc.assertIndependent(node);
     node.move(tx, this.#dx, this.#dy);
     return {
       operation: 'move',

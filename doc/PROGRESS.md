@@ -24,6 +24,8 @@ P2-07 `Command` 接收只读快照、参数及容器能力查询，异步工作�
 
 P2-07 `TreeDecorator` 接收只读快照，按注册次序装饰根行及子树。保存确认后才通知观察器；观察器异常只影响后续树查询，恢复后可再用。相关 26 项与严格类型检查通过。
 
+P2-07 补齐必要子部件直接 move、scale、几何 set 和层序调整的保护。整框的事务操作仍通过容器递归。相关 88 项通过。
+
 # Phase 1 实现进度
 
 2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。

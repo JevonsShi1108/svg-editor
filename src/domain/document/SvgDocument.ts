@@ -176,6 +176,18 @@ export class SvgDocument {
     return root;
   }
 
+  assertIndependent(node: Shape): void {
+    const owner = parentOf(node)?.ownerShape;
+    if (
+      owner &&
+      this.#factory
+        .definition(owner.schema.type)
+        .requiredChildren?.(owner.id)
+        .some((part) => part.id === node.id)
+    )
+      throw new DomainError('PROTECTED_PART', { id: node.id, owner: owner.id });
+  }
+
   private validateParts(node: Shape): void {
     const provider = this.#factory.definition(node.schema.type);
     if (!provider.requiredChildren) return;
@@ -367,16 +379,8 @@ export class SvgDocument {
     const active = this.isAttached(node);
     if (actual && !active)
       throw new DomainError('INTERNAL_INVARIANT_ERROR', { reason: 'detached descendant' });
-    const owner = actual?.parent.ownerShape;
-    if (
-      owner &&
-      actual?.parent !== next?.parent &&
-      this.#factory
-        .definition(owner.schema.type)
-        .requiredChildren?.(owner.id)
-        .some((part) => part.id === node.id)
-    )
-      throw new DomainError('PROTECTED_PART', { id: node.id, owner: owner.id });
+    if (actual && (actual.parent !== next?.parent || actual.index !== next?.index))
+      this.assertIndependent(node);
     if (!next) return;
     const parent = next.parent;
     if (

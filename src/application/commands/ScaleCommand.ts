@@ -12,6 +12,7 @@ export class ScaleCommand extends EditCommand {
   }
   override run(doc: SvgDocument, tx: EditTransaction): EditFacts {
     const node = doc.require(this.#id);
+    doc.assertIndependent(node);
     node.scale(tx, this.#factor);
     return {
       operation: 'scale',

@@ -28,7 +28,7 @@ export class TextPresenter {
       INVALID_COMPOSITE: () =>
         `invalid composite shape: ${value('id')} (required part: ${value('part')})`,
       COMPOSITE_UNGROUP: () => `cannot ungroup composite shape: ${value('id')}`,
-      PROTECTED_PART: () => `cannot detach required part: ${value('id')} from ${value('owner')}`,
+      PROTECTED_PART: () => `protected composite part: ${value('id')} from ${value('owner')}`,
       DUPLICATE_ID: () => `id already exists: ${value('id')}`,
       SHAPE_NOT_FOUND: () => `no such shape: ${value('id')}`,
       CONTAINER_NOT_FOUND: () => `no such container: ${value('id')}`,
