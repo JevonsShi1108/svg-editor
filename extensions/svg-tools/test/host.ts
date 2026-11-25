@@ -61,6 +61,16 @@ export async function run(): Promise<void> {
     assert.equal(nested?.children[0]?.name, 'text');
   };
   await check('start', 2);
+  const rect = (await symbols())[0]!.children[0]!.children[0]!;
+  await vscode.commands.executeCommand('vscode.open', document.uri, {
+    selection: rect.selectionRange,
+  });
+  assert.equal(
+    vscode.window.activeTextEditor?.document.uri.toString(),
+    document.uri.toString(),
+    'Outline navigation needs a text editor',
+  );
+  assert.equal(vscode.window.activeTextEditor.selection.start.line, 2);
   const updated = original.replace('    <rect', '\n    <rect').replace('id="start"', 'id="ready"');
   await replace(updated);
   assert.ok(document.isDirty);

@@ -10,5 +10,12 @@
   "activationEvents": [
     "onStartupFinished"
   ],
+  "contributes": {
+    "configurationDefaults": {
+      "workbench.editorAssociations": {
+        "*.svg": "default"
+      }
+    }
+  },
   "main": "./dist/extension.cjs"
 }

@@ -8,6 +8,8 @@ P2-02 在 `[Extension Development Host] plain.txt - development` 窗口确认仅
 
 P2-03 用 saxes 的 opentagstart 原始偏移定位开标签，以 closetag 的原始结束偏移构造完整范围。纯测试覆盖 CRLF、代理对、属性内的 `>`、注释及 CDATA。真实宿主验证第 3 行、未保存编辑移至第 4 行、残缺及恢复。首次宿主测试发现 `vscode.executeDocumentSymbolProvider` 汇总空结果时返回 `undefined`，已按零个符号断言并重跑；原始日志 `artifacts/ui/u4-first-host.log`。
 
+P2-04 首次点击 `rect#start` 使宿主重开 Image Preview。新增 `vscode.open` 带选区的宿主断言，在原实现上实际失败。扩展清单为 `*.svg` 提供 `default` 文本编辑器默认关联。相同宿主断言通过，重载后在 Explorer 再开夹具、再点相同符号，光标从第 1 行跳到第 3 行第 5 列。
+
 # Phase 1 实现进度
 
 2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。
