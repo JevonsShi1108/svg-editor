@@ -44,6 +44,8 @@ P2-12 两条兄弟提交 `1f37244fb9f2c60d0271fd93889a24595928dabe`（代码）�
 
 P2-13 `box-type-label` 在两种装配中独立注册，仅按只读节点的运行时类型标注。独立用例区分根、标记残留的普通组和实际 box；真实子树首行输出 `g#s (box)`。
 
+P2-13 `modified-star` 实例保存内容基准，比较节点自身值、父级与有序孩子，从叶向上传播。编辑、保存、撤销回到保存点、redo、失败/不确定写入、补 id、跨父移动、重排与实例隔离均有断言。双装配实际输出 `g#s (box) *`。
+
 # Phase 1 实现进度
 
 2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。

@@ -1,3 +1,5 @@
+import treeStar from '@svgframe/plugin-tree-star';
+import treeStarManifest from '@svgframe/plugin-tree-star/package.json' with { type: 'json' };
 import boxLabel from '@svgframe/plugin-box-label';
 import boxLabelManifest from '@svgframe/plugin-box-label/package.json' with { type: 'json' };
 import shapeBox from '@svgframe/plugin-shape-box';
@@ -21,6 +23,7 @@ const installed: readonly InstalledPlugin[] = [
   { plugin: dir, manifest: dirManifest, presets: ['demo', 'commands'] },
   { plugin: shapeBox, manifest: shapeBoxManifest, presets: ['demo', 'box'] },
   { plugin: boxLabel, manifest: boxLabelManifest, presets: ['demo', 'box'] },
+  { plugin: treeStar, manifest: treeStarManifest, presets: ['demo'] },
 ];
 
 export async function loadCodeProfile(name: string, host: PluginHost): Promise<string[]> {

@@ -11,6 +11,9 @@
     },
     {
       "module": "./plugins/box-label"
+    },
+    {
+      "module": "./plugins/tree-star"
     }
   ]
 }
