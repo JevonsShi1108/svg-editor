@@ -10,6 +10,8 @@ P2-03 用 saxes 的 opentagstart 原始偏移定位开标签，以 closetag 的�
 
 P2-04 首次点击 `rect#start` 使宿主重开 Image Preview。新增 `vscode.open` 带选区的宿主断言，在原实现上实际失败。扩展清单为 `*.svg` 提供 `default` 文本编辑器默认关联。相同宿主断言通过，重载后在 Explorer 再开夹具、再点相同符号，光标从第 1 行跳到第 3 行第 5 列。
 
+P2-04 复验已通过。第 3 行点击、未保存改名并移动至第 4 行、不完整 XML 清空、同一窗口修复并重新点击的五张实拍和模式分析见 `doc/README.md`。
+
 # Phase 1 实现进度
 
 2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。

@@ -1,3 +1,25 @@
+# SVG 编辑器 Phase 2 课程报告
+
+## VS Code 扩展
+
+在仓库根目录使用 Node 24 运行 `npm ci`，用 VS Code 打开仓库，选择 **Phase 2: SVG Extension** 后按 F5。启动任务构建 CommonJS 扩展并把示例复制到 `artifacts/ui/development`。Explorer 中打开 `plain.txt` 即可看见同级 `example.svg` 的徽标。选择 SVG，展开 Explorer 下方的 Outline，点击 `rect#start`。扩展清单将 SVG 的默认编辑器设为文本编辑器，已有的用户或工作区关联可以覆盖此默认值。图像预览仍可从编辑器选择菜单打开。
+
+在终端运行 `npm run test:vscode:host` 可启动 1.147.0 的 Electron 宿主。已有该版本时可将环境变量 `VSCODE_EXECUTABLE_PATH` 设为 Code 可执行文件的绝对路径。纯解析用例通过 `npx vitest run test/unit/svg-outline.test.ts` 运行。
+
+![选中普通文本时，只有 example.svg 显示徽标](../docs/images/p2-vscode-badge.png)
+
+![原生 Outline 选中 rect#start，状态栏显示第 3 行第 5 列](../docs/images/p2-vscode-outline.png)
+
+**更新与恢复。** 在同一开发宿主把 `start` 改为 `ready`，在矩形前插入一行，文件标签显示未保存，点击新符号定位第 4 行。删去根结束标签的 `>` 后，大纲显示没有符号。补回后完整树恢复，再点击矩形仍定位第 4 行。窗口截图保留了编辑器、树和状态栏。[未保存编辑](../docs/images/p2-vscode-edited.jpg) · [残缺 XML](../docs/images/p2-vscode-incomplete.jpg) · [恢复后导航](../docs/images/p2-vscode-recovered.jpg)
+
+**注册与显示。** VS Code 管理工作区、文本缓冲区、Explorer、Outline 和编辑器导航。扩展在 `activate` 中注册两个 provider，并将注册句柄和文件监听器加入 `subscriptions`。Explorer 请求 URI 的装饰时，`SvgFileDecorationProvider` 对小写后缀调用宿主文件系统的 stat，仅向普通文件返回带 `[]` 的 FileDecoration。创建与删除事件通知宿主重新查询。经典 Decorator 持有同接口的 Component 并向它转发调用；这里 provider 提供额外显示数据，由 Explorer 将它与名称、图标组合，文件身份、内容与目录树不变。
+
+**大纲适配。** Outline 需要 DocumentSymbol 数组；`SvgSymbolProvider` 充当 Adapter，将 `SvgOutline` 的 XML 节点和 UTF-16 偏移转换成嵌套符号、全元素范围和开标签选区。宿主按当前缓冲区版本发起请求，扩展同步读取 getText()。每次解析独立，取消的请求返回空列表。残缺 XML 丢弃整棵临时树，下一次编辑可直接恢复。
+
+**Phase 1 复用。** 两阶段复用 saxes 和事件栈遍历。CLI 解码器需要尺寸、图形白名单、唯一 id 和可提交的领域文档，会给缺 id 的图形分配名字；语义树也没有源码偏移。大纲直接记录源缓冲区的标签，因而能显示无 id 的 `text` 和 CLI 子集外的 `path`，也支持未保存的文本。纯测试用带 CRLF、表情、注释、CDATA 和引号内 `>` 的 XML 核对原始字符切片。
+
+**桌面反例与修正。** 实测未加载扩展时，Markdown 大纲能跳转并响应未保存编辑，而同一份 SVG 文本没有符号。最初版本返回了正确的符号范围，实际点击却重新打开图像预览。带选区的真实 `vscode.open` 测试复现了该错误。提交 `31212ac` 提供文本编辑器默认关联后，重载并重做相同动作，才取得上面的第 3 行截图。实拍使用 VS Code 1.147.0（8a14f0cc），扩展包入口构建 SHA-256 为 `f13cf1e94ef4e6049927ea9dab35a5959ff2f116c038898b573535b3feccf8bc`，示例 SVG 的 SHA-256 为 `8a7fa28022a65c879a30b2de91760d71c384aec0ada159ceb47f65b0699461a2`。
+
 # SVG 编辑器 Phase 1 课程报告
 
 本项目使用 TypeScript 实现命令行 SVG 编辑器，支持 19 个命令、6 类图形和 36 个合法的 `set` 类型与属性组合。设计以课程要求和已确认的需求决策为依据，采用面向对象模型，将命令行交互、编辑协调、图形行为和文件读写分开。
