@@ -22,6 +22,8 @@ export class TextPresenter {
     const text: Readonly<Record<string, () => string>> = {
       ATTRIBUTE_CONFLICT: () =>
         `conflicting attribute handlers: ${value('attribute')} (${value('handlers')})`,
+      UNKNOWN_COMMAND: () => `unknown command: ${value('command')}`,
+      PLUGIN_ERROR: () => value('message'),
       INVALID_COMPOSITE: () =>
         `invalid composite shape: ${value('id')} (required part: ${value('part')})`,
       COMPOSITE_UNGROUP: () => `cannot ungroup composite shape: ${value('id')}`,
@@ -70,6 +72,8 @@ export class TextPresenter {
   }
   private data(data: ResultData): string {
     switch (data.kind) {
+      case 'lines':
+        return data.lines.map((line) => this.safe(line) + '\n').join('');
       case 'help':
         return data.commands.map((c) => `${c.syntax} — ${c.description}\n`).join('');
       case 'tree': {

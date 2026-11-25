@@ -236,10 +236,10 @@ export class EditorSession implements SessionExecutor {
       'external-unknown',
     );
   }
-  #query(command: QueryCommand, mode: ExecuteMode): ExecutionResult {
+  async #query(command: QueryCommand, mode: ExecuteMode): Promise<ExecutionResult> {
     this.#requireCommit(mode);
     const doc = command.requiresDocument ? this.#requireDocument() : null;
-    return ResultFactory.commit(this.#head, command.run(doc, this.#dependencies.commands));
+    return ResultFactory.commit(this.#head, await command.run(doc, this.#dependencies.commands));
   }
   #edit(command: EditCommand, mode: ExecuteMode): ExecutionResult {
     const before = this.#head;

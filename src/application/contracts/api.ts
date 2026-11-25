@@ -21,7 +21,13 @@ export type EditRequest =
   | { readonly command: 'group'; readonly newId: string; readonly ids: readonly string[] }
   | { readonly command: 'ungroup'; readonly id: string }
   | { readonly command: 'addto'; readonly containerId: string; readonly id: string };
+export const extensionCommand = '$extension' as const;
 export type CommandRequest =
+  | {
+      readonly command: typeof extensionCommand;
+      readonly name: string;
+      readonly args: readonly string[];
+    }
   | EditRequest
   | { readonly command: 'init'; readonly size?: CanvasSize }
   | { readonly command: 'read'; readonly path: string }
@@ -68,6 +74,7 @@ export interface EditFacts {
   readonly details?: Readonly<Record<string, string | number>>;
 }
 export type ResultData =
+  | { readonly kind: 'lines'; readonly lines: readonly string[] }
   | { readonly kind: 'edit'; readonly facts: EditFacts }
   | {
       readonly kind: 'tree';

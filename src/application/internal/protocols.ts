@@ -27,7 +27,7 @@ export interface SessionHead {
 }
 export interface CommandCoordinator {
   edit(command: EditCommand, mode: ExecuteMode): ExecutionResult;
-  query(command: QueryCommand, mode: ExecuteMode): ExecutionResult;
+  query(command: QueryCommand, mode: ExecuteMode): Promise<ExecutionResult>;
   initialize(size: CanvasSize, mode: ExecuteMode): ExecutionResult;
   history(direction: 'undo' | 'redo', mode: ExecuteMode): ExecutionResult;
   canvas(size: CanvasSize | undefined, mode: ExecuteMode): ExecutionResult;

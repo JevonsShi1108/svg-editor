@@ -20,6 +20,8 @@ P2-07 复合创建先组装未发布子树，再通过一个 placement 加入文
 
 P2-07 `AttributeHandler` 先匹配再写入，冲突拒绝、零命中保留原白名单。双子部件故障测试在已有 redo 时比较状态并实际重放，另验证成功修改的一次 undo/redo、dry-run 和回调结束后写权限失效。相关 79 项及类型检查通过。
 
+P2-07 `Command` 接收只读快照、参数及容器能力查询，异步工作在原 Session 队列内完成。编译进程和队列测试共 20 项通过，涵盖无文档查询、后续命令等待、失败后继续、未知命令带名及输出转义。
+
 # Phase 1 实现进度
 
 2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。

@@ -6,8 +6,11 @@ export abstract class QueryCommand extends BoundCommand {
   get requiresDocument(): boolean {
     return true;
   }
-  abstract run(document: SvgDocument | null, catalog: CommandParser): ResultData;
-  override dispatch(coordinator: CommandCoordinator, mode: ExecuteMode): ExecutionResult {
+  abstract run(
+    document: SvgDocument | null,
+    catalog: CommandParser,
+  ): ResultData | Promise<ResultData>;
+  override dispatch(coordinator: CommandCoordinator, mode: ExecuteMode): Promise<ExecutionResult> {
     return coordinator.query(this, mode);
   }
 }

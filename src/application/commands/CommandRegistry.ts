@@ -5,6 +5,7 @@ import { EditorError } from '../errors/EditorError.js';
 import { FrozenValue } from '../internal/FrozenValue.js';
 import type { BoundCommand } from './BoundCommand.js';
 import { CommandArguments } from './CommandArguments.js';
+import { extensionCommand } from '../contracts/api.js';
 export interface CommandBinding {
   readonly help: CommandHelp;
   readonly fields: readonly string[];
@@ -33,7 +34,9 @@ export class CommandRegistry implements CommandParser {
   bind(request: CommandRequest): BoundCommand {
     if (!request || typeof request !== 'object' || typeof request.command !== 'string')
       throw new EditorError('SYNTAX_ERROR');
-    const definition = this.definition(request.command);
+    const definition = this.definition(
+      request.command === extensionCommand ? request.name : request.command,
+    );
     if (Object.keys(request).some((key) => key !== 'command' && !definition.fields.includes(key)))
       throw new EditorError('SYNTAX_ERROR');
     return definition.bind(request);
