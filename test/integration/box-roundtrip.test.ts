@@ -13,17 +13,17 @@ import { CliParser } from '../../src/cli/CliParser.js';
 import { TestPorts } from '../helpers/TestPorts.js';
 import { committed, semantic } from '../helpers/session.js';
 
-function fixture() {
+function fixture(limits = defaultLimits) {
   const shapes = new ShapeRegistry([...builtinShapes, new BoxProvider()]);
   const commands = new CommandCatalog(
-    defaultLimits,
+    limits,
     shapes,
     [],
     new AttributeDispatch([new BoxAttributes()]),
   );
   const files = new TestPorts(),
     codec = new XmlSvgCodec(shapes),
-    session = new EditorSession({ files, commands, codec, shapes, limits: defaultLimits });
+    session = new EditorSession({ files, commands, codec, shapes, limits });
   const parser = new CliParser(commands);
   return { run: (line: string) => session.execute(parser.parse(line)!), session, codec, files };
 }
@@ -104,4 +104,21 @@ it('round-trips marked groups, rejects bad parts and duplicate ids without publi
       ok: false,
       error: { code: 'DUPLICATE_ID' },
     });
+});
+
+it('enforces whole-subtree node/depth budgets before attaching any part', async () => {
+  for (const limits of [
+    { ...defaultLimits, maxNodeCount: 2 },
+    { ...defaultLimits, maxTreeDepth: 1 },
+  ]) {
+    const { run, session } = fixture(limits);
+    committed(await run('init'));
+    const status = (await run('tree')).status;
+    expect(await run('create box n 0 0 1 1 T')).toMatchObject({
+      ok: false,
+      error: { code: 'RESOURCE_LIMIT' },
+      status,
+    });
+    expect((await semantic(session)).children).toEqual([]);
+  }
 });

@@ -157,6 +157,7 @@ export const checkRandom = (issues, notBefore, profile = 'local') => {
     ...Array.from({ length: 16 }, (_, i) => `PROP-${String(i + 1).padStart(2, '0')}`),
     'MODEL-01',
     'MODEL-IO',
+    'P2-PROP-01',
   ]) {
     const matching = records.filter((e) => e.data?.name === name),
       valid = matching.filter(

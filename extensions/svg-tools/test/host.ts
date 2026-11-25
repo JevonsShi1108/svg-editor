@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { writeFile } from 'node:fs/promises';
 import * as vscode from 'vscode';
 import { SvgFileDecorationProvider } from '../src/SvgFileDecorationProvider';
 
@@ -80,4 +81,46 @@ export async function run(): Promise<void> {
   assert.deepEqual((await symbols()) ?? [], []);
   await replace(original);
   await check('start', 2);
+  const secondUri = vscode.Uri.joinPath(folder.uri, 'second.svg');
+  await vscode.workspace.fs.writeFile(secondUri, Buffer.from('<svg><path id="second"/></svg>'));
+  const second = await vscode.workspace.openTextDocument(secondUri);
+  await vscode.window.showTextDocument(second);
+  const other = await vscode.commands.executeCommand<vscode.DocumentSymbol[]>(
+    'vscode.executeDocumentSymbolProvider',
+    secondUri,
+  );
+  assert.equal(other[0]?.children[0]?.name, 'path#second');
+  await vscode.window.showTextDocument(document);
+  await check('start', 2);
+  const renamed = vscode.Uri.joinPath(folder.uri, 'second.txt');
+  const changes = new vscode.EventEmitter<vscode.Uri>();
+  const token = new vscode.CancellationTokenSource();
+  try {
+    const decorations = new SvgFileDecorationProvider(changes.event);
+    assert.equal((await decorations.provideFileDecoration(secondUri, token.token))?.badge, '[]');
+    await vscode.workspace.fs.rename(secondUri, renamed);
+    assert.equal(await decorations.provideFileDecoration(secondUri, token.token), undefined);
+    assert.equal(await decorations.provideFileDecoration(renamed, token.token), undefined);
+  } finally {
+    changes.dispose();
+    token.dispose();
+  }
+  assert.equal(vscode.version, '1.147.0');
+  if (process.env.SVG_HOST_EVIDENCE)
+    await writeFile(
+      process.env.SVG_HOST_EVIDENCE,
+      JSON.stringify(
+        {
+          version: vscode.version,
+          extension: extension.id,
+          active: extension.isActive,
+          recoveredRoot: (await symbols())[0]?.name,
+          otherLeaf: other[0]?.children[0]?.name,
+          rectLine: (await symbols())[0]!.children[0]!.children[0]!.selectionRange.start.line + 1,
+          fixture: folder.uri.fsPath,
+        },
+        null,
+        2,
+      ),
+    );
 }

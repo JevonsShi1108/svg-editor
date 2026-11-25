@@ -1,5 +1,6 @@
-import { mkdtempSync, mkdirSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 import { runTests } from '@vscode/test-electron';
 import { prepareFixture } from './prepare-vscode.mjs';
 
@@ -14,6 +15,7 @@ await runTests({
   ...(process.env.VSCODE_EXECUTABLE_PATH && {
     vscodeExecutablePath: process.env.VSCODE_EXECUTABLE_PATH,
   }),
+  extensionTestsEnv: { SVG_HOST_EVIDENCE: path.join(directory, 'host.json') },
   extensionDevelopmentPath,
   extensionTestsPath: path.join(extensionDevelopmentPath, 'dist/host.cjs'),
   launchArgs: [
@@ -27,3 +29,19 @@ await runTests({
     path.join(directory, 'extensions'),
   ],
 });
+
+const data = JSON.parse(readFileSync(path.join(directory, 'host.json'), 'utf8'));
+const digest = (file) => createHash('sha256').update(readFileSync(file)).digest('hex');
+writeFileSync(
+  path.join(parent, 'latest.json'),
+  JSON.stringify(
+    {
+      ...data,
+      extensionSha256: digest('extensions/svg-tools/dist/extension.cjs'),
+      manifestSha256: digest('extensions/svg-tools/package.json'),
+      fixtureSha256: digest(path.join(fixture, 'example.svg')),
+    },
+    null,
+    2,
+  ) + '\n',
+);
