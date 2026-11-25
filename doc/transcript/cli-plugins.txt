@@ -1,0 +1,10 @@
+dir
+stats
+init
+stats
+create box n 0 0 80 20 "任务"
+tree n
+stats
+stats extra
+dir extra
+stats

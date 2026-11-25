@@ -1,0 +1,12 @@
+[DIR]  .hidden
+[DIR]  docs
+[FILE]  .env
+[FILE]  sample.svg
+canvas 800x600 created
+(total 0, containers 0)
+box#n created (g#n + rect#n-rect + text#n-label)
+g#n (box) *
+├── rect#n-rect  x=0 y=0 width=80 height=20 fill=#4a90d9 *
+└── text#n-label  x=20 y=15 "任务" *
+rect: 1  text: 1  (total 2, containers 1)
+rect: 1  text: 1  (total 2, containers 1)

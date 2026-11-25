@@ -1,0 +1,9 @@
+help
+init
+tree
+create g svg
+create g nested in svg
+create text t 1 2 "中 & <SVG>" in nested
+tree
+tree svg
+tree t

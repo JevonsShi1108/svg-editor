@@ -1,0 +1,4 @@
+[DIR]  .hidden
+[DIR]  docs
+[FILE]  .env
+[FILE]  sample.svg

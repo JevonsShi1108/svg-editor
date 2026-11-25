@@ -33,7 +33,9 @@
     "build:vscode": "tsc -p extensions/svg-tools/tsconfig.json && node scripts/build-vscode.mjs",
     "prepare:vscode": "npm run build:vscode && node scripts/prepare-vscode.mjs",
     "test:vscode:host": "npm run build:vscode && node scripts/test-vscode-host.mjs",
-    "metrics:p2": "node scripts/metrics-p2.mjs"
+    "metrics:p2": "node scripts/metrics-p2.mjs",
+    "test:p2:assemblies": "node scripts/test-assemblies.mjs",
+    "check:p2:diffs": "node scripts/check-plugin-diffs.mjs"
   },
   "dependencies": {
     "import-meta-resolve": "4.2.0",
