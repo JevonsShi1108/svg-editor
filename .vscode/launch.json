@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Phase 2: SVG Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}/extensions/svg-tools",
+        "--user-data-dir=${workspaceFolder}/artifacts/ui/debug-profile",
+        "--extensions-dir=${workspaceFolder}/artifacts/ui/debug-extensions",
+        "${workspaceFolder}/artifacts/ui/development"
+      ],
+      "preLaunchTask": "Phase 2: build and prepare fixture"
+    }
+  ]
+}

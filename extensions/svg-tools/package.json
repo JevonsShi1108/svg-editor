@@ -1,0 +1,14 @@
+{
+  "name": "svg-tools",
+  "displayName": "SVG Editor Tools",
+  "publisher": "svg-editor-lab",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "vscode": "^1.110.0"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.cjs"
+}

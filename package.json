@@ -29,7 +29,10 @@
     "check:traceability": "node scripts/check-traceability.mjs",
     "doc:diagram": "node scripts/render-architecture.mjs",
     "doc:examples": "npm run build && node scripts/generate-examples.mjs",
-    "candidate:verify": "node scripts/verify-candidate.mjs"
+    "candidate:verify": "node scripts/verify-candidate.mjs",
+    "build:vscode": "tsc -p extensions/svg-tools/tsconfig.json && node scripts/build-vscode.mjs",
+    "prepare:vscode": "npm run build:vscode && node scripts/prepare-vscode.mjs",
+    "test:vscode:host": "npm run build:vscode && node scripts/test-vscode-host.mjs"
   },
   "dependencies": {
     "saxes": "6.0.0"
@@ -37,9 +40,12 @@
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@types/node": "24.10.13",
+    "@types/vscode": "1.110.0",
     "@vitest/coverage-v8": "5.0.5",
+    "@vscode/test-electron": "3.1.0",
     "@xmldom/xmldom": "0.9.12",
     "dependency-cruiser": "17.4.3",
+    "esbuild": "0.27.4",
     "eslint": "10.13.0",
     "fast-check": "4.5.3",
     "prettier": "3.8.1",

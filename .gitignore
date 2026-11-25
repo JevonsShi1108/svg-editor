@@ -4,3 +4,4 @@ coverage/
 artifacts/
 .candidate/
 *.tsbuildinfo
+.vscode-test/
