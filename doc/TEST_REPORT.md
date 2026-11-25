@@ -1,3 +1,7 @@
+# Phase 2 测试报告
+
+2026-11-25 在 `.candidate/p2-final-baseline` 的干净 `final` 检出完成锁文件安装、构建及 `npm run verify`。覆盖率套件通过 767 项，失败及跳过均为 0。各门禁日志见该检出的 `artifacts/verification/runs/2026-11-25T14-02-54.464Z-77993fa1/`。
+
 # Phase 1 测试报告
 
 2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。

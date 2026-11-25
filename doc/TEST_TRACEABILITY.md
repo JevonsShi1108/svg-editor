@@ -1,3 +1,7 @@
+# Phase 2 测试追踪
+
+P2-00 的基线覆盖两套课程会话 `test/e2e/lab.test.ts`，以及真实 CLI 的 19 行 help 和空树 `svg (800x600)`。阶段二各条款的测试和截图按计划 §3、§7 逐步绑定。
+
 # Phase 1 测试追踪
 
 2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。

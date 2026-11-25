@@ -1,4 +1,10 @@
-# SVG Editor Phase 1
+# SVG Editor
+
+## Phase 2
+
+从 `final` 开发 `codex/phase2`。课程原文为 `doc/spec/phase_cli_2.md`，分步验收以 `doc/spec/SVG_Editor_Phase2_Goal_Plan.md` 为准。Phase 2 开放 VS Code 展示、box 与四个注册接口。命令和图形按接口注册，内核只消费注册表。事务、历史、分层、代码风格和逐步提交规则沿用下文。专用窗口使用临时夹具。准确候选验收后，另获发布授权才在原远程发布本阶段分支和 `p2`，已有标签保持原指向。
+
+## Phase 1 历史约束
 
 目标为可运行、可复验的本地 Git 候选；用户验收后才能处理远程和 final。
 
