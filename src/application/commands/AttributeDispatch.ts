@@ -1,5 +1,5 @@
 import type { AttributeHandler, AttributeEdit } from '../contracts/AttributeHandler.js';
-import type { AttributeValue } from '../../domain/values/contracts.js';
+import type { AttributeValue, OperationFeedback } from '../../domain/values/contracts.js';
 import type { Shape } from '../../domain/shapes/Shape.js';
 import type { EditTransaction } from '../../domain/transactions/EditTransaction.js';
 import { EditorError } from '../errors/EditorError.js';
@@ -10,7 +10,12 @@ export class AttributeDispatch {
     this.#handlers = Object.freeze([...handlers]);
   }
 
-  set(node: Shape, attribute: string, value: AttributeValue, tx: EditTransaction): void {
+  set(
+    node: Shape,
+    attribute: string,
+    value: AttributeValue,
+    tx: EditTransaction,
+  ): void | OperationFeedback {
     if (!this.#handlers.length) return node.set(tx, attribute, value);
     const target = node.describe();
     const matches = this.#handlers.filter((h) => h.handles(target, attribute));
@@ -34,7 +39,12 @@ export class AttributeDispatch {
       if (!part) throw new EditorError('SHAPE_NOT_FOUND', { id });
       return part;
     };
+    let feedback: OperationFeedback | undefined;
     const edit: AttributeEdit = {
+      feedback: (messages) => {
+        if (!active) throw new EditorError('ATTRIBUTE_EDIT_CLOSED');
+        feedback = messages;
+      },
       describe: (id) => resolve(id).describe(),
       set: (id, key, val) => resolve(id).set(tx, key, val),
     };
@@ -44,6 +54,7 @@ export class AttributeDispatch {
         if (result instanceof Promise) void result.catch(() => {});
         throw new EditorError('INVALID_HANDLER_RESULT', { handler: handler.name });
       }
+      return feedback;
     } finally {
       active = false;
     }

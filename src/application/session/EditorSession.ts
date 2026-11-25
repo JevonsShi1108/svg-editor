@@ -266,7 +266,22 @@ export class EditorSession implements SessionExecutor {
     let next: SessionHead;
     let result: ExecutionResult;
     try {
-      const facts = command.run(document, lease.tx);
+      const raw = command.run(document, lease.tx);
+      const shape = raw.shapes[0];
+      const feedback =
+        raw.feedback ??
+        (shape &&
+          this.#dependencies.shapes
+            ?.definition(shape.type)
+            .feedback?.(raw.operation, shape, raw.details ?? {}));
+      if (
+        feedback &&
+        (typeof feedback.commit !== 'string' ||
+          (feedback.undo !== undefined && typeof feedback.undo !== 'string') ||
+          (feedback.redo !== undefined && typeof feedback.redo !== 'string'))
+      )
+        throw new EditorError('INVALID_COMMAND_RESULT');
+      const facts = feedback ? { ...raw, feedback: Object.freeze({ ...feedback }) } : raw;
       const changes = lease.prepare();
       if (mode === 'dry-run') {
         const result = ResultFactory.preview(before, !changes.isEmpty, changes.describe('forward'));
@@ -278,6 +293,7 @@ export class EditorSession implements SessionExecutor {
         ? null
         : new HistoryEntry(document.documentId, before.currentStateId!, state, changes, {
             operation: facts.operation,
+            ...(feedback ? { feedback } : {}),
             targetIds: facts.targetIds,
           });
       const history = before.history.afterEdit(entry);

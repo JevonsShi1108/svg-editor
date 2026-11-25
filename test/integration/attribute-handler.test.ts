@@ -94,3 +94,26 @@ it('rejects multiple matches before applying either, while unmatched attributes 
     error: { code: 'UNKNOWN_ATTRIBUTE' },
   });
 });
+
+it('replays stored edit feedback without re-entering the handler', async () => {
+  let calls = 0;
+  const handler: AttributeHandler = {
+    name: 'alias',
+    handles: (_s, a) => a === 'alias',
+    apply(shape, _a, value, edit) {
+      calls++;
+      edit.set(shape.id, 'fill', value);
+      edit.feedback({ commit: 'applied', undo: 'restored', redo: 'reapplied' });
+    },
+  };
+  const { run } = await fixture([handler]);
+  const { TextPresenter } = await import('../../src/cli/TextPresenter.js');
+  const presenter = new TextPresenter();
+  for (const [line, text] of [
+    ['set a alias blue', 'applied'],
+    ['undo', 'restored'],
+    ['redo', 'reapplied'],
+  ] as const)
+    expect(presenter.render(await run(line)).stdout).toBe(text + '\n');
+  expect(calls).toBe(1);
+});

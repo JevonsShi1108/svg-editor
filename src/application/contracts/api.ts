@@ -1,5 +1,6 @@
 import type {
   CanvasSize,
+  OperationFeedback,
   ShapeCreation,
   DocumentDescription,
   ShapeDescription,
@@ -67,6 +68,7 @@ export interface SessionStatus {
   readonly history: HistoryStatus;
 }
 export interface EditFacts {
+  readonly feedback?: OperationFeedback;
   readonly action: string;
   readonly operation: string;
   readonly targetIds: readonly string[];

@@ -9,6 +9,7 @@ export interface HistoryStatus {
   readonly barrier: BarrierReason | null;
 }
 export interface OperationDescription {
+  readonly feedback?: import('../../domain/values/contracts.js').OperationFeedback;
   readonly operation: string;
   readonly targetIds: readonly string[];
 }

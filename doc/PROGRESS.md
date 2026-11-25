@@ -36,6 +36,8 @@ P2-09 `stats` 插件单独注册。手写逆序及空容器断言、无文档诊
 
 P2-10 `dir` 在无文档时也可执行。替身验证排序、隐藏项、空目录；真实目录验证单层 Dirent 与符号链接；成功/失败后文档、历史、保存屏障保持，redo 可重放。
 
+为 §6.1 B 的创建、传播和撤销反馈补齐通用不可变文案。处理器只在真实编辑或预演时执行，undo/redo 从历史读取保存的反馈。使用无关名字的 alias 探针验证一次调用及三个方向的输出，8 项通过。
+
 # Phase 1 实现进度
 
 2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。

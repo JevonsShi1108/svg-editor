@@ -91,6 +91,7 @@ export class TextPresenter {
       case 'show':
         return `${this.safe(data.shape.type)}#${this.safe(data.shape.id)}  parent=${data.parent.kind === 'root' ? 'svg' : `g#${this.safe(data.parent.id)}`}\n${data.shape.attributes.map((a) => `  ${this.safe(a.name)}=${this.safe(a.value)}\n`).join('')}${data.shape.text === undefined ? '' : `  text=${this.safe(JSON.stringify(data.shape.text))}\n`}`;
       case 'edit':
+        if (data.facts.feedback) return this.safe(data.facts.feedback.commit) + '\n';
         return data.facts.shapes
           .map((shape) => {
             const details = Object.entries(data.facts.details ?? {})
@@ -100,6 +101,8 @@ export class TextPresenter {
           })
           .join('');
       case 'history':
+        if (data.description.feedback?.[data.direction] !== undefined)
+          return this.safe(data.description.feedback[data.direction]) + '\n';
         return `${data.direction} ${data.description.operation} ${data.description.targetIds.map((id) => this.safe(id)).join(', ')}\n${data.shapes.map((shape) => `  ${this.shape(shape)}\n`).join('')}`;
       case 'canvas':
         return `canvas ${data.size.width}x${data.size.height}\n`;

@@ -21,9 +21,10 @@ export class SetCommand extends EditCommand {
   override run(doc: SvgDocument, tx: EditTransaction): EditFacts {
     const node = doc.require(this.#id);
     if (Object.hasOwn(node.schema.geometry, this.#attribute)) doc.assertIndependent(node);
-    this.handlers.set(node, this.#attribute, this.#value, tx);
+    const feedback = this.handlers.set(node, this.#attribute, this.#value, tx);
     return {
       operation: 'set',
+      ...(feedback ? { feedback } : {}),
       action: 'updated',
       targetIds: [node.id],
       shapes: [node.describe()],

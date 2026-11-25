@@ -15,6 +15,7 @@ export class HistoryEntry implements HistoryEntryValue {
       throw new DomainError('INTERNAL_INVARIANT_ERROR', { reason: 'history entry' });
     this.description = Object.freeze({
       operation: description.operation,
+      ...(description.feedback ? { feedback: Object.freeze({ ...description.feedback }) } : {}),
       targetIds: Object.freeze([...description.targetIds]),
     });
     Object.freeze(this);

@@ -11,6 +11,11 @@ export interface ResourceLimits {
   readonly maxTextLength: number;
   readonly maxAttributeLength: number;
 }
+export interface OperationFeedback {
+  readonly commit: string;
+  readonly undo?: string;
+  readonly redo?: string;
+}
 export type AttributeValue = string | number;
 export interface AttributeDescription {
   readonly name: string;
