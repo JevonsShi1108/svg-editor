@@ -1,10 +1,15 @@
 import * as vscode from 'vscode';
 import { SvgFileDecorationProvider } from './SvgFileDecorationProvider';
+import { SvgSymbolProvider } from './SvgSymbolProvider';
 
 export function activate(context: vscode.ExtensionContext): void {
   const changed = new vscode.EventEmitter<vscode.Uri>();
   const watcher = vscode.workspace.createFileSystemWatcher('**/*.svg', false, true, false);
   context.subscriptions.push(
+    vscode.languages.registerDocumentSymbolProvider(
+      { scheme: 'file', pattern: '**/*.svg' },
+      new SvgSymbolProvider(),
+    ),
     changed,
     watcher,
     watcher.onDidCreate((uri) => changed.fire(uri)),

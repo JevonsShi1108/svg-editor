@@ -34,4 +34,40 @@ export async function run(): Promise<void> {
     vscode.Uri.joinPath(folder.uri, 'example.svg'),
   );
   assert.match(document.lineAt(2).text, /<rect id="start"/);
+  const symbols = () =>
+    vscode.commands.executeCommand<vscode.DocumentSymbol[]>(
+      'vscode.executeDocumentSymbolProvider',
+      document.uri,
+    );
+  const original = document.getText();
+  const replace = async (text: string) => {
+    const edit = new vscode.WorkspaceEdit();
+    edit.replace(
+      document.uri,
+      new vscode.Range(document.positionAt(0), document.positionAt(document.getText().length)),
+      text,
+    );
+    assert.ok(await vscode.workspace.applyEdit(edit));
+  };
+  const check = async (id: string, line: number) => {
+    const [root] = await symbols();
+    assert.equal(root?.name, 'svg');
+    const flow = root.children[0]!;
+    assert.equal(flow.name, 'g#flow');
+    const [rect, nested] = flow.children;
+    assert.equal(rect?.name, 'rect#' + id);
+    assert.equal(rect.selectionRange.start.line, line);
+    assert.match(document.getText(rect.selectionRange), /^<rect.*\/>$/);
+    assert.equal(nested?.children[0]?.name, 'text');
+  };
+  await check('start', 2);
+  const updated = original.replace('    <rect', '\n    <rect').replace('id="start"', 'id="ready"');
+  await replace(updated);
+  assert.ok(document.isDirty);
+  await check('ready', 3);
+  await replace(updated.replace('</svg>', ''));
+  // VS Code 1.147 returns undefined when the aggregate symbol result is empty.
+  assert.deepEqual((await symbols()) ?? [], []);
+  await replace(original);
+  await check('start', 2);
 }
