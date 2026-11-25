@@ -3,14 +3,14 @@ import type { CanvasSize, ResourceLimits } from '../../domain/values/contracts.j
 import type { StateId } from '../contracts/history.js';
 import type { ExecutionResult } from '../contracts/api.js';
 import type { HistoryManager } from '../history/HistoryManager.js';
-import type { CommandCatalog } from '../commands/CommandCatalog.js';
+import type { CommandRegistry } from '../commands/CommandRegistry.js';
 import type { EditCommand } from '../commands/EditCommand.js';
 import type { QueryCommand } from '../commands/QueryCommand.js';
 import type { SvgCodec } from '../ports/SvgCodec.js';
 import type { FileStore, FilePath } from '../ports/FileStore.js';
 export type ExecuteMode = 'commit' | 'dry-run';
 export interface SessionDependencies {
-  readonly commands: CommandCatalog;
+  readonly commands: CommandRegistry;
   readonly codec: SvgCodec;
   readonly files: FileStore;
   readonly limits: ResourceLimits;

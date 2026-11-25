@@ -70,7 +70,7 @@ for (const file of sourceFiles) {
         expression: node.getText(ast),
       });
     if (
-      file.replaceAll('\\', '/').endsWith('/CommandCatalog.ts') &&
+      file.replaceAll('\\', '/').endsWith('/BuiltinCommands.ts') &&
       ts.isCallExpression(node) &&
       ts.isPropertyAccessExpression(node.expression) &&
       node.expression.name.text === 'add' &&
