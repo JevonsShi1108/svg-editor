@@ -12,8 +12,8 @@
     "cli": "node dist/main.js",
     "test:e2e": "npm run build && vitest run test/e2e --reporter=default --reporter=json --outputFile=artifacts/test-results/e2e.json",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src test scripts",
-    "format:check": "prettier --check src test scripts *.json *.mjs vitest*.config.ts AGENTS.md doc/PROGRESS.md doc/INPUT_PROFILE.md doc/TEST_TRACEABILITY.md doc/TEST_REPORT.md doc/README.md doc/ARCHITECTURE_REVIEW.md",
+    "lint": "eslint src test scripts packages extensions/svg-tools/src extensions/svg-tools/test --no-error-on-unmatched-pattern \"plugins/*/src/**/*.ts\"",
+    "format:check": "prettier --check src test scripts *.json *.mjs vitest*.config.ts AGENTS.md doc/PROGRESS.md doc/INPUT_PROFILE.md doc/TEST_TRACEABILITY.md doc/TEST_REPORT.md doc/README.md doc/ARCHITECTURE_REVIEW.md packages extensions/svg-tools/src extensions/svg-tools/test --ignore-path .gitignore --no-error-on-unmatched-pattern \"plugins/*/src\"",
     "check:deps": "node scripts/check-deps.mjs",
     "test:unit": "vitest run test/unit test/regressions --reporter=default --reporter=json --outputFile=artifacts/test-results/unit.json",
     "test:property": "vitest run test/property --reporter=default --reporter=json --outputFile=artifacts/test-results/property.json",
@@ -32,7 +32,8 @@
     "candidate:verify": "node scripts/verify-candidate.mjs",
     "build:vscode": "tsc -p extensions/svg-tools/tsconfig.json && node scripts/build-vscode.mjs",
     "prepare:vscode": "npm run build:vscode && node scripts/prepare-vscode.mjs",
-    "test:vscode:host": "npm run build:vscode && node scripts/test-vscode-host.mjs"
+    "test:vscode:host": "npm run build:vscode && node scripts/test-vscode-host.mjs",
+    "metrics:p2": "node scripts/metrics-p2.mjs"
   },
   "dependencies": {
     "import-meta-resolve": "4.2.0",

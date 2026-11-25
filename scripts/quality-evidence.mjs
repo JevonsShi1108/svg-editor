@@ -1,6 +1,7 @@
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import ts from 'typescript';
+import { cliSources } from './production-files.mjs';
 import { sourceDigest } from './source-digest.mjs';
 export const readEvidence = (file, issues, notBefore) => {
   try {
@@ -75,12 +76,8 @@ export const checkCoverage = (issues, notBefore) => {
     );
     if (!source.statements.every(pure)) issues.push(`coverage excludes executable code: ${file}`);
   }
-  const files = (directory) =>
-    readdirSync(directory, { withFileTypes: true }).flatMap((e) =>
-      e.isDirectory() ? files(path.join(directory, e.name)) : [path.join(directory, e.name)],
-    );
   const reported = new Set(entries.map(([p]) => normalize(path.resolve(p))));
-  for (const file of files('src').filter((p) => p.endsWith('.ts'))) {
+  for (const file of cliSources().filter((p) => p.endsWith('.ts') && !p.endsWith('.d.ts'))) {
     const full = path.resolve(file);
     if (!excludedFiles.includes(full) && !reported.has(normalize(full)))
       issues.push(`production file absent from coverage: ${file}`);

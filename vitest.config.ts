@@ -6,10 +6,15 @@ export default defineConfig({
     passWithNoTests: false,
     coverage: {
       provider: 'v8',
-      include: ['src/**/*.ts'],
+      include: ['src/**/*.ts', 'plugins/*/src/**/*.ts'],
       // These files contain only erased interfaces/type aliases, no executable statements.
       exclude: [
-        'src/application/contracts/*.ts',
+        'src/application/contracts/AttributeHandler.ts',
+        'src/application/contracts/Command.ts',
+        'src/application/contracts/Plugin.ts',
+        'src/application/contracts/TreeDecorator.ts',
+        'src/application/contracts/history.ts',
+        'src/domain/shapes/ShapeProvider.ts',
         'src/application/internal/protocols.ts',
         'src/application/ports/FileStore.ts',
         'src/application/ports/SvgCodec.ts',

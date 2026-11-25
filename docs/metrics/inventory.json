@@ -1,0 +1,6471 @@
+{
+  "typescript": "5.9.3",
+  "before": {
+    "digest": "8a7c9a481dfe8d429a5884996b55d10720ea6d732be771f96dc692740a0d4074",
+    "groups": {
+      "kernel": {
+        "files": 78,
+        "lines": 3959,
+        "complexity": 1004
+      },
+      "assembly": {
+        "files": 1,
+        "lines": 38,
+        "complexity": 1
+      },
+      "plugin": {
+        "files": 0,
+        "lines": 0,
+        "complexity": 0
+      },
+      "vscode": {
+        "files": 0,
+        "lines": 0,
+        "complexity": 0
+      }
+    },
+    "files": [
+      {
+        "file": "src/application/commands/AddToCommand.ts",
+        "blob": "9d49dc73f4094a57751017896c77257bc56976b5",
+        "category": "kernel",
+        "responsibility": "AddToCommand · 绑定或执行命令",
+        "lines": 24,
+        "functions": [
+          {
+            "name": "AddToCommand.constructor",
+            "line": 8,
+            "complexity": 1
+          },
+          {
+            "name": "AddToCommand.run",
+            "line": 13,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/BackCommand.ts",
+        "blob": "5bd86f4cecb46657870d822cee385e7ff56d019b",
+        "category": "kernel",
+        "responsibility": "BackCommand · 绑定或执行命令",
+        "lines": 21,
+        "functions": [
+          {
+            "name": "BackCommand.constructor",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "BackCommand.run",
+            "line": 11,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/BoundCommand.ts",
+        "blob": "37c9ff3b870f970b08e8f78f62f9dd172950b8ed",
+        "category": "kernel",
+        "responsibility": "BoundCommand · 绑定或执行命令",
+        "lines": 8,
+        "functions": []
+      },
+      {
+        "file": "src/application/commands/CanvasCommand.ts",
+        "blob": "8faed8300f10a156a0af36b7c4f3c11f69cb7376",
+        "category": "kernel",
+        "responsibility": "CanvasCommand · 绑定或执行命令",
+        "lines": 14,
+        "functions": [
+          {
+            "name": "CanvasCommand.constructor",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasCommand.dispatch",
+            "line": 11,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/CommandArguments.ts",
+        "blob": "a32711030e48690a9d80ebe6a889b4b6985051b0",
+        "category": "kernel",
+        "responsibility": "CommandArguments · 绑定或执行命令",
+        "lines": 23,
+        "functions": [
+          {
+            "name": "CommandArguments.constructor",
+            "line": 5,
+            "complexity": 1
+          },
+          {
+            "name": "CommandArguments.expect",
+            "line": 9,
+            "complexity": 3
+          },
+          {
+            "name": "CommandArguments.value",
+            "line": 12,
+            "complexity": 2
+          },
+          {
+            "name": "CommandArguments.id",
+            "line": 17,
+            "complexity": 1
+          },
+          {
+            "name": "CommandArguments.number",
+            "line": 20,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/CommandCatalog.ts",
+        "blob": "62a70a42ab3b67e54e4a467fe17ef3dba938c4a0",
+        "category": "kernel",
+        "responsibility": "CommandCatalog · 绑定或执行命令",
+        "lines": 345,
+        "functions": [
+          {
+            "name": "CommandCatalog.constructor",
+            "line": 38,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 45,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 49,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 59,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 63,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 74,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 78,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 85,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 89,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 97,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 101,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 112,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 117,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 120,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 124,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 133,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 137,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 144,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 148,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 155,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 159,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 166,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 170,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 177,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 185,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 192,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 200,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 207,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 211,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 218,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 222,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 229,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 233,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 240,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 241,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 252,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 256,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 264,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 268,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 275,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 279,
+            "complexity": 1
+          },
+          {
+            "name": "CommandCatalog.add",
+            "line": 282,
+            "complexity": 1
+          },
+          {
+            "name": "bind",
+            "line": 296,
+            "complexity": 1
+          },
+          {
+            "name": "CommandCatalog.parse",
+            "line": 300,
+            "complexity": 3
+          },
+          {
+            "name": "CommandCatalog.bind",
+            "line": 306,
+            "complexity": 5
+          },
+          {
+            "name": "<callback>",
+            "line": 310,
+            "complexity": 2
+          },
+          {
+            "name": "CommandCatalog.describe",
+            "line": 314,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 315,
+            "complexity": 1
+          },
+          {
+            "name": "CommandCatalog.definition",
+            "line": 317,
+            "complexity": 2
+          },
+          {
+            "name": "CommandCatalog.parseCreate",
+            "line": 322,
+            "complexity": 10
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/CreateCommand.ts",
+        "blob": "9e84a2ccd237796682949350a3342ca9da250319",
+        "category": "kernel",
+        "responsibility": "CreateCommand · 绑定或执行命令",
+        "lines": 25,
+        "functions": [
+          {
+            "name": "CreateCommand.constructor",
+            "line": 9,
+            "complexity": 1
+          },
+          {
+            "name": "CreateCommand.run",
+            "line": 14,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/DeleteCommand.ts",
+        "blob": "1660866cb023b426ca0d1cea3259a7681da74c05",
+        "category": "kernel",
+        "responsibility": "DeleteCommand · 绑定或执行命令",
+        "lines": 17,
+        "functions": [
+          {
+            "name": "DeleteCommand.constructor",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "DeleteCommand.run",
+            "line": 11,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/EditCommand.ts",
+        "blob": "b64508bec9c98061dcb4a1c8a4f50999183d1dc1",
+        "category": "kernel",
+        "responsibility": "EditCommand · 绑定或执行命令",
+        "lines": 11,
+        "functions": [
+          {
+            "name": "EditCommand.dispatch",
+            "line": 8,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/FrontCommand.ts",
+        "blob": "9418dfff0f2ec0e20d2dc02c4515f2eb51691d06",
+        "category": "kernel",
+        "responsibility": "FrontCommand · 绑定或执行命令",
+        "lines": 21,
+        "functions": [
+          {
+            "name": "FrontCommand.constructor",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "FrontCommand.run",
+            "line": 11,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/GroupCommand.ts",
+        "blob": "2a2e41fb1ceb30c0727bc9e689409fe6f7e3bd04",
+        "category": "kernel",
+        "responsibility": "GroupCommand · 绑定或执行命令",
+        "lines": 29,
+        "functions": [
+          {
+            "name": "GroupCommand.constructor",
+            "line": 8,
+            "complexity": 1
+          },
+          {
+            "name": "GroupCommand.run",
+            "line": 13,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 18,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/HelpCommand.ts",
+        "blob": "695c3c2c58906c732fdd36476275a2a9b5f90ad8",
+        "category": "kernel",
+        "responsibility": "HelpCommand · 绑定或执行命令",
+        "lines": 11,
+        "functions": [
+          {
+            "name": "HelpCommand.requiresDocument",
+            "line": 5,
+            "complexity": 1
+          },
+          {
+            "name": "HelpCommand.run",
+            "line": 8,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/InitCommand.ts",
+        "blob": "89cb1f77f1fdf8b3dc6d6d461f44b45ecae8d8cf",
+        "category": "kernel",
+        "responsibility": "InitCommand · 绑定或执行命令",
+        "lines": 14,
+        "functions": [
+          {
+            "name": "InitCommand.constructor",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "InitCommand.dispatch",
+            "line": 11,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/MoveCommand.ts",
+        "blob": "34b02d19cab8be627c966fc9291b8135ec29b3cc",
+        "category": "kernel",
+        "responsibility": "MoveCommand · 绑定或执行命令",
+        "lines": 26,
+        "functions": [
+          {
+            "name": "MoveCommand.constructor",
+            "line": 9,
+            "complexity": 1
+          },
+          {
+            "name": "MoveCommand.run",
+            "line": 15,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/QueryCommand.ts",
+        "blob": "cd8c5dd0c00fc7e4d961354a4e427607dbc4ae08",
+        "category": "kernel",
+        "responsibility": "QueryCommand · 绑定或执行命令",
+        "lines": 13,
+        "functions": [
+          {
+            "name": "QueryCommand.requiresDocument",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "QueryCommand.dispatch",
+            "line": 10,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/ReadCommand.ts",
+        "blob": "f46bd33a444e3cfb6716fbdfa42451395cf5eb4c",
+        "category": "kernel",
+        "responsibility": "ReadCommand · 绑定或执行命令",
+        "lines": 13,
+        "functions": [
+          {
+            "name": "ReadCommand.constructor",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "ReadCommand.dispatch",
+            "line": 10,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/RedoCommand.ts",
+        "blob": "e8702174770021b92081c8668a496987a0b256fe",
+        "category": "kernel",
+        "responsibility": "RedoCommand · 绑定或执行命令",
+        "lines": 8,
+        "functions": [
+          {
+            "name": "RedoCommand.dispatch",
+            "line": 5,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/SaveCommand.ts",
+        "blob": "a9949032dae6e597a30ed5ced3e3bc38ce39ffba",
+        "category": "kernel",
+        "responsibility": "SaveCommand · 绑定或执行命令",
+        "lines": 13,
+        "functions": [
+          {
+            "name": "SaveCommand.constructor",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "SaveCommand.dispatch",
+            "line": 10,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/ScaleCommand.ts",
+        "blob": "fca819da88ca7f9e5898700c6604a2dfd86c2047",
+        "category": "kernel",
+        "responsibility": "ScaleCommand · 绑定或执行命令",
+        "lines": 24,
+        "functions": [
+          {
+            "name": "ScaleCommand.constructor",
+            "line": 8,
+            "complexity": 1
+          },
+          {
+            "name": "ScaleCommand.run",
+            "line": 13,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/SetCommand.ts",
+        "blob": "c5a35c0cf4aff7a6eee2a0128508ae4e2b054987",
+        "category": "kernel",
+        "responsibility": "SetCommand · 绑定或执行命令",
+        "lines": 26,
+        "functions": [
+          {
+            "name": "SetCommand.constructor",
+            "line": 9,
+            "complexity": 1
+          },
+          {
+            "name": "SetCommand.run",
+            "line": 15,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/ShowCommand.ts",
+        "blob": "fbadbbbcba39a3ecda3af75a57401096f973cb58",
+        "category": "kernel",
+        "responsibility": "ShowCommand · 绑定或执行命令",
+        "lines": 19,
+        "functions": [
+          {
+            "name": "ShowCommand.constructor",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "ShowCommand.run",
+            "line": 10,
+            "complexity": 2
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/TreeCommand.ts",
+        "blob": "9d15a5601e917a9f3d71c1b639d527c961d66d2b",
+        "category": "kernel",
+        "responsibility": "TreeCommand · 绑定或执行命令",
+        "lines": 15,
+        "functions": [
+          {
+            "name": "TreeCommand.constructor",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "TreeCommand.run",
+            "line": 10,
+            "complexity": 2
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/UndoCommand.ts",
+        "blob": "d07d59a5fcbbf41f12b8baddfcc69172ca31a1a1",
+        "category": "kernel",
+        "responsibility": "UndoCommand · 绑定或执行命令",
+        "lines": 8,
+        "functions": [
+          {
+            "name": "UndoCommand.dispatch",
+            "line": 5,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/UngroupCommand.ts",
+        "blob": "371398d008ed0e1c84ecf7d0e93224a455a9eb82",
+        "category": "kernel",
+        "responsibility": "UngroupCommand · 绑定或执行命令",
+        "lines": 17,
+        "functions": [
+          {
+            "name": "UngroupCommand.constructor",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "UngroupCommand.run",
+            "line": 11,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/contracts/api.ts",
+        "blob": "7b2152abfaf1587bb623a194b0e6c1c87e8a7898",
+        "category": "kernel",
+        "responsibility": "api · 定义公开会话及插件契约",
+        "lines": 124,
+        "functions": []
+      },
+      {
+        "file": "src/application/contracts/history.ts",
+        "blob": "13df13789226d3cc8b6ba963f36a99cfde764aaf",
+        "category": "kernel",
+        "responsibility": "history · 定义公开会话及插件契约",
+        "lines": 21,
+        "functions": []
+      },
+      {
+        "file": "src/application/errors/EditorError.ts",
+        "blob": "bff0a396b91f9ed24814be29c357e03852602f2c",
+        "category": "kernel",
+        "responsibility": "EditorError · 转换为结构化应用错误",
+        "lines": 14,
+        "functions": [
+          {
+            "name": "EditorError.constructor",
+            "line": 5,
+            "complexity": 1
+          },
+          {
+            "name": "EditorError.from",
+            "line": 9,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "src/application/history/HistoryEntry.ts",
+        "blob": "17907f1ba85c5bc95ca809d01be06ac323aa93d7",
+        "category": "kernel",
+        "responsibility": "HistoryEntry · 维护文档历史和状态身份",
+        "lines": 22,
+        "functions": [
+          {
+            "name": "HistoryEntry.constructor",
+            "line": 7,
+            "complexity": 4
+          }
+        ]
+      },
+      {
+        "file": "src/application/history/HistoryManager.ts",
+        "blob": "84f75ef2f065ea237840de8b4b073293fddd7aef",
+        "category": "kernel",
+        "responsibility": "HistoryManager · 维护文档历史和状态身份",
+        "lines": 80,
+        "functions": [
+          {
+            "name": "HistoryManager.constructor",
+            "line": 10,
+            "complexity": 1
+          },
+          {
+            "name": "HistoryManager.empty",
+            "line": 20,
+            "complexity": 1
+          },
+          {
+            "name": "HistoryManager.inspect",
+            "line": 23,
+            "complexity": 5
+          },
+          {
+            "name": "HistoryManager.peekUndo",
+            "line": 30,
+            "complexity": 1
+          },
+          {
+            "name": "HistoryManager.peekRedo",
+            "line": 33,
+            "complexity": 1
+          },
+          {
+            "name": "HistoryManager.peek",
+            "line": 36,
+            "complexity": 10
+          },
+          {
+            "name": "HistoryManager.afterEdit",
+            "line": 52,
+            "complexity": 11
+          },
+          {
+            "name": "HistoryManager.afterUndo",
+            "line": 67,
+            "complexity": 4
+          },
+          {
+            "name": "HistoryManager.afterRedo",
+            "line": 72,
+            "complexity": 4
+          },
+          {
+            "name": "HistoryManager.afterBarrier",
+            "line": 77,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/history/HistoryStackNode.ts",
+        "blob": "2fd7bb522e927ecb54243bf986b79e9f978988b8",
+        "category": "kernel",
+        "responsibility": "HistoryStackNode · 维护文档历史和状态身份",
+        "lines": 11,
+        "functions": [
+          {
+            "name": "HistoryStackNode.constructor",
+            "line": 4,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "src/application/internal/FrozenValue.ts",
+        "blob": "5b7cca6444ef81e47d0b7fe1ae3713a0707c87e7",
+        "category": "kernel",
+        "responsibility": "FrozenValue · 会话内部协议和结果值",
+        "lines": 13,
+        "functions": [
+          {
+            "name": "FrozenValue.freeze",
+            "line": 2,
+            "complexity": 6
+          },
+          {
+            "name": "FrozenValue.copy",
+            "line": 10,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/internal/ResultFactory.ts",
+        "blob": "e03adbf9403b8769785147a02beea5322668db75",
+        "category": "kernel",
+        "responsibility": "ResultFactory · 会话内部协议和结果值",
+        "lines": 54,
+        "functions": [
+          {
+            "name": "ResultFactory.preview",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "ResultFactory.status",
+            "line": 16,
+            "complexity": 6
+          },
+          {
+            "name": "ResultFactory.commit",
+            "line": 30,
+            "complexity": 1
+          },
+          {
+            "name": "ResultFactory.failure",
+            "line": 47,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/internal/protocols.ts",
+        "blob": "478bc396d771d1d5e1e06c85bf0b12761fa043e5",
+        "category": "kernel",
+        "responsibility": "protocols · 会话内部协议和结果值",
+        "lines": 35,
+        "functions": []
+      },
+      {
+        "file": "src/application/ports/FileError.ts",
+        "blob": "24fb328b8746ff813dc0711280fe81cec7a08839",
+        "category": "kernel",
+        "responsibility": "FileError · 定义文件与编解码端口",
+        "lines": 9,
+        "functions": [
+          {
+            "name": "FileError.constructor",
+            "line": 4,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/ports/FileStore.ts",
+        "blob": "5eed1349528aae895d3232cf5e1c94be720cba31",
+        "category": "kernel",
+        "responsibility": "FileStore · 定义文件与编解码端口",
+        "lines": 18,
+        "functions": []
+      },
+      {
+        "file": "src/application/ports/SvgCodec.ts",
+        "blob": "fa8794b5716dffcfe0d100bcae8c93f718ccfd03",
+        "category": "kernel",
+        "responsibility": "SvgCodec · 定义文件与编解码端口",
+        "lines": 12,
+        "functions": []
+      },
+      {
+        "file": "src/application/session/EditorSession.ts",
+        "blob": "6f5e6527028d95605be15e03492a53781b8b8379",
+        "category": "kernel",
+        "responsibility": "EditorSession · 编排会话及查询",
+        "lines": 389,
+        "functions": [
+          {
+            "name": "EditorSession.constructor",
+            "line": 41,
+            "complexity": 1
+          },
+          {
+            "name": "edit",
+            "line": 45,
+            "complexity": 1
+          },
+          {
+            "name": "query",
+            "line": 46,
+            "complexity": 1
+          },
+          {
+            "name": "initialize",
+            "line": 47,
+            "complexity": 1
+          },
+          {
+            "name": "history",
+            "line": 48,
+            "complexity": 1
+          },
+          {
+            "name": "canvas",
+            "line": 49,
+            "complexity": 1
+          },
+          {
+            "name": "read",
+            "line": 50,
+            "complexity": 1
+          },
+          {
+            "name": "save",
+            "line": 51,
+            "complexity": 1
+          },
+          {
+            "name": "EditorSession.execute",
+            "line": 54,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 64,
+            "complexity": 7
+          },
+          {
+            "name": "<callback>",
+            "line": 75,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 76,
+            "complexity": 1
+          },
+          {
+            "name": "EditorSession.#requireDocument",
+            "line": 80,
+            "complexity": 3
+          },
+          {
+            "name": "EditorSession.#requireCommit",
+            "line": 85,
+            "complexity": 2
+          },
+          {
+            "name": "EditorSession.#initialize",
+            "line": 88,
+            "complexity": 2
+          },
+          {
+            "name": "EditorSession.#read",
+            "line": 114,
+            "complexity": 5
+          },
+          {
+            "name": "EditorSession.#save",
+            "line": 165,
+            "complexity": 12
+          },
+          {
+            "name": "EditorSession.#query",
+            "line": 234,
+            "complexity": 2
+          },
+          {
+            "name": "EditorSession.#edit",
+            "line": 239,
+            "complexity": 6
+          },
+          {
+            "name": "EditorSession.#history",
+            "line": 281,
+            "complexity": 7
+          },
+          {
+            "name": "<callback>",
+            "line": 306,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 321,
+            "complexity": 2
+          },
+          {
+            "name": "EditorSession.#canvas",
+            "line": 336,
+            "complexity": 5
+          },
+          {
+            "name": "EditorSession.#rollbackOrPoison",
+            "line": 363,
+            "complexity": 3
+          },
+          {
+            "name": "EditorSession.#failure",
+            "line": 372,
+            "complexity": 3
+          },
+          {
+            "name": "EditorSession.#poison",
+            "line": 381,
+            "complexity": 2
+          }
+        ]
+      },
+      {
+        "file": "src/cli/CliParser.ts",
+        "blob": "226143d4148b098999a99e5ecf6b60b57aa6a660",
+        "category": "kernel",
+        "responsibility": "CliParser · 转换 CLI 输入、输出和终端事件",
+        "lines": 18,
+        "functions": [
+          {
+            "name": "CliParser.constructor",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "CliParser.parse",
+            "line": 10,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "src/cli/CliRepl.ts",
+        "blob": "11900fcc55ecd7ae2b84c7a4f525fef02ae3f24f",
+        "category": "kernel",
+        "responsibility": "CliRepl · 转换 CLI 输入、输出和终端事件",
+        "lines": 42,
+        "functions": [
+          {
+            "name": "CliRepl.constructor",
+            "line": 14,
+            "complexity": 1
+          },
+          {
+            "name": "CliRepl.run",
+            "line": 19,
+            "complexity": 10
+          }
+        ]
+      },
+      {
+        "file": "src/cli/NodeTerminal.ts",
+        "blob": "a881000830372c9f329a84c316f09209856ec68c",
+        "category": "kernel",
+        "responsibility": "NodeTerminal · 转换 CLI 输入、输出和终端事件",
+        "lines": 36,
+        "functions": [
+          {
+            "name": "NodeTerminal.constructor",
+            "line": 9,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 13,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 16,
+            "complexity": 1
+          },
+          {
+            "name": "NodeTerminal.stdout",
+            "line": 20,
+            "complexity": 2
+          },
+          {
+            "name": "NodeTerminal.stderr",
+            "line": 24,
+            "complexity": 2
+          },
+          {
+            "name": "NodeTerminal.write",
+            "line": 28,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 29,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 30,
+            "complexity": 2
+          }
+        ]
+      },
+      {
+        "file": "src/cli/TextPresenter.ts",
+        "blob": "653100fffe8cd315b6760a504a65b360e54c3ac6",
+        "category": "kernel",
+        "responsibility": "TextPresenter · 转换 CLI 输入、输出和终端事件",
+        "lines": 98,
+        "functions": [
+          {
+            "name": "TextPresenter.safe",
+            "line": 4,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 6,
+            "complexity": 7
+          },
+          {
+            "name": "TextPresenter.diagnostic",
+            "line": 19,
+            "complexity": 4
+          },
+          {
+            "name": "value",
+            "line": 21,
+            "complexity": 1
+          },
+          {
+            "name": "DUPLICATE_ID",
+            "line": 23,
+            "complexity": 1
+          },
+          {
+            "name": "SHAPE_NOT_FOUND",
+            "line": 24,
+            "complexity": 1
+          },
+          {
+            "name": "CONTAINER_NOT_FOUND",
+            "line": 25,
+            "complexity": 1
+          },
+          {
+            "name": "NOT_A_CONTAINER",
+            "line": 26,
+            "complexity": 1
+          },
+          {
+            "name": "UNKNOWN_SHAPE_TYPE",
+            "line": 27,
+            "complexity": 1
+          },
+          {
+            "name": "GROUP_ANCESTOR",
+            "line": 28,
+            "complexity": 1
+          },
+          {
+            "name": "TOP_LEVEL_UNGROUP",
+            "line": 29,
+            "complexity": 1
+          },
+          {
+            "name": "INVALID_SCALE",
+            "line": 30,
+            "complexity": 1
+          },
+          {
+            "name": "NO_DOCUMENT",
+            "line": 31,
+            "complexity": 1
+          },
+          {
+            "name": "UNKNOWN_ATTRIBUTE",
+            "line": 32,
+            "complexity": 1
+          },
+          {
+            "name": "HISTORY_BLOCKED",
+            "line": 33,
+            "complexity": 1
+          },
+          {
+            "name": "FILE_IO_ERROR",
+            "line": 34,
+            "complexity": 2
+          },
+          {
+            "name": "SAVE_OUTCOME_UNKNOWN",
+            "line": 36,
+            "complexity": 1
+          },
+          {
+            "name": "ASSIGNED_ID",
+            "line": 37,
+            "complexity": 1
+          },
+          {
+            "name": "TextPresenter.render",
+            "line": 43,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 48,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 52,
+            "complexity": 1
+          },
+          {
+            "name": "TextPresenter.shape",
+            "line": 55,
+            "complexity": 4
+          },
+          {
+            "name": "<callback>",
+            "line": 56,
+            "complexity": 1
+          },
+          {
+            "name": "TextPresenter.tree",
+            "line": 58,
+            "complexity": 5
+          },
+          {
+            "name": "TextPresenter.data",
+            "line": 65,
+            "complexity": 15
+          },
+          {
+            "name": "<callback>",
+            "line": 68,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 78,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 81,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 83,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 89,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 89,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/cli/Tokenizer.ts",
+        "blob": "3f9d985048098c514c65d2b9d84adf870afe9d41",
+        "category": "kernel",
+        "responsibility": "Tokenizer · 转换 CLI 输入、输出和终端事件",
+        "lines": 39,
+        "functions": [
+          {
+            "name": "Tokenizer.tokenize",
+            "line": 4,
+            "complexity": 20
+          }
+        ]
+      },
+      {
+        "file": "src/domain/changes/Change.ts",
+        "blob": "fcf9e3b2e2e6adc47e0b144dc0aa76ff68893210",
+        "category": "kernel",
+        "responsibility": "Change · 记录并回放可逆变更",
+        "lines": 6,
+        "functions": []
+      },
+      {
+        "file": "src/domain/changes/ChangeSet.ts",
+        "blob": "b244c5456d3a8e3f64db0805e0f28f5ba8fabebb",
+        "category": "kernel",
+        "responsibility": "ChangeSet · 记录并回放可逆变更",
+        "lines": 46,
+        "functions": [
+          {
+            "name": "ChangeSet.constructor",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 10,
+            "complexity": 1
+          },
+          {
+            "name": "ChangeSet.size",
+            "line": 13,
+            "complexity": 1
+          },
+          {
+            "name": "ChangeSet.isEmpty",
+            "line": 16,
+            "complexity": 1
+          },
+          {
+            "name": "ChangeSet.replay",
+            "line": 19,
+            "complexity": 5
+          },
+          {
+            "name": "ChangeSet.describe",
+            "line": 32,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 35,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "src/domain/changes/NodeStateChange.ts",
+        "blob": "8f2b1346368eb2c1adf51db3ed1a9250a54c0eb1",
+        "category": "kernel",
+        "responsibility": "NodeStateChange · 记录并回放可逆变更",
+        "lines": 29,
+        "functions": [
+          {
+            "name": "NodeStateChange.constructor",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "NodeStateChange.replayUsing",
+            "line": 14,
+            "complexity": 3
+          },
+          {
+            "name": "NodeStateChange.describe",
+            "line": 21,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "src/domain/changes/PlacementChange.ts",
+        "blob": "b091d9bf1189fd0581093bea5e5dbbd85bd35a21",
+        "category": "kernel",
+        "responsibility": "PlacementChange · 记录并回放可逆变更",
+        "lines": 38,
+        "functions": [
+          {
+            "name": "PlacementChange.constructor",
+            "line": 9,
+            "complexity": 3
+          },
+          {
+            "name": "PlacementChange.replayUsing",
+            "line": 20,
+            "complexity": 3
+          },
+          {
+            "name": "PlacementChange.describe",
+            "line": 27,
+            "complexity": 3
+          },
+          {
+            "name": "describe",
+            "line": 28,
+            "complexity": 4
+          }
+        ]
+      },
+      {
+        "file": "src/domain/document/CanvasRoot.ts",
+        "blob": "4c9bfc1ed34fe2d5da5935010d7f36f455895047",
+        "category": "kernel",
+        "responsibility": "CanvasRoot · 画布、节点索引和结构编辑",
+        "lines": 78,
+        "functions": [
+          {
+            "name": "CanvasRoot.constructor",
+            "line": 20,
+            "complexity": 1
+          },
+          {
+            "name": "validate",
+            "line": 24,
+            "complexity": 2
+          },
+          {
+            "name": "install",
+            "line": 31,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 35,
+            "complexity": 2
+          },
+          {
+            "name": "CanvasRoot.ownerDocumentId",
+            "line": 40,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasRoot.ownerShape",
+            "line": 43,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasRoot.childCount",
+            "line": 46,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasRoot.childAt",
+            "line": 49,
+            "complexity": 2
+          },
+          {
+            "name": "CanvasRoot.childrenSnapshot",
+            "line": 54,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasRoot.captureState",
+            "line": 57,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasRoot.describeTarget",
+            "line": 60,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasRoot.stateEquals",
+            "line": 63,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasRoot.describeState",
+            "line": 68,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasRoot.size",
+            "line": 71,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/document/SvgDocument.ts",
+        "blob": "917a64954886609fe06ab4b8074676333a78c4b5",
+        "category": "kernel",
+        "responsibility": "SvgDocument · 画布、节点索引和结构编辑",
+        "lines": 383,
+        "functions": [
+          {
+            "name": "SvgDocument.constructor",
+            "line": 41,
+            "complexity": 1
+          },
+          {
+            "name": "validateState",
+            "line": 53,
+            "complexity": 2
+          },
+          {
+            "name": "writeState",
+            "line": 59,
+            "complexity": 1
+          },
+          {
+            "name": "validatePlacement",
+            "line": 63,
+            "complexity": 1
+          },
+          {
+            "name": "writePlacement",
+            "line": 64,
+            "complexity": 1
+          },
+          {
+            "name": "assertBuilding",
+            "line": 67,
+            "complexity": 2
+          },
+          {
+            "name": "append",
+            "line": 72,
+            "complexity": 1
+          },
+          {
+            "name": "finish",
+            "line": 81,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.documentId",
+            "line": 89,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.root",
+            "line": 92,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.nodeCount",
+            "line": 95,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.find",
+            "line": 98,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.require",
+            "line": 101,
+            "complexity": 2
+          },
+          {
+            "name": "SvgDocument.requireContainer",
+            "line": 106,
+            "complexity": 3
+          },
+          {
+            "name": "SvgDocument.isAttached",
+            "line": 113,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.placementOf",
+            "line": 116,
+            "complexity": 4
+          },
+          {
+            "name": "SvgDocument.beginEdit",
+            "line": 125,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 129,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.create",
+            "line": 134,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.resizeCanvas",
+            "line": 140,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.planGroup",
+            "line": 150,
+            "complexity": 15
+          },
+          {
+            "name": "<callback>",
+            "line": 165,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 176,
+            "complexity": 1
+          },
+          {
+            "name": "traverse",
+            "line": 188,
+            "complexity": 4
+          },
+          {
+            "name": "<callback>",
+            "line": 200,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.group",
+            "line": 214,
+            "complexity": 4
+          },
+          {
+            "name": "SvgDocument.ungroup",
+            "line": 227,
+            "complexity": 4
+          },
+          {
+            "name": "SvgDocument.addTo",
+            "line": 240,
+            "complexity": 2
+          },
+          {
+            "name": "SvgDocument.bringToFront",
+            "line": 245,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.sendToBack",
+            "line": 250,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.describeTree",
+            "line": 255,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 259,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.describe",
+            "line": 263,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 268,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 270,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.assertStateTarget",
+            "line": 273,
+            "complexity": 4
+          },
+          {
+            "name": "SvgDocument.subtree",
+            "line": 280,
+            "complexity": 1
+          },
+          {
+            "name": "visit",
+            "line": 282,
+            "complexity": 4
+          },
+          {
+            "name": "SvgDocument.depth",
+            "line": 289,
+            "complexity": 4
+          },
+          {
+            "name": "SvgDocument.height",
+            "line": 298,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 301,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.validatePlacement",
+            "line": 304,
+            "complexity": 33
+          },
+          {
+            "name": "SvgDocument.writePlacement",
+            "line": 347,
+            "complexity": 13
+          },
+          {
+            "name": "SvgDocument.assertInvariants",
+            "line": 358,
+            "complexity": 3
+          },
+          {
+            "name": "visit",
+            "line": 361,
+            "complexity": 9
+          }
+        ]
+      },
+      {
+        "file": "src/domain/document/SvgDocumentBuilder.ts",
+        "blob": "186500ab167993e5af5dfc05a781b22ee2234bde",
+        "category": "kernel",
+        "responsibility": "SvgDocumentBuilder · 画布、节点索引和结构编辑",
+        "lines": 25,
+        "functions": [
+          {
+            "name": "SvgDocumentBuilder.constructor",
+            "line": 8,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocumentBuilder.root",
+            "line": 15,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocumentBuilder.append",
+            "line": 18,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocumentBuilder.build",
+            "line": 21,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/errors/DomainError.ts",
+        "blob": "949f0515173a27b42c7e4d61daacbb878ea0def9",
+        "category": "kernel",
+        "responsibility": "DomainError · 表达领域诊断",
+        "lines": 11,
+        "functions": [
+          {
+            "name": "DomainError.constructor",
+            "line": 2,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/internal/MutationAuthority.ts",
+        "blob": "f4b42323af7d3227680661c2886288598fff5926",
+        "category": "kernel",
+        "responsibility": "MutationAuthority · 封装领域存储和变更权限",
+        "lines": 16,
+        "functions": [
+          {
+            "name": "MutationAuthority.constructor",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "MutationAuthority.assert",
+            "line": 9,
+            "complexity": 3
+          },
+          {
+            "name": "MutationAuthority.revoke",
+            "line": 13,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/internal/protocols.ts",
+        "blob": "422869d17e73e0d1d7b172e4b443adb9a5fe28ae",
+        "category": "kernel",
+        "responsibility": "protocols · 封装领域存储和变更权限",
+        "lines": 52,
+        "functions": []
+      },
+      {
+        "file": "src/domain/internal/storage.ts",
+        "blob": "6ebf2e2b84c5f0d8cc183dce983cfa4ca725fced",
+        "category": "kernel",
+        "responsibility": "storage · 封装领域存储和变更权限",
+        "lines": 83,
+        "functions": [
+          {
+            "name": "registerBuilder",
+            "line": 24,
+            "complexity": 1
+          },
+          {
+            "name": "accessBuilder",
+            "line": 27,
+            "complexity": 1
+          },
+          {
+            "name": "registerState",
+            "line": 28,
+            "complexity": 1
+          },
+          {
+            "name": "validateState",
+            "line": 34,
+            "complexity": 1
+          },
+          {
+            "name": "installState",
+            "line": 37,
+            "complexity": 1
+          },
+          {
+            "name": "registerContainer",
+            "line": 45,
+            "complexity": 1
+          },
+          {
+            "name": "spliceChildren",
+            "line": 51,
+            "complexity": 1
+          },
+          {
+            "name": "registerParent",
+            "line": 61,
+            "complexity": 1
+          },
+          {
+            "name": "parentOf",
+            "line": 67,
+            "complexity": 1
+          },
+          {
+            "name": "installParent",
+            "line": 68,
+            "complexity": 1
+          },
+          {
+            "name": "registerDocument",
+            "line": 76,
+            "complexity": 1
+          },
+          {
+            "name": "accessDocument",
+            "line": 79,
+            "complexity": 2
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/CircleShape.ts",
+        "blob": "dcb360b32c92bbb4f1d174fb389cc2e7674e2c33",
+        "category": "kernel",
+        "responsibility": "CircleShape · 图形状态、创建规则和几何行为",
+        "lines": 24,
+        "functions": [
+          {
+            "name": "CircleShape.constructor",
+            "line": 15,
+            "complexity": 1
+          },
+          {
+            "name": "CircleShape.move",
+            "line": 18,
+            "complexity": 1
+          },
+          {
+            "name": "CircleShape.scale",
+            "line": 21,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/EllipseShape.ts",
+        "blob": "3bec33ce32427b0b06686228050ecd9beefd39ee",
+        "category": "kernel",
+        "responsibility": "EllipseShape · 图形状态、创建规则和几何行为",
+        "lines": 24,
+        "functions": [
+          {
+            "name": "EllipseShape.constructor",
+            "line": 15,
+            "complexity": 1
+          },
+          {
+            "name": "EllipseShape.move",
+            "line": 18,
+            "complexity": 1
+          },
+          {
+            "name": "EllipseShape.scale",
+            "line": 21,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/GroupShape.ts",
+        "blob": "9aa7b632ad1ac83d4196907a5b9af1d4c494c198",
+        "category": "kernel",
+        "responsibility": "GroupShape · 图形状态、创建规则和几何行为",
+        "lines": 47,
+        "functions": [
+          {
+            "name": "GroupShape.constructor",
+            "line": 12,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 14,
+            "complexity": 2
+          },
+          {
+            "name": "GroupShape.ownerShape",
+            "line": 19,
+            "complexity": 1
+          },
+          {
+            "name": "GroupShape.childCount",
+            "line": 22,
+            "complexity": 1
+          },
+          {
+            "name": "GroupShape.childAt",
+            "line": 25,
+            "complexity": 2
+          },
+          {
+            "name": "GroupShape.childrenSnapshot",
+            "line": 30,
+            "complexity": 1
+          },
+          {
+            "name": "GroupShape.asContainer",
+            "line": 33,
+            "complexity": 1
+          },
+          {
+            "name": "GroupShape.move",
+            "line": 36,
+            "complexity": 2
+          },
+          {
+            "name": "GroupShape.scale",
+            "line": 42,
+            "complexity": 2
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/LineShape.ts",
+        "blob": "b81bf0a353a64b2e9b1db09a381adeee3e0e2735",
+        "category": "kernel",
+        "responsibility": "LineShape · 图形状态、创建规则和几何行为",
+        "lines": 24,
+        "functions": [
+          {
+            "name": "LineShape.constructor",
+            "line": 15,
+            "complexity": 1
+          },
+          {
+            "name": "LineShape.move",
+            "line": 18,
+            "complexity": 1
+          },
+          {
+            "name": "LineShape.scale",
+            "line": 21,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/RectShape.ts",
+        "blob": "e93ce9e728162ed2676592f83a3e521d629e1850",
+        "category": "kernel",
+        "responsibility": "RectShape · 图形状态、创建规则和几何行为",
+        "lines": 24,
+        "functions": [
+          {
+            "name": "RectShape.constructor",
+            "line": 15,
+            "complexity": 1
+          },
+          {
+            "name": "RectShape.move",
+            "line": 18,
+            "complexity": 1
+          },
+          {
+            "name": "RectShape.scale",
+            "line": 21,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/Shape.ts",
+        "blob": "83f2b72168c5ce6f603831d2712201888ee50bf3",
+        "category": "kernel",
+        "responsibility": "Shape · 图形状态、创建规则和几何行为",
+        "lines": 131,
+        "functions": [
+          {
+            "name": "Shape.constructor",
+            "line": 20,
+            "complexity": 1
+          },
+          {
+            "name": "validate",
+            "line": 33,
+            "complexity": 2
+          },
+          {
+            "name": "install",
+            "line": 37,
+            "complexity": 1
+          },
+          {
+            "name": "get",
+            "line": 42,
+            "complexity": 1
+          },
+          {
+            "name": "set",
+            "line": 43,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.id",
+            "line": 48,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.ownerDocumentId",
+            "line": 51,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.schema",
+            "line": 54,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.captureState",
+            "line": 57,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.describeTarget",
+            "line": 60,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.stateEquals",
+            "line": 63,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.describeState",
+            "line": 68,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.describe",
+            "line": 71,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 78,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.asContainer",
+            "line": 82,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.set",
+            "line": 87,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.delete",
+            "line": 90,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.update",
+            "line": 94,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.translate",
+            "line": 98,
+            "complexity": 5
+          },
+          {
+            "name": "Shape.multiply",
+            "line": 121,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/ShapeFactory.ts",
+        "blob": "3dca7249906be77239b549fcdee46ced9e508467",
+        "category": "kernel",
+        "responsibility": "ShapeFactory · 图形状态、创建规则和几何行为",
+        "lines": 72,
+        "functions": [
+          {
+            "name": "construct",
+            "line": 19,
+            "complexity": 1
+          },
+          {
+            "name": "construct",
+            "line": 20,
+            "complexity": 1
+          },
+          {
+            "name": "construct",
+            "line": 21,
+            "complexity": 1
+          },
+          {
+            "name": "construct",
+            "line": 22,
+            "complexity": 1
+          },
+          {
+            "name": "construct",
+            "line": 23,
+            "complexity": 1
+          },
+          {
+            "name": "construct",
+            "line": 24,
+            "complexity": 1
+          },
+          {
+            "name": "ShapeFactory.definition",
+            "line": 26,
+            "complexity": 3
+          },
+          {
+            "name": "ShapeFactory.create",
+            "line": 32,
+            "complexity": 1
+          },
+          {
+            "name": "ShapeFactory.validateCreation",
+            "line": 35,
+            "complexity": 10
+          },
+          {
+            "name": "<callback>",
+            "line": 45,
+            "complexity": 1
+          },
+          {
+            "name": "ShapeFactory.fromCreation",
+            "line": 60,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 63,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/ShapeSchema.ts",
+        "blob": "f6d4ef322316c8d3c89e7ac033360f364962e1ec",
+        "category": "kernel",
+        "responsibility": "ShapeSchema · 图形状态、创建规则和几何行为",
+        "lines": 67,
+        "functions": [
+          {
+            "name": "ShapeSchema.allowedAttributes",
+            "line": 5,
+            "complexity": 2
+          },
+          {
+            "name": "ShapeSchema.constructor",
+            "line": 18,
+            "complexity": 1
+          },
+          {
+            "name": "ShapeSchema.validate",
+            "line": 32,
+            "complexity": 15
+          },
+          {
+            "name": "ShapeSchema.set",
+            "line": 53,
+            "complexity": 7
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/TextShape.ts",
+        "blob": "f793c09a3ca1cf801cafa16fbc37a6f4eda9b8b5",
+        "category": "kernel",
+        "responsibility": "TextShape · 图形状态、创建规则和几何行为",
+        "lines": 23,
+        "functions": [
+          {
+            "name": "TextShape.constructor",
+            "line": 14,
+            "complexity": 1
+          },
+          {
+            "name": "TextShape.move",
+            "line": 17,
+            "complexity": 1
+          },
+          {
+            "name": "TextShape.scale",
+            "line": 20,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/transactions/EditLease.ts",
+        "blob": "50bf5d57e2f85b1106973d155877d29afd11a30a",
+        "category": "kernel",
+        "responsibility": "EditLease · 控制写权限及事务生命周期",
+        "lines": 21,
+        "functions": [
+          {
+            "name": "EditLease.constructor",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "EditLease.prepare",
+            "line": 12,
+            "complexity": 1
+          },
+          {
+            "name": "EditLease.rollback",
+            "line": 15,
+            "complexity": 1
+          },
+          {
+            "name": "EditLease.commitPrepared",
+            "line": 18,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/transactions/EditTransaction.ts",
+        "blob": "15c75d46f1c76472032018a212da27acb0b97c98",
+        "category": "kernel",
+        "responsibility": "EditTransaction · 控制写权限及事务生命周期",
+        "lines": 34,
+        "functions": [
+          {
+            "name": "EditTransaction.constructor",
+            "line": 9,
+            "complexity": 1
+          },
+          {
+            "name": "EditTransaction.phase",
+            "line": 13,
+            "complexity": 1
+          },
+          {
+            "name": "EditTransaction.documentId",
+            "line": 16,
+            "complexity": 1
+          },
+          {
+            "name": "EditTransaction.assertDocument",
+            "line": 19,
+            "complexity": 1
+          },
+          {
+            "name": "EditTransaction.assertTarget",
+            "line": 22,
+            "complexity": 1
+          },
+          {
+            "name": "EditTransaction.changeState",
+            "line": 25,
+            "complexity": 1
+          },
+          {
+            "name": "EditTransaction.place",
+            "line": 28,
+            "complexity": 1
+          },
+          {
+            "name": "EditTransaction.applyRecorded",
+            "line": 31,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/transactions/TransactionState.ts",
+        "blob": "1bc74146362e5136d447621e365b7a26c2867eb5",
+        "category": "kernel",
+        "responsibility": "TransactionState · 控制写权限及事务生命周期",
+        "lines": 119,
+        "functions": [
+          {
+            "name": "TransactionState.constructor",
+            "line": 20,
+            "complexity": 1
+          },
+          {
+            "name": "TransactionState.phase",
+            "line": 25,
+            "complexity": 1
+          },
+          {
+            "name": "TransactionState.documentId",
+            "line": 28,
+            "complexity": 1
+          },
+          {
+            "name": "TransactionState.assertActive",
+            "line": 31,
+            "complexity": 2
+          },
+          {
+            "name": "TransactionState.assertDocument",
+            "line": 34,
+            "complexity": 2
+          },
+          {
+            "name": "TransactionState.assertTarget",
+            "line": 39,
+            "complexity": 3
+          },
+          {
+            "name": "TransactionState.changeState",
+            "line": 44,
+            "complexity": 2
+          },
+          {
+            "name": "TransactionState.place",
+            "line": 50,
+            "complexity": 7
+          },
+          {
+            "name": "TransactionState.applyRecorded",
+            "line": 57,
+            "complexity": 1
+          },
+          {
+            "name": "TransactionState.apply",
+            "line": 61,
+            "complexity": 1
+          },
+          {
+            "name": "perform",
+            "line": 64,
+            "complexity": 4
+          },
+          {
+            "name": "state",
+            "line": 77,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 79,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 80,
+            "complexity": 1
+          },
+          {
+            "name": "placement",
+            "line": 82,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 84,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 85,
+            "complexity": 1
+          },
+          {
+            "name": "TransactionState.prepare",
+            "line": 90,
+            "complexity": 1
+          },
+          {
+            "name": "TransactionState.commit",
+            "line": 96,
+            "complexity": 2
+          },
+          {
+            "name": "TransactionState.rollback",
+            "line": 100,
+            "complexity": 8
+          },
+          {
+            "name": "TransactionState.finish",
+            "line": 114,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/values/NodeMemento.ts",
+        "blob": "bdcde9d6a5935e5b98d0797dd61ea8a81a4be0fc",
+        "category": "kernel",
+        "responsibility": "NodeMemento · 校验和描述领域值",
+        "lines": 41,
+        "functions": [
+          {
+            "name": "NodeMemento.constructor",
+            "line": 7,
+            "complexity": 2
+          },
+          {
+            "name": "NodeMemento.read",
+            "line": 15,
+            "complexity": 2
+          },
+          {
+            "name": "NodeMemento.equals",
+            "line": 20,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 27,
+            "complexity": 2
+          },
+          {
+            "name": "NodeMemento.describe",
+            "line": 32,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 36,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/values/Paint.ts",
+        "blob": "d6a506b81af25ccf779307036f5365e33678a1ec",
+        "category": "kernel",
+        "responsibility": "Paint · 校验和描述领域值",
+        "lines": 23,
+        "functions": [
+          {
+            "name": "Paint.parse",
+            "line": 11,
+            "complexity": 5
+          }
+        ]
+      },
+      {
+        "file": "src/domain/values/ValueRules.ts",
+        "blob": "e4886a29da9a4517f5525dd49b9ab6f3e639be62",
+        "category": "kernel",
+        "responsibility": "ValueRules · 校验和描述领域值",
+        "lines": 113,
+        "functions": [
+          {
+            "name": "ValueRules.constructor",
+            "line": 8,
+            "complexity": 8
+          },
+          {
+            "name": "<callback>",
+            "line": 20,
+            "complexity": 1
+          },
+          {
+            "name": "ValueRules.limits",
+            "line": 28,
+            "complexity": 1
+          },
+          {
+            "name": "ValueRules.trim",
+            "line": 31,
+            "complexity": 1
+          },
+          {
+            "name": "ValueRules.number",
+            "line": 34,
+            "complexity": 9
+          },
+          {
+            "name": "ValueRules.numeric",
+            "line": 45,
+            "complexity": 7
+          },
+          {
+            "name": "ValueRules.product",
+            "line": 58,
+            "complexity": 3
+          },
+          {
+            "name": "ValueRules.size",
+            "line": 64,
+            "complexity": 3
+          },
+          {
+            "name": "ValueRules.attribute",
+            "line": 72,
+            "complexity": 1
+          },
+          {
+            "name": "ValueRules.text",
+            "line": 75,
+            "complexity": 1
+          },
+          {
+            "name": "ValueRules.id",
+            "line": 78,
+            "complexity": 2
+          },
+          {
+            "name": "ValueRules.paint",
+            "line": 84,
+            "complexity": 1
+          },
+          {
+            "name": "ValueRules.retained",
+            "line": 87,
+            "complexity": 8
+          },
+          {
+            "name": "ValueRules.string",
+            "line": 101,
+            "complexity": 5
+          }
+        ]
+      },
+      {
+        "file": "src/domain/values/XmlCharacters.ts",
+        "blob": "46ef8b7b3aa064f67ff26c93c1e4562d10f368e4",
+        "category": "kernel",
+        "responsibility": "XmlCharacters · 校验和描述领域值",
+        "lines": 18,
+        "functions": [
+          {
+            "name": "XmlCharacters.isAllowed",
+            "line": 3,
+            "complexity": 9
+          },
+          {
+            "name": "XmlCharacters.validate",
+            "line": 13,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "src/domain/values/contracts.ts",
+        "blob": "160bdb60f66415654712f2be8857b1a18de87e33",
+        "category": "kernel",
+        "responsibility": "contracts · 校验和描述领域值",
+        "lines": 112,
+        "functions": []
+      },
+      {
+        "file": "src/domain/values/defaultLimits.ts",
+        "blob": "f7ff49209eca44136e88306cb9fff4d6cd6c3d98",
+        "category": "kernel",
+        "responsibility": "defaultLimits · 校验和描述领域值",
+        "lines": 8,
+        "functions": []
+      },
+      {
+        "file": "src/infrastructure/files/NodeFileStore.ts",
+        "blob": "5532e0e29b71e7e0132b49dd60dd471efb40ed8e",
+        "category": "kernel",
+        "responsibility": "NodeFileStore · 实现文件系统端口",
+        "lines": 175,
+        "functions": [
+          {
+            "name": "NodeFileStore.constructor",
+            "line": 21,
+            "complexity": 2
+          },
+          {
+            "name": "NodeFileStore.resolve",
+            "line": 31,
+            "complexity": 4
+          },
+          {
+            "name": "NodeFileStore.readUtf8",
+            "line": 36,
+            "complexity": 13
+          },
+          {
+            "name": "NodeFileStore.replaceUtf8",
+            "line": 83,
+            "complexity": 19
+          },
+          {
+            "name": "NodeFileStore.regular",
+            "line": 161,
+            "complexity": 6
+          },
+          {
+            "name": "NodeFileStore.code",
+            "line": 170,
+            "complexity": 5
+          }
+        ]
+      },
+      {
+        "file": "src/infrastructure/files/NodeFileSystem.ts",
+        "blob": "1a2c9910836f7f7911c3ce763aa43fff75cc9351",
+        "category": "kernel",
+        "responsibility": "NodeFileSystem · 实现文件系统端口",
+        "lines": 16,
+        "functions": [
+          {
+            "name": "NodeFileSystem.lstat",
+            "line": 4,
+            "complexity": 1
+          },
+          {
+            "name": "NodeFileSystem.open",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "NodeFileSystem.rename",
+            "line": 10,
+            "complexity": 1
+          },
+          {
+            "name": "NodeFileSystem.unlink",
+            "line": 13,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/infrastructure/files/file-system-port.ts",
+        "blob": "563bb27ce2f8d504c2240eb48d8cc56dd3dd7e20",
+        "category": "kernel",
+        "responsibility": "file-system-port · 实现文件系统端口",
+        "lines": 20,
+        "functions": []
+      },
+      {
+        "file": "src/infrastructure/svg/XmlSvgCodec.ts",
+        "blob": "ead52d7fecdd502cd7ec137cfe5ac8d1154c387f",
+        "category": "kernel",
+        "responsibility": "XmlSvgCodec · 严格 SVG 解析与序列化",
+        "lines": 14,
+        "functions": [
+          {
+            "name": "XmlSvgCodec.encode",
+            "line": 8,
+            "complexity": 1
+          },
+          {
+            "name": "XmlSvgCodec.decode",
+            "line": 11,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/infrastructure/svg/XmlSvgDecoder.ts",
+        "blob": "7d8521a0a2a5e2550c60f45040aeef0c8e85c521",
+        "category": "kernel",
+        "responsibility": "XmlSvgDecoder · 严格 SVG 解析与序列化",
+        "lines": 185,
+        "functions": [
+          {
+            "name": "XmlSvgDecoder.decode",
+            "line": 15,
+            "complexity": 15
+          },
+          {
+            "name": "unsupported",
+            "line": 30,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 36,
+            "complexity": 6
+          },
+          {
+            "name": "<callback>",
+            "line": 44,
+            "complexity": 16
+          },
+          {
+            "name": "text",
+            "line": 85,
+            "complexity": 6
+          },
+          {
+            "name": "<callback>",
+            "line": 98,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 102,
+            "complexity": 1
+          },
+          {
+            "name": "append",
+            "line": 152,
+            "complexity": 5
+          },
+          {
+            "name": "XmlSvgDecoder.viewBox",
+            "line": 175,
+            "complexity": 6
+          },
+          {
+            "name": "<callback>",
+            "line": 181,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/infrastructure/svg/XmlSvgEncoder.ts",
+        "blob": "f5cbfbbb04f06f757f8fc562755b14514344dc00",
+        "category": "kernel",
+        "responsibility": "XmlSvgEncoder · 严格 SVG 解析与序列化",
+        "lines": 68,
+        "functions": [
+          {
+            "name": "XmlSvgEncoder.encode",
+            "line": 12,
+            "complexity": 5
+          },
+          {
+            "name": "<callback>",
+            "line": 17,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 20,
+            "complexity": 1
+          },
+          {
+            "name": "XmlSvgEncoder.node",
+            "line": 22,
+            "complexity": 8
+          },
+          {
+            "name": "<callback>",
+            "line": 34,
+            "complexity": 1
+          },
+          {
+            "name": "XmlSvgEncoder.attributes",
+            "line": 36,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 42,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 43,
+            "complexity": 5
+          },
+          {
+            "name": "XmlSvgEncoder.escape",
+            "line": 53,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 55,
+            "complexity": 9
+          }
+        ]
+      },
+      {
+        "file": "src/infrastructure/svg/parsed-types.ts",
+        "blob": "0b54aaa56939c529f00d9bf067dc06aa0093557f",
+        "category": "kernel",
+        "responsibility": "parsed-types · 严格 SVG 解析与序列化",
+        "lines": 9,
+        "functions": []
+      },
+      {
+        "file": "src/main.ts",
+        "blob": "2999add7f66f8a66dadf789b4576b8387037c7dd",
+        "category": "assembly",
+        "responsibility": "main · 组装 CLI 并启动 REPL",
+        "lines": 38,
+        "functions": [
+          {
+            "name": "[Symbol.asyncIterator]",
+            "line": 26,
+            "complexity": 1
+          }
+        ]
+      }
+    ]
+  },
+  "after": {
+    "digest": "7a5c9d115b2471c2e9680a6311d7f1ca162df9ee8429275c63013b8108442d54",
+    "groups": {
+      "kernel": {
+        "files": 96,
+        "lines": 4530,
+        "complexity": 1151
+      },
+      "assembly": {
+        "files": 4,
+        "lines": 353,
+        "complexity": 118
+      },
+      "plugin": {
+        "files": 0,
+        "lines": 0,
+        "complexity": 0
+      },
+      "vscode": {
+        "files": 4,
+        "lines": 107,
+        "complexity": 21
+      }
+    },
+    "files": [
+      {
+        "file": "extensions/svg-tools/src/SvgFileDecorationProvider.ts",
+        "blob": "54467b53ad9c8fd5d9c7535e43b350095294e2c4",
+        "category": "vscode",
+        "responsibility": "SvgFileDecorationProvider · 提供 VS Code 编辑器集成",
+        "lines": 18,
+        "functions": [
+          {
+            "name": "SvgFileDecorationProvider.constructor",
+            "line": 4,
+            "complexity": 1
+          },
+          {
+            "name": "SvgFileDecorationProvider.provideFileDecoration",
+            "line": 6,
+            "complexity": 6
+          }
+        ]
+      },
+      {
+        "file": "extensions/svg-tools/src/SvgOutline.ts",
+        "blob": "707aa0e2b86620a6ac198240b7baf92342ba7d09",
+        "category": "vscode",
+        "responsibility": "SvgOutline · 提供 VS Code 编辑器集成",
+        "lines": 45,
+        "functions": [
+          {
+            "name": "SvgOutline.parse",
+            "line": 12,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 17,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 21,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 33,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "extensions/svg-tools/src/SvgSymbolProvider.ts",
+        "blob": "271d7227a8f413190beb5f672e37bed05889f3ec",
+        "category": "vscode",
+        "responsibility": "SvgSymbolProvider · 提供 VS Code 编辑器集成",
+        "lines": 25,
+        "functions": [
+          {
+            "name": "SvgSymbolProvider.provideDocumentSymbols",
+            "line": 7,
+            "complexity": 4
+          }
+        ]
+      },
+      {
+        "file": "extensions/svg-tools/src/extension.ts",
+        "blob": "e2af41ed7699ee65a29bf277f882328419a726bb",
+        "category": "vscode",
+        "responsibility": "extension · 提供 VS Code 编辑器集成",
+        "lines": 19,
+        "functions": [
+          {
+            "name": "activate",
+            "line": 5,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 15,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 16,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "packages/api/index.d.ts",
+        "blob": "a429398a435b8edfddb7710b852ace36ab86a06e",
+        "category": "kernel",
+        "responsibility": "index · 导出插件公开 API",
+        "lines": 1,
+        "functions": []
+      },
+      {
+        "file": "packages/api/index.js",
+        "blob": "4f4a03ed25897416da9874c903d4414eeda1379c",
+        "category": "kernel",
+        "responsibility": "index · 导出插件公开 API",
+        "lines": 1,
+        "functions": []
+      },
+      {
+        "file": "src/application/commands/AddToCommand.ts",
+        "blob": "9d49dc73f4094a57751017896c77257bc56976b5",
+        "category": "kernel",
+        "responsibility": "AddToCommand · 绑定或执行命令",
+        "lines": 24,
+        "functions": [
+          {
+            "name": "AddToCommand.constructor",
+            "line": 8,
+            "complexity": 1
+          },
+          {
+            "name": "AddToCommand.run",
+            "line": 13,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/AttributeDispatch.ts",
+        "blob": "5448757b70899f2c2d46535526140cc891c90b21",
+        "category": "kernel",
+        "responsibility": "AttributeDispatch · 绑定或执行命令",
+        "lines": 51,
+        "functions": [
+          {
+            "name": "AttributeDispatch.constructor",
+            "line": 9,
+            "complexity": 1
+          },
+          {
+            "name": "AttributeDispatch.set",
+            "line": 13,
+            "complexity": 6
+          },
+          {
+            "name": "<callback>",
+            "line": 16,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 20,
+            "complexity": 1
+          },
+          {
+            "name": "resolve",
+            "line": 25,
+            "complexity": 5
+          },
+          {
+            "name": "<callback>",
+            "line": 33,
+            "complexity": 1
+          },
+          {
+            "name": "describe",
+            "line": 38,
+            "complexity": 1
+          },
+          {
+            "name": "set",
+            "line": 39,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 44,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/BackCommand.ts",
+        "blob": "5bd86f4cecb46657870d822cee385e7ff56d019b",
+        "category": "kernel",
+        "responsibility": "BackCommand · 绑定或执行命令",
+        "lines": 21,
+        "functions": [
+          {
+            "name": "BackCommand.constructor",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "BackCommand.run",
+            "line": 11,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/BoundCommand.ts",
+        "blob": "37c9ff3b870f970b08e8f78f62f9dd172950b8ed",
+        "category": "kernel",
+        "responsibility": "BoundCommand · 绑定或执行命令",
+        "lines": 8,
+        "functions": []
+      },
+      {
+        "file": "src/application/commands/BuiltinCommands.ts",
+        "blob": "94ebf32b98dc683fee6166d03f705b435537521b",
+        "category": "kernel",
+        "responsibility": "BuiltinCommands · 绑定或执行命令",
+        "lines": 332,
+        "functions": [
+          {
+            "name": "BuiltinCommands.definitions",
+            "line": 31,
+            "complexity": 1
+          },
+          {
+            "name": "BuiltinCommands.constructor",
+            "line": 36,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 48,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 52,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 62,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 66,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 77,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 81,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 88,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 92,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 100,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 104,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 120,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 125,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 128,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 132,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 141,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 145,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 152,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 156,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 163,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 167,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 174,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 178,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 185,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 193,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 200,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 208,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 215,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 219,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 226,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 230,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 237,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 241,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 248,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 249,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 260,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 264,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 272,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 276,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 283,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 287,
+            "complexity": 1
+          },
+          {
+            "name": "BuiltinCommands.add",
+            "line": 290,
+            "complexity": 1
+          },
+          {
+            "name": "bind",
+            "line": 303,
+            "complexity": 1
+          },
+          {
+            "name": "BuiltinCommands.parseCreate",
+            "line": 307,
+            "complexity": 10
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/CanvasCommand.ts",
+        "blob": "8faed8300f10a156a0af36b7c4f3c11f69cb7376",
+        "category": "kernel",
+        "responsibility": "CanvasCommand · 绑定或执行命令",
+        "lines": 14,
+        "functions": [
+          {
+            "name": "CanvasCommand.constructor",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasCommand.dispatch",
+            "line": 11,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/CommandArguments.ts",
+        "blob": "a32711030e48690a9d80ebe6a889b4b6985051b0",
+        "category": "kernel",
+        "responsibility": "CommandArguments · 绑定或执行命令",
+        "lines": 23,
+        "functions": [
+          {
+            "name": "CommandArguments.constructor",
+            "line": 5,
+            "complexity": 1
+          },
+          {
+            "name": "CommandArguments.expect",
+            "line": 9,
+            "complexity": 3
+          },
+          {
+            "name": "CommandArguments.value",
+            "line": 12,
+            "complexity": 2
+          },
+          {
+            "name": "CommandArguments.id",
+            "line": 17,
+            "complexity": 1
+          },
+          {
+            "name": "CommandArguments.number",
+            "line": 20,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/CommandCatalog.ts",
+        "blob": "b408473adcd68dd213781986908cfdf81910a215",
+        "category": "kernel",
+        "responsibility": "CommandCatalog · 绑定或执行命令",
+        "lines": 18,
+        "functions": [
+          {
+            "name": "CommandCatalog.constructor",
+            "line": 10,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/CommandRegistry.ts",
+        "blob": "f93f7bc4ca3bd158d5ba73148f683ee4569dd28d",
+        "category": "kernel",
+        "responsibility": "CommandRegistry · 绑定或执行命令",
+        "lines": 52,
+        "functions": [
+          {
+            "name": "CommandRegistry.constructor",
+            "line": 19,
+            "complexity": 3
+          },
+          {
+            "name": "CommandRegistry.parse",
+            "line": 28,
+            "complexity": 3
+          },
+          {
+            "name": "CommandRegistry.bind",
+            "line": 34,
+            "complexity": 6
+          },
+          {
+            "name": "<callback>",
+            "line": 40,
+            "complexity": 2
+          },
+          {
+            "name": "CommandRegistry.describe",
+            "line": 44,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 45,
+            "complexity": 1
+          },
+          {
+            "name": "CommandRegistry.definition",
+            "line": 47,
+            "complexity": 2
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/CreateCommand.ts",
+        "blob": "9e84a2ccd237796682949350a3342ca9da250319",
+        "category": "kernel",
+        "responsibility": "CreateCommand · 绑定或执行命令",
+        "lines": 25,
+        "functions": [
+          {
+            "name": "CreateCommand.constructor",
+            "line": 9,
+            "complexity": 1
+          },
+          {
+            "name": "CreateCommand.run",
+            "line": 14,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/DeleteCommand.ts",
+        "blob": "1660866cb023b426ca0d1cea3259a7681da74c05",
+        "category": "kernel",
+        "responsibility": "DeleteCommand · 绑定或执行命令",
+        "lines": 17,
+        "functions": [
+          {
+            "name": "DeleteCommand.constructor",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "DeleteCommand.run",
+            "line": 11,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/EditCommand.ts",
+        "blob": "b64508bec9c98061dcb4a1c8a4f50999183d1dc1",
+        "category": "kernel",
+        "responsibility": "EditCommand · 绑定或执行命令",
+        "lines": 11,
+        "functions": [
+          {
+            "name": "EditCommand.dispatch",
+            "line": 8,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/FrontCommand.ts",
+        "blob": "9418dfff0f2ec0e20d2dc02c4515f2eb51691d06",
+        "category": "kernel",
+        "responsibility": "FrontCommand · 绑定或执行命令",
+        "lines": 21,
+        "functions": [
+          {
+            "name": "FrontCommand.constructor",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "FrontCommand.run",
+            "line": 11,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/GroupCommand.ts",
+        "blob": "24802b92484dd5fa7fc2a01b6c1e72222a01a586",
+        "category": "kernel",
+        "responsibility": "GroupCommand · 绑定或执行命令",
+        "lines": 29,
+        "functions": [
+          {
+            "name": "GroupCommand.constructor",
+            "line": 8,
+            "complexity": 1
+          },
+          {
+            "name": "GroupCommand.run",
+            "line": 13,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 18,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/HelpCommand.ts",
+        "blob": "695c3c2c58906c732fdd36476275a2a9b5f90ad8",
+        "category": "kernel",
+        "responsibility": "HelpCommand · 绑定或执行命令",
+        "lines": 11,
+        "functions": [
+          {
+            "name": "HelpCommand.requiresDocument",
+            "line": 5,
+            "complexity": 1
+          },
+          {
+            "name": "HelpCommand.run",
+            "line": 8,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/InitCommand.ts",
+        "blob": "89cb1f77f1fdf8b3dc6d6d461f44b45ecae8d8cf",
+        "category": "kernel",
+        "responsibility": "InitCommand · 绑定或执行命令",
+        "lines": 14,
+        "functions": [
+          {
+            "name": "InitCommand.constructor",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "InitCommand.dispatch",
+            "line": 11,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/MoveCommand.ts",
+        "blob": "0b7a0758c0ec192b2c602fa7127202bbdf141fdd",
+        "category": "kernel",
+        "responsibility": "MoveCommand · 绑定或执行命令",
+        "lines": 27,
+        "functions": [
+          {
+            "name": "MoveCommand.constructor",
+            "line": 9,
+            "complexity": 1
+          },
+          {
+            "name": "MoveCommand.run",
+            "line": 15,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/PluginCommandBinding.ts",
+        "blob": "123ee3b5167a58f3b3942258d295a542162e412d",
+        "category": "kernel",
+        "responsibility": "PluginCommandBinding · 绑定或执行命令",
+        "lines": 38,
+        "functions": [
+          {
+            "name": "PluginCommandBinding.constructor",
+            "line": 11,
+            "complexity": 1
+          },
+          {
+            "name": "PluginCommandBinding.help",
+            "line": 15,
+            "complexity": 1
+          },
+          {
+            "name": "PluginCommandBinding.parse",
+            "line": 18,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 23,
+            "complexity": 1
+          },
+          {
+            "name": "PluginCommandBinding.bind",
+            "line": 26,
+            "complexity": 7
+          },
+          {
+            "name": "<callback>",
+            "line": 31,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/PluginQuery.ts",
+        "blob": "563d9bed49e20aa85e020875b218e7204a3ee708",
+        "category": "kernel",
+        "responsibility": "PluginQuery · 绑定或执行命令",
+        "lines": 30,
+        "functions": [
+          {
+            "name": "PluginQuery.constructor",
+            "line": 9,
+            "complexity": 1
+          },
+          {
+            "name": "PluginQuery.requiresDocument",
+            "line": 16,
+            "complexity": 1
+          },
+          {
+            "name": "PluginQuery.run",
+            "line": 19,
+            "complexity": 5
+          },
+          {
+            "name": "isContainer",
+            "line": 22,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 26,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/QueryCommand.ts",
+        "blob": "676fa916e8ac5dc1c0cd18a5a8a8d85c762ff739",
+        "category": "kernel",
+        "responsibility": "QueryCommand · 绑定或执行命令",
+        "lines": 16,
+        "functions": [
+          {
+            "name": "QueryCommand.requiresDocument",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "QueryCommand.dispatch",
+            "line": 13,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/ReadCommand.ts",
+        "blob": "f46bd33a444e3cfb6716fbdfa42451395cf5eb4c",
+        "category": "kernel",
+        "responsibility": "ReadCommand · 绑定或执行命令",
+        "lines": 13,
+        "functions": [
+          {
+            "name": "ReadCommand.constructor",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "ReadCommand.dispatch",
+            "line": 10,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/RedoCommand.ts",
+        "blob": "e8702174770021b92081c8668a496987a0b256fe",
+        "category": "kernel",
+        "responsibility": "RedoCommand · 绑定或执行命令",
+        "lines": 8,
+        "functions": [
+          {
+            "name": "RedoCommand.dispatch",
+            "line": 5,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/SaveCommand.ts",
+        "blob": "a9949032dae6e597a30ed5ced3e3bc38ce39ffba",
+        "category": "kernel",
+        "responsibility": "SaveCommand · 绑定或执行命令",
+        "lines": 13,
+        "functions": [
+          {
+            "name": "SaveCommand.constructor",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "SaveCommand.dispatch",
+            "line": 10,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/ScaleCommand.ts",
+        "blob": "56fa2d8bcc1a9751a177e7551e01f6002ddcbc46",
+        "category": "kernel",
+        "responsibility": "ScaleCommand · 绑定或执行命令",
+        "lines": 25,
+        "functions": [
+          {
+            "name": "ScaleCommand.constructor",
+            "line": 8,
+            "complexity": 1
+          },
+          {
+            "name": "ScaleCommand.run",
+            "line": 13,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/SetCommand.ts",
+        "blob": "222e500dd08e37f50d481a05710a3fc3a7336818",
+        "category": "kernel",
+        "responsibility": "SetCommand · 绑定或执行命令",
+        "lines": 33,
+        "functions": [
+          {
+            "name": "SetCommand.constructor",
+            "line": 10,
+            "complexity": 1
+          },
+          {
+            "name": "SetCommand.run",
+            "line": 21,
+            "complexity": 2
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/ShowCommand.ts",
+        "blob": "fbadbbbcba39a3ecda3af75a57401096f973cb58",
+        "category": "kernel",
+        "responsibility": "ShowCommand · 绑定或执行命令",
+        "lines": 19,
+        "functions": [
+          {
+            "name": "ShowCommand.constructor",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "ShowCommand.run",
+            "line": 10,
+            "complexity": 2
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/TreeCommand.ts",
+        "blob": "9d15a5601e917a9f3d71c1b639d527c961d66d2b",
+        "category": "kernel",
+        "responsibility": "TreeCommand · 绑定或执行命令",
+        "lines": 15,
+        "functions": [
+          {
+            "name": "TreeCommand.constructor",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "TreeCommand.run",
+            "line": 10,
+            "complexity": 2
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/UndoCommand.ts",
+        "blob": "d07d59a5fcbbf41f12b8baddfcc69172ca31a1a1",
+        "category": "kernel",
+        "responsibility": "UndoCommand · 绑定或执行命令",
+        "lines": 8,
+        "functions": [
+          {
+            "name": "UndoCommand.dispatch",
+            "line": 5,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/commands/UngroupCommand.ts",
+        "blob": "371398d008ed0e1c84ecf7d0e93224a455a9eb82",
+        "category": "kernel",
+        "responsibility": "UngroupCommand · 绑定或执行命令",
+        "lines": 17,
+        "functions": [
+          {
+            "name": "UngroupCommand.constructor",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "UngroupCommand.run",
+            "line": 11,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/contracts/AttributeHandler.ts",
+        "blob": "b383b607a13aae281913a2fc5dd80e5e92cb109a",
+        "category": "kernel",
+        "responsibility": "AttributeHandler · 定义公开会话及插件契约",
+        "lines": 17,
+        "functions": []
+      },
+      {
+        "file": "src/application/contracts/Command.ts",
+        "blob": "51aadcd066310cabf5f97db86dfa4d3be9ff9208",
+        "category": "kernel",
+        "responsibility": "Command · 定义公开会话及插件契约",
+        "lines": 17,
+        "functions": []
+      },
+      {
+        "file": "src/application/contracts/Plugin.ts",
+        "blob": "f90c1d90046d368038853e4b242bf603673faea2",
+        "category": "kernel",
+        "responsibility": "Plugin · 定义公开会话及插件契约",
+        "lines": 18,
+        "functions": []
+      },
+      {
+        "file": "src/application/contracts/TreeDecorator.ts",
+        "blob": "314dc0008416deeb60d60dbe17c414a1ce5b2627",
+        "category": "kernel",
+        "responsibility": "TreeDecorator · 定义公开会话及插件契约",
+        "lines": 7,
+        "functions": []
+      },
+      {
+        "file": "src/application/contracts/api.ts",
+        "blob": "4582187802c8dbd76a86ea18d2f72e53bb6e9f7f",
+        "category": "kernel",
+        "responsibility": "api · 定义公开会话及插件契约",
+        "lines": 131,
+        "functions": []
+      },
+      {
+        "file": "src/application/contracts/history.ts",
+        "blob": "13df13789226d3cc8b6ba963f36a99cfde764aaf",
+        "category": "kernel",
+        "responsibility": "history · 定义公开会话及插件契约",
+        "lines": 21,
+        "functions": []
+      },
+      {
+        "file": "src/application/errors/EditorError.ts",
+        "blob": "bff0a396b91f9ed24814be29c357e03852602f2c",
+        "category": "kernel",
+        "responsibility": "EditorError · 转换为结构化应用错误",
+        "lines": 14,
+        "functions": [
+          {
+            "name": "EditorError.constructor",
+            "line": 5,
+            "complexity": 1
+          },
+          {
+            "name": "EditorError.from",
+            "line": 9,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "src/application/history/HistoryEntry.ts",
+        "blob": "17907f1ba85c5bc95ca809d01be06ac323aa93d7",
+        "category": "kernel",
+        "responsibility": "HistoryEntry · 维护文档历史和状态身份",
+        "lines": 22,
+        "functions": [
+          {
+            "name": "HistoryEntry.constructor",
+            "line": 7,
+            "complexity": 4
+          }
+        ]
+      },
+      {
+        "file": "src/application/history/HistoryManager.ts",
+        "blob": "84f75ef2f065ea237840de8b4b073293fddd7aef",
+        "category": "kernel",
+        "responsibility": "HistoryManager · 维护文档历史和状态身份",
+        "lines": 80,
+        "functions": [
+          {
+            "name": "HistoryManager.constructor",
+            "line": 10,
+            "complexity": 1
+          },
+          {
+            "name": "HistoryManager.empty",
+            "line": 20,
+            "complexity": 1
+          },
+          {
+            "name": "HistoryManager.inspect",
+            "line": 23,
+            "complexity": 5
+          },
+          {
+            "name": "HistoryManager.peekUndo",
+            "line": 30,
+            "complexity": 1
+          },
+          {
+            "name": "HistoryManager.peekRedo",
+            "line": 33,
+            "complexity": 1
+          },
+          {
+            "name": "HistoryManager.peek",
+            "line": 36,
+            "complexity": 10
+          },
+          {
+            "name": "HistoryManager.afterEdit",
+            "line": 52,
+            "complexity": 11
+          },
+          {
+            "name": "HistoryManager.afterUndo",
+            "line": 67,
+            "complexity": 4
+          },
+          {
+            "name": "HistoryManager.afterRedo",
+            "line": 72,
+            "complexity": 4
+          },
+          {
+            "name": "HistoryManager.afterBarrier",
+            "line": 77,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/history/HistoryStackNode.ts",
+        "blob": "2fd7bb522e927ecb54243bf986b79e9f978988b8",
+        "category": "kernel",
+        "responsibility": "HistoryStackNode · 维护文档历史和状态身份",
+        "lines": 11,
+        "functions": [
+          {
+            "name": "HistoryStackNode.constructor",
+            "line": 4,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "src/application/internal/FrozenValue.ts",
+        "blob": "5b7cca6444ef81e47d0b7fe1ae3713a0707c87e7",
+        "category": "kernel",
+        "responsibility": "FrozenValue · 会话内部协议和结果值",
+        "lines": 13,
+        "functions": [
+          {
+            "name": "FrozenValue.freeze",
+            "line": 2,
+            "complexity": 6
+          },
+          {
+            "name": "FrozenValue.copy",
+            "line": 10,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/internal/ResultFactory.ts",
+        "blob": "e03adbf9403b8769785147a02beea5322668db75",
+        "category": "kernel",
+        "responsibility": "ResultFactory · 会话内部协议和结果值",
+        "lines": 54,
+        "functions": [
+          {
+            "name": "ResultFactory.preview",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "ResultFactory.status",
+            "line": 16,
+            "complexity": 6
+          },
+          {
+            "name": "ResultFactory.commit",
+            "line": 30,
+            "complexity": 1
+          },
+          {
+            "name": "ResultFactory.failure",
+            "line": 47,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/internal/protocols.ts",
+        "blob": "524f0caaea34595b10b173b1fc688406611f7fd2",
+        "category": "kernel",
+        "responsibility": "protocols · 会话内部协议和结果值",
+        "lines": 37,
+        "functions": []
+      },
+      {
+        "file": "src/application/ports/FileError.ts",
+        "blob": "24fb328b8746ff813dc0711280fe81cec7a08839",
+        "category": "kernel",
+        "responsibility": "FileError · 定义文件与编解码端口",
+        "lines": 9,
+        "functions": [
+          {
+            "name": "FileError.constructor",
+            "line": 4,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/application/ports/FileStore.ts",
+        "blob": "5eed1349528aae895d3232cf5e1c94be720cba31",
+        "category": "kernel",
+        "responsibility": "FileStore · 定义文件与编解码端口",
+        "lines": 18,
+        "functions": []
+      },
+      {
+        "file": "src/application/ports/SvgCodec.ts",
+        "blob": "fa8794b5716dffcfe0d100bcae8c93f718ccfd03",
+        "category": "kernel",
+        "responsibility": "SvgCodec · 定义文件与编解码端口",
+        "lines": 12,
+        "functions": []
+      },
+      {
+        "file": "src/application/session/EditorSession.ts",
+        "blob": "14a4835bc5b974e723a4de39b37693b2040d0193",
+        "category": "kernel",
+        "responsibility": "EditorSession · 编排会话及查询",
+        "lines": 412,
+        "functions": [
+          {
+            "name": "EditorSession.constructor",
+            "line": 43,
+            "complexity": 2
+          },
+          {
+            "name": "edit",
+            "line": 48,
+            "complexity": 1
+          },
+          {
+            "name": "query",
+            "line": 49,
+            "complexity": 1
+          },
+          {
+            "name": "initialize",
+            "line": 50,
+            "complexity": 1
+          },
+          {
+            "name": "history",
+            "line": 51,
+            "complexity": 1
+          },
+          {
+            "name": "canvas",
+            "line": 52,
+            "complexity": 1
+          },
+          {
+            "name": "read",
+            "line": 53,
+            "complexity": 1
+          },
+          {
+            "name": "save",
+            "line": 54,
+            "complexity": 1
+          },
+          {
+            "name": "EditorSession.execute",
+            "line": 57,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 67,
+            "complexity": 7
+          },
+          {
+            "name": "<callback>",
+            "line": 78,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 79,
+            "complexity": 1
+          },
+          {
+            "name": "EditorSession.#requireDocument",
+            "line": 83,
+            "complexity": 3
+          },
+          {
+            "name": "EditorSession.#requireCommit",
+            "line": 88,
+            "complexity": 2
+          },
+          {
+            "name": "EditorSession.#initialize",
+            "line": 91,
+            "complexity": 2
+          },
+          {
+            "name": "EditorSession.#read",
+            "line": 123,
+            "complexity": 6
+          },
+          {
+            "name": "<callback>",
+            "line": 173,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 174,
+            "complexity": 1
+          },
+          {
+            "name": "EditorSession.#save",
+            "line": 181,
+            "complexity": 12
+          },
+          {
+            "name": "EditorSession.#query",
+            "line": 253,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 259,
+            "complexity": 1
+          },
+          {
+            "name": "EditorSession.#edit",
+            "line": 262,
+            "complexity": 6
+          },
+          {
+            "name": "EditorSession.#history",
+            "line": 304,
+            "complexity": 7
+          },
+          {
+            "name": "<callback>",
+            "line": 329,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 344,
+            "complexity": 2
+          },
+          {
+            "name": "EditorSession.#canvas",
+            "line": 359,
+            "complexity": 5
+          },
+          {
+            "name": "EditorSession.#rollbackOrPoison",
+            "line": 386,
+            "complexity": 3
+          },
+          {
+            "name": "EditorSession.#failure",
+            "line": 395,
+            "complexity": 3
+          },
+          {
+            "name": "EditorSession.#poison",
+            "line": 404,
+            "complexity": 2
+          }
+        ]
+      },
+      {
+        "file": "src/application/session/TreeDecorations.ts",
+        "blob": "99979b9277a03ba582ec1d38008eea1dafbc38c9",
+        "category": "kernel",
+        "responsibility": "TreeDecorations · 编排会话及查询",
+        "lines": 65,
+        "functions": [
+          {
+            "name": "TreeDecorations.constructor",
+            "line": 9,
+            "complexity": 1
+          },
+          {
+            "name": "TreeDecorations.hasObservers",
+            "line": 12,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 13,
+            "complexity": 1
+          },
+          {
+            "name": "TreeDecorations.checkpoint",
+            "line": 16,
+            "complexity": 4
+          },
+          {
+            "name": "TreeDecorations.apply",
+            "line": 27,
+            "complexity": 5
+          },
+          {
+            "name": "<callback>",
+            "line": 30,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 34,
+            "complexity": 5
+          },
+          {
+            "name": "labels",
+            "line": 48,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 49,
+            "complexity": 2
+          },
+          {
+            "name": "visit",
+            "line": 53,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/cli/CliParser.ts",
+        "blob": "226143d4148b098999a99e5ecf6b60b57aa6a660",
+        "category": "kernel",
+        "responsibility": "CliParser · 转换 CLI 输入、输出和终端事件",
+        "lines": 18,
+        "functions": [
+          {
+            "name": "CliParser.constructor",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "CliParser.parse",
+            "line": 10,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "src/cli/CliRepl.ts",
+        "blob": "11900fcc55ecd7ae2b84c7a4f525fef02ae3f24f",
+        "category": "kernel",
+        "responsibility": "CliRepl · 转换 CLI 输入、输出和终端事件",
+        "lines": 42,
+        "functions": [
+          {
+            "name": "CliRepl.constructor",
+            "line": 14,
+            "complexity": 1
+          },
+          {
+            "name": "CliRepl.run",
+            "line": 19,
+            "complexity": 10
+          }
+        ]
+      },
+      {
+        "file": "src/cli/NodeTerminal.ts",
+        "blob": "a881000830372c9f329a84c316f09209856ec68c",
+        "category": "kernel",
+        "responsibility": "NodeTerminal · 转换 CLI 输入、输出和终端事件",
+        "lines": 36,
+        "functions": [
+          {
+            "name": "NodeTerminal.constructor",
+            "line": 9,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 13,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 16,
+            "complexity": 1
+          },
+          {
+            "name": "NodeTerminal.stdout",
+            "line": 20,
+            "complexity": 2
+          },
+          {
+            "name": "NodeTerminal.stderr",
+            "line": 24,
+            "complexity": 2
+          },
+          {
+            "name": "NodeTerminal.write",
+            "line": 28,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 29,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 30,
+            "complexity": 2
+          }
+        ]
+      },
+      {
+        "file": "src/cli/TextPresenter.ts",
+        "blob": "8df7a06efc6abbf98f9bed54ac3a77990e14e2e1",
+        "category": "kernel",
+        "responsibility": "TextPresenter · 转换 CLI 输入、输出和终端事件",
+        "lines": 112,
+        "functions": [
+          {
+            "name": "TextPresenter.safe",
+            "line": 4,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 6,
+            "complexity": 7
+          },
+          {
+            "name": "TextPresenter.diagnostic",
+            "line": 19,
+            "complexity": 4
+          },
+          {
+            "name": "value",
+            "line": 21,
+            "complexity": 1
+          },
+          {
+            "name": "DECORATOR_FAILED",
+            "line": 23,
+            "complexity": 1
+          },
+          {
+            "name": "ATTRIBUTE_CONFLICT",
+            "line": 24,
+            "complexity": 1
+          },
+          {
+            "name": "UNKNOWN_COMMAND",
+            "line": 26,
+            "complexity": 1
+          },
+          {
+            "name": "PLUGIN_ERROR",
+            "line": 27,
+            "complexity": 1
+          },
+          {
+            "name": "INVALID_COMPOSITE",
+            "line": 28,
+            "complexity": 1
+          },
+          {
+            "name": "COMPOSITE_UNGROUP",
+            "line": 30,
+            "complexity": 1
+          },
+          {
+            "name": "PROTECTED_PART",
+            "line": 31,
+            "complexity": 1
+          },
+          {
+            "name": "DUPLICATE_ID",
+            "line": 32,
+            "complexity": 1
+          },
+          {
+            "name": "SHAPE_NOT_FOUND",
+            "line": 33,
+            "complexity": 1
+          },
+          {
+            "name": "CONTAINER_NOT_FOUND",
+            "line": 34,
+            "complexity": 1
+          },
+          {
+            "name": "NOT_A_CONTAINER",
+            "line": 35,
+            "complexity": 1
+          },
+          {
+            "name": "UNKNOWN_SHAPE_TYPE",
+            "line": 36,
+            "complexity": 1
+          },
+          {
+            "name": "GROUP_ANCESTOR",
+            "line": 37,
+            "complexity": 1
+          },
+          {
+            "name": "TOP_LEVEL_UNGROUP",
+            "line": 38,
+            "complexity": 1
+          },
+          {
+            "name": "INVALID_SCALE",
+            "line": 39,
+            "complexity": 1
+          },
+          {
+            "name": "NO_DOCUMENT",
+            "line": 40,
+            "complexity": 1
+          },
+          {
+            "name": "UNKNOWN_ATTRIBUTE",
+            "line": 41,
+            "complexity": 1
+          },
+          {
+            "name": "HISTORY_BLOCKED",
+            "line": 42,
+            "complexity": 1
+          },
+          {
+            "name": "FILE_IO_ERROR",
+            "line": 43,
+            "complexity": 2
+          },
+          {
+            "name": "SAVE_OUTCOME_UNKNOWN",
+            "line": 45,
+            "complexity": 1
+          },
+          {
+            "name": "ASSIGNED_ID",
+            "line": 46,
+            "complexity": 1
+          },
+          {
+            "name": "TextPresenter.render",
+            "line": 52,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 57,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 61,
+            "complexity": 1
+          },
+          {
+            "name": "TextPresenter.shape",
+            "line": 64,
+            "complexity": 4
+          },
+          {
+            "name": "<callback>",
+            "line": 65,
+            "complexity": 1
+          },
+          {
+            "name": "TextPresenter.labels",
+            "line": 67,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 68,
+            "complexity": 1
+          },
+          {
+            "name": "TextPresenter.tree",
+            "line": 70,
+            "complexity": 5
+          },
+          {
+            "name": "TextPresenter.data",
+            "line": 77,
+            "complexity": 16
+          },
+          {
+            "name": "<callback>",
+            "line": 80,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 82,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 92,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 95,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 97,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 103,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 103,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/cli/Tokenizer.ts",
+        "blob": "3f9d985048098c514c65d2b9d84adf870afe9d41",
+        "category": "kernel",
+        "responsibility": "Tokenizer · 转换 CLI 输入、输出和终端事件",
+        "lines": 39,
+        "functions": [
+          {
+            "name": "Tokenizer.tokenize",
+            "line": 4,
+            "complexity": 20
+          }
+        ]
+      },
+      {
+        "file": "src/domain/changes/Change.ts",
+        "blob": "fcf9e3b2e2e6adc47e0b144dc0aa76ff68893210",
+        "category": "kernel",
+        "responsibility": "Change · 记录并回放可逆变更",
+        "lines": 6,
+        "functions": []
+      },
+      {
+        "file": "src/domain/changes/ChangeSet.ts",
+        "blob": "b244c5456d3a8e3f64db0805e0f28f5ba8fabebb",
+        "category": "kernel",
+        "responsibility": "ChangeSet · 记录并回放可逆变更",
+        "lines": 46,
+        "functions": [
+          {
+            "name": "ChangeSet.constructor",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 10,
+            "complexity": 1
+          },
+          {
+            "name": "ChangeSet.size",
+            "line": 13,
+            "complexity": 1
+          },
+          {
+            "name": "ChangeSet.isEmpty",
+            "line": 16,
+            "complexity": 1
+          },
+          {
+            "name": "ChangeSet.replay",
+            "line": 19,
+            "complexity": 5
+          },
+          {
+            "name": "ChangeSet.describe",
+            "line": 32,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 35,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "src/domain/changes/NodeStateChange.ts",
+        "blob": "8f2b1346368eb2c1adf51db3ed1a9250a54c0eb1",
+        "category": "kernel",
+        "responsibility": "NodeStateChange · 记录并回放可逆变更",
+        "lines": 29,
+        "functions": [
+          {
+            "name": "NodeStateChange.constructor",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "NodeStateChange.replayUsing",
+            "line": 14,
+            "complexity": 3
+          },
+          {
+            "name": "NodeStateChange.describe",
+            "line": 21,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "src/domain/changes/PlacementChange.ts",
+        "blob": "b091d9bf1189fd0581093bea5e5dbbd85bd35a21",
+        "category": "kernel",
+        "responsibility": "PlacementChange · 记录并回放可逆变更",
+        "lines": 38,
+        "functions": [
+          {
+            "name": "PlacementChange.constructor",
+            "line": 9,
+            "complexity": 3
+          },
+          {
+            "name": "PlacementChange.replayUsing",
+            "line": 20,
+            "complexity": 3
+          },
+          {
+            "name": "PlacementChange.describe",
+            "line": 27,
+            "complexity": 3
+          },
+          {
+            "name": "describe",
+            "line": 28,
+            "complexity": 4
+          }
+        ]
+      },
+      {
+        "file": "src/domain/document/CanvasRoot.ts",
+        "blob": "4c9bfc1ed34fe2d5da5935010d7f36f455895047",
+        "category": "kernel",
+        "responsibility": "CanvasRoot · 画布、节点索引和结构编辑",
+        "lines": 78,
+        "functions": [
+          {
+            "name": "CanvasRoot.constructor",
+            "line": 20,
+            "complexity": 1
+          },
+          {
+            "name": "validate",
+            "line": 24,
+            "complexity": 2
+          },
+          {
+            "name": "install",
+            "line": 31,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 35,
+            "complexity": 2
+          },
+          {
+            "name": "CanvasRoot.ownerDocumentId",
+            "line": 40,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasRoot.ownerShape",
+            "line": 43,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasRoot.childCount",
+            "line": 46,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasRoot.childAt",
+            "line": 49,
+            "complexity": 2
+          },
+          {
+            "name": "CanvasRoot.childrenSnapshot",
+            "line": 54,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasRoot.captureState",
+            "line": 57,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasRoot.describeTarget",
+            "line": 60,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasRoot.stateEquals",
+            "line": 63,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasRoot.describeState",
+            "line": 68,
+            "complexity": 1
+          },
+          {
+            "name": "CanvasRoot.size",
+            "line": 71,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/document/SvgDocument.ts",
+        "blob": "160df2f81020f6a3af0ab2fd86a1f0f07ab0f247",
+        "category": "kernel",
+        "responsibility": "SvgDocument · 画布、节点索引和结构编辑",
+        "lines": 455,
+        "functions": [
+          {
+            "name": "SvgDocument.constructor",
+            "line": 43,
+            "complexity": 1
+          },
+          {
+            "name": "validateState",
+            "line": 55,
+            "complexity": 2
+          },
+          {
+            "name": "writeState",
+            "line": 61,
+            "complexity": 1
+          },
+          {
+            "name": "validatePlacement",
+            "line": 65,
+            "complexity": 1
+          },
+          {
+            "name": "writePlacement",
+            "line": 66,
+            "complexity": 1
+          },
+          {
+            "name": "assertBuilding",
+            "line": 69,
+            "complexity": 2
+          },
+          {
+            "name": "append",
+            "line": 74,
+            "complexity": 1
+          },
+          {
+            "name": "finish",
+            "line": 83,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.documentId",
+            "line": 91,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.root",
+            "line": 94,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.nodeCount",
+            "line": 97,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.find",
+            "line": 100,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.require",
+            "line": 103,
+            "complexity": 2
+          },
+          {
+            "name": "SvgDocument.requireContainer",
+            "line": 108,
+            "complexity": 3
+          },
+          {
+            "name": "SvgDocument.isAttached",
+            "line": 115,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.placementOf",
+            "line": 118,
+            "complexity": 4
+          },
+          {
+            "name": "SvgDocument.beginEdit",
+            "line": 127,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 131,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.create",
+            "line": 136,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.materialize",
+            "line": 143,
+            "complexity": 3
+          },
+          {
+            "name": "populate",
+            "line": 148,
+            "complexity": 7
+          },
+          {
+            "name": "SvgDocument.assertIndependent",
+            "line": 179,
+            "complexity": 5
+          },
+          {
+            "name": "<callback>",
+            "line": 186,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.validateParts",
+            "line": 191,
+            "complexity": 6
+          },
+          {
+            "name": "<callback>",
+            "line": 196,
+            "complexity": 2
+          },
+          {
+            "name": "SvgDocument.resizeCanvas",
+            "line": 200,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.planGroup",
+            "line": 210,
+            "complexity": 15
+          },
+          {
+            "name": "<callback>",
+            "line": 225,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 236,
+            "complexity": 1
+          },
+          {
+            "name": "traverse",
+            "line": 248,
+            "complexity": 4
+          },
+          {
+            "name": "<callback>",
+            "line": 260,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.group",
+            "line": 274,
+            "complexity": 6
+          },
+          {
+            "name": "SvgDocument.ungroup",
+            "line": 291,
+            "complexity": 5
+          },
+          {
+            "name": "SvgDocument.addTo",
+            "line": 306,
+            "complexity": 2
+          },
+          {
+            "name": "SvgDocument.bringToFront",
+            "line": 311,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.sendToBack",
+            "line": 316,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.describeTree",
+            "line": 321,
+            "complexity": 4
+          },
+          {
+            "name": "<callback>",
+            "line": 328,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.describe",
+            "line": 332,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 337,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 339,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.assertStateTarget",
+            "line": 342,
+            "complexity": 4
+          },
+          {
+            "name": "SvgDocument.subtree",
+            "line": 349,
+            "complexity": 1
+          },
+          {
+            "name": "visit",
+            "line": 351,
+            "complexity": 4
+          },
+          {
+            "name": "SvgDocument.depth",
+            "line": 358,
+            "complexity": 4
+          },
+          {
+            "name": "SvgDocument.height",
+            "line": 367,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 370,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocument.validatePlacement",
+            "line": 373,
+            "complexity": 38
+          },
+          {
+            "name": "SvgDocument.writePlacement",
+            "line": 418,
+            "complexity": 13
+          },
+          {
+            "name": "SvgDocument.assertInvariants",
+            "line": 429,
+            "complexity": 3
+          },
+          {
+            "name": "visit",
+            "line": 432,
+            "complexity": 9
+          }
+        ]
+      },
+      {
+        "file": "src/domain/document/SvgDocumentBuilder.ts",
+        "blob": "7c05d8d5fd5c99cc83f27b11fd35a880358557dd",
+        "category": "kernel",
+        "responsibility": "SvgDocumentBuilder · 画布、节点索引和结构编辑",
+        "lines": 27,
+        "functions": [
+          {
+            "name": "SvgDocumentBuilder.constructor",
+            "line": 9,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocumentBuilder.root",
+            "line": 17,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocumentBuilder.append",
+            "line": 20,
+            "complexity": 1
+          },
+          {
+            "name": "SvgDocumentBuilder.build",
+            "line": 23,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/errors/DomainError.ts",
+        "blob": "949f0515173a27b42c7e4d61daacbb878ea0def9",
+        "category": "kernel",
+        "responsibility": "DomainError · 表达领域诊断",
+        "lines": 11,
+        "functions": [
+          {
+            "name": "DomainError.constructor",
+            "line": 2,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/internal/MutationAuthority.ts",
+        "blob": "f4b42323af7d3227680661c2886288598fff5926",
+        "category": "kernel",
+        "responsibility": "MutationAuthority · 封装领域存储和变更权限",
+        "lines": 16,
+        "functions": [
+          {
+            "name": "MutationAuthority.constructor",
+            "line": 6,
+            "complexity": 1
+          },
+          {
+            "name": "MutationAuthority.assert",
+            "line": 9,
+            "complexity": 3
+          },
+          {
+            "name": "MutationAuthority.revoke",
+            "line": 13,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/internal/protocols.ts",
+        "blob": "422869d17e73e0d1d7b172e4b443adb9a5fe28ae",
+        "category": "kernel",
+        "responsibility": "protocols · 封装领域存储和变更权限",
+        "lines": 52,
+        "functions": []
+      },
+      {
+        "file": "src/domain/internal/storage.ts",
+        "blob": "6ebf2e2b84c5f0d8cc183dce983cfa4ca725fced",
+        "category": "kernel",
+        "responsibility": "storage · 封装领域存储和变更权限",
+        "lines": 83,
+        "functions": [
+          {
+            "name": "registerBuilder",
+            "line": 24,
+            "complexity": 1
+          },
+          {
+            "name": "accessBuilder",
+            "line": 27,
+            "complexity": 1
+          },
+          {
+            "name": "registerState",
+            "line": 28,
+            "complexity": 1
+          },
+          {
+            "name": "validateState",
+            "line": 34,
+            "complexity": 1
+          },
+          {
+            "name": "installState",
+            "line": 37,
+            "complexity": 1
+          },
+          {
+            "name": "registerContainer",
+            "line": 45,
+            "complexity": 1
+          },
+          {
+            "name": "spliceChildren",
+            "line": 51,
+            "complexity": 1
+          },
+          {
+            "name": "registerParent",
+            "line": 61,
+            "complexity": 1
+          },
+          {
+            "name": "parentOf",
+            "line": 67,
+            "complexity": 1
+          },
+          {
+            "name": "installParent",
+            "line": 68,
+            "complexity": 1
+          },
+          {
+            "name": "registerDocument",
+            "line": 76,
+            "complexity": 1
+          },
+          {
+            "name": "accessDocument",
+            "line": 79,
+            "complexity": 2
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/CircleShape.ts",
+        "blob": "dcb360b32c92bbb4f1d174fb389cc2e7674e2c33",
+        "category": "kernel",
+        "responsibility": "CircleShape · 图形状态、创建规则和几何行为",
+        "lines": 24,
+        "functions": [
+          {
+            "name": "CircleShape.constructor",
+            "line": 15,
+            "complexity": 1
+          },
+          {
+            "name": "CircleShape.move",
+            "line": 18,
+            "complexity": 1
+          },
+          {
+            "name": "CircleShape.scale",
+            "line": 21,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/ContainerShape.ts",
+        "blob": "5673f6ed1b58f73b440729921dd5e10ad926bcdf",
+        "category": "kernel",
+        "responsibility": "ContainerShape · 图形状态、创建规则和几何行为",
+        "lines": 52,
+        "functions": [
+          {
+            "name": "ContainerShape.constructor",
+            "line": 11,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 19,
+            "complexity": 2
+          },
+          {
+            "name": "ContainerShape.ownerShape",
+            "line": 24,
+            "complexity": 1
+          },
+          {
+            "name": "ContainerShape.childCount",
+            "line": 27,
+            "complexity": 1
+          },
+          {
+            "name": "ContainerShape.childAt",
+            "line": 30,
+            "complexity": 2
+          },
+          {
+            "name": "ContainerShape.childrenSnapshot",
+            "line": 35,
+            "complexity": 1
+          },
+          {
+            "name": "ContainerShape.asContainer",
+            "line": 38,
+            "complexity": 1
+          },
+          {
+            "name": "ContainerShape.move",
+            "line": 41,
+            "complexity": 2
+          },
+          {
+            "name": "ContainerShape.scale",
+            "line": 47,
+            "complexity": 2
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/EllipseShape.ts",
+        "blob": "3bec33ce32427b0b06686228050ecd9beefd39ee",
+        "category": "kernel",
+        "responsibility": "EllipseShape · 图形状态、创建规则和几何行为",
+        "lines": 24,
+        "functions": [
+          {
+            "name": "EllipseShape.constructor",
+            "line": 15,
+            "complexity": 1
+          },
+          {
+            "name": "EllipseShape.move",
+            "line": 18,
+            "complexity": 1
+          },
+          {
+            "name": "EllipseShape.scale",
+            "line": 21,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/GroupShape.ts",
+        "blob": "7428772636f8e8ef239e30b0a749240b3e94325e",
+        "category": "kernel",
+        "responsibility": "GroupShape · 图形状态、创建规则和几何行为",
+        "lines": 10,
+        "functions": [
+          {
+            "name": "GroupShape.constructor",
+            "line": 7,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/LineShape.ts",
+        "blob": "b81bf0a353a64b2e9b1db09a381adeee3e0e2735",
+        "category": "kernel",
+        "responsibility": "LineShape · 图形状态、创建规则和几何行为",
+        "lines": 24,
+        "functions": [
+          {
+            "name": "LineShape.constructor",
+            "line": 15,
+            "complexity": 1
+          },
+          {
+            "name": "LineShape.move",
+            "line": 18,
+            "complexity": 1
+          },
+          {
+            "name": "LineShape.scale",
+            "line": 21,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/NativeShapeProvider.ts",
+        "blob": "f14d5d9ebc7255922fcd880142a5232a447947b9",
+        "category": "kernel",
+        "responsibility": "NativeShapeProvider · 图形状态、创建规则和几何行为",
+        "lines": 43,
+        "functions": [
+          {
+            "name": "NativeShapeProvider.constructor",
+            "line": 15,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 24,
+            "complexity": 2
+          },
+          {
+            "name": "NativeShapeProvider.xmlTag",
+            "line": 29,
+            "complexity": 1
+          },
+          {
+            "name": "NativeShapeProvider.plan",
+            "line": 32,
+            "complexity": 2
+          },
+          {
+            "name": "NativeShapeProvider.construct",
+            "line": 40,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/RectShape.ts",
+        "blob": "e93ce9e728162ed2676592f83a3e521d629e1850",
+        "category": "kernel",
+        "responsibility": "RectShape · 图形状态、创建规则和几何行为",
+        "lines": 24,
+        "functions": [
+          {
+            "name": "RectShape.constructor",
+            "line": 15,
+            "complexity": 1
+          },
+          {
+            "name": "RectShape.move",
+            "line": 18,
+            "complexity": 1
+          },
+          {
+            "name": "RectShape.scale",
+            "line": 21,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/Shape.ts",
+        "blob": "83f2b72168c5ce6f603831d2712201888ee50bf3",
+        "category": "kernel",
+        "responsibility": "Shape · 图形状态、创建规则和几何行为",
+        "lines": 131,
+        "functions": [
+          {
+            "name": "Shape.constructor",
+            "line": 20,
+            "complexity": 1
+          },
+          {
+            "name": "validate",
+            "line": 33,
+            "complexity": 2
+          },
+          {
+            "name": "install",
+            "line": 37,
+            "complexity": 1
+          },
+          {
+            "name": "get",
+            "line": 42,
+            "complexity": 1
+          },
+          {
+            "name": "set",
+            "line": 43,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.id",
+            "line": 48,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.ownerDocumentId",
+            "line": 51,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.schema",
+            "line": 54,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.captureState",
+            "line": 57,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.describeTarget",
+            "line": 60,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.stateEquals",
+            "line": 63,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.describeState",
+            "line": 68,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.describe",
+            "line": 71,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 78,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.asContainer",
+            "line": 82,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.set",
+            "line": 87,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.delete",
+            "line": 90,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.update",
+            "line": 94,
+            "complexity": 1
+          },
+          {
+            "name": "Shape.translate",
+            "line": 98,
+            "complexity": 5
+          },
+          {
+            "name": "Shape.multiply",
+            "line": 121,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/ShapeFactory.ts",
+        "blob": "1060cdc31a51a5c9c55ac8ba507d6b7e284a7099",
+        "category": "kernel",
+        "responsibility": "ShapeFactory · 图形状态、创建规则和几何行为",
+        "lines": 9,
+        "functions": [
+          {
+            "name": "ShapeFactory.constructor",
+            "line": 6,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/ShapeProvider.ts",
+        "blob": "41580d673411840c04af75661a5a29532f2054e1",
+        "category": "kernel",
+        "responsibility": "ShapeProvider · 图形状态、创建规则和几何行为",
+        "lines": 23,
+        "functions": []
+      },
+      {
+        "file": "src/domain/shapes/ShapeRegistry.ts",
+        "blob": "9bdbeee8f5dc6c1011132f87b0d37c2cd0517e8f",
+        "category": "kernel",
+        "responsibility": "ShapeRegistry · 图形状态、创建规则和几何行为",
+        "lines": 76,
+        "functions": [
+          {
+            "name": "ShapeRegistry.constructor",
+            "line": 12,
+            "complexity": 11
+          },
+          {
+            "name": "ShapeRegistry.definition",
+            "line": 26,
+            "complexity": 3
+          },
+          {
+            "name": "ShapeRegistry.fromTag",
+            "line": 33,
+            "complexity": 4
+          },
+          {
+            "name": "ShapeRegistry.create",
+            "line": 41,
+            "complexity": 4
+          },
+          {
+            "name": "ShapeRegistry.validateCreation",
+            "line": 49,
+            "complexity": 9
+          },
+          {
+            "name": "<callback>",
+            "line": 60,
+            "complexity": 1
+          },
+          {
+            "name": "ShapeRegistry.plan",
+            "line": 69,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/ShapeSchema.ts",
+        "blob": "f6d4ef322316c8d3c89e7ac033360f364962e1ec",
+        "category": "kernel",
+        "responsibility": "ShapeSchema · 图形状态、创建规则和几何行为",
+        "lines": 67,
+        "functions": [
+          {
+            "name": "ShapeSchema.allowedAttributes",
+            "line": 5,
+            "complexity": 2
+          },
+          {
+            "name": "ShapeSchema.constructor",
+            "line": 18,
+            "complexity": 1
+          },
+          {
+            "name": "ShapeSchema.validate",
+            "line": 32,
+            "complexity": 15
+          },
+          {
+            "name": "ShapeSchema.set",
+            "line": 53,
+            "complexity": 7
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/TextShape.ts",
+        "blob": "f793c09a3ca1cf801cafa16fbc37a6f4eda9b8b5",
+        "category": "kernel",
+        "responsibility": "TextShape · 图形状态、创建规则和几何行为",
+        "lines": 23,
+        "functions": [
+          {
+            "name": "TextShape.constructor",
+            "line": 14,
+            "complexity": 1
+          },
+          {
+            "name": "TextShape.move",
+            "line": 17,
+            "complexity": 1
+          },
+          {
+            "name": "TextShape.scale",
+            "line": 20,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/shapes/builtin-shapes.ts",
+        "blob": "cc89dff55fc9ce6612841988661fb997d3fe939d",
+        "category": "kernel",
+        "responsibility": "builtin-shapes · 图形状态、创建规则和几何行为",
+        "lines": 16,
+        "functions": []
+      },
+      {
+        "file": "src/domain/transactions/EditLease.ts",
+        "blob": "50bf5d57e2f85b1106973d155877d29afd11a30a",
+        "category": "kernel",
+        "responsibility": "EditLease · 控制写权限及事务生命周期",
+        "lines": 21,
+        "functions": [
+          {
+            "name": "EditLease.constructor",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "EditLease.prepare",
+            "line": 12,
+            "complexity": 1
+          },
+          {
+            "name": "EditLease.rollback",
+            "line": 15,
+            "complexity": 1
+          },
+          {
+            "name": "EditLease.commitPrepared",
+            "line": 18,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/transactions/EditTransaction.ts",
+        "blob": "15c75d46f1c76472032018a212da27acb0b97c98",
+        "category": "kernel",
+        "responsibility": "EditTransaction · 控制写权限及事务生命周期",
+        "lines": 34,
+        "functions": [
+          {
+            "name": "EditTransaction.constructor",
+            "line": 9,
+            "complexity": 1
+          },
+          {
+            "name": "EditTransaction.phase",
+            "line": 13,
+            "complexity": 1
+          },
+          {
+            "name": "EditTransaction.documentId",
+            "line": 16,
+            "complexity": 1
+          },
+          {
+            "name": "EditTransaction.assertDocument",
+            "line": 19,
+            "complexity": 1
+          },
+          {
+            "name": "EditTransaction.assertTarget",
+            "line": 22,
+            "complexity": 1
+          },
+          {
+            "name": "EditTransaction.changeState",
+            "line": 25,
+            "complexity": 1
+          },
+          {
+            "name": "EditTransaction.place",
+            "line": 28,
+            "complexity": 1
+          },
+          {
+            "name": "EditTransaction.applyRecorded",
+            "line": 31,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/transactions/TransactionState.ts",
+        "blob": "1bc74146362e5136d447621e365b7a26c2867eb5",
+        "category": "kernel",
+        "responsibility": "TransactionState · 控制写权限及事务生命周期",
+        "lines": 119,
+        "functions": [
+          {
+            "name": "TransactionState.constructor",
+            "line": 20,
+            "complexity": 1
+          },
+          {
+            "name": "TransactionState.phase",
+            "line": 25,
+            "complexity": 1
+          },
+          {
+            "name": "TransactionState.documentId",
+            "line": 28,
+            "complexity": 1
+          },
+          {
+            "name": "TransactionState.assertActive",
+            "line": 31,
+            "complexity": 2
+          },
+          {
+            "name": "TransactionState.assertDocument",
+            "line": 34,
+            "complexity": 2
+          },
+          {
+            "name": "TransactionState.assertTarget",
+            "line": 39,
+            "complexity": 3
+          },
+          {
+            "name": "TransactionState.changeState",
+            "line": 44,
+            "complexity": 2
+          },
+          {
+            "name": "TransactionState.place",
+            "line": 50,
+            "complexity": 7
+          },
+          {
+            "name": "TransactionState.applyRecorded",
+            "line": 57,
+            "complexity": 1
+          },
+          {
+            "name": "TransactionState.apply",
+            "line": 61,
+            "complexity": 1
+          },
+          {
+            "name": "perform",
+            "line": 64,
+            "complexity": 4
+          },
+          {
+            "name": "state",
+            "line": 77,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 79,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 80,
+            "complexity": 1
+          },
+          {
+            "name": "placement",
+            "line": 82,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 84,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 85,
+            "complexity": 1
+          },
+          {
+            "name": "TransactionState.prepare",
+            "line": 90,
+            "complexity": 1
+          },
+          {
+            "name": "TransactionState.commit",
+            "line": 96,
+            "complexity": 2
+          },
+          {
+            "name": "TransactionState.rollback",
+            "line": 100,
+            "complexity": 8
+          },
+          {
+            "name": "TransactionState.finish",
+            "line": 114,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/values/NodeMemento.ts",
+        "blob": "bdcde9d6a5935e5b98d0797dd61ea8a81a4be0fc",
+        "category": "kernel",
+        "responsibility": "NodeMemento · 校验和描述领域值",
+        "lines": 41,
+        "functions": [
+          {
+            "name": "NodeMemento.constructor",
+            "line": 7,
+            "complexity": 2
+          },
+          {
+            "name": "NodeMemento.read",
+            "line": 15,
+            "complexity": 2
+          },
+          {
+            "name": "NodeMemento.equals",
+            "line": 20,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 27,
+            "complexity": 2
+          },
+          {
+            "name": "NodeMemento.describe",
+            "line": 32,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 36,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/domain/values/Paint.ts",
+        "blob": "d6a506b81af25ccf779307036f5365e33678a1ec",
+        "category": "kernel",
+        "responsibility": "Paint · 校验和描述领域值",
+        "lines": 23,
+        "functions": [
+          {
+            "name": "Paint.parse",
+            "line": 11,
+            "complexity": 5
+          }
+        ]
+      },
+      {
+        "file": "src/domain/values/ValueRules.ts",
+        "blob": "e4886a29da9a4517f5525dd49b9ab6f3e639be62",
+        "category": "kernel",
+        "responsibility": "ValueRules · 校验和描述领域值",
+        "lines": 113,
+        "functions": [
+          {
+            "name": "ValueRules.constructor",
+            "line": 8,
+            "complexity": 8
+          },
+          {
+            "name": "<callback>",
+            "line": 20,
+            "complexity": 1
+          },
+          {
+            "name": "ValueRules.limits",
+            "line": 28,
+            "complexity": 1
+          },
+          {
+            "name": "ValueRules.trim",
+            "line": 31,
+            "complexity": 1
+          },
+          {
+            "name": "ValueRules.number",
+            "line": 34,
+            "complexity": 9
+          },
+          {
+            "name": "ValueRules.numeric",
+            "line": 45,
+            "complexity": 7
+          },
+          {
+            "name": "ValueRules.product",
+            "line": 58,
+            "complexity": 3
+          },
+          {
+            "name": "ValueRules.size",
+            "line": 64,
+            "complexity": 3
+          },
+          {
+            "name": "ValueRules.attribute",
+            "line": 72,
+            "complexity": 1
+          },
+          {
+            "name": "ValueRules.text",
+            "line": 75,
+            "complexity": 1
+          },
+          {
+            "name": "ValueRules.id",
+            "line": 78,
+            "complexity": 2
+          },
+          {
+            "name": "ValueRules.paint",
+            "line": 84,
+            "complexity": 1
+          },
+          {
+            "name": "ValueRules.retained",
+            "line": 87,
+            "complexity": 8
+          },
+          {
+            "name": "ValueRules.string",
+            "line": 101,
+            "complexity": 5
+          }
+        ]
+      },
+      {
+        "file": "src/domain/values/XmlCharacters.ts",
+        "blob": "46ef8b7b3aa064f67ff26c93c1e4562d10f368e4",
+        "category": "kernel",
+        "responsibility": "XmlCharacters · 校验和描述领域值",
+        "lines": 18,
+        "functions": [
+          {
+            "name": "XmlCharacters.isAllowed",
+            "line": 3,
+            "complexity": 9
+          },
+          {
+            "name": "XmlCharacters.validate",
+            "line": 13,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "src/domain/values/contracts.ts",
+        "blob": "6e64bc0be3664594e09e51b8febc412d469c0330",
+        "category": "kernel",
+        "responsibility": "contracts · 校验和描述领域值",
+        "lines": 127,
+        "functions": []
+      },
+      {
+        "file": "src/domain/values/defaultLimits.ts",
+        "blob": "f7ff49209eca44136e88306cb9fff4d6cd6c3d98",
+        "category": "kernel",
+        "responsibility": "defaultLimits · 校验和描述领域值",
+        "lines": 8,
+        "functions": []
+      },
+      {
+        "file": "src/host/code-profile.ts",
+        "blob": "a5fe055da8c487844c1d8394cb251a693106d6ec",
+        "category": "assembly",
+        "responsibility": "code-profile · 装配、解析模块及校验注册",
+        "lines": 22,
+        "functions": [
+          {
+            "name": "loadCodeProfile",
+            "line": 13,
+            "complexity": 4
+          },
+          {
+            "name": "<callback>",
+            "line": 17,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/host/loader/ConfigLoader.ts",
+        "blob": "5390487b8c5c0031450366fd6738a2289b159b14",
+        "category": "assembly",
+        "responsibility": "ConfigLoader · 装配、解析模块及校验注册",
+        "lines": 100,
+        "functions": [
+          {
+            "name": "record",
+            "line": 13,
+            "complexity": 3
+          },
+          {
+            "name": "entries",
+            "line": 15,
+            "complexity": 13
+          },
+          {
+            "name": "<callback>",
+            "line": 16,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 23,
+            "complexity": 1
+          },
+          {
+            "name": "packageAt",
+            "line": 31,
+            "complexity": 4
+          },
+          {
+            "name": "missing",
+            "line": 39,
+            "complexity": 2
+          },
+          {
+            "name": "enclosingManifest",
+            "line": 44,
+            "complexity": 5
+          },
+          {
+            "name": "ConfigLoader.constructor",
+            "line": 59,
+            "complexity": 1
+          },
+          {
+            "name": "ConfigLoader.load",
+            "line": 60,
+            "complexity": 5
+          },
+          {
+            "name": "ConfigLoader.loadEntry",
+            "line": 75,
+            "complexity": 11
+          }
+        ]
+      },
+      {
+        "file": "src/host/loader/PluginHost.ts",
+        "blob": "086be0cd5373d30c3c751d5d664cb896b1bcca2b",
+        "category": "assembly",
+        "responsibility": "PluginHost · 装配、解析模块及校验注册",
+        "lines": 159,
+        "functions": [
+          {
+            "name": "empty",
+            "line": 25,
+            "complexity": 1
+          },
+          {
+            "name": "names",
+            "line": 26,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 27,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 27,
+            "complexity": 1
+          },
+          {
+            "name": "describe",
+            "line": 28,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 30,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 30,
+            "complexity": 1
+          },
+          {
+            "name": "PluginHost.constructor",
+            "line": 36,
+            "complexity": 1
+          },
+          {
+            "name": "PluginHost.registrations",
+            "line": 41,
+            "complexity": 1
+          },
+          {
+            "name": "PluginHost.activate",
+            "line": 51,
+            "complexity": 14
+          },
+          {
+            "name": "check",
+            "line": 59,
+            "complexity": 7
+          },
+          {
+            "name": "<callback>",
+            "line": 67,
+            "complexity": 1
+          },
+          {
+            "name": "registerCommand",
+            "line": 76,
+            "complexity": 9
+          },
+          {
+            "name": "<callback>",
+            "line": 85,
+            "complexity": 2
+          },
+          {
+            "name": "registerShape",
+            "line": 91,
+            "complexity": 3
+          },
+          {
+            "name": "registerAttribute",
+            "line": 97,
+            "complexity": 3
+          },
+          {
+            "name": "registerDecorator",
+            "line": 103,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 114,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 119,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 121,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 124,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 130,
+            "complexity": 4
+          },
+          {
+            "name": "<callback>",
+            "line": 136,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/infrastructure/files/NodeFileStore.ts",
+        "blob": "5532e0e29b71e7e0132b49dd60dd471efb40ed8e",
+        "category": "kernel",
+        "responsibility": "NodeFileStore · 实现文件系统端口",
+        "lines": 175,
+        "functions": [
+          {
+            "name": "NodeFileStore.constructor",
+            "line": 21,
+            "complexity": 2
+          },
+          {
+            "name": "NodeFileStore.resolve",
+            "line": 31,
+            "complexity": 4
+          },
+          {
+            "name": "NodeFileStore.readUtf8",
+            "line": 36,
+            "complexity": 13
+          },
+          {
+            "name": "NodeFileStore.replaceUtf8",
+            "line": 83,
+            "complexity": 19
+          },
+          {
+            "name": "NodeFileStore.regular",
+            "line": 161,
+            "complexity": 6
+          },
+          {
+            "name": "NodeFileStore.code",
+            "line": 170,
+            "complexity": 5
+          }
+        ]
+      },
+      {
+        "file": "src/infrastructure/files/NodeFileSystem.ts",
+        "blob": "1a2c9910836f7f7911c3ce763aa43fff75cc9351",
+        "category": "kernel",
+        "responsibility": "NodeFileSystem · 实现文件系统端口",
+        "lines": 16,
+        "functions": [
+          {
+            "name": "NodeFileSystem.lstat",
+            "line": 4,
+            "complexity": 1
+          },
+          {
+            "name": "NodeFileSystem.open",
+            "line": 7,
+            "complexity": 1
+          },
+          {
+            "name": "NodeFileSystem.rename",
+            "line": 10,
+            "complexity": 1
+          },
+          {
+            "name": "NodeFileSystem.unlink",
+            "line": 13,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/infrastructure/files/file-system-port.ts",
+        "blob": "563bb27ce2f8d504c2240eb48d8cc56dd3dd7e20",
+        "category": "kernel",
+        "responsibility": "file-system-port · 实现文件系统端口",
+        "lines": 20,
+        "functions": []
+      },
+      {
+        "file": "src/infrastructure/svg/XmlSvgCodec.ts",
+        "blob": "4461c368e370bfa1b5a3563ac47a8504aff6ed2e",
+        "category": "kernel",
+        "responsibility": "XmlSvgCodec · 严格 SVG 解析与序列化",
+        "lines": 20,
+        "functions": [
+          {
+            "name": "XmlSvgCodec.constructor",
+            "line": 10,
+            "complexity": 1
+          },
+          {
+            "name": "XmlSvgCodec.encode",
+            "line": 14,
+            "complexity": 1
+          },
+          {
+            "name": "XmlSvgCodec.decode",
+            "line": 17,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/infrastructure/svg/XmlSvgDecoder.ts",
+        "blob": "c86d3e2b885396da2f0effdf7e6c5befb35aca61",
+        "category": "kernel",
+        "responsibility": "XmlSvgDecoder · 严格 SVG 解析与序列化",
+        "lines": 179,
+        "functions": [
+          {
+            "name": "XmlSvgDecoder.constructor",
+            "line": 15,
+            "complexity": 1
+          },
+          {
+            "name": "XmlSvgDecoder.decode",
+            "line": 16,
+            "complexity": 15
+          },
+          {
+            "name": "unsupported",
+            "line": 31,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 37,
+            "complexity": 6
+          },
+          {
+            "name": "<callback>",
+            "line": 45,
+            "complexity": 19
+          },
+          {
+            "name": "text",
+            "line": 79,
+            "complexity": 6
+          },
+          {
+            "name": "<callback>",
+            "line": 92,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 96,
+            "complexity": 1
+          },
+          {
+            "name": "append",
+            "line": 146,
+            "complexity": 5
+          },
+          {
+            "name": "XmlSvgDecoder.viewBox",
+            "line": 169,
+            "complexity": 6
+          },
+          {
+            "name": "<callback>",
+            "line": 175,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/infrastructure/svg/XmlSvgEncoder.ts",
+        "blob": "6a1e456291660278f48ceff11d9f5cce6d76aec8",
+        "category": "kernel",
+        "responsibility": "XmlSvgEncoder · 严格 SVG 解析与序列化",
+        "lines": 69,
+        "functions": [
+          {
+            "name": "XmlSvgEncoder.constructor",
+            "line": 12,
+            "complexity": 1
+          },
+          {
+            "name": "XmlSvgEncoder.encode",
+            "line": 13,
+            "complexity": 5
+          },
+          {
+            "name": "<callback>",
+            "line": 18,
+            "complexity": 2
+          },
+          {
+            "name": "<callback>",
+            "line": 21,
+            "complexity": 1
+          },
+          {
+            "name": "XmlSvgEncoder.node",
+            "line": 23,
+            "complexity": 8
+          },
+          {
+            "name": "<callback>",
+            "line": 35,
+            "complexity": 1
+          },
+          {
+            "name": "XmlSvgEncoder.attributes",
+            "line": 37,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 43,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 44,
+            "complexity": 5
+          },
+          {
+            "name": "XmlSvgEncoder.escape",
+            "line": 54,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 56,
+            "complexity": 9
+          }
+        ]
+      },
+      {
+        "file": "src/infrastructure/svg/parsed-types.ts",
+        "blob": "0b54aaa56939c529f00d9bf067dc06aa0093557f",
+        "category": "kernel",
+        "responsibility": "parsed-types · 严格 SVG 解析与序列化",
+        "lines": 9,
+        "functions": []
+      },
+      {
+        "file": "src/main.ts",
+        "blob": "bab7ceca65f7eaabb13441f54dcc993602c1fc93",
+        "category": "assembly",
+        "responsibility": "main · 组装 CLI 并启动 REPL",
+        "lines": 72,
+        "functions": [
+          {
+            "name": "<callback>",
+            "line": 26,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 45,
+            "complexity": 1
+          },
+          {
+            "name": "[Symbol.asyncIterator]",
+            "line": 60,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "src/public.ts",
+        "blob": "7c98bbc8beea82eeaf97a7d8910aa68e5989ac59",
+        "category": "kernel",
+        "responsibility": "public · 导出插件公开 API",
+        "lines": 11,
+        "functions": []
+      }
+    ]
+  }
+}

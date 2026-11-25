@@ -28,6 +28,8 @@ P2-07 补齐必要子部件直接 move、scale、几何 set 和层序调整的�
 
 P2-08 初次贯通 A/B 的同一暂存激活入口。真实 CLI 验证相对包、限定 import 出口的包名、options、配置结构整体验证、四类错误、重复注册及后续恢复。直接激活的测试检查四类注册一起撤销和上下文失效。编译、旧/新进程套件及类型/架构/lint 检查通过。
 
+P2-08 框架全量 verify 通过，779 项、0 失败、0 跳过，8 项性能检查和 16 条植入架构违规边得到验证。继续校验 final 的原始预览证据，并从当前 CLI 在新临时目录逐字节重放两张 SVG。首版 `docs/metrics/` 以 Git blob 计算后用 `--check` 独立重算通过。
+
 # Phase 1 实现进度
 
 2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。

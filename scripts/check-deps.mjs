@@ -1,12 +1,19 @@
 import { cruise } from 'dependency-cruiser';
 import extractTsConfig from 'dependency-cruiser/config-utl/extract-ts-config';
-import { readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs';
+import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import ts from 'typescript';
-import { createHash } from 'node:crypto';
+import { cliSources, extensionSources } from './production-files.mjs';
+import { sourceDigest } from './source-digest.mjs';
 import { rules } from './dependency-rules.mjs';
 const actual = await cruise(
-  ['src', 'test/model'],
+  [
+    'src',
+    'packages/api',
+    'extensions/svg-tools/src',
+    ...(existsSync('plugins') ? cliSources().filter((p) => p.startsWith('plugins/')) : []),
+    'test/model',
+  ],
   {
     ...rules.options,
     validate: true,
@@ -35,30 +42,18 @@ const visitRuntime = (name, active = new Set()) => {
   finished.add(name);
 };
 for (const name of graph.keys()) visitRuntime(name);
-const visitFiles = (directory) =>
-  readdirSync(directory, { withFileTypes: true }).flatMap((entry) =>
-    entry.isDirectory()
-      ? visitFiles(path.join(directory, entry.name))
-      : [path.join(directory, entry.name)],
-  );
-const sourceFiles = visitFiles('src')
-  .filter((f) => f.endsWith('.ts'))
-  .sort();
-const sourceHash = createHash('sha256');
+const sourceFiles = [...cliSources(), ...extensionSources()].filter((p) => p.endsWith('.ts'));
 const nameComparisons = [];
 const commandNames = [];
 const shapeNames = [];
 let classCount = 0;
 for (const file of sourceFiles) {
-  sourceHash
-    .update(file.replaceAll('\\', '/') + '\0')
-    .update(readFileSync(file))
-    .update('\0');
   const ast = ts.createSourceFile(file, readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, true);
   const classes = [];
   const visit = (node) => {
     if (ts.isClassDeclaration(node)) classes.push(node.name?.text);
     if (
+      file.startsWith('src/') &&
       ts.isBinaryExpression(node) &&
       ts.isPropertyAccessExpression(node.left) &&
       ['type', 'command'].includes(node.left.name.text) &&
@@ -135,6 +130,9 @@ for (const directory of [
   'cli',
   'infrastructure',
   'test/model',
+  'plugins/probe',
+  'plugins/other',
+  'host',
   'src',
   'test',
 ])
@@ -159,7 +157,28 @@ writeFileSync(
   `${base}/test/model/BadModel.ts`,
   "import { Shape } from '../../../../src/domain/shapes/Shape.js'; export const forbidden = Shape;\n",
 );
+writeFileSync(`${base}/plugins/other/Private.ts`, 'export type Private = string;');
+writeFileSync(`${base}/host/Composition.ts`, 'export interface Composition {name:string}');
 const planted = [
+  {
+    file: 'plugins/probe/BadPlugin.ts',
+    to: 'host/Composition.ts',
+    rule: 'plugin-no-host',
+    source: "export type {Composition} from '../../host/Composition.js';",
+  },
+  {
+    file: 'domain/BadPlugin.ts',
+    to: 'plugins/other/Private.ts',
+    rule: 'kernel-no-plugins',
+    source: "export type {Private} from '../plugins/other/Private.js';",
+  },
+  {
+    file: 'plugins/probe/BadPeer.ts',
+    to: 'plugins/other/Private.ts',
+    rule: 'plugin-no-peers',
+    source: "export type {Private} from '../other/Private.js';",
+  },
+
   { file: 'domain/Bad.ts', to: 'application/Contract.ts', rule: 'domain-inward-only' },
   { file: 'domain/Bad.ts', to: 'fs', rule: 'domain-inward-only' },
   { file: 'cli/BadCli.ts', to: 'infrastructure/Adapter.ts', rule: 'cli-no-live-domain' },
@@ -260,7 +279,7 @@ writeFileSync(
   'artifacts/architecture/report.json',
   JSON.stringify(
     {
-      sourceSha256: sourceHash.digest('hex'),
+      sourceSha256: sourceDigest(),
       passed: true,
       modules: report.summary.totalCruised,
       classes: classCount,

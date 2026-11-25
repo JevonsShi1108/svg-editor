@@ -1,6 +1,27 @@
 export const rules = {
   forbidden: [
     {
+      name: 'kernel-no-plugins',
+      from: { path: '(^|/)(cli|domain|application|infrastructure)/' },
+      to: { path: '(^|/)(host|plugins)/' },
+    },
+    {
+      name: 'plugin-no-host',
+      from: { path: '(^|/)plugins/' },
+      to: { path: '(^|/)host/|(^|/)src/(application|domain|cli|infrastructure)/' },
+    },
+    {
+      name: 'plugin-no-peers',
+      from: { path: '(?:^|/)plugins/([^/]+)/' },
+      to: { path: '(?:^|/)plugins/(?!$1/)' },
+    },
+    {
+      name: 'cli-no-vscode',
+      from: { path: '^src/|^plugins/' },
+      to: { path: '(^|/)vscode($|/)|^extensions/' },
+    },
+
+    {
       name: 'domain-no-node-core',
       from: { path: '(^|/)domain/' },
       to: { dependencyTypes: ['core'] },

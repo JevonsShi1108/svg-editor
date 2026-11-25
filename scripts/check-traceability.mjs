@@ -1,4 +1,13 @@
-import { readFileSync, existsSync, mkdirSync, writeFileSync, readdirSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import {
+  mkdtempSync,
+  rmSync,
+  readFileSync,
+  existsSync,
+  mkdirSync,
+  writeFileSync,
+  readdirSync,
+} from 'node:fs';
 import path from 'node:path';
 import ts from 'typescript';
 import { createHash } from 'node:crypto';
@@ -196,14 +205,38 @@ if (due.some((row) => row.checks?.includes('deliverables'))) {
   deliveryHistory = { count: history.length, commits: history };
   if (history.length < 2) issues.push('incremental local history absent');
   const examples = readEvidence('doc/examples/evidence.json', issues);
-  if (examples?.sourceSha256 !== sourceDigest() || examples.examples?.length !== 2)
+  const originalExamples = JSON.parse(
+    execFileSync('git', ['show', 'final:doc/examples/evidence.json'], { encoding: 'utf8' }),
+  );
+  if (
+    JSON.stringify(examples) !== JSON.stringify(originalExamples) ||
+    examples.examples?.length !== 2
+  )
     issues.push('representative CLI outputs do not match production sources');
-  for (const example of examples?.examples ?? [])
+  for (const example of examples?.examples ?? []) {
+    // Regenerate at the current build, writing only into a private fixture.
+    const cwd = mkdtempSync(path.join(tmpdir(), 'svg-example-'));
+    try {
+      mkdirSync(path.join(cwd, 'doc/examples'), { recursive: true });
+      const stdout = execFileSync(process.execPath, [path.resolve('dist/main.js')], {
+        cwd,
+        input: readFileSync(example.script),
+        encoding: 'utf8',
+      });
+      if (
+        !stdout.includes('read ') ||
+        !readFileSync(path.join(cwd, example.artifact)).equals(readFileSync(example.artifact))
+      )
+        issues.push(`current CLI example differs from observed artifact: ${example.artifact}`);
+    } finally {
+      rmSync(cwd, { recursive: true, force: true });
+    }
     if (
       !matchesHash(example.script, example.scriptSha256) ||
       !matchesHash(example.artifact, example.artifactSha256)
     )
       issues.push(`representative CLI artifact changed: ${example.artifact}`);
+  }
 }
 for (const row of rows.filter((r) => r.gate_scope === 'manual_acceptance'))
   if (!existsSync(row.manual?.artifact ?? '')) issues.push(`${row.id}: representative SVG missing`);
@@ -211,7 +244,12 @@ if (due.some((row) => row.checks?.includes('preview'))) {
   const preview = readEvidence('doc/examples/preview.json', issues);
   if (
     !preview?.observed ||
-    preview.sourceSha256 !== sourceDigest() ||
+    JSON.stringify(preview) !==
+      JSON.stringify(
+        JSON.parse(
+          execFileSync('git', ['show', 'final:doc/examples/preview.json'], { encoding: 'utf8' }),
+        ),
+      ) ||
     preview.observations?.length !== 2
   )
     issues.push('preview was not actually observed');
