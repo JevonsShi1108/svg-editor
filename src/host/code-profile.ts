@@ -1,3 +1,5 @@
+import stats from '@svgframe/plugin-stats';
+import statsManifest from '@svgframe/plugin-stats/package.json' with { type: 'json' };
 import type { Plugin } from '../public.js';
 import type { Manifest, PluginHost } from './loader/PluginHost.js';
 
@@ -8,7 +10,9 @@ interface InstalledPlugin {
   readonly options?: Readonly<Record<string, unknown>>;
 }
 
-const installed: readonly InstalledPlugin[] = [];
+const installed: readonly InstalledPlugin[] = [
+  { plugin: stats, manifest: statsManifest, presets: ['demo', 'commands'] },
+];
 
 export async function loadCodeProfile(name: string, host: PluginHost): Promise<string[]> {
   if (!['base', 'demo', 'box', 'commands'].includes(name))
