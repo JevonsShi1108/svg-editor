@@ -1,0 +1,59 @@
+@startuml
+!pragma layout smetana
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontSize 14
+top to bottom direction
+title SVG Editor Phase 2 — CLI and extension host
+package "src/host + src/main.ts" #E4EFF8 {
+  component "Code profiles\nmodule + manifest" as Code
+  component "ConfigLoader\nconfig → package → entry" as Config
+  component "PluginHost.activate\nstage • compare • publish" as Host
+  component "CLI composition\nbuiltin + optional registrations" as Main
+}
+package "CLI runtime" #E6F3EA {
+  component "CliParser / CliRepl\nTextPresenter" as CLI
+  component "CommandRegistry\nEditorSession" as Session
+  component "AttributeDispatch\nTreeDecorations" as Policies
+  component "ShapeRegistry\nSvgDocument + Builder" as Shapes
+  component "EditLease / ChangeSet\nHistoryManager" as Tx
+  component "XmlSvgCodec" as IO
+  component "NodeFileStore" as Files
+}
+package "Public contracts · @svgframe/api" #FFF1D8 {
+  component "Command" as Cmd <<interface>>
+  component "ShapeProvider" as SP <<interface>>
+  component "AttributeHandler" as AH <<interface>>
+  component "TreeDecorator" as TD <<interface>>
+}
+package "Plugin packages" #EEE9F8 {
+  component "stats / dir" as Queries
+  component "BoxProvider / BoxAttributes" as Box
+  component "BoxTypeLabel / ModifiedStar" as Labels
+}
+package "Independent VS Code host" #F1F2F4 {
+  component "Explorer / Outline" as Workbench
+  component "SvgFileDecorationProvider\nSvgSymbolProvider → SvgOutline" as Extension
+}
+Code --> Host
+Config --> Host
+Host --> Main : registrations
+Main --> Session
+Main --> IO
+Main --> Files
+CLI --> Session : execute
+Session --> Shapes
+Session --> Tx
+Session --> Policies
+Session ..> Cmd : query adapter
+Shapes ..> SP : construct and read back
+IO --> Shapes
+Policies ..> AH : one edit
+Policies ..> TD : query and checkpoint
+Queries ..|> Cmd
+Box ..|> SP
+Box ..|> AH
+Labels ..|> TD
+Workbench --> Extension : request providers
+@enduml

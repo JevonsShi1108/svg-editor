@@ -50,6 +50,8 @@ P2-14 首轮逐通道原始 Buffer 对照共 24 个编译进程，逐项检查�
 
 P2-14 增加 P2-PROP-01 独立快照模型，覆盖 set、保存、失败保存、保护错误、查询与 undo/redo 的任意序列。ci 档固定/新种子均通过。限额、反向标签注册、两个真实启动目录及跨目录 save/read 通过。真实宿主切换第二个 SVG、重命名和异常恢复通过。性能另测 100/1,000/5,000 节点，原 8 项与新增 1 项通过。
 
+P2-14 由固定 SHA-256 的 PlantUML 1.2026.8 本地生成阶段二依赖图，核对位图预览后调整了接口标签的重叠。用同一 TypeScript AST 脚本重新生成两端文件清单、函数迁移和增量，`--check` 对输出逐字节核对。
+
 # Phase 1 实现进度
 
 2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。

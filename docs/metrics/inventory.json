@@ -2867,22 +2867,22 @@
     ]
   },
   "after": {
-    "digest": "7a5c9d115b2471c2e9680a6311d7f1ca162df9ee8429275c63013b8108442d54",
+    "digest": "04de97933f8997b8139bb732a3678ea0e2cc8cf358e418d2b025fdeca4f7a176",
     "groups": {
       "kernel": {
         "files": 96,
-        "lines": 4530,
-        "complexity": 1151
+        "lines": 4583,
+        "complexity": 1171
       },
       "assembly": {
         "files": 4,
-        "lines": 353,
+        "lines": 368,
         "complexity": 118
       },
       "plugin": {
-        "files": 0,
-        "lines": 0,
-        "complexity": 0
+        "files": 14,
+        "lines": 341,
+        "complexity": 78
       },
       "vscode": {
         "files": 4,
@@ -2895,7 +2895,7 @@
         "file": "extensions/svg-tools/src/SvgFileDecorationProvider.ts",
         "blob": "54467b53ad9c8fd5d9c7535e43b350095294e2c4",
         "category": "vscode",
-        "responsibility": "SvgFileDecorationProvider · 提供 VS Code 编辑器集成",
+        "responsibility": "SvgFileDecorationProvider · 按实际文件类型向 Explorer 提供徽标",
         "lines": 18,
         "functions": [
           {
@@ -2914,7 +2914,7 @@
         "file": "extensions/svg-tools/src/SvgOutline.ts",
         "blob": "707aa0e2b86620a6ac198240b7baf92342ba7d09",
         "category": "vscode",
-        "responsibility": "SvgOutline · 提供 VS Code 编辑器集成",
+        "responsibility": "SvgOutline · 从 XML 事件与 UTF-16 字符偏移生成大纲",
         "lines": 45,
         "functions": [
           {
@@ -2943,7 +2943,7 @@
         "file": "extensions/svg-tools/src/SvgSymbolProvider.ts",
         "blob": "271d7227a8f413190beb5f672e37bed05889f3ec",
         "category": "vscode",
-        "responsibility": "SvgSymbolProvider · 提供 VS Code 编辑器集成",
+        "responsibility": "SvgSymbolProvider · 适配为可导航的 DocumentSymbol",
         "lines": 25,
         "functions": [
           {
@@ -2994,6 +2994,311 @@
         "functions": []
       },
       {
+        "file": "plugins/box-label/src/BoxTypeLabel.ts",
+        "blob": "7fe096dac3e014a41a5780cd0443119b39b85fbe",
+        "category": "plugin",
+        "responsibility": "BoxTypeLabel · 按运行时类型为框体行追加标记",
+        "lines": 7,
+        "functions": [
+          {
+            "name": "BoxTypeLabel.prepare",
+            "line": 4,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 5,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "plugins/box-label/src/index.ts",
+        "blob": "4bedf7a14aab9d1b5437c5c99add51273dd7b6cf",
+        "category": "plugin",
+        "responsibility": "index · 实现 box-label 插件",
+        "lines": 7,
+        "functions": [
+          {
+            "name": "activate",
+            "line": 4,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "plugins/dir/src/DirCommand.ts",
+        "blob": "c299a652cb3cfbace38f243e03139c2b3591c12e",
+        "category": "plugin",
+        "responsibility": "DirCommand · 在启动目录列出并排序普通文件和目录",
+        "lines": 31,
+        "functions": [
+          {
+            "name": "DirCommand.constructor",
+            "line": 8,
+            "complexity": 1
+          },
+          {
+            "name": "DirCommand.run",
+            "line": 12,
+            "complexity": 5
+          },
+          {
+            "name": "<callback>",
+            "line": 21,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 22,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "plugins/dir/src/DirectoryReader.ts",
+        "blob": "5adade4a262e9a884aa421304e1ef2c4bb314dfe",
+        "category": "plugin",
+        "responsibility": "DirectoryReader · 定义目录项读取端口",
+        "lines": 7,
+        "functions": []
+      },
+      {
+        "file": "plugins/dir/src/NodeDirectoryReader.ts",
+        "blob": "5190017e607cd34410d515092b717c2fabc9ea2c",
+        "category": "plugin",
+        "responsibility": "NodeDirectoryReader · 将 readdir 的 Dirent 转成目录项值",
+        "lines": 12,
+        "functions": [
+          {
+            "name": "NodeDirectoryReader.list",
+            "line": 5,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 7,
+            "complexity": 3
+          }
+        ]
+      },
+      {
+        "file": "plugins/dir/src/index.ts",
+        "blob": "4553eabcc114a260fe66487b4cb12e9792439c38",
+        "category": "plugin",
+        "responsibility": "index · 实现 dir 插件",
+        "lines": 8,
+        "functions": [
+          {
+            "name": "activate",
+            "line": 5,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "plugins/shape-box/src/BoxAttributes.ts",
+        "blob": "f72e9e8330d4f3af26d5e0fc915603292ddf6bb1",
+        "category": "plugin",
+        "responsibility": "BoxAttributes · 将 fill 和 label 转发到必需子部件",
+        "lines": 37,
+        "functions": [
+          {
+            "name": "BoxAttributes.handles",
+            "line": 10,
+            "complexity": 3
+          },
+          {
+            "name": "BoxAttributes.apply",
+            "line": 13,
+            "complexity": 5
+          },
+          {
+            "name": "<callback>",
+            "line": 17,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "plugins/shape-box/src/BoxProvider.ts",
+        "blob": "0a1b7997dd641965bebde2b7652683615fc3db00",
+        "category": "plugin",
+        "responsibility": "BoxProvider · 生成框体子树、SVG 识别规则和操作反馈",
+        "lines": 91,
+        "functions": [
+          {
+            "name": "BoxProvider.requiredChildren",
+            "line": 37,
+            "complexity": 1
+          },
+          {
+            "name": "BoxProvider.construct",
+            "line": 43,
+            "complexity": 1
+          },
+          {
+            "name": "BoxProvider.plan",
+            "line": 46,
+            "complexity": 6
+          },
+          {
+            "name": "BoxProvider.feedback",
+            "line": 67,
+            "complexity": 4
+          }
+        ]
+      },
+      {
+        "file": "plugins/shape-box/src/BoxShape.ts",
+        "blob": "494d81576e938294ea687c42339f9f3d355ff21b",
+        "category": "plugin",
+        "responsibility": "BoxShape · 保留复合容器语义和独立的树显示字段",
+        "lines": 23,
+        "functions": [
+          {
+            "name": "BoxShape.constructor",
+            "line": 11,
+            "complexity": 1
+          },
+          {
+            "name": "BoxShape.describe",
+            "line": 14,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 19,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "plugins/shape-box/src/index.ts",
+        "blob": "03d2da422e4848ebbee64212448afaa28468d915",
+        "category": "plugin",
+        "responsibility": "index · 实现 shape-box 插件",
+        "lines": 9,
+        "functions": [
+          {
+            "name": "activate",
+            "line": 5,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "plugins/stats/src/StatsCommand.ts",
+        "blob": "8c5c08b814154bd2a27963541f73e130715ca732",
+        "category": "plugin",
+        "responsibility": "StatsCommand · 深度优先统计叶子、容器和首次出现的类型",
+        "lines": 31,
+        "functions": [
+          {
+            "name": "StatsCommand.run",
+            "line": 8,
+            "complexity": 6
+          },
+          {
+            "name": "<callback>",
+            "line": 26,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "plugins/stats/src/index.ts",
+        "blob": "ade33d9f38d654921cb61c7e4ef3aef279c068be",
+        "category": "plugin",
+        "responsibility": "index · 实现 stats 插件",
+        "lines": 7,
+        "functions": [
+          {
+            "name": "activate",
+            "line": 4,
+            "complexity": 1
+          }
+        ]
+      },
+      {
+        "file": "plugins/tree-star/src/ModifiedStar.ts",
+        "blob": "a44449bacd5f707bd427aa58804dbe70a6cf9242",
+        "category": "plugin",
+        "responsibility": "ModifiedStar · 比较保存内容并将变化标记传播到祖先",
+        "lines": 64,
+        "functions": [
+          {
+            "name": "own",
+            "line": 13,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 15,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 16,
+            "complexity": 3
+          },
+          {
+            "name": "rows",
+            "line": 18,
+            "complexity": 2
+          },
+          {
+            "name": "ids",
+            "line": 19,
+            "complexity": 1
+          },
+          {
+            "name": "<callback>",
+            "line": 19,
+            "complexity": 1
+          },
+          {
+            "name": "visit",
+            "line": 32,
+            "complexity": 3
+          },
+          {
+            "name": "ModifiedStar.checkpoint",
+            "line": 48,
+            "complexity": 3
+          },
+          {
+            "name": "<callback>",
+            "line": 49,
+            "complexity": 1
+          },
+          {
+            "name": "ModifiedStar.prepare",
+            "line": 52,
+            "complexity": 4
+          },
+          {
+            "name": "<callback>",
+            "line": 61,
+            "complexity": 4
+          }
+        ]
+      },
+      {
+        "file": "plugins/tree-star/src/index.ts",
+        "blob": "ef59c4c13d99448b6a1b8c5a712c37093ca56ff7",
+        "category": "plugin",
+        "responsibility": "index · 实现 tree-star 插件",
+        "lines": 7,
+        "functions": [
+          {
+            "name": "activate",
+            "line": 4,
+            "complexity": 1
+          }
+        ]
+      },
+      {
         "file": "src/application/commands/AddToCommand.ts",
         "blob": "9d49dc73f4094a57751017896c77257bc56976b5",
         "category": "kernel",
@@ -3014,10 +3319,10 @@
       },
       {
         "file": "src/application/commands/AttributeDispatch.ts",
-        "blob": "5448757b70899f2c2d46535526140cc891c90b21",
+        "blob": "62ca966d8c072d65c30cfed55f94f57bff691783",
         "category": "kernel",
-        "responsibility": "AttributeDispatch · 绑定或执行命令",
-        "lines": 51,
+        "responsibility": "AttributeDispatch · 匹配处理器并绑定本次事务的部件编辑能力",
+        "lines": 62,
         "functions": [
           {
             "name": "AttributeDispatch.constructor",
@@ -3031,37 +3336,42 @@
           },
           {
             "name": "<callback>",
-            "line": 16,
+            "line": 21,
             "complexity": 1
           },
           {
             "name": "<callback>",
-            "line": 20,
+            "line": 25,
             "complexity": 1
           },
           {
             "name": "resolve",
-            "line": 25,
+            "line": 30,
             "complexity": 5
           },
           {
             "name": "<callback>",
-            "line": 33,
-            "complexity": 1
-          },
-          {
-            "name": "describe",
             "line": 38,
             "complexity": 1
           },
           {
+            "name": "feedback",
+            "line": 44,
+            "complexity": 2
+          },
+          {
+            "name": "describe",
+            "line": 48,
+            "complexity": 1
+          },
+          {
             "name": "set",
-            "line": 39,
+            "line": 49,
             "complexity": 1
           },
           {
             "name": "<callback>",
-            "line": 44,
+            "line": 54,
             "complexity": 1
           }
         ]
@@ -3097,7 +3407,7 @@
         "file": "src/application/commands/BuiltinCommands.ts",
         "blob": "94ebf32b98dc683fee6166d03f705b435537521b",
         "category": "kernel",
-        "responsibility": "BuiltinCommands · 绑定或执行命令",
+        "responsibility": "BuiltinCommands · 提供原 19 条命令的解析与绑定",
         "lines": 332,
         "functions": [
           {
@@ -3398,7 +3708,7 @@
         "file": "src/application/commands/CommandRegistry.ts",
         "blob": "f93f7bc4ca3bd158d5ba73148f683ee4569dd28d",
         "category": "kernel",
-        "responsibility": "CommandRegistry · 绑定或执行命令",
+        "responsibility": "CommandRegistry · 按注册名查找绑定并保持 help 顺序",
         "lines": 52,
         "functions": [
           {
@@ -3594,7 +3904,7 @@
         "file": "src/application/commands/PluginCommandBinding.ts",
         "blob": "123ee3b5167a58f3b3942258d295a542162e412d",
         "category": "kernel",
-        "responsibility": "PluginCommandBinding · 绑定或执行命令",
+        "responsibility": "PluginCommandBinding · 核对插件参数后绑定异步只读查询",
         "lines": 38,
         "functions": [
           {
@@ -3755,10 +4065,10 @@
       },
       {
         "file": "src/application/commands/SetCommand.ts",
-        "blob": "222e500dd08e37f50d481a05710a3fc3a7336818",
+        "blob": "bcb937e7394b960ea7ab0b749a8d0d08d834bc99",
         "category": "kernel",
         "responsibility": "SetCommand · 绑定或执行命令",
-        "lines": 33,
+        "lines": 34,
         "functions": [
           {
             "name": "SetCommand.constructor",
@@ -3768,7 +4078,7 @@
           {
             "name": "SetCommand.run",
             "line": 21,
-            "complexity": 2
+            "complexity": 3
           }
         ]
       },
@@ -3845,10 +4155,10 @@
       },
       {
         "file": "src/application/contracts/AttributeHandler.ts",
-        "blob": "b383b607a13aae281913a2fc5dd80e5e92cb109a",
+        "blob": "550f9be4e6797a9bba8fe58754c1598ebe0fcc6d",
         "category": "kernel",
         "responsibility": "AttributeHandler · 定义公开会话及插件契约",
-        "lines": 17,
+        "lines": 18,
         "functions": []
       },
       {
@@ -3877,18 +4187,18 @@
       },
       {
         "file": "src/application/contracts/api.ts",
-        "blob": "4582187802c8dbd76a86ea18d2f72e53bb6e9f7f",
+        "blob": "52caef659c565d36c6f6c163fd07d62f3c31faec",
         "category": "kernel",
         "responsibility": "api · 定义公开会话及插件契约",
-        "lines": 131,
+        "lines": 133,
         "functions": []
       },
       {
         "file": "src/application/contracts/history.ts",
-        "blob": "13df13789226d3cc8b6ba963f36a99cfde764aaf",
+        "blob": "e1895042c457534dd000c3eb65ee23db11669258",
         "category": "kernel",
         "responsibility": "history · 定义公开会话及插件契约",
-        "lines": 21,
+        "lines": 22,
         "functions": []
       },
       {
@@ -3912,15 +4222,15 @@
       },
       {
         "file": "src/application/history/HistoryEntry.ts",
-        "blob": "17907f1ba85c5bc95ca809d01be06ac323aa93d7",
+        "blob": "0875f4b4492198309969610e748648f8c6d62904",
         "category": "kernel",
         "responsibility": "HistoryEntry · 维护文档历史和状态身份",
-        "lines": 22,
+        "lines": 23,
         "functions": [
           {
             "name": "HistoryEntry.constructor",
             "line": 7,
-            "complexity": 4
+            "complexity": 5
           }
         ]
       },
@@ -4085,10 +4395,10 @@
       },
       {
         "file": "src/application/session/EditorSession.ts",
-        "blob": "14a4835bc5b974e723a4de39b37693b2040d0193",
+        "blob": "64ea26c50f71321c184ac4451fdd003cfcbf7a78",
         "category": "kernel",
         "responsibility": "EditorSession · 编排会话及查询",
-        "lines": 412,
+        "lines": 428,
         "functions": [
           {
             "name": "EditorSession.constructor",
@@ -4198,41 +4508,41 @@
           {
             "name": "EditorSession.#edit",
             "line": 262,
-            "complexity": 6
+            "complexity": 19
           },
           {
             "name": "EditorSession.#history",
-            "line": 304,
+            "line": 320,
             "complexity": 7
           },
           {
             "name": "<callback>",
-            "line": 329,
+            "line": 345,
             "complexity": 3
           },
           {
             "name": "<callback>",
-            "line": 344,
+            "line": 360,
             "complexity": 2
           },
           {
             "name": "EditorSession.#canvas",
-            "line": 359,
+            "line": 375,
             "complexity": 5
           },
           {
             "name": "EditorSession.#rollbackOrPoison",
-            "line": 386,
+            "line": 402,
             "complexity": 3
           },
           {
             "name": "EditorSession.#failure",
-            "line": 395,
+            "line": 411,
             "complexity": 3
           },
           {
             "name": "EditorSession.#poison",
-            "line": 404,
+            "line": 420,
             "complexity": 2
           }
         ]
@@ -4241,7 +4551,7 @@
         "file": "src/application/session/TreeDecorations.ts",
         "blob": "99979b9277a03ba582ec1d38008eea1dafbc38c9",
         "category": "kernel",
-        "responsibility": "TreeDecorations · 编排会话及查询",
+        "responsibility": "TreeDecorations · 准备行尾标签并隔离保存观察器故障",
         "lines": 65,
         "functions": [
           {
@@ -4385,10 +4695,10 @@
       },
       {
         "file": "src/cli/TextPresenter.ts",
-        "blob": "8df7a06efc6abbf98f9bed54ac3a77990e14e2e1",
+        "blob": "adb8da03767fe188447ef780b6e9496a573078c2",
         "category": "kernel",
         "responsibility": "TextPresenter · 转换 CLI 输入、输出和终端事件",
-        "lines": 112,
+        "lines": 115,
         "functions": [
           {
             "name": "TextPresenter.safe",
@@ -4558,7 +4868,7 @@
           {
             "name": "TextPresenter.data",
             "line": 77,
-            "complexity": 16
+            "complexity": 19
           },
           {
             "name": "<callback>",
@@ -4577,22 +4887,22 @@
           },
           {
             "name": "<callback>",
-            "line": 95,
+            "line": 96,
             "complexity": 3
           },
           {
             "name": "<callback>",
-            "line": 97,
+            "line": 98,
             "complexity": 1
           },
           {
             "name": "<callback>",
-            "line": 103,
+            "line": 106,
             "complexity": 1
           },
           {
             "name": "<callback>",
-            "line": 103,
+            "line": 106,
             "complexity": 1
           }
         ]
@@ -5231,7 +5541,7 @@
         "file": "src/domain/shapes/ContainerShape.ts",
         "blob": "5673f6ed1b58f73b440729921dd5e10ad926bcdf",
         "category": "kernel",
-        "responsibility": "ContainerShape · 图形状态、创建规则和几何行为",
+        "responsibility": "ContainerShape · 维护有序孩子并递归执行 move/scale",
         "lines": 52,
         "functions": [
           {
@@ -5347,7 +5657,7 @@
         "file": "src/domain/shapes/NativeShapeProvider.ts",
         "blob": "f14d5d9ebc7255922fcd880142a5232a447947b9",
         "category": "kernel",
-        "responsibility": "NativeShapeProvider · 图形状态、创建规则和几何行为",
+        "responsibility": "NativeShapeProvider · 将原图形的 schema 和构造器适配为 provider",
         "lines": 43,
         "functions": [
           {
@@ -5526,17 +5836,17 @@
       },
       {
         "file": "src/domain/shapes/ShapeProvider.ts",
-        "blob": "41580d673411840c04af75661a5a29532f2054e1",
+        "blob": "da869e81a2aeffbbd4bf479c5036679d7fe01d6a",
         "category": "kernel",
         "responsibility": "ShapeProvider · 图形状态、创建规则和几何行为",
-        "lines": 23,
+        "lines": 35,
         "functions": []
       },
       {
         "file": "src/domain/shapes/ShapeRegistry.ts",
         "blob": "9bdbeee8f5dc6c1011132f87b0d37c2cd0517e8f",
         "category": "kernel",
-        "responsibility": "ShapeRegistry · 图形状态、创建规则和几何行为",
+        "responsibility": "ShapeRegistry · 按创建名或 XML 标签与 data-kind 选取 provider",
         "lines": 76,
         "functions": [
           {
@@ -5982,10 +6292,10 @@
       },
       {
         "file": "src/domain/values/contracts.ts",
-        "blob": "6e64bc0be3664594e09e51b8febc412d469c0330",
+        "blob": "3768d704fd979dfa048704bfff13a1a8f3ab3f51",
         "category": "kernel",
         "responsibility": "contracts · 校验和描述领域值",
-        "lines": 127,
+        "lines": 132,
         "functions": []
       },
       {
@@ -5998,19 +6308,19 @@
       },
       {
         "file": "src/host/code-profile.ts",
-        "blob": "a5fe055da8c487844c1d8394cb251a693106d6ec",
+        "blob": "5898afba421a997c7c3ccf7fd4d686cfdc130311",
         "category": "assembly",
-        "responsibility": "code-profile · 装配、解析模块及校验注册",
-        "lines": 22,
+        "responsibility": "code-profile · 选择代码预设的插件、清单及顺序",
+        "lines": 38,
         "functions": [
           {
             "name": "loadCodeProfile",
-            "line": 13,
+            "line": 29,
             "complexity": 4
           },
           {
             "name": "<callback>",
-            "line": 17,
+            "line": 33,
             "complexity": 1
           }
         ]
@@ -6019,7 +6329,7 @@
         "file": "src/host/loader/ConfigLoader.ts",
         "blob": "5390487b8c5c0031450366fd6738a2289b159b14",
         "category": "assembly",
-        "responsibility": "ConfigLoader · 装配、解析模块及校验注册",
+        "responsibility": "ConfigLoader · 校验配置并解析包与模块入口",
         "lines": 100,
         "functions": [
           {
@@ -6078,7 +6388,7 @@
         "file": "src/host/loader/PluginHost.ts",
         "blob": "086be0cd5373d30c3c751d5d664cb896b1bcca2b",
         "category": "assembly",
-        "responsibility": "PluginHost · 装配、解析模块及校验注册",
+        "responsibility": "PluginHost · 暂存当前插件的四类注册，核对清单后一次发布",
         "lines": 159,
         "functions": [
           {
@@ -6436,24 +6746,24 @@
       },
       {
         "file": "src/main.ts",
-        "blob": "bab7ceca65f7eaabb13441f54dcc993602c1fc93",
+        "blob": "a99b97bacdb0f86ee62b346fd03c832a9bf87ffb",
         "category": "assembly",
         "responsibility": "main · 组装 CLI 并启动 REPL",
-        "lines": 72,
+        "lines": 71,
         "functions": [
           {
             "name": "<callback>",
-            "line": 26,
+            "line": 25,
             "complexity": 1
           },
           {
             "name": "<callback>",
-            "line": 45,
+            "line": 44,
             "complexity": 1
           },
           {
             "name": "[Symbol.asyncIterator]",
-            "line": 60,
+            "line": 59,
             "complexity": 1
           }
         ]
@@ -6467,5 +6777,77 @@
         "functions": []
       }
     ]
-  }
+  },
+  "migration": [
+    {
+      "before": {
+        "file": "src/application/commands/CommandCatalog.ts",
+        "name": "CommandCatalog.parse",
+        "line": 300,
+        "complexity": 3
+      },
+      "after": {
+        "file": "src/application/commands/CommandRegistry.ts",
+        "name": "CommandRegistry.parse",
+        "line": 28,
+        "complexity": 3
+      }
+    },
+    {
+      "before": {
+        "file": "src/application/commands/CommandCatalog.ts",
+        "name": "CommandCatalog.bind",
+        "line": 306,
+        "complexity": 5
+      },
+      "after": {
+        "file": "src/application/commands/CommandRegistry.ts",
+        "name": "CommandRegistry.bind",
+        "line": 34,
+        "complexity": 6
+      }
+    },
+    {
+      "before": {
+        "file": "src/application/commands/CommandCatalog.ts",
+        "name": "CommandCatalog.parseCreate",
+        "line": 322,
+        "complexity": 10
+      },
+      "after": {
+        "file": "src/application/commands/BuiltinCommands.ts",
+        "name": "BuiltinCommands.parseCreate",
+        "line": 307,
+        "complexity": 10
+      }
+    },
+    {
+      "before": {
+        "file": "src/domain/shapes/ShapeFactory.ts",
+        "name": "ShapeFactory.validateCreation",
+        "line": 35,
+        "complexity": 10
+      },
+      "after": {
+        "file": "src/domain/shapes/ShapeRegistry.ts",
+        "name": "ShapeRegistry.validateCreation",
+        "line": 49,
+        "complexity": 9
+      }
+    },
+    {
+      "before": {
+        "file": "src/domain/shapes/GroupShape.ts",
+        "name": "GroupShape.move",
+        "line": 36,
+        "complexity": 2
+      },
+      "after": {
+        "file": "src/domain/shapes/ContainerShape.ts",
+        "name": "ContainerShape.move",
+        "line": 41,
+        "complexity": 2
+      }
+    }
+  ]
 }

@@ -1,0 +1,12 @@
+{
+  "tool": "PlantUML",
+  "version": "1.2026.8",
+  "url": "https://github.com/plantuml/plantuml/releases/download/v1.2026.8/plantuml-1.2026.8.jar",
+  "jarSha256": "5e1ecfa8ecd32c90b03bbf3b1eb6f020943f98ab0fcf4032be31a0002ee2c462",
+  "source": "doc/phase2/architecture.puml",
+  "sourceSha256": "a7294e9bb93f65f73ec879768e7b7283a1022d6d8b26d168d3a7abfd492ae23f",
+  "output": "doc/phase2/architecture.svg",
+  "outputSha256": "7ca55361060ef51391dd16f8b12663c8594703228184f748d62e8aa9b2983250",
+  "layout": "smetana",
+  "command": "npm run doc:diagram -- --phase2"
+}

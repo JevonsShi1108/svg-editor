@@ -37,10 +37,36 @@ const shortRole = {
   'infrastructure/svg': '严格 SVG 解析与序列化',
   'infrastructure/files': '实现文件系统端口',
 };
+const roles = {
+  PluginHost: '暂存当前插件的四类注册，核对清单后一次发布',
+  ConfigLoader: '校验配置并解析包与模块入口',
+  'code-profile': '选择代码预设的插件、清单及顺序',
+  BuiltinCommands: '提供原 19 条命令的解析与绑定',
+  CommandRegistry: '按注册名查找绑定并保持 help 顺序',
+  PluginCommandBinding: '核对插件参数后绑定异步只读查询',
+  ShapeRegistry: '按创建名或 XML 标签与 data-kind 选取 provider',
+  NativeShapeProvider: '将原图形的 schema 和构造器适配为 provider',
+  ContainerShape: '维护有序孩子并递归执行 move/scale',
+  AttributeDispatch: '匹配处理器并绑定本次事务的部件编辑能力',
+  TreeDecorations: '准备行尾标签并隔离保存观察器故障',
+  StatsCommand: '深度优先统计叶子、容器和首次出现的类型',
+  DirCommand: '在启动目录列出并排序普通文件和目录',
+  NodeDirectoryReader: '将 readdir 的 Dirent 转成目录项值',
+  DirectoryReader: '定义目录项读取端口',
+  BoxAttributes: '将 fill 和 label 转发到必需子部件',
+  BoxProvider: '生成框体子树、SVG 识别规则和操作反馈',
+  BoxShape: '保留复合容器语义和独立的树显示字段',
+  BoxTypeLabel: '按运行时类型为框体行追加标记',
+  ModifiedStar: '比较保存内容并将变化标记传播到祖先',
+  SvgOutline: '从 XML 事件与 UTF-16 字符偏移生成大纲',
+  SvgSymbolProvider: '适配为可导航的 DocumentSymbol',
+  SvgFileDecorationProvider: '按实际文件类型向 Explorer 提供徽标',
+};
 function responsibility(file) {
   const name = path.basename(file).replace(/(?:\.d)?\.(?:ts|js)$/, '');
   const layer = file.split('/').slice(1, 3).join('/');
   const role =
+    roles[name] ??
     shortRole[layer] ??
     (file.startsWith('plugins/')
       ? '实现 ' + file.split('/')[1] + ' 插件'
@@ -178,7 +204,32 @@ const rows = Object.keys(before.groups).map((category) => {
     b = after.groups[category];
   return `| ${category} | ${a.files} → ${b.files} | ${a.lines} | ${b.lines} | ${b.lines - a.lines} | ${a.complexity} | ${b.complexity} | ${b.complexity - a.complexity} |`;
 });
-const inventory = JSON.stringify({ typescript: ts.version, before, after }, null, 2) + '\n';
+const groupTotals = (data) =>
+  Object.fromEntries(
+    ['files', 'lines', 'complexity'].map((key) => [
+      key,
+      ['kernel', 'assembly', 'plugin'].reduce((n, c) => n + data.groups[c][key], 0),
+    ]),
+  );
+const oldTotals = groupTotals(before),
+  newTotals = groupTotals(after);
+const migration = [
+  ['CommandCatalog.parse', 'CommandRegistry.parse'],
+  ['CommandCatalog.bind', 'CommandRegistry.bind'],
+  ['CommandCatalog.parseCreate', 'BuiltinCommands.parseCreate'],
+  ['ShapeFactory.validateCreation', 'ShapeRegistry.validateCreation'],
+  ['GroupShape.move', 'ContainerShape.move'],
+]
+  .map(([oldName, newName]) => {
+    const find = (data, name) =>
+      data.files.flatMap((f) =>
+        f.functions.filter((fn) => fn.name === name).map((fn) => ({ file: f.file, ...fn })),
+      )[0];
+    return { before: find(before, oldName), after: find(after, newName) };
+  })
+  .filter((row) => row.before && row.after);
+const inventory =
+  JSON.stringify({ typescript: ts.version, before, after, migration }, null, 2) + '\n';
 const doc = [
   '# CLI 重构指标',
   '',
@@ -187,6 +238,13 @@ const doc = [
   '| 范围 | 文件数 | 原行数 | 候选行数 | 行增量 | 原圈复杂度 | 候选圈复杂度 | 增量 |',
   '| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |',
   ...rows,
+  '',
+  `CLI 合计从 ${oldTotals.lines} 行变为 ${newTotals.lines} 行（增量 ${newTotals.lines - oldTotals.lines}），函数圈复杂度之和从 ${oldTotals.complexity} 变为 ${newTotals.complexity}（增量 ${newTotals.complexity - oldTotals.complexity}）。`,
+  '',
+  ...migration.map(
+    (m) =>
+      `- \`${m.before.name}\` → \`${m.after.name}\`，函数圈复杂度 ${m.before.complexity} → ${m.after.complexity}。`,
+  ),
   '',
   '前三行分别为内核、装配处和插件。vscode 单独统计。物理行包含空行和注释，末尾换行不另计一行。只统计 Git 中的生产 TS/JS（含 API 声明），排除测试、配置、文档、脚本、依赖和构建结果。',
   '',
