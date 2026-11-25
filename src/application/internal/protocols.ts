@@ -10,6 +10,7 @@ import type { SvgCodec } from '../ports/SvgCodec.js';
 import type { FileStore, FilePath } from '../ports/FileStore.js';
 export type ExecuteMode = 'commit' | 'dry-run';
 export interface SessionDependencies {
+  readonly decorators?: readonly import('../contracts/TreeDecorator.js').TreeDecorator[];
   readonly shapes?: import('../../domain/shapes/ShapeRegistry.js').ShapeRegistry;
   readonly commands: CommandRegistry;
   readonly codec: SvgCodec;

@@ -20,6 +20,7 @@ export class TextPresenter {
     const p = diagnostic.parameters;
     const value = (name: string) => this.safe(p[name]);
     const text: Readonly<Record<string, () => string>> = {
+      DECORATOR_FAILED: () => `tree decorator failed: ${value('name')}`,
       ATTRIBUTE_CONFLICT: () =>
         `conflicting attribute handlers: ${value('attribute')} (${value('handlers')})`,
       UNKNOWN_COMMAND: () => `unknown command: ${value('command')}`,
@@ -63,8 +64,11 @@ export class TextPresenter {
   private shape(shape: ShapeDescription, annotation = '', tag = shape.type): string {
     return `${this.safe(tag)}#${this.safe(shape.id)}${annotation ? ` ${annotation}` : ''}${shape.displayFields.length ? '  ' + shape.displayFields.map((f) => `${this.safe(f.label)}=${this.safe(f.value)}`).join(' ') : ''}${shape.text === undefined ? '' : ` ${this.safe(JSON.stringify(shape.text))}`}`;
   }
+  private labels(labels?: readonly string[]): string {
+    return labels?.length ? ' ' + labels.map((label) => this.safe(label)).join(' ') : '';
+  }
   private tree(node: TreeNodeDescription, prefix = '', branch = ''): string {
-    let output = `${prefix}${branch}${this.shape(node.shape, '', node.xmlTag)}\n`;
+    let output = `${prefix}${branch}${this.shape(node.shape, '', node.xmlTag)}${this.labels(node.labels)}\n`;
     const childPrefix = prefix + (branch ? (branch === '└── ' ? '    ' : '│   ') : '');
     for (const [index, child] of node.children.entries())
       output += this.tree(child, childPrefix, index === node.children.length - 1 ? '└── ' : '├── ');
@@ -79,7 +83,7 @@ export class TextPresenter {
       case 'tree': {
         if (data.node) return this.tree(data.node);
         const doc = data.document!;
-        let out = `svg (${doc.size.width}x${doc.size.height})\n`;
+        let out = `svg (${doc.size.width}x${doc.size.height})${this.labels(doc.labels)}\n`;
         for (const [i, node] of doc.children.entries())
           out += this.tree(node, '', i === doc.children.length - 1 ? '└── ' : '├── ');
         return out;

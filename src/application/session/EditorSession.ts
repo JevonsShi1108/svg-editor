@@ -25,7 +25,9 @@ import { HistoryEntry } from '../history/HistoryEntry.js';
 import { EditorError } from '../errors/EditorError.js';
 import { FrozenValue } from '../internal/FrozenValue.js';
 import { ResultFactory } from '../internal/ResultFactory.js';
+import { TreeDecorations } from './TreeDecorations.js';
 export class EditorSession implements SessionExecutor {
+  readonly #tree: TreeDecorations;
   readonly #dependencies: SessionDependencies;
   readonly #coordinator: CommandCoordinator;
   #head: SessionHead = Object.freeze({
@@ -39,6 +41,7 @@ export class EditorSession implements SessionExecutor {
   });
   #tail: Promise<void> = Promise.resolve();
   constructor(dependencies: SessionDependencies) {
+    this.#tree = new TreeDecorations(dependencies.decorators ?? []);
     const rules = new ValueRules(dependencies.limits);
     this.#dependencies = Object.freeze({ ...dependencies, limits: rules.limits });
     this.#coordinator = Object.freeze({
@@ -111,6 +114,7 @@ export class EditorSession implements SessionExecutor {
         true,
       );
       this.#head = next;
+      this.#tree.checkpoint(null);
       return result;
     } catch (error) {
       return ResultFactory.failure(before, EditorError.from(error).diagnostic);
@@ -161,7 +165,14 @@ export class EditorSession implements SessionExecutor {
         true,
         decoded.warnings,
       );
+      const baseline = this.#tree.hasObservers ? decoded.document.describe() : null;
       this.#head = next;
+      this.#tree.checkpoint(
+        baseline,
+        decoded.warnings
+          .filter((w) => w.code === 'ASSIGNED_ID')
+          .map((w) => String(w.parameters.id)),
+      );
       return result;
     } catch (error) {
       return ResultFactory.failure(before, EditorError.from(error).diagnostic);
@@ -185,8 +196,10 @@ export class EditorSession implements SessionExecutor {
     let next: SessionHead;
     let result: ExecutionResult;
     let source: string;
+    let baseline: ReturnType<SvgDocument['describe']>;
     try {
-      source = this.#dependencies.codec.encode(document.describe());
+      baseline = document.describe();
+      source = this.#dependencies.codec.encode(baseline);
       next = Object.freeze({
         ...before,
         currentPath: resolved,
@@ -223,6 +236,7 @@ export class EditorSession implements SessionExecutor {
     }
     if (outcome.status === 'committed') {
       this.#head = next;
+      this.#tree.checkpoint(baseline);
       return result;
     }
     if (outcome.status === 'not-committed')
@@ -239,7 +253,11 @@ export class EditorSession implements SessionExecutor {
   async #query(command: QueryCommand, mode: ExecuteMode): Promise<ExecutionResult> {
     this.#requireCommit(mode);
     const doc = command.requiresDocument ? this.#requireDocument() : null;
-    return ResultFactory.commit(this.#head, await command.run(doc, this.#dependencies.commands));
+    const data = await command.run(doc, this.#dependencies.commands);
+    return ResultFactory.commit(
+      this.#head,
+      this.#tree.apply(data, () => this.#requireDocument().describe()),
+    );
   }
   #edit(command: EditCommand, mode: ExecuteMode): ExecutionResult {
     const before = this.#head;
