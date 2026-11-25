@@ -1,3 +1,5 @@
+import dir from '@svgframe/plugin-dir';
+import dirManifest from '@svgframe/plugin-dir/package.json' with { type: 'json' };
 import stats from '@svgframe/plugin-stats';
 import statsManifest from '@svgframe/plugin-stats/package.json' with { type: 'json' };
 import type { Plugin } from '../public.js';
@@ -11,6 +13,7 @@ interface InstalledPlugin {
 }
 
 const installed: readonly InstalledPlugin[] = [
+  { plugin: dir, manifest: dirManifest, presets: ['demo', 'commands'] },
   { plugin: stats, manifest: statsManifest, presets: ['demo', 'commands'] },
 ];
 

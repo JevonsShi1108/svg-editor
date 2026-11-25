@@ -34,6 +34,8 @@ P2-08 装配隔离反例：在真实编译副本中让代码预设求值失败�
 
 P2-09 `stats` 插件单独注册。手写逆序及空容器断言、无文档诊断和真实进程的 undo/redo 查询均通过。代码预设的新增运行依赖只在 `src/host/code-profile.ts` 装配。
 
+P2-10 `dir` 在无文档时也可执行。替身验证排序、隐藏项、空目录；真实目录验证单层 Dirent 与符号链接；成功/失败后文档、历史、保存屏障保持，redo 可重放。
+
 # Phase 1 实现进度
 
 2026-10-25 恢复结果：用户开启开发者模式后，原 test/integration/files.test.ts 未修改，19 项全部通过、0 skip；真实 file symlink 和 dangling link 的 read/save 拒绝、链接保留与原目标 OLD 均已实际断言。完整 npm run verify 已通过：767 passed、0 failed、0 skipped，静态/架构/覆盖率/8 项性能/315 个 local_required 全绿。此前 EPERM 和 BLOCKED 收据保留为历史；最终准确候选状态仍以提交后的干净检出收据为准。
