@@ -1,0 +1,11 @@
+export type { Plugin, PluginContext } from './application/contracts/Plugin.js';
+export type { Command, QueryContext } from './application/contracts/Command.js';
+export type { AttributeHandler, AttributeEdit } from './application/contracts/AttributeHandler.js';
+export type { TreeDecorator } from './application/contracts/TreeDecorator.js';
+export type { ShapeProvider, ShapePlan } from './domain/shapes/ShapeProvider.js';
+export type * from './domain/values/contracts.js';
+export type { ValueRules } from './domain/values/ValueRules.js';
+export { ContainerShape } from './domain/shapes/ContainerShape.js';
+export { Shape } from './domain/shapes/Shape.js';
+export { ShapeSchema } from './domain/shapes/ShapeSchema.js';
+export { EditorError } from './application/errors/EditorError.js';

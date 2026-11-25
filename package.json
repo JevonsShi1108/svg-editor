@@ -7,7 +7,7 @@
     "node": ">=24"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json && node scripts/package-cli.mjs",
     "precli": "npm run build",
     "cli": "node dist/main.js",
     "test:e2e": "npm run build && vitest run test/e2e --reporter=default --reporter=json --outputFile=artifacts/test-results/e2e.json",
@@ -35,6 +35,7 @@
     "test:vscode:host": "npm run build:vscode && node scripts/test-vscode-host.mjs"
   },
   "dependencies": {
+    "import-meta-resolve": "4.2.0",
     "saxes": "6.0.0"
   },
   "devDependencies": {
@@ -52,5 +53,9 @@
     "typescript": "5.9.3",
     "typescript-eslint": "8.72.0",
     "vitest": "5.0.5"
-  }
+  },
+  "workspaces": [
+    "packages/*",
+    "plugins/*"
+  ]
 }

@@ -4,9 +4,14 @@ export const mainPath = fileURLToPath(new URL('../../dist/main.js', import.meta.
 export const runCli = async (
   cwd: string,
   input: string,
+  args: readonly string[] = [],
 ): Promise<{ code: number | null; stdout: string; stderr: string }> =>
   new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, [mainPath], { cwd, shell: false, stdio: 'pipe' });
+    const child = spawn(process.execPath, [mainPath, ...args], {
+      cwd,
+      shell: false,
+      stdio: 'pipe',
+    });
     let stdout = '',
       stderr = '';
     const timeout = setTimeout(() => {
