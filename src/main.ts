@@ -7,7 +7,6 @@ import { ShapeRegistry } from './domain/shapes/ShapeRegistry.js';
 import { builtinShapes } from './domain/shapes/builtin-shapes.js';
 import { PluginHost } from './host/loader/PluginHost.js';
 import { ConfigLoader } from './host/loader/ConfigLoader.js';
-import { loadCodeProfile } from './host/code-profile.js';
 import { PluginCommandBinding } from './application/commands/PluginCommandBinding.js';
 import { AttributeDispatch } from './application/commands/AttributeDispatch.js';
 import { TextPresenter } from './cli/TextPresenter.js';
@@ -27,10 +26,10 @@ const host = new PluginHost(
 );
 const argv = process.argv.slice(2);
 const diagnostics =
-  argv.length === 0
-    ? await loadCodeProfile('base', host)
+  argv.length === 0 || (argv.length === 2 && argv[0] === '--preset' && argv[1] === 'base')
+    ? []
     : argv.length === 2 && argv[0] === '--preset'
-      ? await loadCodeProfile(argv[1]!, host)
+      ? await (await import('./host/code-profile.js')).loadCodeProfile(argv[1]!, host)
       : argv.length === 2 && argv[0] === '--config'
         ? await new ConfigLoader(host).load(argv[1]!)
         : ['invalid plugin config'];
