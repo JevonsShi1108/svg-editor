@@ -25,6 +25,7 @@ import { BackCommand } from './BackCommand.js';
 import { CanvasCommand } from './CanvasCommand.js';
 import { ReadCommand } from './ReadCommand.js';
 import { SaveCommand } from './SaveCommand.js';
+import { AttributeDispatch } from './AttributeDispatch.js';
 export class BuiltinCommands {
   readonly #definitions: CommandBinding[] = [];
   get definitions(): readonly CommandBinding[] {
@@ -32,7 +33,11 @@ export class BuiltinCommands {
   }
   readonly #rules: ValueRules;
   readonly #factory: ShapeRegistry;
-  constructor(limits: ResourceLimits, factory: ShapeRegistry) {
+  constructor(
+    limits: ResourceLimits,
+    factory: ShapeRegistry,
+    attributes = new AttributeDispatch(),
+  ) {
     this.#factory = factory;
     this.#rules = new ValueRules(limits);
     this.add<Extract<CommandRequest, { command: 'read' }>>(
@@ -99,7 +104,12 @@ export class BuiltinCommands {
       (r) => {
         if (typeof r.value !== 'string' && typeof r.value !== 'number')
           throw new EditorError('INVALID_VALUE');
-        return new SetCommand(this.#rules.id(r.id), this.#rules.attribute(r.attribute), r.value);
+        return new SetCommand(
+          this.#rules.id(r.id),
+          this.#rules.attribute(r.attribute),
+          r.value,
+          attributes,
+        );
       },
     );
     this.add<Extract<CommandRequest, { command: 'group' }>>(

@@ -20,6 +20,8 @@ export class TextPresenter {
     const p = diagnostic.parameters;
     const value = (name: string) => this.safe(p[name]);
     const text: Readonly<Record<string, () => string>> = {
+      ATTRIBUTE_CONFLICT: () =>
+        `conflicting attribute handlers: ${value('attribute')} (${value('handlers')})`,
       INVALID_COMPOSITE: () =>
         `invalid composite shape: ${value('id')} (required part: ${value('part')})`,
       COMPOSITE_UNGROUP: () => `cannot ungroup composite shape: ${value('id')}`,
