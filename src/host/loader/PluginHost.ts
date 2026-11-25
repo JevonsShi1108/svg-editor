@@ -53,6 +53,7 @@ export class PluginHost {
     manifest: Manifest,
     options: Readonly<Record<string, unknown>> = {},
   ): Promise<string | undefined> {
+    const initial = this.#loaded;
     const staged = empty();
     let open = true;
     let duplicate: string | undefined;
@@ -107,10 +108,19 @@ export class PluginHost {
       },
     };
     try {
-      await plugin.activate(Object.freeze(context), FrozenValue.copy(options));
+      const activation = plugin.activate(Object.freeze(context), FrozenValue.copy(options));
+      if (activation !== undefined) await activation;
       open = false;
       if (duplicate) return duplicate;
-      const declared = manifest.contributes ?? {};
+      if (initial !== this.#loaded) {
+        // Another activation may have published while this plugin awaited its options or resources.
+        for (const key of categories) {
+          const published = new Set(names(this.#loaded, key));
+          const conflict = names(staged, key).find((name) => published.has(name));
+          if (conflict) return 'duplicate registration: ' + key + '/' + conflict;
+        }
+      }
+      const declared = manifest.contributes === undefined ? {} : manifest.contributes;
       const actual = Object.fromEntries(categories.map((key) => [key, names(staged, key)]));
       const valid =
         declared &&

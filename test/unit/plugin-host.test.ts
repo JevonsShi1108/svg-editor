@@ -54,3 +54,29 @@ it('compares category/name sets, closes the staging context and rolls back every
     ),
   ).toBe('duplicate registration: commands/help');
 });
+
+it('checks outstanding async activations against plugins published since staging', async () => {
+  const host = new PluginHost('/cwd', [], []);
+  let finish!: () => void;
+  const pending = new Promise<void>((resolve) => {
+    finish = resolve;
+  });
+  const mark = { name: 'mark', prepare: () => () => '*' };
+  const first = host.activate(
+    {
+      async activate(c) {
+        c.registerDecorator(mark);
+        await pending;
+      },
+    },
+    { name: 'slow', contributes: { decorators: ['mark'] } },
+  );
+  const fast = await host.activate(
+    { activate: (c) => c.registerDecorator(mark) },
+    { name: 'fast', contributes: { decorators: ['mark'] } },
+  );
+  expect(fast).toBeUndefined();
+  finish();
+  expect(await first).toBe('duplicate registration: decorators/mark');
+  expect(host.registrations.decorators).toHaveLength(1);
+});
